@@ -1,7 +1,9 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RoutersModule } from './app.router';
 
-
+// Companent
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
@@ -20,7 +22,9 @@ import { PageHeaderComponent } from './layout/page-header/page-header.component'
     PageHeaderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RoutersModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
