@@ -1,58 +1,21 @@
-
-
-.menubar {
-  background-color: #aa0000;
+/*input's style*/
+.input-year {
+  width: 100px;
 }
-
-.menubar ul {
-  width: 1200px !important;
-  padding-left: 18px;
-  padding-right: 27px;
-  font-size: 16px;
-  margin: auto;
-  list-style-type: none;
-  overflow: hidden;
-  background-color: #aa0000;
+.input-name {
+  width: 250px;
 }
-
-.menubar ul li {
-  float: left;
+.input-address {
+  width: 90%;
 }
-
-.menubar ul li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 7px 16px;
-  text-decoration: none;
+.input-postcode {
+  width: 70px;
 }
-
-.menubar ul li a:hover:not(.active) {
-  color: #e9ac00;
-  background: transparent;
+.input-phone {
+  width: 150px;
 }
-
-.menubar ul li>a.active {
-  color: #e9ac00;
-}
-
-.menuside {
-  padding: 10px 20px 5px 35px;
-}
-
-.sidebar-header {
-  margin-bottom: 5px;
-}
-
-div.underline {
-  height: 1px;
-  width: 100%;
-
-}
-
-
-.ui-menuitem-text{
-  font-family: 'Kanit', sans-serif !important;
-  font-size: 16px !important;
-  padding-left:10px;
+.input-occupation,
+.input-position,
+.input-mail {
+  width: 300px;
 }

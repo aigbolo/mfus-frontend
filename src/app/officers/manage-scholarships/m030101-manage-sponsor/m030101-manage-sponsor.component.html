@@ -5,7 +5,7 @@
     <div class="col-xs-9">
         <label class="normal">ชื่อผู้สนับสนุน *</label>
           <input  name="sponsors_name"
-          type="text" id="sponsorsName" pInputText>
+          type="text" class="input-name" pInputText>
       </div>
 
       <div class="col-xs-3">
@@ -18,60 +18,44 @@
 <div class="row overide-row">
       <div class="col-xs-12">
         <label class="normal">ที่อยู่ *</label>
-        <div>
-          <input address="inputTextAddress"
-                 type="text"
-                 id="address"
+          <input type="text"
+                class="input-address"
                  pInputText>
-        </div>
       </div>
 </div>
 <div class="row overide-row">
       <div class="col-xs-6 normal">
         <label class="normal">จังหวัด *</label>
-        <div>
-          <p-autoComplete></p-autoComplete>
-        </div>
+          <p-autoComplete class="autocomplete-province" [dropdown]="true"></p-autoComplete>
       </div>
 
       <div class="col-xs-6 normal">
         <label class="normal">อำเภอ *</label>
-        <div>
-          <p-autoComplete></p-autoComplete>
-
-        </div>
+          <p-autoComplete class="autocomplete-district" [dropdown]="true"></p-autoComplete>
       </div>
 </div>
 <div class="row overide-row">
       <div class="col-xs-6 normal">
         <label class="normal">ตำบล *</label>
-        <div>
-          <p-autoComplete></p-autoComplete>
-        </div>
+          <p-autoComplete class="autocomplete-sub-district" [dropdown]="true"></p-autoComplete>
       </div>
       <div class="col-xs-6 normal">
         <label class="normal">รหัสไปรษณีย์</label>
-        <div>
           <input name="postcode" id="postcode"
           type="text"
           pInputText>
-        </div>
       </div>
 </div>
 <div class="row overide-row">
       <div class="col-xs-6 normal">
         <label class="normal">เบอร์โทรศัพท์ *</label>
-        <div>
           <input type="text"
                  pInputText>
-        </div>
       </div>
 
       <div class="col-xs-6 normal">
         <label class="normal">อีเมลล์</label>
-        <div>
           <input type="text" pInputText>
-        </div>
       </div>
 </div>
 <div class="row overide-row">
@@ -88,31 +72,34 @@
 </div>
 <div class="col-xs-3">
 <div class="row overide-row">
-      <div class="col-xs-12">
+      <div class="col-xs-12 profile-upload">
         <img [src]="image"
         class="image-profile">
       </div>
-      <div class="col-xs-12">
+      <div class="col-xs-12 profile-upload">
         <p-fileUpload mode="basic" accept="image/*" maxFileSize="1000000" chooseLabel="เลือกไฟล์"></p-fileUpload>
       </div>
 </div>
 </div>
 </div>
 
+
+<!-- Action buttons here -->
 <div class="row overide-row btn-row">
-      <div class="col-xs-12">
+      <div class="col-xs-6 btn-panel-left">
         <button pButton
-                type="submit"
-                class="btn-save ui-button-success"
-                label="บันทึกข้อมูล"></button>
-        <button pButton
-                type="reset"
-                class="btn-reset ui-button-warning"
-                label="เริ่มใหม่"></button>
-        <button pButton
-                type="button"
-                class="btn-back ui-button-info"
-                label="ย้อนกลับ"
-                ></button>
+          type="button"
+          class="btn-back ui-button-info"
+          label="ย้อนกลับ"></button>
       </div>
+      <div class="col-xs-6 btn-panel-right">
+          <button pButton
+            type="reset"
+            class="btn-reset ui-button-warning"
+            label="เริ่มใหม่"></button>
+          <button pButton
+            type="submit"
+            class="btn-save ui-button-success"
+            label="บันทึกข้อมูล"></button>
+        </div>
 </div>

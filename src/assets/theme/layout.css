@@ -222,27 +222,7 @@ input.ui-inputtext {
   margin: 30px 0 0 0;
 }
 
-/*input's style*/
-.input-year {
-  width: 100px;
-}
-.input-name {
-  width: 250px;
-}
-.input-address {
-  width: 700px;
-}
-.input-postcode {
-  width: 70px;
-}
-.input-phone {
-  width: 150px;
-}
-.input-occupation,
-.input-position,
-.input-mail {
-  width: 300px;
-}
+
 
 .ui-datepicker-trigger {
   border-radius: 0 15% 15% 0% !important;
@@ -251,21 +231,10 @@ input.ui-inputtext {
 
 
 
-.menuside {
-  /*PADDING : TOP RIGHT BOTTOM LEFT*/
-  padding:35px 20px 5px 35px;
-}
 
 .content {
   /*PADDING : TOP RIGHT BOTTOM LEFT*/
   padding:10px 25px 5px 10px;
-}
-
-/* BEGIN HEADER */
-.content-header-red {
-  font-weight: 600;
-  font-size: 20px;
-  color: #aa0000;
 }
 
 .content-header-blue {
@@ -277,10 +246,6 @@ input.ui-inputtext {
 .content-header-blue-normal {
   font-size: 18px;
   color: #224a86;
-}
-
-p{
-  margin-bottom: 0;
 }
 
 div.underline-red {
@@ -309,15 +274,83 @@ input.normal {
 /*END FORM*/
 
 
-
+.profile-upload{
+  text-align: center;
+  padding: 10px;
+}
 img.image-profile {
   border-radius: 5px;
   width: 180px;
-  margin: 15px auto 15px auto;
+
   text-align: center;
 }
 
 /*Button CSS*/
-.btn-back{
-  float:right;
+.btn-panel-right{
+ text-align:right;
 }
+
+
+/* Begin Menu side bar CSS*/
+.menuside {
+  /*PADDING : TOP RIGHT BOTTOM LEFT*/
+  padding:35px 20px 5px 35px;
+}
+
+.menubar {
+  background-color: #aa0000;
+}
+
+.menubar ul {
+  width: 1200px !important;
+  padding-left: 18px;
+  padding-right: 27px;
+  font-size: 16px;
+  margin: auto;
+  list-style-type: none;
+  overflow: hidden;
+  background-color: #aa0000;
+}
+
+.menubar ul li {
+  float: left;
+}
+
+.menubar ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 7px 16px;
+  text-decoration: none;
+}
+
+.menubar ul li a:hover:not(.active) {
+  color: #e9ac00;
+  background: transparent;
+}
+
+.menubar ul li>a.active {
+  color: #e9ac00;
+}
+
+.menuside {
+  padding: 10px 20px 5px 35px;
+}
+
+.sidebar-header {
+  margin-bottom: 5px;
+}
+
+div.underline {
+  height: 1px;
+  width: 100%;
+
+}
+
+
+.ui-menuitem-text{
+  font-family: 'Kanit', sans-serif !important;
+  font-size: 16px !important;
+  padding-left:10px;
+}
+/* End Menu side bar CSS*/
