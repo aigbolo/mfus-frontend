@@ -1,0 +1,21 @@
+/*input's style*/
+.input-year {
+  width: 100px;
+}
+.input-name {
+  width: 250px;
+}
+.input-address {
+  width: 90%;
+}
+.input-postcode {
+  width: 70px;
+}
+.input-phone {
+  width: 150px;
+}
+.input-occupation,
+.input-position,
+.input-mail {
+  width: 300px;
+}
