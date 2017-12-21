@@ -8,7 +8,7 @@ import { RoutersModule } from './app.router';
 import { NgProgressModule } from 'ngx-progressbar';
 
 // PrimeNG
-import { PanelMenuModule, DropdownModule,AutoCompleteModule,InputTextModule, ButtonModule } from 'primeng/primeng';
+import { PanelMenuModule, DropdownModule,AutoCompleteModule,InputTextModule, ButtonModule, FileUploadModule } from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -53,6 +53,7 @@ import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m0
     AutoCompleteModule,
     InputTextModule,
     ButtonModule,
+    FileUploadModule,
   ],
   providers: [
     ConfigurationService,

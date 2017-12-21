@@ -90,12 +90,10 @@
 <div class="row overide-row">
       <div class="col-xs-12">
         <img [src]="image"
-        class="image-preview">
+        class="image-profile">
       </div>
       <div class="col-xs-12">
-      <label pButton   class="btn-upload ui-button-info"   label="เลือกไฟล์">
-      <input type="file" accept="image/*, application/pdf" class="display-none">
-      </label>
+        <p-fileUpload mode="basic" accept="image/*" maxFileSize="1000000" chooseLabel="เลือกไฟล์"></p-fileUpload>
       </div>
 </div>
 </div>
@@ -105,16 +103,16 @@
       <div class="col-xs-12">
         <button pButton
                 type="submit"
-                class="btn-primary"
-                label="บันทึก"></button>
+                class="btn-save ui-button-success"
+                label="บันทึกข้อมูล"></button>
         <button pButton
                 type="reset"
-                class="btn-primary"
-                label="ล้างข้อมูล"></button>
+                class="btn-reset ui-button-warning"
+                label="เริ่มใหม่"></button>
         <button pButton
                 type="button"
-                class="btn-primary"
-                label="กลับ"
-                style="float:right;"></button>
+                class="btn-back ui-button-info"
+                label="ย้อนกลับ"
+                ></button>
       </div>
 </div>

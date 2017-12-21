@@ -310,38 +310,14 @@ input.normal {
 
 
 
-/* BEGIN FOOTER */
-.formFooter {
-  padding: 40px 5px 5px 5px;
-}
-
-.space {
-  height: 35px;
-}
-/* END FOOTER */
-
-
-img.image-preview {
+img.image-profile {
   border-radius: 5px;
   width: 180px;
   margin: 15px auto 15px auto;
   text-align: center;
 }
 
-div.center {
-  text-align: center;
-}
-
-input.display-none {
-  display: none !important;
-}
-
-.ng-temp-panel{
-  background-color: #F1F1F1;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.content-red-normal{
-  color:red;
+/*Button CSS*/
+.btn-back{
+  float:right;
 }
