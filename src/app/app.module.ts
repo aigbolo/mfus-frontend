@@ -23,6 +23,7 @@ import { ConfigurationService } from './services/utils/configuration.service';
 import { LayoutService } from './services/utils/layout.service';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
+import { AuthenticationService } from './services/general/authentication.service';
 import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
 
 
@@ -57,7 +58,8 @@ import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m0
   ],
   providers: [
     ConfigurationService,
-    LayoutService
+    LayoutService,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent]
 })
