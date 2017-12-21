@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private layout: LayoutService,
     private authService: AuthenticationService
   ) {
-    this.layout.setPageHeader('เข้าสู่ระบบ')
+    this.layout.clearPageHeader();
   }
 
   ngOnInit() {
