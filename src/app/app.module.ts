@@ -9,6 +9,8 @@ import { NgProgressModule } from 'ngx-progressbar';
 
 // PrimeNG
 import { PanelMenuModule } from 'primeng/primeng';
+import { InputTextModule } from 'primeng/primeng';
+import { ButtonModule } from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { ConfigurationService } from './services/utils/configuration.service';
 import { LayoutService } from './services/utils/layout.service';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
+import { AuthenticationService } from './services/general/authentication.service';
 
 
 @NgModule({
@@ -44,13 +47,16 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgProgressModule,
-    
+
     // Primeng
     PanelMenuModule,
+    InputTextModule,
+    ButtonModule,
   ],
   providers: [
     ConfigurationService,
-    LayoutService
+    LayoutService,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent]
 })
