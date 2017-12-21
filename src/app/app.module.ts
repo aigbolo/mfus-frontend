@@ -8,7 +8,7 @@ import { RoutersModule } from './app.router';
 import { NgProgressModule } from 'ngx-progressbar';
 
 // PrimeNG
-import { PanelMenuModule } from 'primeng/primeng';
+import { PanelMenuModule, DropdownModule,AutoCompleteModule,InputTextModule, ButtonModule } from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -23,6 +23,7 @@ import { ConfigurationService } from './services/utils/configuration.service';
 import { LayoutService } from './services/utils/layout.service';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
+import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
     SidebarComponent,
     PageHeaderComponent,
     LoginComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    M030101ManageSponsorComponent,
   ],
   imports: [
     // Angular
@@ -44,9 +46,13 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgProgressModule,
-    
+
     // Primeng
     PanelMenuModule,
+    DropdownModule,
+    AutoCompleteModule,
+    InputTextModule,
+    ButtonModule,
   ],
   providers: [
     ConfigurationService,

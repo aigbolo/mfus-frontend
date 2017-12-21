@@ -1,8 +1,9 @@
 import { MenuItem } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'sidebar',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })

@@ -1,0 +1,120 @@
+
+<div class="row overide-row">
+<div class="col-xs-9">
+ <div class="row overide-row">
+    <div class="col-xs-9">
+        <label class="normal">ชื่อผู้สนับสนุน *</label>
+          <input  name="sponsors_name"
+          type="text" id="sponsorsName" pInputText>
+      </div>
+
+      <div class="col-xs-3">
+        <label class="normal">สถานะ *</label>
+          <p-dropdown>
+          </p-dropdown>
+      </div>
+</div>
+
+<div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่ *</label>
+        <div>
+          <input address="inputTextAddress"
+                 type="text"
+                 id="address"
+                 pInputText>
+        </div>
+      </div>
+</div>
+<div class="row overide-row">
+      <div class="col-xs-6 normal">
+        <label class="normal">จังหวัด *</label>
+        <div>
+          <p-autoComplete></p-autoComplete>
+        </div>
+      </div>
+
+      <div class="col-xs-6 normal">
+        <label class="normal">อำเภอ *</label>
+        <div>
+          <p-autoComplete></p-autoComplete>
+
+        </div>
+      </div>
+</div>
+<div class="row overide-row">
+      <div class="col-xs-6 normal">
+        <label class="normal">ตำบล *</label>
+        <div>
+          <p-autoComplete></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-xs-6 normal">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <div>
+          <input name="postcode" id="postcode"
+          type="text"
+          pInputText>
+        </div>
+      </div>
+</div>
+<div class="row overide-row">
+      <div class="col-xs-6 normal">
+        <label class="normal">เบอร์โทรศัพท์ *</label>
+        <div>
+          <input type="text"
+                 pInputText>
+        </div>
+      </div>
+
+      <div class="col-xs-6 normal">
+        <label class="normal">อีเมลล์</label>
+        <div>
+          <input type="text" pInputText>
+        </div>
+      </div>
+</div>
+<div class="row overide-row">
+      <div class="col-xs-12 normal">
+        <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
+        <div>
+          <input name="website"
+                 type="text"
+                 id="website"
+                 pInputText>
+        </div>
+      </div>
+</div>
+</div>
+<div class="col-xs-3">
+<div class="row overide-row">
+      <div class="col-xs-12">
+        <img [src]="image"
+        class="image-preview">
+      </div>
+      <div class="col-xs-12">
+      <label pButton   class="btn-upload ui-button-info"   label="เลือกไฟล์">
+      <input type="file" accept="image/*, application/pdf" class="display-none">
+      </label>
+      </div>
+</div>
+</div>
+</div>
+
+<div class="row overide-row btn-row">
+      <div class="col-xs-12">
+        <button pButton
+                type="submit"
+                class="btn-primary"
+                label="บันทึก"></button>
+        <button pButton
+                type="reset"
+                class="btn-primary"
+                label="ล้างข้อมูล"></button>
+        <button pButton
+                type="button"
+                class="btn-primary"
+                label="กลับ"
+                style="float:right;"></button>
+      </div>
+</div>
