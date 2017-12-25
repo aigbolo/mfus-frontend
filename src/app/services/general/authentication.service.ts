@@ -7,8 +7,6 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class AuthenticationService {
 
-  private isRoleStage = new Subject();
-
   constructor(private config: ConfigurationService) { }
 
   login(user: AcUser): Promise<any> {
@@ -20,18 +18,6 @@ export class AuthenticationService {
       'Authorization': `Bearer ${token}`
     })
     return this.config.requestMethodPOSTWithHeader('ensure', '', headers).toPromise()
-  }
-
-  nowRoleStage(): Subject<any> {
-    return this.isRoleStage;
-  }
-
-  setRoleStage(stage) {
-    this.isRoleStage.next(stage);
-  }
-
-  defultRole(stage) {
-    this.isRoleStage.next('USER');
   }
 
 }
