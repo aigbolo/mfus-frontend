@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
           this.logedinFalse = false;
           sessionStorage.setItem('token', user.ac_user.api_token);
           this.router.navigateByUrl('/change-password');
+          this.reference.getProvinces();
         })
         .catch((err) => {
           this.logedinFalse = true;
