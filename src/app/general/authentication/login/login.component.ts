@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogingIn() {
-
     if (this.group.valid) {
       const username = this.group.value.username;
       const password = this.group.value.password;
@@ -45,6 +44,7 @@ export class LoginComponent implements OnInit {
           this.logedinFalse = false;
           sessionStorage.setItem('token', user.ac_user.api_token);
           this.router.navigateByUrl('/change-password');
+          this.reference.getProvinces();
         })
         .catch((err) => {
           this.logedinFalse = true;

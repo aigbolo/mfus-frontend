@@ -6,11 +6,10 @@ import { ConfigurationService } from '../utils/configuration.service';
 @Injectable()
 export class ReferanceService {
 
-  public provinceList: RftProvince[] = [];
   constructor(private configuration: ConfigurationService) { }
 
   getProvinces() {
-    return this.configuration.requestMethodGET('autocomplete-province').subscribe((data: any) => this.provinceList = data)
+    return this.configuration.requestMethodGET('autocomplete-province')
   }
 
 
