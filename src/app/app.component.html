@@ -1,0 +1,25 @@
+<header></header>
+<navbar></navbar>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="50" [showSpinner]="true" [direction]="'lefttToRightIncreased'" [color]="'red'" [trickleSpeed]="100" [thick]="true" [ease]="'linear'"></ng-progress>
+<div class="container-fixed">
+    <div class="col-xs-3">
+        <sidebar></sidebar>
+    </div>
+    <div class="col-xs-9">
+        <page-header></page-header>
+        <!-- <router-outlet></router-outlet> -->
+        <div>
+
+        </div>
+        <div class="row">
+            <div style="margin-top:30px">
+                <input type="text" pInputText placeholder="Username" [(ngModel)]="text1" class="ng-dirty ng-invalid">
+                <p-message severity="error" text="Field is required"></p-message>
+            </div>
+        </div>
+        <button type="submit" label="Submit" (click)="onclick()" pButton></button>
+        <div *ngIf="onclick">
+            {{text1}}
+        </div>
+    </div>
+</div>

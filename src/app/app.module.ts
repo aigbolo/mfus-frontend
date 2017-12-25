@@ -1,15 +1,38 @@
-;
-import { 010102SearchOfficerComponent } from './general/account/010102-search-officer/010102-search-officer.component'import { BrowserModule } from '@angular/platform-browser';
+
+
+// @Angular
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RoutersModule } from './app.router';
+import { NgProgressModule } from 'ngx-progressbar';
 
+// PrimeNG
+import { PanelMenuModule } from 'primeng/primeng';
+import { ButtonModule } from 'primeng/primeng';
+import { InputTextModule } from 'primeng/primeng';
+import {MessagesModule} from 'primeng/primeng';
+import {MessageModule} from 'primeng/primeng';
 
+// Companent
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PageHeaderComponent } from './layout/page-header/page-header.component';
-import { 010102ManageOfficerComponent } from './general/account/010102-manage-officer/010102-manage-officer.component';
+import { ManageOfficerComponent } from './general/account/manage-officer/manage-officer.component';
+
+// Service
+import { LayoutService } from './services/utils/layout.service';
+import { LoginComponent } from './general/authentication/login/login.component';
+import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
+import { ConfigurationService } from './services/utils/configuration.service';
+import { SearchOfficerComponent } from './general/account/search-officer/search-officer.component';
+
+
 
 
 @NgModule({
@@ -20,12 +43,34 @@ import { 010102ManageOfficerComponent } from './general/account/010102-manage-of
     NavbarComponent,
     SidebarComponent,
     PageHeaderComponent,
-    010102ManageOfficerComponent, 010102SearchOfficerComponent
+    LoginComponent,
+    ChangePasswordComponent,
+    ManageOfficerComponent,
+    SearchOfficerComponent
   ],
   imports: [
-    BrowserModule
+    // Angular
+    BrowserModule,
+    RoutersModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NgProgressModule,
+
+
+    // Primeng
+    PanelMenuModule,
+    InputTextModule,
+    ButtonModule,
+    MessagesModule,
+    MessageModule,
+    FormsModule
+
   ],
-  providers: [],
+  providers: [
+    ConfigurationService,
+    LayoutService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

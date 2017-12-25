@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { LayoutService } from '../../services/utils/layout.service';
 
 @Component({
-  selector: 'app-page-header',
+  selector: 'page-header',
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.css']
 })
-export class PageHeaderComponent implements OnInit {
+export class PageHeaderComponent implements OnDestroy {
+  pageHeaderName: any;
+  private subscription: Subscription;
 
-  constructor() { }
+  constructor(private layout: LayoutService) {
+    this.subscription = this.layout.getHeader().subscribe(name => { this.pageHeaderName = name })
+   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
-
 }

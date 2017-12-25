@@ -1,0 +1,35 @@
+.menubar {
+    background-color: #aa0000;
+}
+
+ul {
+    width: 1200px !important;
+    padding-left: 18px;
+    padding-right: 27px;
+    font-size: 20px;
+    margin: auto;
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #aa0000;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 7px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    color: #e9ac00;
+    background: transparent;
+}
+
+li>a.active {
+    color: #e9ac00;
+}
