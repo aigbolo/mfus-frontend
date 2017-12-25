@@ -9,9 +9,11 @@ export class EnsureIsAuthService implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (sessionStorage.getItem('token')) {
+      console.log('have Token')
       return true;
     }
     else {
+      console.log('Not Token')      
       this.router.navigateByUrl('/');
       return false;
     }
