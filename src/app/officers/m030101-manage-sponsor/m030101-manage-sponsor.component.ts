@@ -1,7 +1,7 @@
-import { RftProvince } from './../../../models/rft-province';
+import { RftProvince } from './../../models/rft-province';
 import { Observable } from 'rxjs/Observable';
-import { ReferanceService } from './../../../services/general/reference.service';
-import { LayoutService } from './../../../services/utils/layout.service';
+import { ReferanceService } from '../../services/general/reference.service';
+import { LayoutService } from '../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
