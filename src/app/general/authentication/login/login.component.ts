@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { AcUser } from '../../../models/ac-user';
 import { AuthenticationService } from '../../../services/general/authentication.service';
+import { ReferanceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private layout: LayoutService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private reference: ReferanceService
   ) {
     this.layout.clearPageHeader();
   }
@@ -31,17 +33,19 @@ export class LoginComponent implements OnInit {
   }
 
   onLogingIn() {
+    // this.reference.getProvinces()
     if (this.group.valid) {
       const username = this.group.value.username;
       const password = this.group.value.password;
-      let user = new AcUser();
-      user.user_id = username;
-      user.password = password;
-      this.authService.login(user)
+      let acUser = new AcUser();
+      acUser.user_id = username;
+      acUser.password = password;
+      this.authService.login(acUser)
         .then((user) => {
+          console.log(user)
           this.logedinFalse = false;
-          localStorage.setItem('token', user.auth_token);
-          this.router.navigateByUrl('/status');
+          sessionStorage.setItem('token', user.api_token);
+          this.router.navigateByUrl('/change-password');
         })
         .catch((err) => {
           this.logedinFalse = true;
