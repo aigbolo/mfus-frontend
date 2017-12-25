@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private layout: LayoutService,
-    private authService: AuthenticationService,
-    private reference: ReferanceService
+    private authService: AuthenticationService
   ) {
     this.layout.clearPageHeader();
   }
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogingIn() {
-
     if (this.group.valid) {
       const username = this.group.value.username;
       const password = this.group.value.password;
