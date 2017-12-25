@@ -1,3 +1,4 @@
+import { ReferanceService } from './../../../services/general/reference.service';
 
 import { RftSubDistrict } from './../../../models/rft-sub-district';
 import { RftDistrict } from './../../../models/rft-district';
@@ -41,20 +42,27 @@ export class ManageOfficerComponent implements OnInit {
   binaryString: string;
   file: File;
 
-  image: any;
+  image: any = '';
   image_name: string;
   image_type:string;
 
-  constructor(private utilService: UtilsService) { }
+  constructor(private utilService: UtilsService,private referenceService: ReferanceService) { }
 
   ngOnInit() {
+    console.log('manageofficer')
+    // this.image = 'https://www.clker.com/cliparts/g/l/R/7/h/u/teamstijl-person-icon-blue-md.png'
     this.statusList = this.utilService.getStatusList();
     this.titleList = this.utilService.getTitleList();
+    this.getProvince();
   }
 
   getProvince() {
+    console.log('getprovince')
     this.listProvince = [];
-    this.listProvince = this.utilService.provinceList;
+    // this.listProvince = ;
+    console.log(this.referenceService.getProvinces().subscribe((res: RftProvince[])=>{
+      return res;
+    }))
   }
 
   autocompleteProvince(event) {
@@ -94,6 +102,65 @@ export class ManageOfficerComponent implements OnInit {
     //   );
   }
 
+  autocompleteDistrict(event) {
+    let query = event.query;
+    this.districtList = [];
+    this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
+    let objList: RftDistrict[];
+    objList = this.listDistrict;
+    for (let obj of objList) {
+      if (this.manageOfficerForm.rftProvince.province_ref === obj.province_ref) {
+        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          this.districtList.push(obj);
+        }
+      }
+    }
+  }
+
+  handleCompleteClickDistrict() {
+    this.districtList = [];
+    setTimeout(() => {
+      this.districtList = this.listDistrict;
+      this.subDistrictList = [];
+    }, 100)
+  }
+
+  selectDistrict(event: SelectItem) {
+    this.listSubDistrict = [];
+    this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
+    // this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
+    //   .subscribe((res: RftSubDistrict[]) => {
+    //     this.listSubDistrict.push(...res);
+    //   }
+    //   );
+  }
+
+  autocompleteSubDistrict(event) {
+    let query = event.query;
+    this.subDistrictList = [];
+    let objList: RftSubDistrict[] = this.listSubDistrict;
+    for (let obj of objList) {
+      if (obj.province_ref == this.manageOfficerForm.rftProvince.province_ref) {
+        if (obj.district_ref == this.manageOfficerForm.rftDistrict.district_ref) {
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            this.listSubDistrict.push(obj);
+          }
+        }
+      }
+    }
+  }
+
+  handleCompleteClickSubDistrict() {
+    this.subDistrictList = [];
+    setTimeout(() => {
+      this.subDistrictList = this.listSubDistrict;
+    }, 100)
+  }
+
+  selectSubDistrict(event: SelectItem) {
+    this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
+  }
+
   onUpload(event) {
     this.fileList = event.target.files;
     if (this.fileList.length > 0) {
@@ -119,6 +186,12 @@ export class ManageOfficerComponent implements OnInit {
     console.log("officerForm: ", this.manageOfficerForm)
   }
 
+  onResetClick(){
+    this.manageOfficerForm = new OfficerForm();
+    this.image = ''
+    this.image_name = ''
+    this.image_type = ''
+  }
   onPageSearch() {
 
   }

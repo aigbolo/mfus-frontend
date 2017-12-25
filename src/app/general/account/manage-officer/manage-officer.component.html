@@ -67,23 +67,23 @@
             <div class="col-xs-6">
                 <label class="normal">จังหวัด</label>
                 <div>
-                    <p-autoComplete field="province_name_t" [(ngModel)]="manageOfficerForm.rftProvince" [suggestions]="provinceList" [size]="25" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
+                    <!-- <p-autoComplete field="province_name_t" [(ngModel)]="manageOfficerForm.rftProvince" [suggestions]="provinceList" [size]="25" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
                         (completeMethod)="autocompleteProvince($event)">
                         <ng-template let-obj pTemplate="obj">
                             {{obj.province_name_t}}
                         </ng-template>
-                    </p-autoComplete>
+                    </p-autoComplete> -->
                 </div>
             </div>
             <div class="col-xs-6">
                 <label class="normal">อำเภอ</label>
                 <div>
-                    <p-autoComplete [(ngModel)]="manageOfficerForm.rftDistrict" [suggestions]="districtList" [dropdown]="true" [disabled]="manageOfficerForm.rftProvince.province_ref == null" (completeMethod)="autocompleteDistrict($event)" (onDropdownClick)="handleCompleteClickDistrict($event)"
+                    <!-- <p-autoComplete [(ngModel)]="manageOfficerForm.rftDistrict" [suggestions]="districtList" [dropdown]="true" [disabled]="manageOfficerForm.rftProvince.province_ref == null" (completeMethod)="autocompleteDistrict($event)" (onDropdownClick)="handleCompleteClickDistrict($event)"
                         field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" name="autocompleteDistrict">
                         <ng-template let-obj pTemplate="item">
                             {{obj.district_name_t}}
                         </ng-template>
-                    </p-autoComplete>
+                    </p-autoComplete> -->
                 </div>
             </div>
         </div>
@@ -91,18 +91,18 @@
             <div class="col-xs-6">
                 <label class="normal">ตำบล</label>
                 <div>
-                    <p-autoComplete [(ngModel)]="manageOfficerForm.rftSubDistrict" [suggestions]="subDistrictList" [size]="20" [dropdown]="true" [disabled]="manageOfficerForm.rftDistrict.district_ref == null" (completeMethod)="autocompleteSubDistrict($event)" (onDropdownClick)="handleCompleteClickSubDistrict($event)"
+                    <!-- <p-autoComplete [(ngModel)]="manageOfficerForm.rftSubDistrict" [suggestions]="subDistrictList" [dropdown]="true" [disabled]="manageOfficerForm.rftDistrict.district_ref == null" (completeMethod)="autocompleteSubDistrict($event)" (onDropdownClick)="handleCompleteClickSubDistrict($event)"
                         field="sub_district_name_t" (onSelect)="selectSubDistrict()" forceSelection="true" name="autocompleteSubdistrict">
-                        <ng-template let-obj pTemplate="item">
+                         <ng-template let-obj pTemplate="item">
                             {{obj.sub_district_name_t}}
                         </ng-template>
-                    </p-autoComplete>
+                    </p-autoComplete>-->
                 </div>
             </div>
             <div class="col-xs-6">
-                <label class="normal" [(ngModel)]="manageOfficerForm.rftSubDistrict.postcode"> รหัสไปรษณีย์ </label>
+                <label class="normal"> รหัสไปรษณีย์ </label>
                 <div>
-                    <input type="text" disabled="true" pInputText>
+                    <input type="text" [(ngModel)]="manageOfficerForm.rftSubDistrict.postcode" disabled="true" pInputText>
                 </div>
             </div>
         </div>
@@ -146,7 +146,7 @@
     <div class="col-xs-12">
         <button pButton type="submit" class="btn-positive" label="บันทึก">
         </button>
-        <button pButton type="button" class="btn-normal" label="รีเซ็ท">
+        <button pButton type="button" class="btn-normal" label="รีเซ็ท" (click)="onResetClick()">
         </button>
         <button pButton type="button" style="float: right;" class="btn-negative" label="กลับ" (click)="onPageSearch()">
         </button>

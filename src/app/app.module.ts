@@ -6,11 +6,12 @@ import { SearchOfficerComponent } from './general/account/search-officer/search-
 // @Angular
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RoutersModule } from './app.router';
 import { NgProgressModule } from 'ngx-progressbar';
+import { AuthInterceptor } from './auth.interceptor';
 
 // PrimeNG
 import {CheckboxModule, PanelMenuModule,  DropdownModule, AutoCompleteModule, InputTextModule,  ButtonModule,  FileUploadModule, RadioButtonModule} from 'primeng/primeng';
@@ -23,15 +24,17 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PageHeaderComponent } from './layout/page-header/page-header.component';
 import { ManageOfficerComponent } from './general/account/manage-officer/manage-officer.component';
+import { LoginComponent } from './general/authentication/login/login.component';
+import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
 
 // Service
 import { LayoutService } from './services/utils/layout.service';
-import { LoginComponent } from './general/authentication/login/login.component';
-import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
 import { AuthenticationService } from './services/general/authentication.service';
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
 import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
+import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
+import { ReferanceService } from './services/general/reference.service';
 
 
 @NgModule({
@@ -69,10 +72,17 @@ import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m0
     FormsModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    ReferanceService,
     ConfigurationService,
     LayoutService,
     AuthenticationService,
-    UtilsService
+    UtilsService,
+    EnsureIsAuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,16 +1,16 @@
-import { RftProvince } from './../../models/rft-province';
 import { ConfigurationService } from './configuration.service';
 
 import { RftDistrict } from './../../models/rft-district';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { RequestOptions, Headers } from '@angular/http';
+import { RftProvince } from '../../models/rft-province';
 
 @Injectable()
 export class UtilsService {
 
   statusList: any[];
-  titleList:any[];
+  titleList: any[];
 
   provinceList: RftProvince[];
 
@@ -32,12 +32,12 @@ export class UtilsService {
     return this.titleList
   }
 
-  getProvincesList() {
-    this.configurationService.requestMethodGET('autocomplete-province');
+  // getProvincesList() {
+  //   console.log("getProvinceList")
+  //   return this.configurationService.requestMethodGET('autocomplete-province').asobser
+  // }
 
-  }
-
-  getDistrictsByProvinceRef(province_ref: string){
+  getDistrictsByProvinceRef(province_ref: string) {
 
   }
 

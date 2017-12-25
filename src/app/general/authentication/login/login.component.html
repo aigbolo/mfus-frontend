@@ -29,7 +29,7 @@
             type="button"
             class="btn-normal"
             (click)="onLogingIn()"
-            [disabled]="group.invalid"
+            [disabled]="!group.valid"
             label="เข้าสู่ระบบ"></button>
   </div>
   <div>
