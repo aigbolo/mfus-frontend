@@ -20,4 +20,9 @@ export class ConfigurationService {
     const body = JSON.stringify(param);
     return this.http.post(this.url + path, body, { responseType: 'json', headers: headers })
   }
+
+  requestMethodPOSTWithHeader(path: string, param: any, headers: HttpHeaders) {
+    const body = JSON.stringify(param);
+    return this.http.post(this.url + path, body, { headers: headers })
+  }
 }

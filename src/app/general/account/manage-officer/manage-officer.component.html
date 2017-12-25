@@ -4,12 +4,14 @@
             <div class="col-xs-6">
                 <label class="normal"> รหัสเจ้าหน้าที่ *</label>
                 <div>
-                    <input type="text">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.officer_code" type="text" size="15" pInputText>
                 </div>
             </div>
             <div class="col-xs-6">
                 <label class="normal"> สถานะ</label>
                 <div>
+                    <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.active_flag" [options]="statusList">
+                    </p-dropdown>
                 </div>
             </div>
         </div>
@@ -17,6 +19,10 @@
             <div class="col-xs-12">
                 <label class="normal">เพศ</label>
                 <div class="col-xs-12">
+                    <p-radioButton [(ngModel)]="manageOfficerForm.acOfficer.gender" name="gender" value="M" label="ชาย" inputId="opt1">
+                    </p-radioButton>
+                    <p-radioButton [(ngModel)]="manageOfficerForm.acOfficer.gender" name="gender" value="F" label="หญิง" inputId="opt2">
+                    </p-radioButton>
                 </div>
             </div>
         </div>
@@ -24,12 +30,14 @@
             <div class="col-xs-6">
                 <label class="normal">คำนำหน้า *</label>
                 <div>
+                    <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.title_ref" [options]="titleList">
+                    </p-dropdown>
                 </div>
             </div>
             <div class="col-xs-6">
                 <label class="normal"> เลขประชาชน/พาสปอร์ต *</label>
                 <div>
-                    <input type="text" maxlength="13">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.personal_id" type="text" maxlength="13" pInputText>
                 </div>
             </div>
         </div>
@@ -37,13 +45,13 @@
             <div class="col-xs-6">
                 <label class="normal"> ชื่อ *</label>
                 <div>
-                    <input type="text">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.first_name" type="text" name="first_name" pInputText>
                 </div>
             </div>
             <div class="col-xs-6">
                 <label class="normal"> นามสกุล *</label>
                 <div>
-                    <input type="text">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.last_name" type="text" name="last_name" pInputText>
                 </div>
             </div>
         </div>
@@ -51,7 +59,7 @@
             <div class="col-xs-12">
                 <label class="normal"> ที่อยู่ *</label>
                 <div>
-                    <input type="text">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.address" type="text" pInputText>
                 </div>
             </div>
         </div>
@@ -59,11 +67,23 @@
             <div class="col-xs-6">
                 <label class="normal">จังหวัด</label>
                 <div>
+                    <p-autoComplete field="province_name_t" [(ngModel)]="manageOfficerForm.rftProvince" [suggestions]="provinceList" [size]="25" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
+                        (completeMethod)="autocompleteProvince($event)">
+                        <ng-template let-obj pTemplate="obj">
+                            {{obj.province_name_t}}
+                        </ng-template>
+                    </p-autoComplete>
                 </div>
             </div>
             <div class="col-xs-6">
                 <label class="normal">อำเภอ</label>
                 <div>
+                    <p-autoComplete [(ngModel)]="manageOfficerForm.rftDistrict" [suggestions]="districtList" [dropdown]="true" [disabled]="manageOfficerForm.rftProvince.province_ref == null" (completeMethod)="autocompleteDistrict($event)" (onDropdownClick)="handleCompleteClickDistrict($event)"
+                        field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" name="autocompleteDistrict">
+                        <ng-template let-obj pTemplate="item">
+                            {{obj.district_name_t}}
+                        </ng-template>
+                    </p-autoComplete>
                 </div>
             </div>
         </div>
@@ -71,12 +91,18 @@
             <div class="col-xs-6">
                 <label class="normal">ตำบล</label>
                 <div>
+                    <p-autoComplete [(ngModel)]="manageOfficerForm.rftSubDistrict" [suggestions]="subDistrictList" [size]="20" [dropdown]="true" [disabled]="manageOfficerForm.rftDistrict.district_ref == null" (completeMethod)="autocompleteSubDistrict($event)" (onDropdownClick)="handleCompleteClickSubDistrict($event)"
+                        field="sub_district_name_t" (onSelect)="selectSubDistrict()" forceSelection="true" name="autocompleteSubdistrict">
+                        <ng-template let-obj pTemplate="item">
+                            {{obj.sub_district_name_t}}
+                        </ng-template>
+                    </p-autoComplete>
                 </div>
             </div>
             <div class="col-xs-6">
-                <label class="normal"> รหัสไปรษณีย์ </label>
+                <label class="normal" [(ngModel)]="manageOfficerForm.rftSubDistrict.postcode"> รหัสไปรษณีย์ </label>
                 <div>
-                    <input type="text" disabled="true">
+                    <input type="text" disabled="true" pInputText>
                 </div>
             </div>
         </div>
@@ -84,13 +110,13 @@
             <div class="col-xs-6">
                 <label class="normal"> เบอร์โทรศัพท์ *</label>
                 <div>
-                    <input type="text" maxlength="10">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.phone_no" type="text" maxlength="10" pInputText>
                 </div>
             </div>
             <div class="col-xs-6">
                 <label class="normal"> อีเมล *</label>
                 <div>
-                    <input type="text">
+                    <input [(ngModel)]="manageOfficerForm.acOfficer.email" type="email" pInputText>
                 </div>
             </div>
         </div>
@@ -101,14 +127,16 @@
         </div>
         <div class="row center">
             <label (change)="onUpload($event)" class="btn-positive" label="เลือกไฟล์" pButton>
-    <input
-      type="file"
-      accept="image/*, application/pdf"
-      class="display-none">
-  </label>
+            <input
+              type="file"
+              accept="image/*, application/pdf"
+              class="display-none">
+          </label>
         </div>
         <div class="row center">
             <div>
+                <p-checkbox binary="true" label="สามารถจัดการเจ้าหน้าที่">
+                </p-checkbox>
             </div>
         </div>
     </div>
@@ -116,11 +144,11 @@
 <div class="space"></div>
 <div class="row">
     <div class="col-xs-12">
-        <button pButton type="submit" class="btn-positive">
-</button>
+        <button pButton type="submit" class="btn-positive" label="บันทึก">
+        </button>
         <button pButton type="button" class="btn-normal" label="รีเซ็ท">
-</button>
-        <button pButton type="button" class="btn-negative" label="กลับ">
-</button>
+        </button>
+        <button pButton type="button" style="float: right;" class="btn-negative" label="กลับ" (click)="onPageSearch()">
+        </button>
     </div>
 </div>

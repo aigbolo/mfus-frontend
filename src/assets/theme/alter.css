@@ -1,0 +1,38 @@
+/*Start Alter library components */
+.ui-datatable-emptymessage {
+  text-align: center;
+}
+
+.ui-datepicker-trigger {
+  border-radius: 0 15% 15% 0% !important;
+}
+
+.overide-row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+/*End Alter library components */
+
+
+/*input's style*/
+.input-year {
+  width: 100px;
+}
+.input-name {
+  width: 250px;
+}
+.input-address {
+  width: 90%;
+}
+.input-postcode {
+  width: 70px;
+}
+.input-phone {
+  width: 150px;
+}
+.input-occupation,
+.input-position,
+.input-mail {
+  width: 300px;
+}

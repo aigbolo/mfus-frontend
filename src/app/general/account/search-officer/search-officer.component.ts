@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OfficerForm } from '../../../forms/officer-form';
+import { UtilsService } from '../../../services/utils/utils.service';
 
 @Component({
   selector: 'app-search-officer',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchOfficerComponent implements OnInit {
 
-  constructor() { }
+  searchForm: OfficerForm = new OfficerForm();
+  statusList: any[];
+
+  constructor(private utilService: UtilsService) { }
 
   ngOnInit() {
+    this.getStatusList();
   }
 
+  getStatusList(){
+
+    this.statusList = this.utilService.getStatusList();
+  }
+  onSearchClick(){
+    console.log(this.searchForm)
+  }
+
+  onResetClick(){
+    this.searchForm = new OfficerForm();
+  }
 }

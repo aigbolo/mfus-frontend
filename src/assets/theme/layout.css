@@ -1,0 +1,313 @@
+
+/* set font family & Size */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+label,
+input,
+p {
+  font-family: 'Kanit', sans-serif !important;
+}
+h1, h2, h3 {
+  font-weight: bold;
+}
+div.container-fixed {
+  width: 1200px !important;
+  margin: auto;
+}
+
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12 {
+  min-height: 53px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+/* BEGIN PANELMENU */
+div.ui-panelmenu-content.ui-widget-content {
+  padding: 0px !important;
+}
+
+p-panelmenu {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+span.ui-menuitem-text {
+  font-weight: lighter;
+}
+
+.ui-menuitem-link.ui-corner-all.ui-state-active {
+  background-color: black;
+}
+
+div.ui-panelmenu-content.ui-widget-content {
+  background-color: rgb(255, 255, 250);
+}
+/* END PANELMENU */
+
+/* BEGIN LABEL */
+label {
+  font-weight: normal !important;
+}
+label.normal {
+  color: #b40000;
+  font-size: 16px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+label.normal-inline {
+  color: #b40000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+/* BEGIN RADIOBUTTON */
+label.ui-radiobutton-label {
+  margin-bottom: -1px;
+  margin-right: 15px;
+  font-size: 20px;
+  font-weight: 100;
+  padding-top: 2px !important;
+}
+
+div.ui-radiobutton-box {
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  padding-top: 5px !important;
+}
+
+/* END RADIOBUTTON */
+
+/* BEGIN AUTOCOMPLETE */
+li.ui-autocomplete-list-item.ui-corner-all.ui-state-highlight {
+  background-color: #3a8db7;
+}
+/* END AUTOCOMPLETE */
+
+/* BEGIN BUTTON */
+button.btn-positive.ui-button {
+  background-color: #3a8db7;
+}
+
+button.btn-positive.ui-button:enabled:hover {
+  background-color: #3a83c1;
+}
+
+button.btn-normal.ui-button {
+  background-color: #22468b;
+}
+
+button.btn-normal.ui-button:enabled:hover {
+  background-color: #1c3a74;
+}
+
+button.btn-negative.ui-button {
+  background-color: rgb(253, 212, 65);
+}
+
+button.btn-negative.ui-button:enabled:hover {
+  background-color: rgb(255, 201, 13);
+}
+
+label.btn-upload.ui-button {
+  background-color: #22468b;
+}
+
+label.btn-upload.ui-button:hover {
+  background-color: #1c3a74;
+}
+
+button.btn-icon-positive.ui-button {
+  background-color: #34b728;
+}
+
+button.btn-icon-positive.ui-button:enabled:hover {
+  background-color: #22a513;
+}
+
+button.btn-icon-negative.ui-button {
+  background-color: rgb(253, 212, 65);
+}
+
+button.btn-icon-negative.ui-button:enabled:hover {
+  background-color: rgb(255, 201, 13);
+}
+
+/* END BUTTON */
+
+/* BEGIN CHECKBOX */
+label.ui-chkbox-label {
+  margin-bottom: 0px;
+  color: #3a8db7;
+  font-size: 15px;
+  font-weight: lighter;
+}
+/* END CHECKBOX */
+
+/*  BEGIN UPLOAD FILE */
+p-fileupload {
+  display: inline-block;
+}
+div.ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
+  padding: 0px;
+  border: none;
+}
+
+div.ui-progressbar.ui-widget.ui-widget-content.ui-corner-all {
+  display: none;
+}
+
+div.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
+  display: none;
+}
+/*  END UPLOAD FILE */
+
+/* INPUT TEXT */
+input.ui-inputtext {
+  /* padding:0.3em 0.5em !important; */
+  /* font-size: 20px !important; */
+}
+
+/* p-step primefaces position */
+.ui-steps:before {
+  top: 40px !important;
+}
+.ui-steps .ui-steps-title {
+  white-space: normal !important;
+}
+
+.three-step .steps-custom ul li {
+  width: 33.33% !important;
+}
+
+.four-step .steps-custom ul li {
+  width: 25% !important;
+}
+
+.five-step .steps-custom ul li {
+  width: 20% !important;
+}
+
+.six-step .steps-custom ul li {
+  width: 16.66% !important;
+}
+
+.content {
+  /*PADDING : TOP RIGHT BOTTOM LEFT*/
+  padding:10px 25px 5px 10px;
+}
+
+label.radio-inline.normal {
+  color: rgb(90, 90, 90);
+}
+
+/* INPUT */
+input.normal {
+  border-color: #3a8db7;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+
+
+
+.profile-upload{
+  text-align: center;
+  padding: 10px;
+}
+img.image-profile {
+  border-radius: 5px;
+  width: 180px;
+
+  text-align: center;
+}
+
+/*Button CSS*/
+.btn-panel-right{
+ text-align:right;
+}
+
+.btn-row {
+  margin: 30px 0 0 0;
+}
+
+
+/* Begin Menu side bar CSS*/
+.menuside {
+  /*PADDING : TOP RIGHT BOTTOM LEFT*/
+  padding:35px 20px 5px 35px;
+}
+
+.menubar {
+  background-color: #aa0000;
+}
+
+.menubar ul {
+  width: 1200px !important;
+  padding-left: 18px;
+  padding-right: 27px;
+  font-size: 16px;
+  margin: auto;
+  list-style-type: none;
+  overflow: hidden;
+  background-color: #aa0000;
+}
+
+.menubar ul li {
+  float: left;
+}
+
+.menubar ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 7px 16px;
+  text-decoration: none;
+}
+
+.menubar ul li a:hover:not(.active) {
+  color: #e9ac00;
+  background: transparent;
+}
+
+.menubar ul li>a.active {
+  color: #e9ac00;
+}
+
+.menuside {
+  padding: 10px 20px 5px 35px;
+}
+
+.sidebar-header {
+  margin-bottom: 5px;
+}
+
+div.underline {
+  height: 1px;
+  width: 100%;
+
+}
+
+
+.ui-menuitem-text{
+  font-family: 'Kanit', sans-serif !important;
+  font-size: 16px !important;
+  padding-left:10px;
+}
+/* End Menu side bar CSS*/

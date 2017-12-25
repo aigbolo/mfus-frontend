@@ -1,5 +1,8 @@
 
 
+import { SearchOfficerComponent } from './general/account/search-officer/search-officer.component';
+
+
 // @Angular
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,11 +13,7 @@ import { RoutersModule } from './app.router';
 import { NgProgressModule } from 'ngx-progressbar';
 
 // PrimeNG
-import { PanelMenuModule } from 'primeng/primeng';
-import { ButtonModule } from 'primeng/primeng';
-import { InputTextModule } from 'primeng/primeng';
-import {MessagesModule} from 'primeng/primeng';
-import {MessageModule} from 'primeng/primeng';
+import {CheckboxModule, PanelMenuModule,  DropdownModule, AutoCompleteModule, InputTextModule,  ButtonModule,  FileUploadModule, RadioButtonModule} from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -29,10 +28,10 @@ import { ManageOfficerComponent } from './general/account/manage-officer/manage-
 import { LayoutService } from './services/utils/layout.service';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
+import { AuthenticationService } from './services/general/authentication.service';
 import { ConfigurationService } from './services/utils/configuration.service';
-import { SearchOfficerComponent } from './general/account/search-officer/search-officer.component';
-
-
+import { UtilsService } from './services/utils/utils.service';
+import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
 
 
 @NgModule({
@@ -45,6 +44,7 @@ import { SearchOfficerComponent } from './general/account/search-officer/search-
     PageHeaderComponent,
     LoginComponent,
     ChangePasswordComponent,
+    M030101ManageSponsorComponent,
     ManageOfficerComponent,
     SearchOfficerComponent
   ],
@@ -57,19 +57,22 @@ import { SearchOfficerComponent } from './general/account/search-officer/search-
     BrowserAnimationsModule,
     NgProgressModule,
 
-
     // Primeng
     PanelMenuModule,
+    DropdownModule,
+    AutoCompleteModule,
     InputTextModule,
     ButtonModule,
-    MessagesModule,
-    MessageModule,
+    FileUploadModule,
+    RadioButtonModule,
+    CheckboxModule,
     FormsModule
-
   ],
   providers: [
     ConfigurationService,
-    LayoutService
+    LayoutService,
+    AuthenticationService,
+    UtilsService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,12 +2,14 @@
     <div class="col-xs-8">
         <label class="normal"> รหัสเจ้าหน้าที่</label>
         <div>
-            <input type="text">
+            <input type="text" name="officer_code" [(ngModel)]="searchForm.acOfficer.officer_code" pInputText>
         </div>
     </div>
     <div class="col-xs-4">
         <label class="normal"> สถานะ</label>
         <div>
+            <p-dropdown [(ngModel)]="searchForm.acOfficer.active_flag" [options]="statusList">
+            </p-dropdown>
         </div>
     </div>
 </div>
@@ -15,29 +17,29 @@
     <div class="col-xs-4">
         <label class="normal"> ชื่อ</label>
         <div>
-            <input>
+            <input type="text" name="first_name" [(ngModel)]="searchForm.acOfficer.first_name" pInputText>
         </div>
     </div>
     <div class="col-xs-4">
         <label class="normal"> นามสกุล</label>
         <div>
-            <input>
+            <input type="text" name="last_name" [(ngModel)]="searchForm.acOfficer.last_name" pInputText>
         </div>
     </div>
     <div class="col-xs-4">
         <label class="normal"> เลขประชาชน/พาสปอร์ต</label>
         <div>
-            <input>
+            <input type="text" name="officer_id" [(ngModel)]="searchForm.acOfficer.personal_id" pInputText>
         </div>
     </div>
 </div>
-<div class="space"></div>
+
 <div class="row">
     <div class="col-xs-12">
 
-        <button pButton type="submit" class="btn-positive" label="ค้นหา">
+        <button pButton type="submit" class="btn-positive" label="ค้นหา" (click)="onSearchClick()">
 </button>
-        <button pButton type="button" class="btn-normal" label="รีเซ็ท">
+        <button pButton type="button" class="btn-normal" label="รีเซ็ท" (click)="onResetClick()">
 </button>
         <button pButton type="button" style="float: right;" class="btn-negative" label="สร้างใหม่">
 </button>
