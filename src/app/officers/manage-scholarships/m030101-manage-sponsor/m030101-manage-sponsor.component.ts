@@ -1,3 +1,4 @@
+import { ReferanceService } from './../../../services/general/reference.service';
 import { LayoutService } from './../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class M030101ManageSponsorComponent implements OnInit {
   image: any;
-  constructor(private layoutService: LayoutService) { }
+  constructor(private layoutService: LayoutService,
+  private referanceService: ReferanceService) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
