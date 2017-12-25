@@ -26,8 +26,9 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
 import { ConfigurationService } from './services/utils/configuration.service';
 import { LayoutService } from './services/utils/layout.service';
 import { AuthenticationService } from './services/general/authentication.service';
-import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
+import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
+import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ReferanceService } from './services/general/reference.service';
     ConfigurationService,
     LayoutService,
     AuthenticationService,
-    EnsureIsAuthService
+    EnsureIsAuth,
+    EnsureIsNotAuth
   ],
   bootstrap: [AppComponent]
 })
