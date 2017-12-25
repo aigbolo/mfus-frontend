@@ -9,10 +9,10 @@ h5,
 label,
 input,
 p {
-  font-family: 'Kanit', sans-serif !important;
+  font-family: 'Kanit', sans-serif, tahoma !important;
 }
 h1, h2, h3 {
-  font-weight: bold;
+  font-weight: 600;
 }
 div.container-fixed {
   width: 1200px !important;
@@ -47,7 +47,7 @@ p-panelmenu {
 }
 
 span.ui-menuitem-text {
-  font-weight: lighter;
+  font-weight: 400;
 }
 
 .ui-menuitem-link.ui-corner-all.ui-state-active {
