@@ -7,7 +7,7 @@ import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m0
 import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
 
 const appRoutes: Routes = [
-    { path: "", component: LoginComponent, canDeactivate: [EnsureIsAuthService] },
+    { path: "", component: LoginComponent },
     { path: "change-password", component: ChangePasswordComponent, canActivate: [EnsureIsAuthService] },
     { path: "manage-sponsors", component: M030101ManageSponsorComponent, canActivate: [EnsureIsAuthService] },
 ]

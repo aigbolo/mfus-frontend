@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogingIn() {
-    this.reference.getProvinces()
+
     if (this.group.valid) {
       const username = this.group.value.username;
       const password = this.group.value.password;
@@ -42,11 +42,8 @@ export class LoginComponent implements OnInit {
       acUser.password = password;
       this.authService.login(acUser)
         .then((user) => {
-          console.log(user)
           this.logedinFalse = false;
-          sessionStorage.setItem('token', user.api_token);
-          this.reference.getProvinces();
-          console.log(this.reference.provinceList);
+          sessionStorage.setItem('token', user.ac_user.api_token);
           this.router.navigateByUrl('/change-password');
         })
         .catch((err) => {
