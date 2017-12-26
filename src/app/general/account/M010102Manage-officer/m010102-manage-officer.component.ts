@@ -4,18 +4,17 @@ import { RftSubDistrict } from './../../../models/rft-sub-district';
 import { RftDistrict } from './../../../models/rft-district';
 import { Component, OnInit } from '@angular/core';
 import { OfficerForm } from '../../../forms/officer-form';
-import { FormGroup } from '@angular/forms';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RftProvince } from '../../../models/rft-province';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'app-manage-officer',
-  templateUrl: './manage-officer.component.html',
-  styleUrls: ['./manage-officer.component.css']
+  templateUrl: './m010102-manage-officer.component.html',
+  styleUrls: ['./m010102-manage-officer.component.css']
 })
-export class ManageOfficerComponent implements OnInit {
+export class M010102ManageOfficerComponent implements OnInit {
 
   manageOfficerForm: OfficerForm = new OfficerForm();
   officerFormGroup: FormGroup;
@@ -44,25 +43,51 @@ export class ManageOfficerComponent implements OnInit {
 
   image: any = '';
   image_name: string;
-  image_type:string;
+  image_type: string;
 
-  constructor(private utilService: UtilsService,private referenceService: ReferanceService) { }
+  constructor(private utilService: UtilsService, private referenceService: ReferanceService) { }
 
   ngOnInit() {
     console.log('manageofficer')
-    // this.image = 'https://www.clker.com/cliparts/g/l/R/7/h/u/teamstijl-person-icon-blue-md.png'
+    this.image = '../../../../assets/images/empty_profile.png'
+    this.validateForm();
     this.statusList = this.utilService.getStatusList();
     this.titleList = this.utilService.getTitleList();
     this.getProvince();
   }
 
+  validateForm(){
+    this.officerFormGroup = new FormGroup({
+      officer_code: new FormControl(this.manageOfficerForm.acOfficer.officer_code,
+        Validators.compose([Validators.required])),
+      active_flag: new FormControl(this.manageOfficerForm.acOfficer.active_flag,
+        Validators.compose([Validators.required])),
+      gender: new FormControl(this.manageOfficerForm.acOfficer.gender,
+        Validators.compose([Validators.required])),
+      title_ref: new FormControl(this.manageOfficerForm.acOfficer.title_ref,
+        Validators.compose([Validators.required])),
+      personal_id: new FormControl(this.manageOfficerForm.acOfficer.personal_id,
+        Validators.compose([Validators.required])),
+      first_name: new FormControl(this.manageOfficerForm.acOfficer.first_name,
+        Validators.compose([Validators.required])),
+      last_name: new FormControl(this.manageOfficerForm.acOfficer.last_name,
+        Validators.compose([Validators.required])),
+      address:new FormControl(this.manageOfficerForm.acOfficer.address),
+      postcode: new FormControl(this.manageOfficerForm.acOfficer.postcode),
+      phone_no:new FormControl(this.manageOfficerForm.acOfficer.phone_no,
+        Validators.compose([Validators.required])),
+      email: new FormControl(this.manageOfficerForm.acOfficer.email,
+        Validators.compose([Validators.required])),
+      province_name_t: new FormControl(this.manageOfficerForm.rftProvince.province_name_t),
+      district_name_t: new FormControl(this.manageOfficerForm.rftDistrict.district_name_t),
+      sub_district_name_t: new FormControl(this.manageOfficerForm.rftSubDistrict.sub_district_name_t),
+      image: new FormControl(this.image,Validators.compose([Validators.required]))
+    });
+  }
+
   getProvince() {
     console.log('getprovince')
     this.listProvince = [];
-    // this.listProvince = ;
-    console.log(this.referenceService.getProvinces().subscribe((res: RftProvince[])=>{
-      return res;
-    }))
   }
 
   autocompleteProvince(event) {
@@ -177,20 +202,33 @@ export class ManageOfficerComponent implements OnInit {
   handleReaderLoaded(readerEvent) {
     this.binaryString = readerEvent.target.result;
     this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
-    console.log(this.file.name);
-    console.log(this.file.size);
-    console.log(this.file.type);
+    // console.log(this.file.name);
+    // console.log(this.file.size);
+    // console.log(this.file.type);
   }
 
   onSubmit() {
+
+    if(this.officerFormGroup.invalid){
+      console.log("Form Invalid")
+      this.officerFormGroup.controls["officer_code"].markAsDirty();
+      this.officerFormGroup.controls["active_flag"].markAsDirty();
+      this.officerFormGroup.controls["gender"].markAsDirty();
+      this.officerFormGroup.controls["title_ref"].markAsDirty();
+      this.officerFormGroup.controls["personal_id"].markAsDirty();
+      this.officerFormGroup.controls["first_name"].markAsDirty();
+      this.officerFormGroup.controls["last_name"].markAsDirty();
+      this.officerFormGroup.controls["phone_no"].markAsDirty();
+      this.officerFormGroup.controls["email"].markAsDirty();
+      this.officerFormGroup.controls["image"].markAsDirty();
+    }
     console.log("officerForm: ", this.manageOfficerForm)
   }
 
-  onResetClick(){
+  onResetClick() {
     this.manageOfficerForm = new OfficerForm();
-    this.image = ''
-    this.image_name = ''
-    this.image_type = ''
+    this.image = '../../../../assets/images/empty_profile.png'
+
   }
   onPageSearch() {
 

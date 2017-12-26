@@ -12,6 +12,8 @@ export class SearchOfficerComponent implements OnInit {
   searchForm: OfficerForm = new OfficerForm();
   statusList: any[];
 
+  listOfficerForm: OfficerForm[];
+  
   constructor(private utilService: UtilsService) { }
 
   ngOnInit() {

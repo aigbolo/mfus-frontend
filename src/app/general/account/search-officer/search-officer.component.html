@@ -33,10 +33,9 @@
         </div>
     </div>
 </div>
-
+<div class=""></div>
 <div class="row">
     <div class="col-xs-12">
-
         <button pButton type="submit" class="btn-positive" label="ค้นหา" (click)="onSearchClick()">
 </button>
         <button pButton type="button" class="btn-normal" label="รีเซ็ท" (click)="onResetClick()">
@@ -47,5 +46,18 @@
 </div>
 <div class="space"></div>
 <div class="row">
-    <label for="">datatable</label>
+    <p-dataTable [value]="listOfficerForm" [loading]="true">
+        <p-column [sortable]="true" field="acOfficer.officer_code" header="รหัสเจ้าหน้าที่">
+        </p-column>
+        <p-column [sortable]="true" field="fullname" header="ชื่อเจ้าหน้าที่">
+        </p-column>
+        <p-column [sortable]="true" field="acOfficer.personal_id" header="เลขประชาชน/พาสปอร์ต">
+        </p-column>
+        <p-column [sortable]="true" field="acOfficer.phone_no" header="เบอร์โทรศัพท์">
+        </p-column>
+        <p-column [sortable]="true" field="acOfficer.email" header="อีเมล">
+        </p-column>
+        <p-column [sortable]="true" field="status" header="สถานะ">
+        </p-column>
+    </p-dataTable>
 </div>

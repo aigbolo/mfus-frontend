@@ -14,7 +14,17 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { AuthInterceptor } from './auth.interceptor';
 
 // PrimeNG
-import {CheckboxModule, PanelMenuModule,  DropdownModule, AutoCompleteModule, InputTextModule,  ButtonModule,  FileUploadModule, RadioButtonModule} from 'primeng/primeng';
+import {
+        CheckboxModule,
+        PanelMenuModule,
+        DropdownModule,
+        AutoCompleteModule,
+        InputTextModule,
+        ButtonModule,
+        FileUploadModule,
+        RadioButtonModule,
+        DataTableModule,
+        SharedModule} from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -23,7 +33,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PageHeaderComponent } from './layout/page-header/page-header.component';
-import { ManageOfficerComponent } from './general/account/manage-officer/manage-officer.component';
+import { M010102ManageOfficerComponent } from './general/account/M010102Manage-officer/m010102-manage-officer.component';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
 
@@ -48,7 +58,7 @@ import { ReferanceService } from './services/general/reference.service';
     LoginComponent,
     ChangePasswordComponent,
     M030101ManageSponsorComponent,
-    ManageOfficerComponent,
+    M010102ManageOfficerComponent,
     SearchOfficerComponent
   ],
   imports: [
@@ -69,7 +79,9 @@ import { ReferanceService } from './services/general/reference.service';
     FileUploadModule,
     RadioButtonModule,
     CheckboxModule,
-    FormsModule
+    FormsModule,
+    DataTableModule,
+    SharedModule
   ],
   providers: [
     {
