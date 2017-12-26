@@ -1,5 +1,24 @@
+div.content {
+    text-align: center;
+    padding: 10px 33% 60px 33%;
+}
+
+.header {
+    margin-top: 30px;
+    font-size: 2.3rem;
+    font-weight: 400;
+    color: #155179;
+}
+
+.underline {
+    background-color: #155179;
+}
+
 input {
     border-radius: 13px;
+    width: 250px;
+    height: 35px;
+    font-weight: 200;
 }
 
 button.btn-normal {
@@ -10,11 +29,6 @@ button.btn-normal:disabled,
 button.btn-normal[disabled] {
     background-color: #22468b;
     opacity: .7;
-}
-
-div.content {
-    text-align: center;
-    padding: 60px 30% 60px 30%;
 }
 
 div.margin-input {
@@ -44,5 +58,6 @@ div.failed-logedin {
 }
 
 a {
-    font-size: 18px
+    font-size: 13px;
+    font-weight: 200;
 }
