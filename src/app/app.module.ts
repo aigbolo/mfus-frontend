@@ -48,6 +48,7 @@ import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
+import { JqueryScriptService } from './services/utils/jquery-script.service';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { M030102ManageScholarshipComponent } from './officers/m030102-manage-sch
     EnsureIsAuth,
     EnsureIsNotAuth,
     M030101SponsorsService,
+    JqueryScriptService,
   ],
   bootstrap: [AppComponent]
 })

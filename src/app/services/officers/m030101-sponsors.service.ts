@@ -10,7 +10,6 @@ export class M030101SponsorsService {
   constructor(private config: ConfigurationService) { }
 
   doSearch(form:M030101SponsorsForm){
-    const body = JSON.stringify(form.search_criteria);
-    return this.config.requestMethodPOST('sponsors',body);
+    return this.config.requestMethodPOST('sponsors',form.search_criteria);
   }
 }

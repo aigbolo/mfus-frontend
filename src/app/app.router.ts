@@ -19,10 +19,11 @@ const appRoutes: Routes = [
   { path: "manage-officer", component: M010102ManageOfficerComponent },
   { path: "search-officer", component: S010102SearchOfficerComponent },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
-    { path: "", component: LoginComponent, canDeactivate: [] },
-    { path: "", component: LoginComponent },
-    { path: "change-password", component: ChangePasswordComponent, canActivate: [] },
-    { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] }
+  { path: "", component: LoginComponent, canDeactivate: [] },
+  { path: "", component: LoginComponent },
+  { path: "change-password", component: ChangePasswordComponent, canActivate: [] },
+  { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
+  { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
 
 ]
 
