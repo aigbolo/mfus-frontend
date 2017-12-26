@@ -10,7 +10,7 @@
 
       <div class="col-xs-3">
         <label class="normal">สถานะ *</label>
-          <p-dropdown>
+          <p-dropdown [options]="activeStatus">
           </p-dropdown>
       </div>
 </div>
@@ -93,7 +93,6 @@
 <div class="row overide-row btn-row">
       <div class="col-xs-6 btn-panel-left">
         <button pButton
-          type="button"
           class="btn-back ui-button-info"
           label="ย้อนกลับ"></button>
       </div>

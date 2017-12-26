@@ -1,5 +1,3 @@
-
-
 import { SearchOfficerComponent } from './general/account/search-officer/search-officer.component';
 
 
@@ -33,6 +31,8 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PageHeaderComponent } from './layout/page-header/page-header.component';
+import { M030101ManageSponsorsComponent } from './officers/m030101-manage-sponsors/m030101-manage-sponsors.component';
+import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
 import { M010102ManageOfficerComponent } from './general/account/M010102Manage-officer/m010102-manage-officer.component';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
@@ -59,7 +59,8 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     PageHeaderComponent,
     LoginComponent,
     ChangePasswordComponent,
-    // M030101ManageSponsorComponent,
+    M030101ManageSponsorsComponent,
+    M030101SearchSponsorsComponent,
     M010102ManageOfficerComponent,
     SearchOfficerComponent,
     IndexComponent
@@ -80,6 +81,8 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     InputTextModule,
     ButtonModule,
     FileUploadModule,
+    DataTableModule,
+    SharedModule,
     RadioButtonModule,
     CheckboxModule,
     FormsModule,
