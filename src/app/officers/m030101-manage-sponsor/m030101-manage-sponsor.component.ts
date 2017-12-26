@@ -1,3 +1,4 @@
+import { UtilsService } from './../../services/utils/utils.service';
 import { RftProvince } from './../../models/rft-province';
 import { Observable } from 'rxjs/Observable';
 import { ReferanceService } from '../../services/general/reference.service';
@@ -13,13 +14,16 @@ export class M030101ManageSponsorComponent implements OnInit {
   image: any;
   listProvince = new Observable<RftProvince[]>();
   provinceList : RftProvince[] = [];
+  activeStatus = [];
   constructor(private layoutService: LayoutService,
-  private referanceService: ReferanceService) { }
+              private referanceService: ReferanceService,
+              private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
     this.image = '../../assets/images/empty_profile.png';
     this.listProvince = this.referanceService.getProvinces();
+    this.activeStatus = this.utilsService.getActiveStatus('M');
   }
 
 

@@ -1,3 +1,4 @@
+import { UtilsService } from './services/utils/utils.service';
 // @Angular
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,7 +10,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { AuthInterceptor } from './auth.interceptor';
 
 // PrimeNG
-import { PanelMenuModule, DropdownModule, AutoCompleteModule, InputTextModule, ButtonModule, FileUploadModule } from 'primeng/primeng';
+import { PanelMenuModule, DropdownModule, AutoCompleteModule, InputTextModule, ButtonModule, FileUploadModule,DataTableModule,SharedModule } from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { LayoutService } from './services/utils/layout.service';
 import { AuthenticationService } from './services/general/authentication.service';
 import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
+import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { ReferanceService } from './services/general/reference.service';
     LoginComponent,
     ChangePasswordComponent,
     M030101ManageSponsorComponent,
+    M030101SearchSponsorsComponent,
   ],
   imports: [
     // Angular
@@ -58,6 +61,8 @@ import { ReferanceService } from './services/general/reference.service';
     InputTextModule,
     ButtonModule,
     FileUploadModule,
+    DataTableModule,
+    SharedModule,
   ],
   providers: [
     {
@@ -69,7 +74,8 @@ import { ReferanceService } from './services/general/reference.service';
     ConfigurationService,
     LayoutService,
     AuthenticationService,
-    EnsureIsAuthService
+    EnsureIsAuthService,
+    UtilsService,
   ],
   bootstrap: [AppComponent]
 })

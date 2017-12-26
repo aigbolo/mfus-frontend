@@ -1,0 +1,46 @@
+<div class="row overide-row">
+  <div class="col-xs-12">
+    <div class="row overide-row">
+      <div class="col-xs-9">
+        <label class="normal" for="sponsors_name">ชื่อผู้สนับสนุน</label>
+        <input name="sponsors_name" id="sponsors_name" type="text" class="input-name" pInputText>
+      </div>
+
+      <div class="col-xs-3">
+        <label class="normal">สถานะ</label>
+        <p-dropdown [options]="activeStatus">
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Action buttons here -->
+<div class="row overide-row btn-row">
+  <div class="col-xs-6 btn-panel-left">
+    <button pButton
+      class="btn-back primary"
+      label="ค้นหาข้อมูล"></button>
+  </div>
+  <div class="col-xs-6 btn-panel-right">
+      <button pButton
+        type="reset"
+        class="btn-reset ui-button-warning"
+        label="เริ่มใหม่"></button>
+      <button pButton
+        class="btn-save ui-button-info"
+        label="เพิ่มข้อมูล"></button>
+    </div>
+</div>
+
+    <p-dataTable emptyMessage="ไม่พบข้อมูล">
+
+      <p-column header="ลำดับ"></p-column>
+      <p-column header="ชื่อผู้สนับสนุน"></p-column>
+      <p-column header="ที่อยู่"></p-column>
+      <p-column header="เบอร์โทรศัพท์"></p-column>
+      <p-column header="สถานะ"></p-column>
+    </p-dataTable>
+
+
+
