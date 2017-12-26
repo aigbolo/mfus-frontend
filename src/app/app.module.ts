@@ -45,7 +45,7 @@ import { AuthenticationService } from './services/general/authentication.service
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
-import { ReferanceService } from './services/general/reference.service';
+import { ReferenceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 import { JqueryScriptService } from './services/utils/jquery-script.service';
@@ -100,7 +100,7 @@ import { JqueryScriptService } from './services/utils/jquery-script.service';
       useClass: AuthInterceptor,
       multi: true
     },
-    ReferanceService,
+    ReferenceService,
     ConfigurationService,
     LayoutService,
     AuthenticationService,

@@ -31,6 +31,9 @@
           field="province_name_t"
           [suggestions]="provinceList"
           forceselection="true"
+          (onSelect)="seletedProvince()"
+          (onDropdownClick)="handleCompleteClickProvince()"
+          (completeMethod)="autocompleteProvince($event)"
           ></p-autoComplete>
       </div>
 
