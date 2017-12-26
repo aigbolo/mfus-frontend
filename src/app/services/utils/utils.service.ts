@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 @Injectable()
 export class UtilsService {
 
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   // cri is page action such as M = manage page, S = search page
   getActiveFlag(cri: string){
@@ -38,6 +39,6 @@ export class UtilsService {
   }
 
   goToPage(path: string){
-
+    this.router.navigate([path])
   }
 }

@@ -36,7 +36,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   subDistrictObject: RftSubDistrict;
   listSubDistrict: RftSubDistrict[] = [];
 
-  statusList: any[];
+  activeFlag: any[];
   titleList: any[];
 
   fileList: FileList;
@@ -57,6 +57,8 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.layoutService.setPageHeader('บันทึกข้อมูลเจ้าหน้าที่');
     this.image = '../../../../assets/images/empty_profile.png'
     this.validateForm();
+    this.activeFlag = this.utilService.getActiveFlag('M')
+    this.titleList = this.utilService.getTitleList()
     this.referenceService.initialProvince();
     this.getProvince();
   }
@@ -64,8 +66,6 @@ export class M010102ManageOfficerComponent implements OnInit {
   validateForm(){
     this.officerFormGroup = new FormGroup({
       officer_code: new FormControl(this.manageOfficerForm.acOfficer.officer_code,
-        Validators.compose([Validators.required])),
-      active_flag: new FormControl(this.manageOfficerForm.acOfficer.active_flag,
         Validators.compose([Validators.required])),
       gender: new FormControl(this.manageOfficerForm.acOfficer.gender,
         Validators.compose([Validators.required])),
@@ -214,23 +214,28 @@ export class M010102ManageOfficerComponent implements OnInit {
     // console.log(this.file.type);
   }
 
-  onSubmit() {
+  // onSubmit() {
 
-    if(this.officerFormGroup.invalid){
-      console.log("Form Invalid")
-      this.officerFormGroup.controls["officer_code"].markAsDirty();
-      this.officerFormGroup.controls["active_flag"].markAsDirty();
-      this.officerFormGroup.controls["gender"].markAsDirty();
-      this.officerFormGroup.controls["title_ref"].markAsDirty();
-      this.officerFormGroup.controls["personal_id"].markAsDirty();
-      this.officerFormGroup.controls["first_name"].markAsDirty();
-      this.officerFormGroup.controls["last_name"].markAsDirty();
-      this.officerFormGroup.controls["phone_no"].markAsDirty();
-      this.officerFormGroup.controls["email"].markAsDirty();
-      this.officerFormGroup.controls["image"].markAsDirty();
-    }
-    console.log("officerForm: ", this.manageOfficerForm)
-    this.officerService.insertNewOfficer(this.manageOfficerForm);
+  //   if(this.officerFormGroup.invalid){
+  //     console.log("Form Invalid")
+  //     this.officerFormGroup.controls["officer_code"].markAsDirty();
+  //     this.officerFormGroup.controls["active_flag"].markAsDirty();
+  //     this.officerFormGroup.controls["gender"].markAsDirty();
+  //     this.officerFormGroup.controls["title_ref"].markAsDirty();
+  //     this.officerFormGroup.controls["personal_id"].markAsDirty();
+  //     this.officerFormGroup.controls["first_name"].markAsDirty();
+  //     this.officerFormGroup.controls["last_name"].markAsDirty();
+  //     this.officerFormGroup.controls["phone_no"].markAsDirty();
+  //     this.officerFormGroup.controls["email"].markAsDirty();
+  //     this.officerFormGroup.controls["image"].markAsDirty();
+  //   }
+  //   console.log("officerForm: ", this.manageOfficerForm)
+  //   this.officerService.insertNewOfficer(this.manageOfficerForm);
+  // }
+
+  onSubmit() {
+    console.log(this.activeFlag)
+    console.log(this.manageOfficerForm.acOfficer.active_flag)
   }
 
   onResetClick() {
@@ -240,7 +245,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   onPageSearch() {
-
+    this.utilService.goToPage('search-officer')
   }
 
 }

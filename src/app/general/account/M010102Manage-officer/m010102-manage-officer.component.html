@@ -5,13 +5,13 @@
                 <div class="col-xs-6">
                     <label class="normal"> รหัสเจ้าหน้าที่ *</label>
                     <div>
-                        <input [(ngModel)]="manageOfficerForm.acOfficer.officer_code" formControlName="officer_code" name="officer_code" type="text" size="15" pInputText>
+                        <input [(ngModel)]="manageOfficerForm.acOfficer.officer_code" formControlName="officer_code" name="officer_code" type="text" pInputText>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <label class="normal"> สถานะ</label>
                     <div>
-                        <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.active_flag" formControlName="active_flag" name="active_flag" [options]="utilService.getActiveFlag('M')">
+                        <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.active_flag" name="active_flag" [options]="activeFlag">
                         </p-dropdown>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="col-xs-6">
                     <label class="normal">คำนำหน้า *</label>
                     <div>
-                        <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.title_ref" formControlName="title_ref" name="title_ref" [options]="utilService.getTitleList('M')">
+                        <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.title_ref" formControlName="title_ref" name="title_ref" [options]="titleList">
                         </p-dropdown>
                     </div>
                 </div>
@@ -144,13 +144,15 @@
         </div>
     </div>
 </form>
-<div class="row">
-    <div class="col-xs-9">
-        <button pButton type="submit" class="ui-button-success" label="บันทึก" (click)="onSubmit()">
+<div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton type="button" class="btn-back ui-button-info" label="ย้อนกลับ" (click)="onPageSearch()">
+          </button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton type="button" class="bbtn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
         </button>
-        <button pButton type="button" class="btn-normal" label="รีเซ็ท" (click)="onResetClick()">
-        </button>
-        <button pButton type="button" style="float: right;" class="btn-negative" label="กลับ" (click)="onPageSearch()">
-        </button>
+        <button pButton type="submit" class="btn-save ui-button-success" label="บันทึก" (click)="onSubmit()">
+          </button>
     </div>
 </div>
