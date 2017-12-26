@@ -42,8 +42,10 @@ export class LoginComponent implements OnInit {
         .then((user) => {
           this.logedinFalse = false;
           sessionStorage.setItem('token', user.ac_user.api_token);
+          sessionStorage.setItem('username', user.ac_user.user_id);
           this.router.navigateByUrl('/change-password');
-          this.authService.setLoggedinStage(user.ac_user.api_token)
+          this.authService.setLoggedinStage(user.ac_user.api_token);
+          this.layout.setDisplayName(user.ac_user.user_id);
         })
         .catch((err) => {
           this.logedinFalse = true;

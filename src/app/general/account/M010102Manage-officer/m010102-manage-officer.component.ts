@@ -1,3 +1,4 @@
+import { LayoutService } from './../../../services/utils/layout.service';
 import { M010102OfficerService } from './../../../services/officers/m010102-officer.service';
 import { ReferanceService } from './../../../services/general/reference.service';
 
@@ -48,14 +49,14 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   constructor(private utilService: UtilsService,
               private referenceService: ReferanceService,
-              private officerService: M010102OfficerService) { }
+              private officerService: M010102OfficerService,
+              private layoutService: LayoutService) { }
 
   ngOnInit() {
     console.log('manageofficer')
+    this.layoutService.setPageHeader('บันทึกข้อมูลเจ้าหน้าที่');
     this.image = '../../../../assets/images/empty_profile.png'
     this.validateForm();
-    this.statusList = this.utilService.getStatusList();
-    this.titleList = this.utilService.getTitleList();
     this.referenceService.initialProvince();
     this.getProvince();
   }

@@ -8,7 +8,7 @@
     <div class="col-xs-4">
         <label class="normal"> สถานะ</label>
         <div>
-            <p-dropdown [(ngModel)]="searchForm.acOfficer.active_flag" [options]="statusList">
+            <p-dropdown [(ngModel)]="searchForm.acOfficer.active_flag" [options]="utilService.getActiveFlag('S')">
             </p-dropdown>
         </div>
     </div>
@@ -40,7 +40,7 @@
 </button>
         <button pButton type="button" class="btn-normal" label="รีเซ็ท" (click)="onResetClick()">
 </button>
-        <button pButton type="button" style="float: right;" class="btn-negative" label="สร้างใหม่">
+        <button pButton type="button" style="float: right;" class="btn-negative" label="สร้างใหม่" (click)="onInsertClick()">
 </button>
     </div>
 </div>

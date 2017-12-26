@@ -7,6 +7,8 @@ export class LayoutService {
 
   private pageHeaderSubject = new BehaviorSubject<string>('');
 
+  private displayName = new BehaviorSubject<string>(sessionStorage.getItem('username'));
+
   constructor() { }
 
   // Set Page Header Name
@@ -20,6 +22,20 @@ export class LayoutService {
 
   getHeader(): Observable<any> {
     return this.pageHeaderSubject.asObservable();
+  }
+  // End
+
+  // Set Display Name
+  setDisplayName(name: string) {
+    this.displayName.next(name);
+  }
+
+  clearDisplayName() {
+    this.displayName.next('');
+  }
+
+  getDisplayName(): Observable<any> {
+    return this.displayName.asObservable();
   }
   // End
 }
