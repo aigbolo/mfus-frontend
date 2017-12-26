@@ -19,7 +19,8 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PageHeaderComponent } from './layout/page-header/page-header.component';
-import { M030101ManageSponsorComponent } from './officers/m030101-manage-sponsor/m030101-manage-sponsor.component';
+import { M030101ManageSponsorsComponent } from './officers/m030101-manage-sponsors/m030101-manage-sponsors.component';
+import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
 
@@ -27,9 +28,9 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
 import { ConfigurationService } from './services/utils/configuration.service';
 import { LayoutService } from './services/utils/layout.service';
 import { AuthenticationService } from './services/general/authentication.service';
-import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
+import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
-import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
+import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponso
     PageHeaderComponent,
     LoginComponent,
     ChangePasswordComponent,
-    M030101ManageSponsorComponent,
+    M030101ManageSponsorsComponent,
     M030101SearchSponsorsComponent,
   ],
   imports: [
@@ -74,8 +75,9 @@ import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponso
     ConfigurationService,
     LayoutService,
     AuthenticationService,
-    EnsureIsAuthService,
     UtilsService,
+    EnsureIsAuth,
+    EnsureIsNotAuth
   ],
   bootstrap: [AppComponent]
 })

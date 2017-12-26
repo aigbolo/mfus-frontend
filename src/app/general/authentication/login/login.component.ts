@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private layout: LayoutService,
-    private authService: AuthenticationService,
-    private reference: ReferanceService
+    private authService: AuthenticationService
   ) {
     this.layout.clearPageHeader();
   }
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
           this.logedinFalse = false;
           sessionStorage.setItem('token', user.ac_user.api_token);
           this.router.navigateByUrl('/change-password');
-          this.reference.getProvinces();
+          this.authService.setLoggedinStage(user.ac_user.api_token)
         })
         .catch((err) => {
           this.logedinFalse = true;
