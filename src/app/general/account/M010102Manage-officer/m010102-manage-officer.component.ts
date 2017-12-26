@@ -240,7 +240,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   onPageSearch() {
-
+    this.utilService.goToPage('search-officer')
   }
 
 }

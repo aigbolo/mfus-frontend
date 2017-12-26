@@ -1,3 +1,4 @@
+import { M010102OfficerService } from './../../../services/officers/m010102-officer.service';
 import { LayoutService } from './../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { OfficerForm } from '../../../forms/officer-form';
@@ -17,22 +18,33 @@ export class S010102SearchOfficerComponent implements OnInit {
   listOfficerForm: OfficerForm[];
 
   constructor(private utilService: UtilsService,
-              private layoutService: LayoutService,
-              private router:Router) { }
+    private layoutService: LayoutService,
+    private officerService: M010102OfficerService) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลเจ้าหน้าที่')
   }
 
-  onSearchClick(){
-    console.log(this.searchForm)
+  onSearchClick() {
+    console.log(this.searchForm.searchCriteria)
+    this.officerService.searchOfficer(this.searchForm).subscribe(res=>{
+
+      this.listOfficerForm = res
+      console.log(this.listOfficerForm)
+      for(let obj of this.listOfficerForm){
+        obj.fullname = obj.acOfficer.first_name + ' ' + obj.acOfficer.last_name
+      }
+      console.log(this.listOfficerForm)
+      return this.listOfficerForm
+    })
   }
 
-  onResetClick(){
+  onResetClick() {
     this.searchForm = new OfficerForm();
   }
 
-  onInsertClick(){
-    this.utilService.goToPage('/manage-officer')
+  onInsertPageClick() {
+    this.utilService.goToPage('manage-officer')
   }
+
 }
