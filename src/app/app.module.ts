@@ -42,7 +42,7 @@ import { LayoutService } from './services/utils/layout.service';
 import { AuthenticationService } from './services/general/authentication.service';
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
-// import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
+import { M030101ManageSponsorComponent } from './officers/m030101-manage-sponsor/m030101-manage-sponsor.component';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
@@ -58,7 +58,7 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     PageHeaderComponent,
     LoginComponent,
     ChangePasswordComponent,
-    // M030101ManageSponsorComponent,
+    M030101ManageSponsorComponent,
     M010102ManageOfficerComponent,
     SearchOfficerComponent
   ],

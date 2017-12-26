@@ -19,7 +19,7 @@ export class M030101ManageSponsorComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
     this.image = '../../assets/images/empty_profile.png';
-    this.listProvince = this.referanceService.getProvinces();
+    // this.listProvince = this.referanceService.getProvinces();
   }
 
 

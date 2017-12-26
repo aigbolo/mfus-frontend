@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnDestroy {
 
   status: any;

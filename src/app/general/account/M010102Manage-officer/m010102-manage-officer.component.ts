@@ -88,6 +88,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   getProvince() {
     console.log('getprovince')
     this.listProvince = [];
+    this.listProvince = this.referenceService.getProvinces();
   }
 
   autocompleteProvince(event) {
