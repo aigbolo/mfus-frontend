@@ -22,18 +22,45 @@
         <div class="row overide-row">
             <div class="col-xs-6 normal">
                 <label class="normal">จังหวัด *</label>
-                <p-autoComplete class="autocomplete-province" [dropdown]="true" field="province_name_t" [suggestions]="provinceList" forceselection="true" (onSelect)="seletedProvince()" (onDropdownClick)="handleCompleteClickProvince()" (completeMethod)="autocompleteProvince($event)"></p-autoComplete>
+                <p-autoComplete class="autocomplete-province"
+                [dropdown]="true"
+                [(ngModel)]="province"
+                field="province_name_t"
+                [suggestions]="provinceList"
+                forceselection="true"
+                (onSelect)="seletedProvince()"
+                (onDropdownClick)="handleCompleteClickProvince()"
+                (completeMethod)="autocompleteProvince($event)">
+                </p-autoComplete>
             </div>
 
             <div class="col-xs-6 normal">
                 <label class="normal">อำเภอ *</label>
-                <p-autoComplete class="autocomplete-district" [dropdown]="true"></p-autoComplete>
+                <p-autoComplete class="autocomplete-district"
+                [dropdown]="true"
+                [(ngModel)]="district"
+                field="district_name_t"
+                [suggestions]="districtList"
+                forceselection="true"
+                (onSelect)="seletedDistrict()"
+                (onDropdownClick)="handleCompleteClickDistrict()"
+                (completeMethod)="autocompleteDistrict($event)">
+              </p-autoComplete>
             </div>
         </div>
         <div class="row overide-row">
             <div class="col-xs-6 normal">
                 <label class="normal">ตำบล *</label>
-                <p-autoComplete class="autocomplete-sub-district" [dropdown]="true"></p-autoComplete>
+                <p-autoComplete class="autocomplete-sub-district"
+                [dropdown]="true"
+                [(ngModel)]="subDistrict"
+                field="sub_district_name_t"
+                [suggestions]="subDistrictList"
+                forceselection="true"
+                (onSelect)="seletedSubDistrict()"
+                (onDropdownClick)="handleCompleteClickSubDistrict()"
+                (completeMethod)="autocompleteSubDistrict($event)">
+              </p-autoComplete>
             </div>
             <div class="col-xs-6 normal">
                 <label class="normal">รหัสไปรษณีย์</label>
