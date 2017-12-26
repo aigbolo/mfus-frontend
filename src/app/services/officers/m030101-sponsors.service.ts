@@ -10,6 +10,7 @@ export class M030101SponsorsService {
   constructor(private config: ConfigurationService) { }
 
   doSearch(form:M030101SponsorsForm){
+    console.log(form.search_criteria);
     return this.config.requestMethodPOST('sponsors',form.search_criteria);
   }
 }

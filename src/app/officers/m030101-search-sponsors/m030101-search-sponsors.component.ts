@@ -3,21 +3,22 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { M030101SponsorsForm } from './../../forms/sponsors-form';
 import { UtilsService } from './../../services/utils/utils.service';
 import { LayoutService } from './../../services/utils/layout.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { M030101SponsorsService } from '../../services/officers/m030101-sponsors.service';
 import { SmSponsors } from '../../models/sm-sponsors';
 
 @Component({
   selector: 'app-m030101-search-sponsors',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m030101-search-sponsors.component.html',
   styleUrls: ['./m030101-search-sponsors.component.css']
 })
 export class M030101SearchSponsorsComponent implements OnInit {
   criteriaForm:M030101SponsorsForm = new M030101SponsorsForm();
-
   dataTable: SmSponsors[] = [];
   activeStatus = [];
+  onLoad = false;
   constructor(private layoutService: LayoutService,
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
@@ -30,7 +31,7 @@ export class M030101SearchSponsorsComponent implements OnInit {
 
   onSearch(){
     console.log('onSearch..............');
-    console.log(this.criteriaForm.search_criteria);
+    this.onLoad = true;
     this.sponsorsService.doSearch(this.criteriaForm).subscribe(data=>{
       this.dataTable = data;
     },
@@ -38,10 +39,8 @@ export class M030101SearchSponsorsComponent implements OnInit {
       console.log('error..............');
     },
   ()=>{
-    console.log('done..............');
-
     this.js.updateActiveFlagScript();
-
+    this.onLoad = false;
   });
 
   }

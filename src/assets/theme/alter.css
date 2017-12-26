@@ -12,6 +12,9 @@
   margin-right: 0px !important;
 }
 
+.ui-button-text-only .ui-button-text {
+  font-weight: 400;
+}
 /*End Alter library components */
 
 
@@ -21,6 +24,9 @@
 }
 .input-name {
   width: 250px;
+}
+.input-company-name{
+  width: 400px;
 }
 .input-address {
   width: 90%;

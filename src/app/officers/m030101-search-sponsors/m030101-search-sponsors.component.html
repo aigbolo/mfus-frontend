@@ -4,7 +4,7 @@
       <div class="col-xs-9">
         <label class="normal">ชื่อผู้สนับสนุน</label>
         <input
-        type="text" class="input-name" pInputText
+        type="text" class="input-company-name" pInputText
         [(ngModel)]="criteriaForm.search_criteria.sponsors_name">
       </div>
 
@@ -36,12 +36,14 @@
     </div>
 </div>
 
-    <p-dataTable [value]="dataTable" emptyMessage="ไม่พบข้อมูล">
+    <p-dataTable [value]="dataTable" emptyMessage="ไม่พบข้อมูล" [loading]="onLoad">
 
-      <p-column field="" header="ลำดับ"></p-column>
-      <p-column field="sponsors_name" header="ชื่อผู้สนับสนุน"></p-column>
-      <p-column field="address" header="ที่อยู่"></p-column>
-      <p-column field="phone_no" header="เบอร์โทรศัพท์"></p-column>
+      <p-column field="" header="ลำดับ" styleClass="row-number">
+          <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
+      </p-column>
+      <p-column field="sponsors_name" header="ชื่อผู้สนับสนุน" styleClass="sponsors-name"></p-column>
+      <p-column field="address" header="ที่อยู่" styleClass="address"></p-column>
+      <p-column field="phone_no" header="เบอร์โทรศัพท์" styleClass="phone-no"></p-column>
       <p-column field="active_flag" header="สถานะ" styleClass="active-flag"></p-column>
     </p-dataTable>
 

@@ -1,0 +1,15 @@
+/* Datatable */
+.row-number {
+  width: 50px;
+  text-align: center;
+}
+
+
+.active-flag {
+  width: 100px;
+  text-align: center;
+}
+
+.phone-no {
+  width: 150px;
+}
