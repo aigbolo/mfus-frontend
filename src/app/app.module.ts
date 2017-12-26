@@ -1,3 +1,4 @@
+import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
 import { SearchOfficerComponent } from './general/account/search-officer/search-officer.component';
 
 
@@ -100,7 +101,8 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     UtilsService,
     // EnsureIsAuthService,
     EnsureIsAuth,
-    EnsureIsNotAuth
+    EnsureIsNotAuth,
+    M030101SponsorsService,
   ],
   bootstrap: [AppComponent]
 })
