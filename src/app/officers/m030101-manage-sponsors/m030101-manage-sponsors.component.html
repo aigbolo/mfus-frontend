@@ -1,112 +1,85 @@
-
 <div class="row overide-row">
-<div class="col-xs-9">
- <div class="row overide-row">
     <div class="col-xs-9">
-        <label class="normal">ชื่อผู้สนับสนุน</label>
-          <input  name="sponsors_name"
-          type="text" class="input-company-name" pInputText required>
-      </div>
+        <div class="row overide-row">
+            <div class="col-xs-9">
+                <label class="normal">ชื่อผู้สนับสนุน</label>
+                <input name="sponsors_name" type="text" class="input-company-name" pInputText required>
+            </div>
 
-      <div class="col-xs-3">
-        <label class="normal">สถานะ *</label>
-          <p-dropdown [options]="activeStatus">
-          </p-dropdown>
-      </div>
-</div>
-
-<div class="row overide-row">
-      <div class="col-xs-12">
-        <label class="normal">ที่อยู่ *</label>
-          <input type="text"
-                class="input-address"
-                 pInputText>
-      </div>
-</div>
-<div class="row overide-row">
-      <div class="col-xs-6 normal">
-        <label class="normal">จังหวัด *</label>
-          <p-autoComplete class="autocomplete-province"
-          [dropdown]="true"
-          field="province_name_t"
-          [suggestions]="provinceList"
-          forceselection="true"
-          (onSelect)="seletedProvince()"
-          (onDropdownClick)="handleCompleteClickProvince()"
-          (completeMethod)="autocompleteProvince($event)"
-          ></p-autoComplete>
-      </div>
-
-      <div class="col-xs-6 normal">
-        <label class="normal">อำเภอ *</label>
-          <p-autoComplete class="autocomplete-district" [dropdown]="true"></p-autoComplete>
-      </div>
-</div>
-<div class="row overide-row">
-      <div class="col-xs-6 normal">
-        <label class="normal">ตำบล *</label>
-          <p-autoComplete class="autocomplete-sub-district" [dropdown]="true"></p-autoComplete>
-      </div>
-      <div class="col-xs-6 normal">
-        <label class="normal">รหัสไปรษณีย์</label>
-          <input
-          type="text"
-          pInputText>
-      </div>
-</div>
-<div class="row overide-row">
-      <div class="col-xs-6 normal">
-        <label class="normal">เบอร์โทรศัพท์ *</label>
-          <input type="text"
-                 pInputText>
-      </div>
-
-      <div class="col-xs-6 normal">
-        <label class="normal">อีเมลล์</label>
-          <input type="text" pInputText>
-      </div>
-</div>
-<div class="row overide-row">
-      <div class="col-xs-12 normal">
-        <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
-        <div>
-          <input name="website"
-                 type="text"
-                 id="website"
-                 pInputText>
+            <div class="col-xs-3">
+                <label class="normal">สถานะ *</label>
+                <p-dropdown [options]="activeStatus">
+                </p-dropdown>
+            </div>
         </div>
-      </div>
-</div>
-</div>
-<div class="col-xs-3">
-<div class="row overide-row">
-      <div class="col-xs-12 profile-upload">
-        <img [src]="image"
-        class="image-profile">
-      </div>
-      <div class="col-xs-12 profile-upload">
-        <p-fileUpload mode="basic" accept="image/*" maxFileSize="1000000" chooseLabel="เลือกไฟล์"></p-fileUpload>
-      </div>
-</div>
-</div>
+
+        <div class="row overide-row">
+            <div class="col-xs-12">
+                <label class="normal">ที่อยู่ *</label>
+                <input type="text" class="input-address" pInputText>
+            </div>
+        </div>
+        <div class="row overide-row">
+            <div class="col-xs-6 normal">
+                <label class="normal">จังหวัด *</label>
+                <p-autoComplete class="autocomplete-province" [dropdown]="true" field="province_name_t" [suggestions]="provinceList" forceselection="true" (onSelect)="seletedProvince()" (onDropdownClick)="handleCompleteClickProvince()" (completeMethod)="autocompleteProvince($event)"></p-autoComplete>
+            </div>
+
+            <div class="col-xs-6 normal">
+                <label class="normal">อำเภอ *</label>
+                <p-autoComplete class="autocomplete-district" [dropdown]="true"></p-autoComplete>
+            </div>
+        </div>
+        <div class="row overide-row">
+            <div class="col-xs-6 normal">
+                <label class="normal">ตำบล *</label>
+                <p-autoComplete class="autocomplete-sub-district" [dropdown]="true"></p-autoComplete>
+            </div>
+            <div class="col-xs-6 normal">
+                <label class="normal">รหัสไปรษณีย์</label>
+                <input type="text" pInputText>
+            </div>
+        </div>
+        <div class="row overide-row">
+            <div class="col-xs-6 normal">
+                <label class="normal">เบอร์โทรศัพท์ *</label>
+                <input type="text" pInputText>
+            </div>
+
+            <div class="col-xs-6 normal">
+                <label class="normal">อีเมลล์</label>
+                <input type="text" pInputText>
+            </div>
+        </div>
+        <div class="row overide-row">
+            <div class="col-xs-12 normal">
+                <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
+                <div>
+                    <input name="website" type="text" id="website" pInputText>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <div class="row overide-row">
+            <div class="col-xs-12 profile-upload">
+                <img [src]="image" class="image-profile">
+            </div>
+            <div class="col-xs-12 profile-upload">
+                <p-fileUpload mode="basic" accept="image/*" maxFileSize="1000000" chooseLabel="เลือกไฟล์"></p-fileUpload>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <!-- Action buttons here -->
 <div class="row overide-row btn-row">
-      <div class="col-xs-6 btn-panel-left">
-        <button pButton
-          class="btn-back ui-button-info"
-          label="ย้อนกลับ"></button>
-      </div>
-      <div class="col-xs-6 btn-panel-right">
-          <button pButton
-            type="reset"
-            class="btn-reset ui-button-warning"
-            label="เริ่มใหม่"></button>
-          <button pButton
-            type="submit"
-            class="btn-save ui-button-success"
-            label="บันทึกข้อมูล"></button>
-        </div>
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton type="reset" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
+        <button pButton type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
+    </div>
 </div>

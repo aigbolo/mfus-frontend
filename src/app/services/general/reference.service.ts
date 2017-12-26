@@ -30,7 +30,7 @@ export class ReferenceService {
   }
 
   getProvinces(): RftProvince[] {
-    console.log('service.getprovince')
+    console.log('getProvince')
     console.log(this.rftProvinces)
     return this.rftProvinces
   }
