@@ -1,3 +1,4 @@
+import { M010102OfficerService } from './../../../services/officers/m010102-officer.service';
 import { ReferanceService } from './../../../services/general/reference.service';
 
 import { RftSubDistrict } from './../../../models/rft-sub-district';
@@ -45,7 +46,9 @@ export class M010102ManageOfficerComponent implements OnInit {
   image_name: string;
   image_type: string;
 
-  constructor(private utilService: UtilsService, private referenceService: ReferanceService) { }
+  constructor(private utilService: UtilsService,
+              private referenceService: ReferanceService,
+              private officerService: M010102OfficerService) { }
 
   ngOnInit() {
     console.log('manageofficer')
@@ -53,6 +56,7 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.validateForm();
     this.statusList = this.utilService.getStatusList();
     this.titleList = this.utilService.getTitleList();
+    this.referenceService.initialProvince();
     this.getProvince();
   }
 
@@ -88,7 +92,8 @@ export class M010102ManageOfficerComponent implements OnInit {
   getProvince() {
     console.log('getprovince')
     this.listProvince = [];
-    this.listProvince = this.referenceService.getProvinces();
+    this.listProvince = this.referenceService.initialProvince();
+    console.log(this.listProvince)
   }
 
   autocompleteProvince(event) {
@@ -224,6 +229,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.officerFormGroup.controls["image"].markAsDirty();
     }
     console.log("officerForm: ", this.manageOfficerForm)
+    this.officerService.insertNewOfficer(this.manageOfficerForm);
   }
 
   onResetClick() {
@@ -231,7 +237,9 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.image = '../../../../assets/images/empty_profile.png'
 
   }
+
   onPageSearch() {
 
   }
+
 }

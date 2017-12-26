@@ -1,3 +1,4 @@
+import { M010102OfficerService } from './services/officers/m010102-officer.service';
 
 
 import { SearchOfficerComponent } from './general/account/search-officer/search-officer.component';
@@ -46,6 +47,7 @@ import { M030101ManageSponsorComponent } from './officers/m030101-manage-sponsor
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
+import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     ChangePasswordComponent,
     M030101ManageSponsorComponent,
     M010102ManageOfficerComponent,
-    SearchOfficerComponent
+    SearchOfficerComponent,
+    M030102ManageScholarshipComponent
   ],
   imports: [
     // Angular
@@ -95,6 +98,7 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     LayoutService,
     AuthenticationService,
     UtilsService,
+    M010102OfficerService,
     // EnsureIsAuthService,
     EnsureIsAuth,
     EnsureIsNotAuth

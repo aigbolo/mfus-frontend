@@ -9,12 +9,14 @@ import { M030101ManageSponsorComponent } from './officers/m030101-manage-sponsor
 // import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
+import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 
 const appRoutes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: ChangePasswordComponent },
   { path: "manage-officer", component: M010102ManageOfficerComponent },
   { path: "search-officer", component: SearchOfficerComponent },
+  { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
     { path: "", component: LoginComponent, canDeactivate: [] },
     { path: "", component: LoginComponent },
     { path: "change-password", component: ChangePasswordComponent, canActivate: [] },

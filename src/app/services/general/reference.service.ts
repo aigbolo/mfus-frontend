@@ -12,15 +12,19 @@ export class ReferanceService {
 
   constructor(private configuration: ConfigurationService) { }
 
-  initialProvince() {
+  initialProvince(): RftProvince[]  {
     console.log('initialProvince')
     this.configuration.requestMethodGET('autocomplete-province/province_name_t').subscribe(
-      data => {
+      (data:RftProvince[]) => {
         this.rftProvinces = data
       })
+      console.log(this.rftProvinces)
+      return this.rftProvinces
   }
 
   getProvinces(): RftProvince[] {
+    console.log('service.getprovince')
+    console.log(this.rftProvinces)
     return this.rftProvinces
   }
 
