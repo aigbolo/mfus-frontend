@@ -12,7 +12,7 @@ import { M030101SponsorsService } from '../../services/officers/m030101-sponsors
   styleUrls: ['./m030101-search-sponsors.component.css']
 })
 export class M030101SearchSponsorsComponent implements OnInit {
-  criteriaForm:M030101SponsorsForm = new M030101SponsorsForm();\
+  criteriaForm:M030101SponsorsForm = new M030101SponsorsForm();
   criteriaFormGroup: FormGroup;
 
   dataTable: any[] = [];
