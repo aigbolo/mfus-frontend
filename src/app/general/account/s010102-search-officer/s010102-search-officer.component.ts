@@ -33,6 +33,6 @@ export class S010102SearchOfficerComponent implements OnInit {
   }
 
   onInsertClick(){
-    this.router.navigate(['/manage-officer']);
+    this.utilService.goToPage('/manage-officer')
   }
 }
