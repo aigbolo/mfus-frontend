@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UtilsService {
 
+
+
   constructor() { }
 
   // cri is page action such as M = manage page, S = search page
@@ -23,5 +25,15 @@ export class UtilsService {
       ]
     }
     return activeStatus;
+  }
+
+
+  getTitleList() {
+    let titleList = [
+      { label: 'นาย', value: 'Mr' },
+      { label: 'นาง', value: 'Miss' },
+      { label: 'นางสาว', value: 'Mrs' }
+    ]
+    return titleList;
   }
 }
