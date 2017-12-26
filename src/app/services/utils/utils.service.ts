@@ -7,7 +7,7 @@ export class UtilsService {
   constructor() { }
 
   // cri is page action such as M = manage page, S = search page
-  getActiveStatus(cri: string){
+  getActiveFlag(cri: string){
     let activeStatus = []
 
     if(cri == 'M'){
