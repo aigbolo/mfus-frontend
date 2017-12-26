@@ -36,6 +36,7 @@ import { PageHeaderComponent } from './layout/page-header/page-header.component'
 import { M010102ManageOfficerComponent } from './general/account/M010102Manage-officer/m010102-manage-officer.component';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
+import { IndexComponent } from './general/info/index/index.component';
 
 // Service
 import { LayoutService } from './services/utils/layout.service';
@@ -60,7 +61,8 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     ChangePasswordComponent,
     // M030101ManageSponsorComponent,
     M010102ManageOfficerComponent,
-    SearchOfficerComponent
+    SearchOfficerComponent,
+    IndexComponent
   ],
   imports: [
     // Angular
@@ -95,7 +97,6 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
     LayoutService,
     AuthenticationService,
     UtilsService,
-    // EnsureIsAuthService,
     EnsureIsAuth,
     EnsureIsNotAuth
   ],
