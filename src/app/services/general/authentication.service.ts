@@ -31,8 +31,8 @@ export class AuthenticationService {
   }
 
   // Set Logged In Stage
-  setLoggedinStage(role: string) {
-    this.isLoggedin.next(role);
+  setLoggedinStage(token: string) {
+    this.isLoggedin.next(token);
   }
 
   clearLoggedinStage() {

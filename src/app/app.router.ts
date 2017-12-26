@@ -7,12 +7,14 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
 import { M030101ManageSponsorsComponent } from './officers/m030101-manage-sponsors/m030101-manage-sponsors.component';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
+import { IndexComponent } from './general/info/index/index.component';
 
 const appRoutes: Routes = [
-    { path: "login", component: LoginComponent, canActivate: [EnsureIsNotAuth] },
-    { path: "change-password", component: ChangePasswordComponent, canActivate: [EnsureIsAuth] },
-    { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [EnsureIsAuth] },
-    { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "", component: IndexComponent },
+  { path: "login", component: LoginComponent, canActivate: [EnsureIsNotAuth] },
+  { path: "change-password", component: ChangePasswordComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [EnsureIsAuth] },
 ]
 
 

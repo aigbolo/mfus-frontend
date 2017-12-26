@@ -11,15 +11,29 @@
          routerLink="/news">ข่าวสาร</a>
     </li>
 
-    <li style="float:right">
+    <li style="float:right"
+        *ngIf="!status">
       <a routerLinkActive="active"
          routerLink="/register">
         <span class="glyphicon glyphicon-user"></span> ลงทะเบียนผู้ใช้</a>
     </li>
-    <li style="float:right">
+    <li style="float:right"
+        *ngIf="!status">
       <a routerLinkActive="active"
          routerLink="/login">
         <span class="glyphicon glyphicon-log-in"></span> เข้าสู่ระบบ</a>
+    </li>
+    <li style="float:right;cursor:pointer;"
+        *ngIf="status">
+      <a (click)="onClickLogout()">
+        <span class="glyphicon glyphicon-log-out"></span>
+        ออกจากระบบ</a>
+    </li>
+    <li style="float:right;cursor:pointer;"
+        *ngIf="status">
+      <a>
+        <span class="glyphicon glyphicon-user"></span>
+        {{displayName}}</a>
     </li>
   </ul>
 </div>
