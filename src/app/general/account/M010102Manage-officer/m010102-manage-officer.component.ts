@@ -24,7 +24,6 @@ export class M010102ManageOfficerComponent implements OnInit {
   // Autocomplete Province
   provinceList: RftProvince[] = [];
   provinceObject: RftProvince;
-  listProvince: RftProvince[] = [];
 
   // Autocomplete District
   districtList: RftDistrict[] = [];
@@ -92,11 +91,10 @@ export class M010102ManageOfficerComponent implements OnInit {
   autocompleteProvince(event) {
     console.log(event.query)
     let query = event.query;
-
+    this.provinceList = [];
     this.manageOfficerForm.rftDistrict = new RftDistrict();
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
     let objList = this.referenceService.getProvinces();
-    objList = this.listProvince;
     for (let obj of objList) {
       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.provinceList.push(obj);
@@ -117,33 +115,26 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.subDistrictList = [];
     this.manageOfficerForm.rftDistrict = new RftDistrict();
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
-    // this.utilService.getDistrictsByProvinceRef(this.manageOfficerForm.rftProvince.province_ref)
-    //   .subscribe((res: RftDistrict[]) => {
-    //     this.listDistrict = [];
-    //     this.listDistrict.push(...res);
-    //   }
-    //   );
+    this.referenceService.initialDistrict(this.manageOfficerForm.rftProvince.province_ref)
   }
 
   autocompleteDistrict(event) {
     let query = event.query;
     this.districtList = [];
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
-    let objList: RftDistrict[];
-    objList = this.listDistrict;
+    let objList = this.referenceService.getDistricts();
     for (let obj of objList) {
-      if (this.manageOfficerForm.rftProvince.province_ref === obj.province_ref) {
+      // if (this.manageOfficerForm.rftProvince.province_ref === obj.province_ref) {
         if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           this.districtList.push(obj);
-        }
+        // }
       }
     }
   }
 
   handleCompleteClickDistrict() {
-    this.districtList = [];
     setTimeout(() => {
-      this.districtList = this.listDistrict;
+      this.districtList = this.referenceService.getDistricts();
       this.subDistrictList = [];
     }, 100)
   }
@@ -151,32 +142,27 @@ export class M010102ManageOfficerComponent implements OnInit {
   selectDistrict(event: SelectItem) {
     this.listSubDistrict = [];
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
-    // this.utilService.getSubDistrictsByDistrictRef(this.officerEditForm.rftDistrict.district_ref)
-    //   .subscribe((res: RftSubDistrict[]) => {
-    //     this.listSubDistrict.push(...res);
-    //   }
-    //   );
+    this.referenceService.initialSubDistrict(this.manageOfficerForm.rftDistrict.district_ref)
   }
 
   autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
-    let objList: RftSubDistrict[] = this.listSubDistrict;
+    let objList = this.referenceService.getSubDistricts()
     for (let obj of objList) {
-      if (obj.province_ref == this.manageOfficerForm.rftProvince.province_ref) {
-        if (obj.district_ref == this.manageOfficerForm.rftDistrict.district_ref) {
+      // if (obj.province_ref == this.manageOfficerForm.rftProvince.province_ref) {
+      //   if (obj.district_ref == this.manageOfficerForm.rftDistrict.district_ref) {
           if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
             this.listSubDistrict.push(obj);
-          }
-        }
+        //   }
+        // }
       }
     }
   }
 
   handleCompleteClickSubDistrict() {
-    this.subDistrictList = [];
     setTimeout(() => {
-      this.subDistrictList = this.listSubDistrict;
+      this.subDistrictList = this.referenceService.getSubDistricts()
     }, 100)
   }
 

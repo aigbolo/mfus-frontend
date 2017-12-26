@@ -70,9 +70,6 @@
                     <div>
                         <p-autoComplete field="province_name_t" [(ngModel)]="manageOfficerForm.rftProvince" formControlName="province_name_t" [suggestions]="provinceList" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
                             (completeMethod)="autocompleteProvince($event)">
-                            <ng-template let-obj pTemplate="obj">
-                                {{obj.province_name_t}}
-                            </ng-template>
                         </p-autoComplete>
                     </div>
                 </div>
@@ -81,9 +78,6 @@
                     <div>
                         <p-autoComplete [(ngModel)]="manageOfficerForm.rftDistrict" formControlName="district_name_t" [suggestions]="districtList" [dropdown]="true" [disabled]="manageOfficerForm.rftProvince.province_ref == null" (completeMethod)="autocompleteDistrict($event)"
                             (onDropdownClick)="handleCompleteClickDistrict($event)" field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" name="autocompleteDistrict">
-                            <ng-template let-obj pTemplate="item">
-                                {{obj.district_name_t}}
-                            </ng-template>
                         </p-autoComplete>
                     </div>
                 </div>
@@ -94,9 +88,6 @@
                     <div>
                         <p-autoComplete [(ngModel)]="manageOfficerForm.rftSubDistrict" formControlName="sub_district_name_t" [suggestions]="subDistrictList" [dropdown]="true" [disabled]="manageOfficerForm.rftDistrict.district_ref == null" (completeMethod)="autocompleteSubDistrict($event)"
                             (onDropdownClick)="handleCompleteClickSubDistrict($event)" field="sub_district_name_t" (onSelect)="selectSubDistrict()" forceSelection="true" name="autocompleteSubdistrict">
-                            <ng-template let-obj pTemplate="item">
-                                {{obj.sub_district_name_t}}
-                            </ng-template>
                         </p-autoComplete>
                     </div>
                 </div>
