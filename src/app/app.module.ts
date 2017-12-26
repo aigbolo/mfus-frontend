@@ -42,9 +42,10 @@ import { LayoutService } from './services/utils/layout.service';
 import { AuthenticationService } from './services/general/authentication.service';
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
-import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
-import { EnsureIsAuthService } from './services/general/ensure-is-auth.service';
+// import { M030101ManageSponsorComponent } from './officers/manage-scholarships/m030101-manage-sponsor/m030101-manage-sponsor.component';
+import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
 import { ReferanceService } from './services/general/reference.service';
+import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 
 
 @NgModule({
@@ -57,7 +58,7 @@ import { ReferanceService } from './services/general/reference.service';
     PageHeaderComponent,
     LoginComponent,
     ChangePasswordComponent,
-    M030101ManageSponsorComponent,
+    // M030101ManageSponsorComponent,
     M010102ManageOfficerComponent,
     SearchOfficerComponent
   ],
@@ -94,7 +95,9 @@ import { ReferanceService } from './services/general/reference.service';
     LayoutService,
     AuthenticationService,
     UtilsService,
-    EnsureIsAuthService
+    // EnsureIsAuthService,
+    EnsureIsAuth,
+    EnsureIsNotAuth
   ],
   bootstrap: [AppComponent]
 })

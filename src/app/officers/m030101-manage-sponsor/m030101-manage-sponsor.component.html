@@ -26,7 +26,12 @@
 <div class="row overide-row">
       <div class="col-xs-6 normal">
         <label class="normal">จังหวัด *</label>
-          <p-autoComplete class="autocomplete-province" [dropdown]="true"></p-autoComplete>
+          <p-autoComplete class="autocomplete-province"
+          [dropdown]="true"
+          field="province_name_t"
+          [suggestions]="provinceList"
+          forceselection="true"
+          ></p-autoComplete>
       </div>
 
       <div class="col-xs-6 normal">

@@ -36,3 +36,14 @@
 .input-mail {
   width: 300px;
 }
+
+.autocomplete-province{
+  width: 200px;
+}
+
+.autocomplete-district{
+  width: 200px;
+}
+.autocomplete-sub-district{
+  width: 200px;
+}

@@ -2,10 +2,20 @@
 <navbar></navbar>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="50" [showSpinner]="true" [direction]="'lefttToRightIncreased'" [color]="'red'" [trickleSpeed]="100" [thick]="true" [ease]="'linear'"></ng-progress>
 <div class="container-fixed">
-    <div class="col-xs-3">
+    <div class="col-xs-3" *ngIf="status">
         <sidebar></sidebar>
     </div>
-    <div class="col-xs-9">
+    <div class="col-xs-9" *ngIf="status">
+        <div class="content">
+            <div class="page-title">
+                <page-header></page-header>
+            </div>
+            <div class="page-content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12" *ngIf="!status">
         <div class="content">
             <div class="page-title">
                 <page-header></page-header>
