@@ -15,6 +15,13 @@
 .ui-button-text-only .ui-button-text {
   font-weight: 400;
 }
+
+.ui-datatable td span {
+  padding-left: 5px;
+  word-wrap: break-word;
+}
+
+
 /*End Alter library components */
 
 

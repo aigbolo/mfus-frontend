@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class M030101ManageSponsorsComponent implements OnInit {
   image: any;
   activeStatus = [];
+  provinceList: RftProvince[] = [];
   constructor(private layoutService: LayoutService,
               private referanceService: ReferanceService,
               private utilsService: UtilsService) { }
@@ -20,64 +21,38 @@ export class M030101ManageSponsorsComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
     this.image = '../../assets/images/empty_profile.png';
-    // this.listProvince = this.referanceService.getProvinces();
+    this.referanceService.initialProvince();
     this.activeStatus = this.utilsService.getActiveFlag('M');
+
   }
 
 
 
 
-  // autocompleteProvince(event) {
-  //   console.log("autocompleteProvince");
-  //   let query = event.query;
-  //   this.provinceList = [];
-  //   // this.homeDistrict = new RftDistrict();
-  //   // this.homeSubDistrict = new RftSubDistrict();
-  //   let objList: RftProvince[];
-  //   objList = this.listProvince;
-  //   for (let obj of objList) {
-  //     // Filter By string event
-  //     if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-  //       this.homeProvinceList.push(obj);
-  //     }
-  //   }
-  // }
+  autocompleteProvince(event) {
+    console.log("autocompleteProvince");
+    let query = event.query;
+    this.provinceList = [];
+    // this.homeDistrict = new RftDistrict();
+    // this.homeSubDistrict = new RftSubDistrict();
+    let objList: RftProvince[];
+    objList = this.referanceService.getProvinces();
+    for (let obj of objList) {
+      // Filter By string event
+      if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.provinceList.push(obj);
+      }
+    }
+  }
 
-  // handleCompleteClickProvince(index: number) {
-  //   console.log("handleCompleteClickProvince");
-  //   if (index == 0) {
-  //     this.homeProvinceList = [];
+  handleCompleteClickProvince(index: number) {
+    console.log("handleCompleteClickProvince");
 
-  //     setTimeout(() => {
-  //       this.homeProvinceList = this.listProvince;
-  //       this.homeDistrictList = [];
-  //       this.homeSubDistrictList = [];
-  //     }, 100);
-  //   }
-  //   if (index == 1) {
-  //     this.currentProvinceList = [];
-  //     setTimeout(() => {
-  //       this.currentProvinceList = this.listProvince;
-  //       this.currentDistrictList = [];
-  //       this.currentSubDistrictList = [];
-  //     }, 100);
-  //   }
-  // }
+     setTimeout(() => {
+      this.provinceList = this.referanceService.getProvinces();
+    }, 100);
 
-  //  // Autocomplete Selected
-  //  selectProvince(index: number) {
-  //   console.log("selectProvince");
-  //   if (index == 0) {
-  //     // this.thisForm.homeProvince = new RftProvince();
-  //     this.homeDistrict = new RftDistrict();
-  //     this.homeSubDistrict = new RftSubDistrict();
-  //     this.thisForm.acAddress.home_postcode = null;
-  //     this.utilsService
-  //       .getDistrictsByProvinceRef(this.homeProvince.province_ref)
-  //       .subscribe((res: RftDistrict[]) => {
-  //         this.homeListDistrict = [];
-  //         this.homeListDistrict.push(...res);
-  //       });
-  //   }
-  // }
+
+  }
+
 }
