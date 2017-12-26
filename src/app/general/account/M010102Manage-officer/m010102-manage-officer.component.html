@@ -11,7 +11,7 @@
                 <div class="col-xs-6">
                     <label class="normal"> สถานะ</label>
                     <div>
-                        <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.active_flag" name="active_flag" [options]="activeFlag">
+                        <p-dropdown [(ngModel)]="manageOfficerForm.acOfficer.active_flag" formControlName="active_flag" name="active_flag" [options]="activeFlag">
                         </p-dropdown>
                     </div>
                 </div>

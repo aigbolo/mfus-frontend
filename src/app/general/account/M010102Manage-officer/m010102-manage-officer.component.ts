@@ -60,7 +60,6 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.activeFlag = this.utilService.getActiveFlag('M')
     this.titleList = this.utilService.getTitleList()
     this.referenceService.initialProvince();
-    this.getProvince();
   }
 
   validateForm(){
@@ -90,16 +89,10 @@ export class M010102ManageOfficerComponent implements OnInit {
     });
   }
 
-  getProvince() {
-    console.log('getprovince')
-    this.listProvince = [];
-    this.listProvince = this.referenceService.initialProvince();
-    console.log(this.listProvince)
-  }
-
   autocompleteProvince(event) {
+    console.log(event.query)
     let query = event.query;
-    this.provinceList = [];
+    this.provinceList
     this.manageOfficerForm.rftDistrict = new RftDistrict();
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
     let objList: RftProvince[];
@@ -112,10 +105,8 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   handleCompleteClickProvince() {
-    this.provinceList = [];
-
     setTimeout(() => {
-      this.provinceList = this.listProvince;
+      this.provinceList = this.referenceService.getProvinces();
       this.districtList = [];
       this.subDistrictList = [];
     }, 100)
