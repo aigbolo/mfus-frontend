@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { AcUser } from '../../../models/ac-user';
 import { AuthenticationService } from '../../../services/general/authentication.service';
-import { ReferanceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-login',
