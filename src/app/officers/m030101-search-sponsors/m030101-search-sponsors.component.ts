@@ -4,7 +4,7 @@ import { M030101SponsorsForm } from './../../forms/sponsors-form';
 import { UtilsService } from './../../services/utils/utils.service';
 import { LayoutService } from './../../services/utils/layout.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { M030101SponsorsService } from '../../services/officers/m030101-sponsors.service';
 import { SmSponsors } from '../../models/sm-sponsors';
 
@@ -22,7 +22,7 @@ export class M030101SearchSponsorsComponent implements OnInit {
   constructor(private layoutService: LayoutService,
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
-              private js: JqueryScriptService) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาผู้ให้ทุนการศึกษา');
@@ -30,7 +30,6 @@ export class M030101SearchSponsorsComponent implements OnInit {
   }
 
   onSearch(){
-    console.log('onSearch..............');
     this.onLoad = true;
     this.sponsorsService.doSearch(this.criteriaForm).subscribe(data=>{
       this.dataTable = data;
@@ -39,10 +38,15 @@ export class M030101SearchSponsorsComponent implements OnInit {
       console.log('error..............');
     },
   ()=>{
-    this.js.updateActiveFlagScript();
     this.onLoad = false;
   });
 
+  }
+  onReset(){
+    this.criteriaForm = new M030101SponsorsForm;
+  }
+  onPageInsert(){
+    this.router.navigate(['manage-sponsors']);
   }
 
 }

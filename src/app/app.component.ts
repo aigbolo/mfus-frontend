@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ReferanceService } from './services/general/reference.service';
+import { ReferenceService } from './services/general/reference.service';
 import { AuthenticationService } from './services/general/authentication.service';
 import { Subscription } from 'rxjs/Subscription';
 

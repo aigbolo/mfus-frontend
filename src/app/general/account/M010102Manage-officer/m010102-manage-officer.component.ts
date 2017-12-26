@@ -1,6 +1,6 @@
 import { LayoutService } from './../../../services/utils/layout.service';
 import { M010102OfficerService } from './../../../services/officers/m010102-officer.service';
-import { ReferanceService } from './../../../services/general/reference.service';
+import { ReferenceService } from './../../../services/general/reference.service';
 
 import { RftSubDistrict } from './../../../models/rft-sub-district';
 import { RftDistrict } from './../../../models/rft-district';
@@ -48,7 +48,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   image_type: string;
 
   constructor(private utilService: UtilsService,
-              private referenceService: ReferanceService,
+              private referenceService: ReferenceService,
               private officerService: M010102OfficerService,
               private layoutService: LayoutService) { }
 
@@ -92,10 +92,10 @@ export class M010102ManageOfficerComponent implements OnInit {
   autocompleteProvince(event) {
     console.log(event.query)
     let query = event.query;
-    this.provinceList
+
     this.manageOfficerForm.rftDistrict = new RftDistrict();
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
-    let objList: RftProvince[];
+    let objList = this.referenceService.getProvinces();
     objList = this.listProvince;
     for (let obj of objList) {
       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {

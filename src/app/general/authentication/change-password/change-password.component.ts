@@ -1,6 +1,6 @@
 import { LayoutService } from '../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
-import { ReferanceService } from '../../../services/general/reference.service';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-change-password',
