@@ -1,3 +1,5 @@
+import { AcOfficer } from './../../../models/ac-officer';
+import { JqueryScriptService } from './../../../services/utils/jquery-script.service';
 import { M010102OfficerService } from './../../../services/officers/m010102-officer.service';
 import { LayoutService } from './../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,11 +17,12 @@ export class S010102SearchOfficerComponent implements OnInit {
   searchForm: OfficerForm = new OfficerForm();
   statusList: any[];
 
-  listOfficerForm: OfficerForm[];
+  listOfficer: AcOfficer[];
 
   constructor(private utilService: UtilsService,
     private layoutService: LayoutService,
-    private officerService: M010102OfficerService) { }
+    private officerService: M010102OfficerService,
+    private js: JqueryScriptService) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลเจ้าหน้าที่')
@@ -28,15 +31,19 @@ export class S010102SearchOfficerComponent implements OnInit {
   onSearchClick() {
     console.log(this.searchForm.searchCriteria)
     this.officerService.searchOfficer(this.searchForm).subscribe(res=>{
-
-      this.listOfficerForm = res
-      console.log(this.listOfficerForm)
-      for(let obj of this.listOfficerForm){
-        obj.fullname = obj.acOfficer.first_name + ' ' + obj.acOfficer.last_name
+      console.log(res)
+      this.listOfficer = res
+      for(let obj of this.listOfficer){
+        obj.first_name = obj.first_name + ' ' +obj.last_name
       }
-      console.log(this.listOfficerForm)
-      return this.listOfficerForm
-    })
+      console.log(this.listOfficer)
+
+      return this.listOfficer
+    },error=>{
+     console.log('error: ' + error)
+    },()=>{
+      this.js.updateActiveFlagScript();
+    });
   }
 
   onResetClick() {

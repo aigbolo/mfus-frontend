@@ -10,7 +10,7 @@ export class M010102OfficerService {
 
 
   insertNewOfficer(officerForm: OfficerForm) {
-    console.log(OfficerForm)
+    // console.log(OfficerForm)
   }
 
   searchOfficer(form: OfficerForm) {

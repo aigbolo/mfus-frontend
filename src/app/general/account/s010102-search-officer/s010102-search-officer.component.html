@@ -34,33 +34,26 @@
     </div>
 </div>
 <div class=""></div>
-<div class="row">
-    <div class="col-xs-12">
-        <button pButton type="submit" class="btn-positive" label="ค้นหา" (click)="onSearchClick()">
+<div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton type="submit" class="btn-search primary" label="ค้นหา" (click)="onSearchClick()">
 </button>
-        <button pButton type="button" class="btn-normal" label="รีเซ็ท" (click)="onResetClick()">
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton type="button" class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
 </button>
-        <button pButton type="button" style="float: right;" class="btn-negative" label="สร้างใหม่" (click)="onInsertPageClick()">
+        <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPageClick()">
 </button>
     </div>
 </div>
 <div class="space"></div>
 <div class="row">
-    <p-dataTable [value]="listOfficerForm">
-        <p-column [sortable]="true" field="acOfficer.officer_code" header="รหัสเจ้าหน้าที่">
-            <ng-template let-col let-officer="rowData" pTemplate="body">
-                {{officer.officer_code}}
-            </ng-template>
+    <p-dataTable [value]="listOfficer" selectionMode="single">
+        <p-column [sortable]="true" field="officer_code" header="รหัสเจ้าหน้าที่">
         </p-column>
-        <p-column [sortable]="true" field="fullname" header="ชื่อเจ้าหน้าที่">
-            <ng-template let-col let-officer="rowData" pTemplate="body">
-                {{fullname}}
-            </ng-template>
+        <p-column [sortable]="true" field="first_name" header="ชื่อเจ้าหน้าที่">
         </p-column>
-        <p-column [sortable]="true" field="status" header="สถานะ">
-            <ng-template let-col let-officer="rowData" pTemplate="body">
-                {{status}}
-            </ng-template>
+        <p-column [sortable]="true" field="active_flag" header="สถานะ" styleClass="active-flag">
         </p-column>
     </p-dataTable>
 </div>
