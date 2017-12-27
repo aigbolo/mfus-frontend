@@ -17,6 +17,7 @@ const appRoutes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [EnsureIsNotAuth] },
   { path: "manage-officer", component: M010102ManageOfficerComponent },
   { path: "search-officer", component: S010102SearchOfficerComponent },
+  { path: "manage-officer/:id", component: M010102ManageOfficerComponent },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
   { path: "change-password", component: ChangePasswordComponent, canActivate: [] },
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
