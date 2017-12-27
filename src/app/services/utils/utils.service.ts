@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/primeng';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 @Injectable()
 export class UtilsService {
 
@@ -13,18 +14,18 @@ export class UtilsService {
   getActiveFlag(cri: string):SelectItem[]{
     let activeStatus:SelectItem[] = []
 
-    if(cri == 'M'){
+    if (cri == 'M') {
       activeStatus = [
-        {label: 'ใช้งาน', value: 'Y'},
-        {label: 'ไม่ใช้งาน', value: 'N'}
+        { label: 'ใช้งาน', value: 'Y' },
+        { label: 'ไม่ใช้งาน', value: 'N' }
       ]
     }
 
-    if(cri == 'S'){
+    if (cri == 'S') {
       activeStatus = [
-        {label: 'ไม่ระบุ', value: ''},
-        {label: 'ใช้งาน', value: 'Y'},
-        {label: 'ไม่ใช้งาน', value: 'N'}
+        { label: 'ไม่ระบุ', value: '' },
+        { label: 'ใช้งาน', value: 'Y' },
+        { label: 'ไม่ใช้งาน', value: 'N' }
       ]
     }
     return activeStatus;
@@ -40,7 +41,7 @@ export class UtilsService {
     return titleList;
   }
 
-  goToPage(path: string){
+  goToPage(path: string) {
     this.router.navigate([path])
   }
 
