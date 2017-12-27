@@ -19,7 +19,7 @@ import { SelectItem } from 'primeng/primeng';
   styleUrls: ['./m010102-manage-officer.component.css']
 })
 export class M010102ManageOfficerComponent implements OnInit {
-
+  user = localStorage.getItem('username');
   manageOfficerForm: OfficerForm = new OfficerForm();
   officerFormGroup: FormGroup;
 
@@ -40,13 +40,11 @@ export class M010102ManageOfficerComponent implements OnInit {
   activeFlag: any[];
   titleList: any[];
 
-  fileList: FileList;
-  binaryString: string;
-  file: File;
+  uploadedFiles: any[] = [];
 
   btnLabel: string;
 
-  constructor(private utilService: UtilsService,
+  constructor(private utilsService: UtilsService,
     private referenceService: ReferenceService,
     private officerService: M010102OfficerService,
     private layoutService: LayoutService,
@@ -57,16 +55,15 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.layoutService.setPageHeader('บันทึกข้อมูลเจ้าหน้าที่');
     this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png'
     this.validateForm();
-    this.activeFlag = this.utilService.getActiveFlag('M')
-    this.titleList = this.utilService.getTitleList()
+    this.activeFlag = this.utilsService.getActiveFlag('M')
+    this.titleList = this.utilsService.getTitleList()
     this.referenceService.initialProvince();
     this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params['id'];
     if (this.manageOfficerForm.acOfficer.officer_ref != null) {
       console.log('update')
       this.btnLabel = 'แก้ไขข้อมูล'
-      this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(res => {
-        this.manageOfficerForm.acOfficer = res;
-      })
+      this.layoutService.setPageHeader('แก้ไขข้อมูลเจ้าหน้าที่');
+      this.onRowSelected();
     }
   }
 
@@ -80,7 +77,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       title_ref: new FormControl(this.manageOfficerForm.acOfficer.title_ref,
         Validators.compose([Validators.required])),
       personal_id: new FormControl(this.manageOfficerForm.acOfficer.personal_id,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])),
       first_name: new FormControl(this.manageOfficerForm.acOfficer.first_name,
         Validators.compose([Validators.required])),
       last_name: new FormControl(this.manageOfficerForm.acOfficer.last_name,
@@ -88,9 +85,9 @@ export class M010102ManageOfficerComponent implements OnInit {
       address: new FormControl(this.manageOfficerForm.acOfficer.address),
       postcode: new FormControl(this.manageOfficerForm.acOfficer.postcode),
       phone_no: new FormControl(this.manageOfficerForm.acOfficer.phone_no,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])),
       email: new FormControl(this.manageOfficerForm.acOfficer.email,
-        Validators.compose([Validators.required])),
+        Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)),
       province_name_t: new FormControl(this.manageOfficerForm.rftProvince.province_name_t),
       district_name_t: new FormControl(this.manageOfficerForm.rftDistrict.district_name_t),
       sub_district_name_t: new FormControl(this.manageOfficerForm.rftSubDistrict.sub_district_name_t),
@@ -181,31 +178,27 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
   }
 
-  onUpload(event) {
-    this.fileList = event.target.files;
-    if (this.fileList.length > 0) {
-      this.file = this.fileList[0];
-      // 10 MB
-      if (this.file.size < 10000000) {
-        let reader = new FileReader();
-        reader.onload = this.handleReaderLoaded.bind(this);
-        reader.readAsBinaryString(this.file);
-      }
+  onUpload(event){
+
+    if(event.files != null)
+    this.uploadedFiles = [];
+
+    for(let file of event.files) {
+      this.uploadedFiles.push(file);
     }
+    this.manageOfficerForm.acOfficer.profile_image = this.uploadedFiles[0].objectURL;
+    this.manageOfficerForm.acOfficer.profile_name = this.uploadedFiles[0].name;
+    this.manageOfficerForm.acOfficer.profile_type = this.uploadedFiles[0].type;
+
+    this.utilsService.convertBlobToString(this.manageOfficerForm.acOfficer.profile_image).subscribe(
+      val =>{
+        this.manageOfficerForm.acOfficer.profile_image = val;
+      }
+    )
   }
 
-  handleReaderLoaded(readerEvent) {
-    this.binaryString = readerEvent.target.result;
-    // this.imageDetail.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
-    // console.log(this.file.name);
-    // console.log(this.file.size);
-    // console.log(this.file.type);
-    // this.imageDetail.image_name = this.file.name
-    // this.imageDetail.image_type = this.file.type
-
-    this.manageOfficerForm.acOfficer.profile_image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
-    this.manageOfficerForm.acOfficer.profile_name = this.file.name
-    this.manageOfficerForm.acOfficer.profile_type = this.file.type
+  onRowSelected(){
+    this.officerService.selectOfficer(this.manageOfficerForm.acOfficer)
   }
 
   onSubmit() {
@@ -224,7 +217,7 @@ export class M010102ManageOfficerComponent implements OnInit {
         this.officerFormGroup.controls["image"].markAsDirty();
       }
       console.log("officerForm: ", this.manageOfficerForm)
-      this.officerService.insertNewOfficer(this.manageOfficerForm.acOfficer);
+      this.officerService.insertNewOfficer(this.manageOfficerForm.acOfficer, this.user);
     } else {
       console.log("officerForm: ", this.manageOfficerForm)
       this.officerService.updateOfficer(this.manageOfficerForm)
@@ -236,11 +229,13 @@ export class M010102ManageOfficerComponent implements OnInit {
   onResetClick() {
     this.manageOfficerForm = new OfficerForm();
     this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png'
+    this.manageOfficerForm.acOfficer.profile_name = ''
+    this.manageOfficerForm.acOfficer.profile_type = ''
 
   }
 
   onPageSearch() {
-    this.utilService.goToPage('search-officer')
+    this.utilsService.goToPage('search-officer')
   }
 
 

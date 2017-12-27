@@ -114,17 +114,14 @@
             </div>
         </div>
         <div class="col-xs-3">
-            <div class="row center">
-                <img src="{{ manageOfficerForm.acOfficer.profile_image }}" class="image-preview fixed-image">
-            </div>
-            <div class="row center">
-                <label (change)="onUpload($event)" class="btn-positive" label="เลือกไฟล์" pButton>
-            <input
-              name="image"
-              type="file"
-              accept="image/*, application/pdf"
-              class="display-none">
-          </label>
+            <div class="row overide-row">
+                <div class="col-xs-12 profile-upload">
+                    <img [src]="manageOfficerForm.acOfficer.profile_image" class="image-profile">
+                </div>
+                <div class="col-xs-12 profile-upload">
+                    <p-fileUpload customUpload="true" auto="true" (uploadHandler)="onUpload($event)" chooseLabel="เลือกไฟล์"></p-fileUpload>
+                </div>
+                <div class="col-xs-12">{{manageOfficerForm.acOfficer.profile_name}}</div>
             </div>
             <div class="row center">
                 <div>

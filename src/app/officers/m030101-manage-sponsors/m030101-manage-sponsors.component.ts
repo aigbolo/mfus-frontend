@@ -17,7 +17,7 @@ import { M030101SponsorsForm } from '../../forms/sponsors-form';
   styleUrls: ['./m030101-manage-sponsors.component.css']
 })
 export class M030101ManageSponsorsComponent implements OnInit {
-  user = sessionStorage.getItem('username');
+  user = localStorage.getItem('username');
   manageForm: M030101SponsorsForm = new M030101SponsorsForm();
   manageFormGroup: FormGroup;
 
