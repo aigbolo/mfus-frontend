@@ -30,9 +30,14 @@ export class AuthenticationService {
     return this.config.requestMethodPOSTWithHeader('ensure', '', headers).toPromise()
   }
 
-  changePassword(oldPassword: string, newPassword: string) {
-    const param = { old_pwd: oldPassword, new_pwd: newPassword }
-    return this.config.requestMethodPOST('change-password', param)
+  changePassword(userId: string, newPassword: string) {
+    const param = { user_id: userId, password: newPassword }
+    return this.config.requestMethodPOST('reset-password', param)
+  }
+
+  forgotPassword(username: string, email: string) {
+    const param = { user_id: username, email: email }
+    return this.config.requestMethodPOST('forget-password', param)
   }
 
   // Set Logged In Stage

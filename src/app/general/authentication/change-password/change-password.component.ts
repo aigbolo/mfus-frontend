@@ -41,13 +41,24 @@ export class ChangePasswordComponent implements OnInit {
       return
     }
 
-    this.authService.changePassword(this.group.value.old_pwd, this.group.value.new_pwd)
+    if (this.group.value.old_pwd === this.group.value.new_pwd) {
+      this.layout.setMsgDisplay(Severity.WARN, 'รหัสผ่านตรงกับรหัสเดิม', 'กรุณาตรวจสอบ');
+      return
+    }
+
+    const username = localStorage.getItem('username')
+    if (!username) {
+      return
+    }
+
+    this.authService.changePassword(username, this.group.value.new_pwd)
       .subscribe(snapshot => {
         if (snapshot) {
           this.layout.setMsgDisplay(Severity.SUCCESS, 'บันทึกข้อมูลสำเร็จ', 'อิอิ');
+          this.utilService.goToPage('/')
           return
         }
-        this.layout.setMsgDisplay(Severity.WARN, 'ไม่สามารถเปลี่ยนรหัสผ่านได้', 'เพราะ..');
+        this.layout.setMsgDisplay(Severity.WARN, 'ไม่สามารถเปลี่ยนรหัสผ่านได้', 'กรุณาตรวจสอบผู้ดูแลระบบ');
       }, err => {
         this.layout.setMsgDisplay(Severity.ERROR, 'เกิดข้อผิดพลาด', 'กรุณาตรวจสอบผู้ดูแลระบบ');
         console.log(err)

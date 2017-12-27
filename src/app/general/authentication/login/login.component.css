@@ -47,12 +47,12 @@ div.welcomb {
 }
 
 div.fail-box {
-    margin: 10px 5px 5px 5px;
+    margin: 10px 5px 5px 8px;
     height: 20px;
 }
 
 div.failed-logedin {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 200;
     color: #f00a0a;
 }
