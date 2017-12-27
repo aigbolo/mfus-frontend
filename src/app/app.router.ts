@@ -11,15 +11,17 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 import { M030101ManageSponsorsComponent } from './officers/m030101-manage-sponsors/m030101-manage-sponsors.component';
 import { IndexComponent } from './general/info/index/index.component';
+import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 
 const appRoutes: Routes = [
   { path: "", component: IndexComponent },
+  { path: "forgot", component: ForgotPasswordComponent },
   { path: "login", component: LoginComponent, canActivate: [EnsureIsNotAuth] },
+  { path: "change-password", component: ChangePasswordComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-officer", component: M010102ManageOfficerComponent },
   { path: "search-officer", component: S010102SearchOfficerComponent },
   { path: "manage-officer/:id", component: M010102ManageOfficerComponent },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
-  { path: "change-password", component: ChangePasswordComponent, canActivate: [] },
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "manage-sponsors/:ref", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
