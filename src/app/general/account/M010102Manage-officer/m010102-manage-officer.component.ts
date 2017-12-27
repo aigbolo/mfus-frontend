@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { AcOfficer } from './../../../models/ac-officer';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from './../../../services/utils/layout.service';
@@ -91,6 +92,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       province_name_t: new FormControl(this.manageOfficerForm.rftProvince.province_name_t),
       district_name_t: new FormControl(this.manageOfficerForm.rftDistrict.district_name_t),
       sub_district_name_t: new FormControl(this.manageOfficerForm.rftSubDistrict.sub_district_name_t),
+      manage_officer_flag: new FormControl(this.manageOfficerForm.acOfficer.manage_officer_flag),
       image: new FormControl(this.manageOfficerForm.acOfficer.profile_image, Validators.compose([Validators.required]))
     });
   }
@@ -198,7 +200,13 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   onRowSelected(){
-    this.officerService.selectOfficer(this.manageOfficerForm.acOfficer)
+    this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(res=>{
+      this.manageOfficerForm.acOfficer = res
+    },error=>{
+      console.log(error)
+    },()=>{
+      console.log()
+    })
   }
 
   onSubmit() {
@@ -220,7 +228,10 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.officerService.insertNewOfficer(this.manageOfficerForm.acOfficer, this.user);
     } else {
       console.log("officerForm: ", this.manageOfficerForm)
-      this.officerService.updateOfficer(this.manageOfficerForm)
+      this.manageOfficerForm.acOfficer.province = this.manageOfficerForm.rftProvince.province_ref
+      this.manageOfficerForm.acOfficer.district = this.manageOfficerForm.rftDistrict.district_ref
+      this.manageOfficerForm.acOfficer.sub_district = this.manageOfficerForm.rftSubDistrict.sub_district_ref
+      this.officerService.updateOfficer(this.manageOfficerForm.acOfficer)
     }
   }
 

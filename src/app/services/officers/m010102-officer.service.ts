@@ -31,17 +31,13 @@ export class M010102OfficerService {
   }
 
   selectOfficer(ref: AcOfficer) {
-    return this.configurationService.requestMethodPOST('officers-update', ref).subscribe(res=>{
-      // this.officerForm.rftProvince = ;
-      // this.officerForm.rftDistrict = ;
-      // this.officerForm.rftSubDistrict = ;
-    })
+    return this.configurationService.requestMethodPOST('officers-update', ref)
   }
 
-  updateOfficer(form: OfficerForm) {
-    form.acOfficer.province = form.rftProvince.province_ref
-    form.acOfficer.district = form.rftDistrict.district_ref
-    form.acOfficer.sub_district = form.rftSubDistrict.sub_district_ref
+  updateOfficer(form: AcOfficer) {
+    // form.acOfficer.province = form.rftProvince.province_ref
+    // form.acOfficer.district = form.rftDistrict.district_ref
+    // form.acOfficer.sub_district = form.rftSubDistrict.sub_district_ref
     return this.configurationService.requestMethodPUT('officers', form).subscribe(res => {
       console.log(res)
     }, error => {
