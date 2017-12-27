@@ -1,3 +1,6 @@
+import { SelectItem } from 'primeng/primeng';
+import { M030101SponsorsService } from './../../services/officers/m030101-sponsors.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RftSubDistrict } from './../../models/rft-sub-district';
 import { UtilsService } from './../../services/utils/utils.service';
 import { RftProvince } from './../../models/rft-province';
@@ -6,6 +9,7 @@ import { ReferenceService } from '../../services/general/reference.service';
 import { LayoutService } from '../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { RftDistrict } from '../../models/rft-district';
+import { M030101SponsorsForm } from '../../forms/sponsors-form';
 
 @Component({
   selector: 'app-m030101-manage-sponsors',
@@ -13,8 +17,15 @@ import { RftDistrict } from '../../models/rft-district';
   styleUrls: ['./m030101-manage-sponsors.component.css']
 })
 export class M030101ManageSponsorsComponent implements OnInit {
+  user = sessionStorage.getItem('username');
+  manageForm: M030101SponsorsForm = new M030101SponsorsForm();
+  manageFormGroup: FormGroup;
+
   image: any;
-  activeStatus = [];
+  imageName: string ='';
+  uploadedFiles: any[] = [];
+
+  activeStatus: SelectItem[] = [];
   provinceList: RftProvince[] = [];
   districtList: RftDistrict[] = [];
   subDistrictList: RftSubDistrict[] = [];
@@ -26,7 +37,8 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
   constructor(private layoutService: LayoutService,
               private referenceService: ReferenceService,
-              private utilsService: UtilsService) { }
+              private utilsService: UtilsService,
+              private sponsorsService: M030101SponsorsService) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
@@ -34,9 +46,28 @@ export class M030101ManageSponsorsComponent implements OnInit {
     this.referenceService.initialProvince();
     this.activeStatus = this.utilsService.getActiveFlag('M');
 
+    this.validatorForm();
+    console.log(this.user);
+    this.manageForm.sponsors.active_flag = "Y";
+    this.manageForm.sponsors.create_user = this.user;
+    this.manageForm.sponsors.update_user = this.user;
+
   }
 
-
+  validatorForm() {
+    this.manageFormGroup = new FormGroup({
+      sponsors_name: new FormControl(this.manageForm.sponsors.sponsors_name,Validators.compose([Validators.required])),
+      active_flag: new FormControl(this.manageForm.sponsors.active_flag,Validators.compose([Validators.required])),
+      address: new FormControl(this.manageForm.sponsors.address,Validators.compose([Validators.required])),
+      province: new FormControl(this.province,Validators.compose([Validators.required])),
+      district: new FormControl(this.district,Validators.compose([Validators.required])),
+      subDistrict: new FormControl(this.subDistrict,Validators.compose([Validators.required])),
+      postcode: new FormControl(this.manageForm.sponsors.postcode),
+      phone_no: new FormControl(this.manageForm.sponsors.phone_no,Validators.compose([Validators.required])),
+      email: new FormControl(this.manageForm.sponsors.email),
+      website: new FormControl(this.manageForm.sponsors.website),
+    })
+  }
 
 
   autocompleteProvince(event) {
@@ -120,6 +151,51 @@ export class M030101ManageSponsorsComponent implements OnInit {
   }
 
   seletedSubDistrict(){
+    this.manageForm.sponsors.postcode = this.subDistrict.postcode;
+  }
 
+  onUpload(event){
+
+    if(event.files != null)
+    this.uploadedFiles = [];
+
+    for(let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+    this.image = this.uploadedFiles[0].objectURL;
+    this.imageName = this.uploadedFiles[0].name;
+
+    this.manageForm.sponsors.profile_name = this.uploadedFiles[0].name;
+    this.manageForm.sponsors.profile_type = this.uploadedFiles[0].type;
+
+    this.utilsService.convertBlobToString(this.uploadedFiles[0].objectURL).subscribe(
+      val =>{
+        this.manageForm.sponsors.profile_image = val;
+      }
+    )
+
+  }
+
+  onSubmit(){
+    console.log('onSubmit.......');
+
+    console.log("active-flag: "+this.manageForm.sponsors.active_flag);
+    if(this.manageFormGroup.invalid){
+      this.manageFormGroup.controls["sponsors_name"].markAsDirty();
+      this.manageFormGroup.controls["active_flag"].markAsDirty();
+      this.manageFormGroup.controls["address"].markAsDirty();
+      this.manageFormGroup.controls["province"].markAsDirty();
+      this.manageFormGroup.controls["district"].markAsDirty();
+      this.manageFormGroup.controls["subDistrict"].markAsDirty();
+      this.manageFormGroup.controls["phone_no"].markAsDirty();
+
+    }else{
+      this.manageForm.sponsors.province = this.province.province_ref;
+      this.manageForm.sponsors.district = this.district.district_ref;
+      this.manageForm.sponsors.sub_district = this.subDistrict.sub_district_ref;
+
+      this.sponsorsService.doInsert(this.manageForm);
+
+    }
   }
 }
