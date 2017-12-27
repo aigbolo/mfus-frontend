@@ -1,3 +1,5 @@
+import { AcOfficer } from './../../../models/ac-officer';
+import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from './../../../services/utils/layout.service';
 import { M010102OfficerService } from './../../../services/officers/m010102-officer.service';
 import { ReferenceService } from './../../../services/general/reference.service';
@@ -42,30 +44,38 @@ export class M010102ManageOfficerComponent implements OnInit {
   binaryString: string;
   file: File;
 
-  image: any = '';
-  image_name: string;
-  image_type: string;
+  btnLabel: string;
 
   constructor(private utilService: UtilsService,
-              private referenceService: ReferenceService,
-              private officerService: M010102OfficerService,
-              private layoutService: LayoutService) { }
+    private referenceService: ReferenceService,
+    private officerService: M010102OfficerService,
+    private layoutService: LayoutService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('manageofficer')
+    this.btnLabel = 'เพิ่มข้อมูล'
     this.layoutService.setPageHeader('บันทึกข้อมูลเจ้าหน้าที่');
-    this.image = '../../../../assets/images/empty_profile.png'
+    this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png'
     this.validateForm();
     this.activeFlag = this.utilService.getActiveFlag('M')
     this.titleList = this.utilService.getTitleList()
     this.referenceService.initialProvince();
+    this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params['id'];
+    if (this.manageOfficerForm.acOfficer.officer_ref != null) {
+      console.log('update')
+      this.btnLabel = 'แก้ไขข้อมูล'
+      this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(res => {
+        this.manageOfficerForm.acOfficer = res;
+      })
+    }
   }
 
-  validateForm(){
+  validateForm() {
     this.officerFormGroup = new FormGroup({
       officer_code: new FormControl(this.manageOfficerForm.acOfficer.officer_code,
         Validators.compose([Validators.required])),
-      gender: new FormControl(this.manageOfficerForm.acOfficer.gender,
+      active_flag: new FormControl(this.manageOfficerForm.acOfficer.active_flag = 'Y'),
+      gender: new FormControl(this.manageOfficerForm.acOfficer.gender = 'M',
         Validators.compose([Validators.required])),
       title_ref: new FormControl(this.manageOfficerForm.acOfficer.title_ref,
         Validators.compose([Validators.required])),
@@ -75,21 +85,20 @@ export class M010102ManageOfficerComponent implements OnInit {
         Validators.compose([Validators.required])),
       last_name: new FormControl(this.manageOfficerForm.acOfficer.last_name,
         Validators.compose([Validators.required])),
-      address:new FormControl(this.manageOfficerForm.acOfficer.address),
+      address: new FormControl(this.manageOfficerForm.acOfficer.address),
       postcode: new FormControl(this.manageOfficerForm.acOfficer.postcode),
-      phone_no:new FormControl(this.manageOfficerForm.acOfficer.phone_no,
+      phone_no: new FormControl(this.manageOfficerForm.acOfficer.phone_no,
         Validators.compose([Validators.required])),
       email: new FormControl(this.manageOfficerForm.acOfficer.email,
         Validators.compose([Validators.required])),
       province_name_t: new FormControl(this.manageOfficerForm.rftProvince.province_name_t),
       district_name_t: new FormControl(this.manageOfficerForm.rftDistrict.district_name_t),
       sub_district_name_t: new FormControl(this.manageOfficerForm.rftSubDistrict.sub_district_name_t),
-      image: new FormControl(this.image,Validators.compose([Validators.required]))
+      image: new FormControl(this.manageOfficerForm.acOfficer.profile_image, Validators.compose([Validators.required]))
     });
   }
 
   autocompleteProvince(event) {
-    console.log(event.query)
     let query = event.query;
     this.provinceList = [];
     this.manageOfficerForm.rftDistrict = new RftDistrict();
@@ -103,7 +112,9 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   handleCompleteClickProvince() {
+
     setTimeout(() => {
+      this.provinceList = []
       this.provinceList = this.referenceService.getProvinces();
       this.districtList = [];
       this.subDistrictList = [];
@@ -111,6 +122,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   selectProvince(event: SelectItem) {
+    console.log(this.manageOfficerForm.rftProvince.province_ref)
     this.districtList = [];
     this.subDistrictList = [];
     this.manageOfficerForm.rftDistrict = new RftDistrict();
@@ -124,22 +136,22 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
     let objList = this.referenceService.getDistricts();
     for (let obj of objList) {
-      // if (this.manageOfficerForm.rftProvince.province_ref === obj.province_ref) {
-        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          this.districtList.push(obj);
-        // }
+      if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.districtList.push(obj);
       }
     }
   }
 
   handleCompleteClickDistrict() {
     setTimeout(() => {
+      this.districtList = [];
       this.districtList = this.referenceService.getDistricts();
       this.subDistrictList = [];
     }, 100)
   }
 
   selectDistrict(event: SelectItem) {
+    console.log(this.manageOfficerForm.rftDistrict.district_ref)
     this.listSubDistrict = [];
     this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
     this.referenceService.initialSubDistrict(this.manageOfficerForm.rftDistrict.district_ref)
@@ -149,24 +161,23 @@ export class M010102ManageOfficerComponent implements OnInit {
     let query = event.query;
     this.subDistrictList = [];
     let objList = this.referenceService.getSubDistricts()
+    console.log(objList)
     for (let obj of objList) {
-      // if (obj.province_ref == this.manageOfficerForm.rftProvince.province_ref) {
-      //   if (obj.district_ref == this.manageOfficerForm.rftDistrict.district_ref) {
-          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            this.listSubDistrict.push(obj);
-        //   }
-        // }
+      if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.subDistrictList.push(obj);
       }
     }
   }
 
   handleCompleteClickSubDistrict() {
     setTimeout(() => {
+      this.subDistrictList = [];
       this.subDistrictList = this.referenceService.getSubDistricts()
     }, 100)
   }
 
   selectSubDistrict(event: SelectItem) {
+    console.log(this.manageOfficerForm.rftSubDistrict.sub_district_ref)
     this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
   }
 
@@ -185,44 +196,53 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   handleReaderLoaded(readerEvent) {
     this.binaryString = readerEvent.target.result;
-    this.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    // this.imageDetail.image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
     // console.log(this.file.name);
     // console.log(this.file.size);
     // console.log(this.file.type);
+    // this.imageDetail.image_name = this.file.name
+    // this.imageDetail.image_type = this.file.type
+
+    this.manageOfficerForm.acOfficer.profile_image = 'data:' + this.file.type + ';base64,' + btoa(this.binaryString);
+    this.manageOfficerForm.acOfficer.profile_name = this.file.name
+    this.manageOfficerForm.acOfficer.profile_type = this.file.type
   }
-
-  // onSubmit() {
-
-  //   if(this.officerFormGroup.invalid){
-  //     console.log("Form Invalid")
-  //     this.officerFormGroup.controls["officer_code"].markAsDirty();
-  //     this.officerFormGroup.controls["active_flag"].markAsDirty();
-  //     this.officerFormGroup.controls["gender"].markAsDirty();
-  //     this.officerFormGroup.controls["title_ref"].markAsDirty();
-  //     this.officerFormGroup.controls["personal_id"].markAsDirty();
-  //     this.officerFormGroup.controls["first_name"].markAsDirty();
-  //     this.officerFormGroup.controls["last_name"].markAsDirty();
-  //     this.officerFormGroup.controls["phone_no"].markAsDirty();
-  //     this.officerFormGroup.controls["email"].markAsDirty();
-  //     this.officerFormGroup.controls["image"].markAsDirty();
-  //   }
-  //   console.log("officerForm: ", this.manageOfficerForm)
-  //   this.officerService.insertNewOfficer(this.manageOfficerForm);
-  // }
 
   onSubmit() {
-    console.log(this.activeFlag)
-    console.log(this.manageOfficerForm.acOfficer.active_flag)
+    if (this.btnLabel == 'เพิ่มข้อมูล') {
+      if (this.officerFormGroup.invalid) {
+        console.log("Form Invalid")
+        this.officerFormGroup.controls["officer_code"].markAsDirty();
+        // this.officerFormGroup.controls["active_flag"].markAsDirty();
+        this.officerFormGroup.controls["gender"].markAsDirty();
+        this.officerFormGroup.controls["title_ref"].markAsDirty();
+        this.officerFormGroup.controls["personal_id"].markAsDirty();
+        this.officerFormGroup.controls["first_name"].markAsDirty();
+        this.officerFormGroup.controls["last_name"].markAsDirty();
+        this.officerFormGroup.controls["phone_no"].markAsDirty();
+        this.officerFormGroup.controls["email"].markAsDirty();
+        this.officerFormGroup.controls["image"].markAsDirty();
+      }
+      console.log("officerForm: ", this.manageOfficerForm)
+      this.officerService.insertNewOfficer(this.manageOfficerForm.acOfficer);
+    } else {
+      console.log("officerForm: ", this.manageOfficerForm)
+      this.officerService.updateOfficer(this.manageOfficerForm)
+    }
   }
+
+
 
   onResetClick() {
     this.manageOfficerForm = new OfficerForm();
-    this.image = '../../../../assets/images/empty_profile.png'
+    this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png'
 
   }
 
   onPageSearch() {
     this.utilService.goToPage('search-officer')
   }
+
+
 
 }

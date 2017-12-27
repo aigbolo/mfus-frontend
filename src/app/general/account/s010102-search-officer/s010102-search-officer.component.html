@@ -48,7 +48,7 @@
 </div>
 <div class="space"></div>
 <div class="row">
-    <p-dataTable [value]="listOfficer" selectionMode="single">
+    <p-dataTable [value]="listOfficer" selectionMode="single" (onRowSelect)="onRowSelect($event)">
         <p-column [sortable]="true" field="officer_code" header="รหัสเจ้าหน้าที่">
         </p-column>
         <p-column [sortable]="true" field="first_name" header="ชื่อเจ้าหน้าที่">

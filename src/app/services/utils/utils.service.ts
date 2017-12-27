@@ -41,4 +41,8 @@ export class UtilsService {
   goToPage(path: string){
     this.router.navigate([path])
   }
+
+  goToPageWithParam(path: string, id: string){
+    this.router.navigate([path,id])
+  }
 }

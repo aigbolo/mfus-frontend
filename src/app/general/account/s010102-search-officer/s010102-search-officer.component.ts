@@ -17,9 +17,11 @@ export class S010102SearchOfficerComponent implements OnInit {
   searchForm: OfficerForm = new OfficerForm();
   statusList: any[];
 
+  selectofficer: AcOfficer
+
   listOfficer: AcOfficer[];
 
-  constructor(private utilService: UtilsService,
+  constructor(public utilService: UtilsService,
     private layoutService: LayoutService,
     private officerService: M010102OfficerService,
     private js: JqueryScriptService) { }
@@ -29,15 +31,11 @@ export class S010102SearchOfficerComponent implements OnInit {
   }
 
   onSearchClick() {
-    console.log(this.searchForm.searchCriteria)
     this.officerService.searchOfficer(this.searchForm).subscribe(res=>{
-      console.log(res)
       this.listOfficer = res
       for(let obj of this.listOfficer){
         obj.first_name = obj.first_name + ' ' +obj.last_name
       }
-      console.log(this.listOfficer)
-
       return this.listOfficer
     },error=>{
      console.log('error: ' + error)
@@ -54,4 +52,8 @@ export class S010102SearchOfficerComponent implements OnInit {
     this.utilService.goToPage('manage-officer')
   }
 
+  onRowSelect(event) {
+    this.selectofficer = event.data
+    this.utilService.goToPageWithParam('manage-officer/', this.selectofficer.officer_ref)
+  }
 }
