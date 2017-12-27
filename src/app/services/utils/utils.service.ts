@@ -73,4 +73,19 @@ export class UtilsService {
     });
     return data;
   }
+
+  castToObject(obj: any, queryParams: any): any {
+    const paramString = JSON.stringify(queryParams)
+    obj = JSON.parse(paramString);
+    return obj
+  }
+
+  findInvalidControls(formGroup: FormGroup) {
+    const controls = formGroup.controls;
+    for (const name in controls) {
+      if (!controls[name].valid) {
+        controls[name].markAsDirty();
+      }
+    }
+  }
 }

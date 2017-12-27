@@ -16,7 +16,8 @@ import { SmSponsors } from '../../models/sm-sponsors';
 })
 export class M030101SearchSponsorsComponent implements OnInit {
   criteriaForm:M030101SponsorsForm = new M030101SponsorsForm();
-  dataTable: SmSponsors[] = [];
+  sponsorsList: SmSponsors[] = [];
+  sponsor: SmSponsors = new SmSponsors;
   activeStatus = [];
   onLoad = false;
   constructor(private layoutService: LayoutService,
@@ -32,7 +33,7 @@ export class M030101SearchSponsorsComponent implements OnInit {
   onSearch(){
     this.onLoad = true;
     this.sponsorsService.doSearch(this.criteriaForm).subscribe(data=>{
-      this.dataTable = data;
+      this.sponsorsList = data;
     },
     error =>{
       console.log('error..............');
@@ -42,6 +43,12 @@ export class M030101SearchSponsorsComponent implements OnInit {
   });
 
   }
+
+  onRowSelect(event){
+    console.log('onRowSelect..............');
+    this.utilsService.goToPage('manage-sponsors/'+this.sponsor.sponsors_ref)
+  }
+
   onReset(){
     this.criteriaForm = new M030101SponsorsForm;
   }

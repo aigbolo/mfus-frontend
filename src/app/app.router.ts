@@ -20,6 +20,7 @@ const appRoutes: Routes = [
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
   { path: "change-password", component: ChangePasswordComponent, canActivate: [] },
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
+  { path: "manage-sponsors/{id}", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
 
 ]
