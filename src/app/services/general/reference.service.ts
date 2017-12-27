@@ -18,7 +18,6 @@ export class ReferenceService {
 
   //Set RftProvince
   initialProvince(){
-    console.log('initialProvince')
     this.configuration.requestMethodGET('autocomplete-province').subscribe(
       data => {
         this.rftProvinces = data;
@@ -30,14 +29,12 @@ export class ReferenceService {
   }
 
   getProvinces(): RftProvince[] {
-    console.log('getProvince')
     return this.rftProvinces
   }
 
 
   //Set RftDistrict
   initialDistrict(provinceRef: string){
-    console.log('initialDistrict')
     this.configuration.requestMethodGET('autocomplete-district/'+provinceRef).subscribe(
       data => {
         this.rftDistrict = data;
@@ -49,13 +46,11 @@ export class ReferenceService {
   }
 
   getDistricts(): RftDistrict[] {
-    console.log('service.getDistricts')
     return this.rftDistrict
   }
 
   //Set RftDistrict
   initialSubDistrict(districtRef: string){
-    console.log('initialSubDistrict')
     this.configuration.requestMethodGET('autocomplete-subdistrict/'+districtRef).subscribe(
       data => {
         this.rftSubDistrict = data;

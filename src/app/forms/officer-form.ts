@@ -26,6 +26,7 @@ constructor(){
 
 class SearchCriteria{
   public officer_code: string;
+  public officer_ref: string;
   public first_name: string;
   public last_name: string;
   public personal_id: string;

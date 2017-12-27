@@ -45,6 +45,10 @@ export class UtilsService {
     this.router.navigate([path])
   }
 
+  goToPageWithParam(path: string, id: string){
+    this.router.navigate([path,id])
+  }
+  
   convertBlobToString(objectUrl:any):Observable<any>{
     var myBlob:any = null;
     let base64data: string = null;
