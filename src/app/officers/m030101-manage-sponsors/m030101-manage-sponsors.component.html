@@ -1,14 +1,23 @@
+<form [formGroup]="manageFormGroup" (ngSubmit)="onSubmit()" >
 <div class="row overide-row">
     <div class="col-xs-9">
         <div class="row overide-row">
             <div class="col-xs-9">
-                <label class="normal">ชื่อผู้สนับสนุน</label>
-                <input name="sponsors_name" type="text" class="input-company-name" pInputText required>
+                <label class="normal">ชื่อผู้สนับสนุน *</label>
+                <input pInputText
+                type="text"
+                class="input-company-name"
+                formControlName="sponsors_name"
+                [(ngModel)]="manageForm.sponsors.sponsors_name"
+                >
             </div>
 
             <div class="col-xs-3">
                 <label class="normal">สถานะ *</label>
-                <p-dropdown [options]="activeStatus">
+                <p-dropdown
+                [options]="activeStatus"
+                formControlName="active_flag"
+                [(ngModel)]="manageForm.sponsors.active_flag">
                 </p-dropdown>
             </div>
         </div>
@@ -16,7 +25,12 @@
         <div class="row overide-row">
             <div class="col-xs-12">
                 <label class="normal">ที่อยู่ *</label>
-                <input type="text" class="input-address" pInputText>
+                <input pInputText
+                type="text"
+                class="input-address"
+                formControlName="address"
+                [(ngModel)]="manageForm.sponsors.address"
+                >
             </div>
         </div>
         <div class="row overide-row">
@@ -28,6 +42,7 @@
                 field="province_name_t"
                 [suggestions]="provinceList"
                 forceselection="true"
+                formControlName="province"
                 (onSelect)="seletedProvince()"
                 (onDropdownClick)="handleCompleteClickProvince()"
                 (completeMethod)="autocompleteProvince($event)">
@@ -37,11 +52,13 @@
             <div class="col-xs-6 normal">
                 <label class="normal">อำเภอ *</label>
                 <p-autoComplete class="autocomplete-district"
+                [disabled]="!province.province_ref"
                 [dropdown]="true"
                 [(ngModel)]="district"
                 field="district_name_t"
                 [suggestions]="districtList"
                 forceselection="true"
+                formControlName="district"
                 (onSelect)="seletedDistrict()"
                 (onDropdownClick)="handleCompleteClickDistrict()"
                 (completeMethod)="autocompleteDistrict($event)">
@@ -52,11 +69,13 @@
             <div class="col-xs-6 normal">
                 <label class="normal">ตำบล *</label>
                 <p-autoComplete class="autocomplete-sub-district"
+                [disabled]="!district.district_ref"
                 [dropdown]="true"
                 [(ngModel)]="subDistrict"
                 field="sub_district_name_t"
                 [suggestions]="subDistrictList"
                 forceselection="true"
+                formControlName="subDistrict"
                 (onSelect)="seletedSubDistrict()"
                 (onDropdownClick)="handleCompleteClickSubDistrict()"
                 (completeMethod)="autocompleteSubDistrict($event)">
@@ -64,25 +83,38 @@
             </div>
             <div class="col-xs-6 normal">
                 <label class="normal">รหัสไปรษณีย์</label>
-                <input type="text" pInputText>
+                <input pInputText
+                type="text"
+                formControlName="postcode"
+                [(ngModel)]="manageForm.sponsors.postcode"
+                disabled>
             </div>
         </div>
         <div class="row overide-row">
             <div class="col-xs-6 normal">
                 <label class="normal">เบอร์โทรศัพท์ *</label>
-                <input type="text" pInputText>
+                <input  pInputText
+                type="text"
+                formControlName="phone_no"
+                [(ngModel)]="manageForm.sponsors.phone_no">
             </div>
 
             <div class="col-xs-6 normal">
                 <label class="normal">อีเมลล์</label>
-                <input type="text" pInputText>
+                <input pInputText
+                type="text"
+                formControlName="email"
+                [(ngModel)]="manageForm.sponsors.email">
             </div>
         </div>
         <div class="row overide-row">
             <div class="col-xs-12 normal">
                 <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
                 <div>
-                    <input name="website" type="text" id="website" pInputText>
+                    <input pInputText
+                    type="text"
+                    formControlName="website"
+                    [(ngModel)]="manageForm.sponsors.website">
                 </div>
             </div>
         </div>
@@ -93,8 +125,13 @@
                 <img [src]="image" class="image-profile">
             </div>
             <div class="col-xs-12 profile-upload">
-                <p-fileUpload mode="basic" accept="image/*" maxFileSize="1000000" chooseLabel="เลือกไฟล์"></p-fileUpload>
+                <p-fileUpload
+                customUpload="true"
+                auto="true"
+                (uploadHandler)="onUpload($event)"
+                chooseLabel="เลือกไฟล์"></p-fileUpload>
             </div>
+            <div class="col-xs-12">{{imageName}}</div>
         </div>
     </div>
 </div>
@@ -110,3 +147,4 @@
         <button pButton type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
     </div>
 </div>
+</form>

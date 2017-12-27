@@ -20,6 +20,7 @@ export class ConfigurationService {
       'Accept': 'application/json'
     })
     const body = JSON.stringify(param);
+    console.log(body)
     return this.http.post(this.url + path, body, { responseType: 'json', headers: headers })
   }
 
