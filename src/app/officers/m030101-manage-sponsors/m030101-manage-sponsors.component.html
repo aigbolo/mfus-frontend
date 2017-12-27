@@ -1,4 +1,4 @@
-<form [formGroup]="manageFormGroup" (ngSubmit)="onSubmit()" >
+<form *ngIf="pageRender" [formGroup]="manageFormGroup" (ngSubmit)="onSubmit()" >
 <div class="row overide-row">
     <div class="col-xs-9">
         <div class="row overide-row">
@@ -17,7 +17,8 @@
                 <p-dropdown
                 [options]="activeStatus"
                 formControlName="active_flag"
-                [(ngModel)]="manageForm.sponsors.active_flag">
+                [(ngModel)]="manageForm.sponsors.active_flag"
+                disabled>
                 </p-dropdown>
             </div>
         </div>

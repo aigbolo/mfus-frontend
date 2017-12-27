@@ -11,6 +11,7 @@ import { LayoutService } from '../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { RftDistrict } from '../../models/rft-district';
 import { M030101SponsorsForm } from '../../forms/sponsors-form';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-m030101-manage-sponsors',
@@ -18,6 +19,7 @@ import { M030101SponsorsForm } from '../../forms/sponsors-form';
   styleUrls: ['./m030101-manage-sponsors.component.css']
 })
 export class M030101ManageSponsorsComponent implements OnInit {
+  pageRender = false;
   user = localStorage.getItem('username');
   manageForm: M030101SponsorsForm = new M030101SponsorsForm();
   manageFormGroup: FormGroup;
@@ -40,9 +42,11 @@ export class M030101ManageSponsorsComponent implements OnInit {
               private referenceService: ReferenceService,
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              public ngProgress: NgProgress) { }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.layoutService.setPageHeader('บันทึกข้อมูลผู้ให้ทุนการศึกษา');
     this.image = '../../assets/images/empty_profile.png';
     this.referenceService.initialProvince();
@@ -58,11 +62,15 @@ export class M030101ManageSponsorsComponent implements OnInit {
     if(this.route.snapshot.params['ref'] != null){
       this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params['ref'];
       this.onUpdatePageSetup();
+    }else{
+      this.ngProgress.done();
+      this.pageRender = true;
     }
 
   }
 
   onUpdatePageSetup(){
+    let values: Array<any> = [];
     this.layoutService.setPageHeader('แก้ไขข้อมูลผู้ให้ทุนการศึกษา');
     setTimeout(()=>{
     this.sponsorsService.onRowSelect(this.manageForm)
@@ -70,7 +78,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
       this.manageForm.sponsors = data;
       console.log(data);
     });
-    },200);
+    },500);
 
     setTimeout(()=>{
       let provinceRef = this.manageForm.sponsors.province;
@@ -78,10 +86,18 @@ export class M030101ManageSponsorsComponent implements OnInit {
       let subDistrictRef = this.manageForm.sponsors.sub_district;
       console.log(provinceRef,districtRef,subDistrictRef);
       this.referenceService.getReferencesAddress(provinceRef,districtRef,subDistrictRef)
-      .subscribe(data =>{
-        console.log(data)
+      .subscribe(value =>{
+        values.push(value)
+        this.province = values[0];
+        this.district = values[1];
+        this.subDistrict = values[2];
+      },err=>{console.log(err)},
+      ()=>{
+        this.pageRender = true;
+        this.ngProgress.done();
       })
-    },500)
+    },3000);
+
   }
 
 
