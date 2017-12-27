@@ -18,7 +18,7 @@
                 [options]="activeStatus"
                 formControlName="active_flag"
                 [(ngModel)]="manageForm.sponsors.active_flag"
-                disabled>
+                [disabled]="!manageForm.sponsors.sponsors_ref">
                 </p-dropdown>
             </div>
         </div>
@@ -141,11 +141,16 @@
 <!-- Action buttons here -->
 <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
-        <button pButton class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+        <button pButton (click)="onPageSearch()"
+        class="btn-back ui-button-info" label="ย้อนกลับ"></button>
     </div>
     <div class="col-xs-6 btn-panel-right">
-        <button pButton type="reset" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
-        <button pButton type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
+        <button pButton (click)="onReset()"
+        class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
+        <button pButton *ngIf="!manageForm.sponsors.sponsors_ref"
+        type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
+        <button pButton *ngIf="manageForm.sponsors.sponsors_ref"
+        type="submit" class="btn-save ui-button-success" label="แก้ไขข้อมูล"></button>
     </div>
 </div>
 </form>
