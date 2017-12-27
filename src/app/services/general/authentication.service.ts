@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthenticationService {
 
-  private isLoggedin = new BehaviorSubject<string>(sessionStorage.getItem('token'));
+  private isLoggedin = new BehaviorSubject<string>(localStorage.getItem('token'));
 
   constructor(private config: ConfigurationService) { }
 
@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    sessionStorage.clear();
+    localStorage.clear();
     this.config.requestMethodPOST('logout', '').subscribe();
     this.clearLoggedinStage();
   }

@@ -19,19 +19,20 @@
              formControlName="password"
              name="password" />
     </div>
+
+    <div class="fail-box">
+      <div class="failed-logedin"
+           *ngIf="logedinFalse">ไม่สามารถเข้าสู่ระบบได้ {{failReson}}</div>
+    </div>
+    <div class="margin-btn">
+      <button pButton
+              type="submit"
+              class="btn-normal"
+              (click)="onLogingIn()"
+              [disabled]="!group.valid"
+              label="เข้าสู่ระบบ"></button>
+    </div>
   </form>
-  <div class="fail-box">
-    <div class="failed-logedin"
-         *ngIf="logedinFalse">ไม่สามารถเข้าสู่ระบบได้ {{failReson}}</div>
-  </div>
-  <div class="margin-btn">
-    <button pButton
-            type="button"
-            class="btn-normal"
-            (click)="onLogingIn()"
-            [disabled]="!group.valid"
-            label="เข้าสู่ระบบ"></button>
-  </div>
   <div>
     <a href="/login/#">ลืมระหัสผ่าน?</a>
   </div>

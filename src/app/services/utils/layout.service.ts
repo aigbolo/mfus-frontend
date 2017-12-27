@@ -8,7 +8,7 @@ export class LayoutService {
 
   private pageHeaderSubject = new BehaviorSubject<string>('');
 
-  private displayName = new BehaviorSubject<string>(sessionStorage.getItem('username'));
+  private displayName = new BehaviorSubject<string>(localStorage.getItem('username'));
 
   private msgs = new BehaviorSubject<Message[]>([]);
 

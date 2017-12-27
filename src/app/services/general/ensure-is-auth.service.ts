@@ -8,7 +8,7 @@ export class EnsureIsAuth implements CanActivate {
   constructor(private router: Router) { }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (sessionStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
       return true;
     }
     else {
