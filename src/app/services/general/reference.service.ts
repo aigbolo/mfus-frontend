@@ -29,10 +29,6 @@ export class ReferenceService {
   }
 
   getProvinces(): RftProvince[] {
-<<<<<<< HEAD
-=======
-    console.log('getProvince')
->>>>>>> 858ea24d2dc00cfa5cc45a66f60d3b8bfe264055
     return this.rftProvinces
   }
 

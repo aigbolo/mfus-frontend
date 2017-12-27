@@ -45,10 +45,10 @@ export class UtilsService {
     this.router.navigate([path])
   }
 
-<<<<<<< HEAD
   goToPageWithParam(path: string, id: string){
     this.router.navigate([path,id])
-=======
+  }
+  
   convertBlobToString(objectUrl:any):Observable<any>{
     var myBlob:any = null;
     let base64data: string = null;
@@ -76,6 +76,5 @@ export class UtilsService {
       },150);
     });
     return data;
->>>>>>> 858ea24d2dc00cfa5cc45a66f60d3b8bfe264055
   }
 }
