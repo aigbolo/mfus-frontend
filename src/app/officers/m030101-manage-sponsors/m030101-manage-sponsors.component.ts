@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 import { M030101SponsorsService } from './../../services/officers/m030101-sponsors.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -38,7 +39,8 @@ export class M030101ManageSponsorsComponent implements OnInit {
   constructor(private layoutService: LayoutService,
               private referenceService: ReferenceService,
               private utilsService: UtilsService,
-              private sponsorsService: M030101SponsorsService) { }
+              private sponsorsService: M030101SponsorsService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
@@ -51,6 +53,8 @@ export class M030101ManageSponsorsComponent implements OnInit {
     this.manageForm.sponsors.active_flag = "Y";
     this.manageForm.sponsors.create_user = this.user;
     this.manageForm.sponsors.update_user = this.user;
+
+    this.route.params.subscribe( params => console.log(params) );
 
   }
 
@@ -181,13 +185,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
     console.log("active-flag: "+this.manageForm.sponsors.active_flag);
     if(this.manageFormGroup.invalid){
-      this.manageFormGroup.controls["sponsors_name"].markAsDirty();
-      this.manageFormGroup.controls["active_flag"].markAsDirty();
-      this.manageFormGroup.controls["address"].markAsDirty();
-      this.manageFormGroup.controls["province"].markAsDirty();
-      this.manageFormGroup.controls["district"].markAsDirty();
-      this.manageFormGroup.controls["subDistrict"].markAsDirty();
-      this.manageFormGroup.controls["phone_no"].markAsDirty();
+     this.utilsService.findInvalidControls(this.manageFormGroup);
 
     }else{
       this.manageForm.sponsors.province = this.province.province_ref;
