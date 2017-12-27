@@ -66,5 +66,56 @@ export class ReferenceService {
     return this.rftSubDistrict
   }
 
+  getReferencesAddress(provinceRef:string,districtRef:string,subDistrictRef:string):Observable<any>{
+    console.log('getReferencesAddress');
+    let province: RftProvince = new RftProvince;
+    let district: RftDistrict = new RftDistrict;
+    let subDistrict: RftSubDistrict = new RftSubDistrict;
+    let data = new Observable(observer => {
+      setTimeout(() => {
+        this.initialProvince();
+      },100);
+      setTimeout(() => {
+        let objList: RftProvince[];
+        objList = this.rftProvinces;
+        for (let obj of objList) {
+          if (obj.province_ref == provinceRef) {
+            province = obj;
+            observer.next(province);
+          }
+        }
+        },200);
+      setTimeout(() => {
+        this.initialDistrict(province.province_ref);
+      },250);
+      setTimeout(()=>{
+        let objList: RftDistrict[];
+        objList = this.rftDistrict;
+        for (let obj of objList) {
+          if (obj.district_ref == districtRef) {
+            district = obj;
+            observer.next(district);
+          }
+        }
+      },350);
+      setTimeout(() => {
+        this.initialSubDistrict(district.district_ref);
+      },400);
+      setTimeout(()=>{
+        let objList: RftSubDistrict[];
+        objList = this.rftSubDistrict;
+        for (let obj of objList) {
+          if (obj.sub_district_ref == subDistrictRef) {
+            subDistrict = obj;
+            observer.next(subDistrict);
+          }
+        }
+      },500);
+      setTimeout(() => {
+        observer.complete();
+      },600);
+    });
+    return data;
+  }
 
 }

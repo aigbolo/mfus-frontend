@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 import { M030101SponsorsService } from './../../services/officers/m030101-sponsors.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -17,7 +18,7 @@ import { M030101SponsorsForm } from '../../forms/sponsors-form';
   styleUrls: ['./m030101-manage-sponsors.component.css']
 })
 export class M030101ManageSponsorsComponent implements OnInit {
-  user = sessionStorage.getItem('username');
+  user = localStorage.getItem('username');
   manageForm: M030101SponsorsForm = new M030101SponsorsForm();
   manageFormGroup: FormGroup;
 
@@ -38,10 +39,11 @@ export class M030101ManageSponsorsComponent implements OnInit {
   constructor(private layoutService: LayoutService,
               private referenceService: ReferenceService,
               private utilsService: UtilsService,
-              private sponsorsService: M030101SponsorsService) { }
+              private sponsorsService: M030101SponsorsService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.layoutService.setPageHeader('บันทึกผู้ให้ทุนการศึกษา');
+    this.layoutService.setPageHeader('บันทึกข้อมูลผู้ให้ทุนการศึกษา');
     this.image = '../../assets/images/empty_profile.png';
     this.referenceService.initialProvince();
     this.activeStatus = this.utilsService.getActiveFlag('M');
@@ -52,7 +54,36 @@ export class M030101ManageSponsorsComponent implements OnInit {
     this.manageForm.sponsors.create_user = this.user;
     this.manageForm.sponsors.update_user = this.user;
 
+
+    if(this.route.snapshot.params['ref'] != null){
+      this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params['ref'];
+      this.onUpdatePageSetup();
+    }
+
   }
+
+  onUpdatePageSetup(){
+    this.layoutService.setPageHeader('แก้ไขข้อมูลผู้ให้ทุนการศึกษา');
+    setTimeout(()=>{
+    this.sponsorsService.onRowSelect(this.manageForm)
+    .subscribe(data =>{
+      this.manageForm.sponsors = data;
+      console.log(data);
+    });
+    },200);
+
+    setTimeout(()=>{
+      let provinceRef = this.manageForm.sponsors.province;
+      let districtRef = this.manageForm.sponsors.district;
+      let subDistrictRef = this.manageForm.sponsors.sub_district;
+      console.log(provinceRef,districtRef,subDistrictRef);
+      this.referenceService.getReferencesAddress(provinceRef,districtRef,subDistrictRef)
+      .subscribe(data =>{
+        console.log(data)
+      })
+    },500)
+  }
+
 
   validatorForm() {
     this.manageFormGroup = new FormGroup({
@@ -181,13 +212,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
     console.log("active-flag: "+this.manageForm.sponsors.active_flag);
     if(this.manageFormGroup.invalid){
-      this.manageFormGroup.controls["sponsors_name"].markAsDirty();
-      this.manageFormGroup.controls["active_flag"].markAsDirty();
-      this.manageFormGroup.controls["address"].markAsDirty();
-      this.manageFormGroup.controls["province"].markAsDirty();
-      this.manageFormGroup.controls["district"].markAsDirty();
-      this.manageFormGroup.controls["subDistrict"].markAsDirty();
-      this.manageFormGroup.controls["phone_no"].markAsDirty();
+     this.utilsService.findInvalidControls(this.manageFormGroup);
 
     }else{
       this.manageForm.sponsors.province = this.province.province_ref;
