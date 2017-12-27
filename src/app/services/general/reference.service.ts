@@ -87,7 +87,7 @@ export class ReferenceService {
         },200);
       setTimeout(() => {
         this.initialDistrict(province.province_ref);
-      },400);
+      },500);
       setTimeout(()=>{
         let objList: RftDistrict[];
         objList = this.rftDistrict;
@@ -97,10 +97,10 @@ export class ReferenceService {
             observer.next(district);
           }
         }
-      },800);
+      },1000);
       setTimeout(() => {
         this.initialSubDistrict(district.district_ref);
-      },1200);
+      },1500);
       setTimeout(()=>{
         let objList: RftSubDistrict[];
         objList = this.rftSubDistrict;
@@ -110,10 +110,10 @@ export class ReferenceService {
             observer.next(subDistrict);
           }
         }
-      },1600);
+      },2000);
       setTimeout(() => {
         observer.complete();
-      },1700);
+      },2200);
     });
     return data;
   }

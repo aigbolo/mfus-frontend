@@ -11,6 +11,7 @@ import { LayoutService } from '../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { RftDistrict } from '../../models/rft-district';
 import { M030101SponsorsForm } from '../../forms/sponsors-form';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-m030101-manage-sponsors',
@@ -41,9 +42,11 @@ export class M030101ManageSponsorsComponent implements OnInit {
               private referenceService: ReferenceService,
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              public ngProgress: NgProgress) { }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.layoutService.setPageHeader('บันทึกข้อมูลผู้ให้ทุนการศึกษา');
     this.image = '../../assets/images/empty_profile.png';
     this.referenceService.initialProvince();
@@ -60,6 +63,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
       this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params['ref'];
       this.onUpdatePageSetup();
     }else{
+      this.ngProgress.done();
       this.pageRender = true;
     }
 
@@ -90,6 +94,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
       },err=>{console.log(err)},
       ()=>{
         this.pageRender = true;
+        this.ngProgress.done();
       })
     },3000);
 
