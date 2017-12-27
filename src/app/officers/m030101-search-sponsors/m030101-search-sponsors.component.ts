@@ -26,7 +26,7 @@ export class M030101SearchSponsorsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.layoutService.setPageHeader('ค้นหาผู้ให้ทุนการศึกษา');
+    this.layoutService.setPageHeader('ค้นหาข้อมูลผู้ให้ทุนการศึกษา');
     this.activeStatus = this.utilsService.getActiveFlag('S');
   }
 
