@@ -14,16 +14,18 @@ import { AuthInterceptor } from './auth.interceptor';
 
 // PrimeNG
 import {
-        CheckboxModule,
-        PanelMenuModule,
-        DropdownModule,
-        AutoCompleteModule,
-        InputTextModule,
-        ButtonModule,
-        FileUploadModule,
-        RadioButtonModule,
-        DataTableModule,
-        SharedModule} from 'primeng/primeng';
+  CheckboxModule,
+  PanelMenuModule,
+  DropdownModule,
+  AutoCompleteModule,
+  InputTextModule,
+  ButtonModule,
+  FileUploadModule,
+  RadioButtonModule,
+  DataTableModule,
+  SharedModule,
+  GrowlModule
+} from 'primeng/primeng';
 
 // Companent
 import { AppComponent } from './app.component';
@@ -92,7 +94,8 @@ import { JqueryScriptService } from './services/utils/jquery-script.service';
     CheckboxModule,
     FormsModule,
     DataTableModule,
-    SharedModule
+    SharedModule,
+    GrowlModule
   ],
   providers: [
     {
