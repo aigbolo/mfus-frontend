@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthenticationService {
 
-  private isLoggedin = new BehaviorSubject<string>(sessionStorage.getItem('token'));
+  private isLoggedin = new BehaviorSubject<string>(localStorage.getItem('token'));
 
   constructor(private config: ConfigurationService) { }
 
@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    sessionStorage.clear();
+    localStorage.clear();
     this.config.requestMethodPOST('logout', '').subscribe();
     this.clearLoggedinStage();
   }
@@ -28,6 +28,11 @@ export class AuthenticationService {
       'Authorization': `Bearer ${token}`
     })
     return this.config.requestMethodPOSTWithHeader('ensure', '', headers).toPromise()
+  }
+
+  changePassword(oldPassword: string, newPassword: string) {
+    const param = { old_pwd: oldPassword, new_pwd: newPassword }
+    return this.config.requestMethodPOST('change-password', param)
   }
 
   // Set Logged In Stage

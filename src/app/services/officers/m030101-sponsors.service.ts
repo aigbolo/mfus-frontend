@@ -27,6 +27,10 @@ export class M030101SponsorsService {
         console.log(err);
       }
     )
+  }
 
+  onRowSelect(form:M030101SponsorsForm){
+    console.log('onRowSelects');
+    return this.config.requestMethodPOST('sponsors-update',form.sponsors)
   }
 }

@@ -16,14 +16,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'สมัครทุนการศึกษา',
-        items: [
-          { label: 'สมัครทุน', routerLink: ['/sponsors'] },
-          { label: 'ตรวจสอบสถานะการขอทุน', routerLink: ['/scholarships'] },
-          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-request'] }
-        ]
-      },
-      {
         label: 'จัดการทุนการศึกษา',
         items: [
           { label: 'บันทึกผู้ให้ทุนการศึกษา', routerLink: ['/sponsors'] },
@@ -32,13 +24,25 @@ export class SidebarComponent implements OnInit {
         ]
       },
       {
-        label: 'ตรวจสอบทุนการศึกษา',
+        label: 'จัดการคัดเลือกทุนการศึกษา',
         items: [
-          { label: 'คัดกรองเอกสาร', routerLink: ['/school'] },
-          { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/major'] },
+          { label: 'คัดกรองเอกสาร', routerLink: ['/document-screening'] },
+          { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/interview-selecting'] },
           { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] }
         ]
       },
+
+
+      {
+        label: 'สมัครทุนการศึกษา',
+        items: [
+          { label: 'สมัครทุน', routerLink: ['/sponsors'] },
+          { label: 'ตรวจสอบสถานะการขอทุน', routerLink: ['/scholarships'] },
+          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-request'] }
+        ]
+      },
+      
+     
       {
         label: 'การจัดการ',
         items: [
