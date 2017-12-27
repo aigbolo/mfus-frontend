@@ -37,7 +37,14 @@
     </div>
 </div>
 
-    <p-dataTable [value]="dataTable" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+    <p-dataTable [value]="sponsorsList"
+      [(selection)]="sponsor"
+      selectionMode="single"
+      dataKey="sponsors_ref"
+      (onRowSelect)="onRowSelect($event)"
+      [rows]="10" [paginator]="true"
+      [pageLinks]="3"
+      [rowsPerPageOptions]="[5,10,20]"
       emptyMessage="ไม่พบข้อมูล" [loading]="onLoad">
 
       <p-column field="" header="ลำดับ" styleClass="row-number">

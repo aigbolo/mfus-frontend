@@ -1,3 +1,4 @@
+import { Severity } from '../../../enum';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -32,6 +33,9 @@ export class ChangePasswordComponent implements OnInit {
       this.utilService.findInvalidControls(this.group)
       return
     }
+
+    this.layout.setMsgDisplay(Severity.SUCCESS, 'บันทึกข้อมูลสำเร็จ', 'อิอิ');
+
   }
 
 }
