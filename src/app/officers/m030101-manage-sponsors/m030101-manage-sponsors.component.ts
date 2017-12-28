@@ -1,3 +1,4 @@
+import { Severity } from './../../enum';
 import { ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 import { M030101SponsorsService } from './../../services/officers/m030101-sponsors.service';
@@ -43,7 +44,9 @@ export class M030101ManageSponsorsComponent implements OnInit {
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
               private route: ActivatedRoute,
-              public ngProgress: NgProgress) { }
+              public ngProgress: NgProgress) {
+
+              }
 
   ngOnInit() {
     this.ngProgress.start();
@@ -58,7 +61,6 @@ export class M030101ManageSponsorsComponent implements OnInit {
     this.manageForm.sponsors.create_user = this.user;
     this.manageForm.sponsors.update_user = this.user;
 
-
     if(this.route.snapshot.params['ref'] != null){
       this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params['ref'];
       this.onUpdatePageSetup();
@@ -66,6 +68,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
       this.ngProgress.done();
       this.pageRender = true;
     }
+
 
   }
 
@@ -86,7 +89,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
       }
     );
-    },500);
+    },700);
 
     setTimeout(()=>{
       let provinceRef = this.manageForm.sponsors.province;
@@ -225,7 +228,15 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
     this.utilsService.convertBlobToString(this.uploadedFiles[0].objectURL).subscribe(
       val =>{
+
         this.manageForm.sponsors.profile_image = val;
+        // console.log(val);
+      },
+      err=>{
+        console.log(err);
+      },
+      ()=>{
+        console.log(this.manageForm.sponsors.profile_image);
       }
     )
 
@@ -244,14 +255,44 @@ export class M030101ManageSponsorsComponent implements OnInit {
       this.manageForm.sponsors.sub_district = this.subDistrict.sub_district_ref;
 
       if(this.manageForm.sponsors.sponsors_ref == null){
-        this.sponsorsService.doInsert(this.manageForm);
+        this.sponsorsService.doInsert(this.manageForm).subscribe(
+          data => {
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,'บันทึกข้อมูลสำเร็จ','')
+
+          },
+          err =>{
+            this.layoutService.setMsgDisplay(Severity.ERROR,'บันทึกข้อมูลไม่สำเร็จ','');
+          },
+          ()=>{
+            this.onInsertComplete();
+          }
+        )
       }else{
-        this.sponsorsService.doUpdate(this.manageForm);
+        console.log(this.manageForm.sponsors.profile_image);
+        this.sponsorsService.doUpdate(this.manageForm).subscribe(
+          data => {
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,'แก้ไขข้อมูลสำเร็จ','');
+
+          },
+          err =>{
+            this.layoutService.setMsgDisplay(Severity.ERROR,'แก้ไขข้อมูลไม่สำเร็จ','');
+          },
+          ()=>{
+            this.utilsService.goToPage('search-sponsors');
+          }
+        )
       }
     }
   }
   onReset(){
     window.location.reload();
+  }
+  onInsertComplete(){
+    this.image = null;
+    this.manageForm = new M030101SponsorsForm;
+    this.province = null;
+    this.district = null;
+    this.subDistrict = null;
   }
   onPageSearch(){
     this.utilsService.goToPage('search-sponsors');

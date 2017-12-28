@@ -142,10 +142,11 @@
                 <p-fileUpload
                 customUpload="true"
                 auto="true"
+                accept="image/*" maxFileSize="500000"
                 (uploadHandler)="onUpload($event)"
                 chooseLabel="เลือกไฟล์"></p-fileUpload>
             </div>
-            <div class="col-xs-12">{{imageName}}</div>
+            <div class="col-xs-12"><span class="">{{imageName}}</span></div>
         </div>
     </div>
 </div>

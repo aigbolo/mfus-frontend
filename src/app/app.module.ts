@@ -24,7 +24,8 @@ import {
   RadioButtonModule,
   DataTableModule,
   SharedModule,
-  GrowlModule
+  GrowlModule,
+  CalendarModule
 } from 'primeng/primeng';
 
 // Companent
@@ -99,7 +100,8 @@ import { M030103ManageSholarshipsAnnouncementComponent } from './officers/m03010
     FormsModule,
     DataTableModule,
     SharedModule,
-    GrowlModule
+    GrowlModule,
+    CalendarModule,
   ],
   providers: [
     {

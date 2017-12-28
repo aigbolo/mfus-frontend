@@ -21,6 +21,9 @@
   word-wrap: break-word;
 }
 
+.ui-calendar.ui-calendar-w-btn input{
+  width:120px
+}
 
 /*End Alter library components */
 

@@ -1,3 +1,90 @@
-<p>
-  m030103-sholarships-announcement works!
-</p>
+<div class="row overide-row">
+  <div class="col-xs-8">
+    <label class="normal">ผู้ให้ทุนการศึกษา</label>
+      <p-autoComplete name="autocompleteName"
+                      [dropdown]="true"
+                      forceSelection="true">
+        </p-autoComplete>
+  </div>
+  <div class="col-xs-3">
+    <label  class="normal">เลขเอกสารอ้างอิง</label>
+    <input type="text" pInputText>
+  </div>
+</div>
+<div class="row overide-row">
+  <div class="col-xs-3">
+    <label class="normal">ปีการศึกษา</label>
+    <input type="text" class="input-year" pInputText>
+  </div>
+  <div class="col-xs-9">
+      <label  class="normal">ทุนการศึกษา</label>
+      <p-autoComplete></p-autoComplete>
+  </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+      <label  class="normal">ประเภททุนการศึกษา</label>
+      <input type="text" pInputText>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-3">
+      <label  class="normal">จำนวนทุนการศึกษา</label>
+      <input type="text" pInputText>
+    </div>
+    <div class="col-xs-5">
+        <label  class="normal">จำนวนเงิน/ทุนการศึกษา(บาท)</label>
+        <input type="text" pInputText>
+    </div>
+</div>
+
+<div class="row overide-row">
+  <h4 class="custom-panel-title">เงื่อนไขการคัดเลือก</h4>
+</div>
+
+<div class="row overide-row">
+    <div class="col-xs-3">
+        <label  class="normal">เกรดเฉลี่ยขั้นต่ำ *</label>
+        <input type="text" pInputText>
+    </div>
+    <div class="col-xs-9">
+        <label  class="normal">สำหรับชั้นปี</label>
+        <input type="text" pInputText>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <label  class="normal">สำนักวิชา</label>
+        <input type="text" pInputText>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <label  class="normal">สาขาวิชา</label>
+        <input type="text" pInputText>
+    </div>
+</div>
+
+<div class="row overide-row">
+    <h4 class="custom-panel-title">แผนการดำเนินการ</h4>
+</div>
+
+<div class="row overide-row">
+    <div class="col-xs-3">
+        <label  class="normal">ประกาศเปิดรับสมัคร *</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+    </div>
+
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <label  class="normal">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <label  class="normal">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+    </div>
+</div>

@@ -16,32 +16,13 @@ export class M030101SponsorsService {
 
   doInsert(form:M030101SponsorsForm){
     console.log('doInsert')
-    console.log(form.sponsors)
-    this.config.requestMethodPOST('sponsors-insert',form.sponsors)
-    .subscribe(
-      data => {
-        console.log('Insert Complete');
-      },
-      err =>{
-        console.log('Insert false');
-        console.log(err);
-      }
-    )
+    return this.config.requestMethodPOST('sponsors-insert',form.sponsors)
+
   }
 
   doUpdate(form:M030101SponsorsForm){
     console.log('doUpdate')
-    console.log(form.sponsors)
-    this.config.requestMethodPUT('sponsors',form.sponsors)
-    .subscribe(
-      data => {
-        console.log('doUpdate Complete');
-      },
-      err =>{
-        console.log('doUpdate false');
-        console.log(err);
-      }
-    )
+    return this.config.requestMethodPUT('sponsors',form.sponsors)
   }
 
 
