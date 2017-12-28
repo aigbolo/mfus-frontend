@@ -25,7 +25,6 @@ export class M030101SearchSponsorsComponent implements OnInit {
   constructor(private layoutService: LayoutService,
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
-              private router: Router,
               private activateRoute: ActivatedRoute) {
                 this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
                 if(this.searchForm.search_criteria.sponsors_name != null || this.searchForm.search_criteria.active_flag != null){
@@ -36,17 +35,10 @@ export class M030101SearchSponsorsComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลผู้ให้ทุนการศึกษา');
     this.activeStatus = this.utilsService.getActiveFlag('S');
-    this.sub = this.activateRoute
-    .queryParams
-    .subscribe(params => {
-      // Defaults to 0 if no query param provided.
-      this.page = +params['page'] || 0;
-    });
-
-  }
+     }
 
   onSearch(){
-    this.router.navigate(['search-sponsors'],{ queryParams: this.searchForm.search_criteria});
+    this.utilsService.goToPageWithQueryParam('search-sponsors',this.searchForm.search_criteria);
     this.doSearch();
   }
 
@@ -72,10 +64,10 @@ export class M030101SearchSponsorsComponent implements OnInit {
   onReset(){
     this.searchForm = new M030101SponsorsForm;
     this.sponsorsList = [];
-    this.router.navigateByUrl('search-sponsors');
+    this.utilsService.goToPage('search-sponsors');
   }
   onPageInsert(){
-    this.router.navigate(['manage-sponsors']);
+    this.utilsService.goToPage('manage-sponsors');
   }
 
 }
