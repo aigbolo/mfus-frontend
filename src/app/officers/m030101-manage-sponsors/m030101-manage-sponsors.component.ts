@@ -77,7 +77,15 @@ export class M030101ManageSponsorsComponent implements OnInit {
     .subscribe(data =>{
       this.manageForm.sponsors = data;
       console.log(data);
-    });
+      },
+      err=>{
+        console.log(err);
+      },
+      ()=>{
+        this.image = this.manageForm.sponsors.profile_image;
+
+      }
+    );
     },500);
 
     setTimeout(()=>{
@@ -235,8 +243,17 @@ export class M030101ManageSponsorsComponent implements OnInit {
       this.manageForm.sponsors.district = this.district.district_ref;
       this.manageForm.sponsors.sub_district = this.subDistrict.sub_district_ref;
 
-      this.sponsorsService.doInsert(this.manageForm);
-
+      if(this.manageForm.sponsors.sponsors_ref == null){
+        this.sponsorsService.doInsert(this.manageForm);
+      }else{
+        this.sponsorsService.doUpdate(this.manageForm);
+      }
     }
+  }
+  onReset(){
+    window.location.reload();
+  }
+  onPageSearch(){
+    this.utilsService.goToPage('search-sponsors');
   }
 }

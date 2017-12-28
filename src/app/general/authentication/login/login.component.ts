@@ -1,3 +1,4 @@
+import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private layout: LayoutService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    public ngProgress: NgProgress
   ) {
     this.layout.clearPageHeader();
   }
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   onLogingIn() {
     if (this.group.valid) {
+      this.ngProgress.start();
       const username = this.group.value.username;
       const password = this.group.value.password;
       let acUser = new AcUser();
@@ -39,16 +42,23 @@ export class LoginComponent implements OnInit {
       acUser.password = password;
       this.authService.login(acUser)
         .then((user) => {
-          this.logedinFalse = false;
-          localStorage.setItem('token', user.ac_user.api_token);
-          localStorage.setItem('username', user.ac_user.user_id);
-          this.router.navigateByUrl('/change-password');
-          this.authService.setLoggedinStage(user.ac_user.api_token);
-          this.layout.setDisplayName(user.ac_user.user_id);
+          this.ngProgress.done();
+          if (user) {
+            this.logedinFalse = false;
+            localStorage.setItem('token', user.ac_user.api_token);
+            localStorage.setItem('username', user.ac_user.user_id);
+            this.router.navigateByUrl('/');
+            this.authService.setLoggedinStage(user.ac_user.api_token);
+            this.layout.setDisplayName(user.ac_user.user_id);
+            return
+          }
+          this.logedinFalse = true;
+          this.failReson = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
         })
         .catch((err) => {
+          this.ngProgress.done();
           this.logedinFalse = true;
-          this.failReson = 'เกิดข้อผิดพลาด'
+          this.failReson = 'เกิดข้อผิดพลาด กรุณาติดต่อผู้ดูแลระบบ'
           console.log(err);
         });
     }

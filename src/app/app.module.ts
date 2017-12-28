@@ -51,6 +51,7 @@ import { ReferenceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 import { JqueryScriptService } from './services/utils/jquery-script.service';
+import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { JqueryScriptService } from './services/utils/jquery-script.service';
     M030101SearchSponsorsComponent,
     M010102ManageOfficerComponent,
     S010102SearchOfficerComponent,
-    IndexComponent
+    IndexComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     // Angular
