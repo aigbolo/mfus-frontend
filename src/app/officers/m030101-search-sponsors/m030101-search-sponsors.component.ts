@@ -15,32 +15,44 @@ import { SmSponsors } from '../../models/sm-sponsors';
   styleUrls: ['./m030101-search-sponsors.component.css']
 })
 export class M030101SearchSponsorsComponent implements OnInit {
-  criteriaForm:M030101SponsorsForm = new M030101SponsorsForm();
+  searchForm:M030101SponsorsForm = new M030101SponsorsForm();
   sponsorsList: SmSponsors[] = [];
   sponsor: SmSponsors = new SmSponsors;
   activeStatus = [];
   onLoad = false;
+  sub:any;
+  page: any;
   constructor(private layoutService: LayoutService,
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
-              private router: Router) { }
+              private activateRoute: ActivatedRoute) {
+                this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
+                if(this.searchForm.search_criteria.sponsors_name != null || this.searchForm.search_criteria.active_flag != null){
+                  this.doSearch();
+                }
+            }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลผู้ให้ทุนการศึกษา');
     this.activeStatus = this.utilsService.getActiveFlag('S');
-  }
+     }
 
   onSearch(){
+    this.utilsService.goToPageWithQueryParam('search-sponsors',this.searchForm.search_criteria);
+    this.doSearch();
+  }
+
+  doSearch(){
     this.onLoad = true;
-    this.sponsorsService.doSearch(this.criteriaForm).subscribe(data=>{
+    this.sponsorsService.doSearch(this.searchForm).subscribe(data=>{
       this.sponsorsList = data;
     },
     error =>{
       console.log('error..............');
     },
-  ()=>{
-    this.onLoad = false;
-  });
+    ()=>{
+      this.onLoad = false;
+    });
 
   }
 
@@ -50,10 +62,12 @@ export class M030101SearchSponsorsComponent implements OnInit {
   }
 
   onReset(){
-    this.criteriaForm = new M030101SponsorsForm;
+    this.searchForm = new M030101SponsorsForm;
+    this.sponsorsList = [];
+    this.utilsService.goToPage('search-sponsors');
   }
   onPageInsert(){
-    this.router.navigate(['manage-sponsors']);
+    this.utilsService.goToPage('manage-sponsors');
   }
 
 }

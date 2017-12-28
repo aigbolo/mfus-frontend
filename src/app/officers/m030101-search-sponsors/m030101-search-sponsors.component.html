@@ -5,12 +5,12 @@
         <label class="normal">ชื่อผู้สนับสนุน</label>
         <input
         type="text" class="input-company-name" pInputText
-        [(ngModel)]="criteriaForm.search_criteria.sponsors_name">
+        [(ngModel)]="searchForm.search_criteria.sponsors_name">
       </div>
 
       <div class="col-xs-3">
         <label class="normal">สถานะ</label>
-        <p-dropdown [options]="activeStatus" [(ngModel)]="criteriaForm.search_criteria.active_flag"
+        <p-dropdown [options]="activeStatus" [(ngModel)]="searchForm.search_criteria.active_flag"
         >
         </p-dropdown>
       </div>

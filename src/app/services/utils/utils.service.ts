@@ -59,6 +59,10 @@ export class UtilsService {
     this.router.navigate([path,id])
   }
 
+  goToPageWithQueryParam(path: string, queryParam: any){
+    this.router.navigate([path],{ queryParams:queryParam})
+  }
+
   convertBlobToString(objectUrl:any):Observable<any>{
     var myBlob:any = null;
     let base64data: string = null;
