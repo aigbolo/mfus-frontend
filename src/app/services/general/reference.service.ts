@@ -1,3 +1,4 @@
+import { RftSchool } from './../../models/rft-school';
 import { RftDistrict } from './../../models/rft-district';
 import { RftProvince } from './../../models/rft-province';
 import { Injectable } from '@angular/core';
@@ -9,8 +10,10 @@ import { RftSubDistrict } from '../../models/rft-sub-district';
 export class ReferenceService {
 
   private rftProvinces: RftProvince[] = [];
-  private rftDistrict: RftDistrict[] = [];
-  private rftSubDistrict: RftSubDistrict[] = [];
+  private rftDistricts: RftDistrict[] = [];
+  private rftSubDistricts: RftSubDistrict[] = [];
+
+  private rftSchools: RftSchool[] = [];
 
   constructor(private configuration: ConfigurationService) { }
 
@@ -37,7 +40,7 @@ export class ReferenceService {
   initialDistrict(provinceRef: string){
     this.configuration.requestMethodGET('autocomplete-district/'+provinceRef).subscribe(
       data => {
-        this.rftDistrict = data;
+        this.rftDistricts = data;
       },
       err => {
         console.log(err);
@@ -46,14 +49,14 @@ export class ReferenceService {
   }
 
   getDistricts(): RftDistrict[] {
-    return this.rftDistrict
+    return this.rftDistricts
   }
 
   //Set RftDistrict
   initialSubDistrict(districtRef: string){
     this.configuration.requestMethodGET('autocomplete-subdistrict/'+districtRef).subscribe(
       data => {
-        this.rftSubDistrict = data;
+        this.rftSubDistricts = data;
       },
       err => {
         console.log(err);
@@ -63,7 +66,7 @@ export class ReferenceService {
 
   getSubDistricts(): RftSubDistrict[] {
     console.log('service.getSubDistricts')
-    return this.rftSubDistrict
+    return this.rftSubDistricts
   }
 
   getReferencesAddress(provinceRef:string,districtRef:string,subDistrictRef:string):Observable<any>{
@@ -90,7 +93,7 @@ export class ReferenceService {
       },500);
       setTimeout(()=>{
         let objList: RftDistrict[];
-        objList = this.rftDistrict;
+        objList = this.rftDistricts;
         for (let obj of objList) {
           if (obj.district_ref == districtRef) {
             district = obj;
@@ -103,7 +106,7 @@ export class ReferenceService {
       },1500);
       setTimeout(()=>{
         let objList: RftSubDistrict[];
-        objList = this.rftSubDistrict;
+        objList = this.rftSubDistricts;
         for (let obj of objList) {
           if (obj.sub_district_ref == subDistrictRef) {
             subDistrict = obj;
@@ -116,6 +119,21 @@ export class ReferenceService {
       },2200);
     });
     return data;
+  }
+
+  initialSchools(){
+    this.configuration.requestMethodGET('autocomplete-schools').subscribe(
+      data =>{
+        this.rftSchools = data;
+      },
+      err=>{
+        console.log(err);
+      }
+    )
+  }
+
+  getSchools(){
+    return this.rftSchools
   }
 
 }

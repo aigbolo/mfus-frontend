@@ -1,4 +1,4 @@
-import { M030103ManageSholarshipsAnnouncementComponent } from './officers/m030103-manage-sholarships-announcement/m030103-manage-sholarships-announcement.component';
+import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
 import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from "./app.component";
@@ -28,7 +28,7 @@ const appRoutes: Routes = [
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "manage-sponsors/:ref", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
-  { path: "manage-scholarships-announcement", component: M030103ManageSholarshipsAnnouncementComponent, canActivate: [] },
+  { path: "manage-scholarship-announcement", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
 ]
 
 @NgModule({

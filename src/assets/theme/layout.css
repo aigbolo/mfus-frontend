@@ -71,9 +71,7 @@ label.normal {
 
 label.normal-inline {
   color: #b40000;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 15px;
+  margin-left:50px
 }
 
 /* BEGIN RADIOBUTTON */

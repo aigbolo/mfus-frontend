@@ -6,11 +6,11 @@ import { LayoutService } from './../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-m030103-manage-sholarships-announcement',
-  templateUrl: './m030103-manage-sholarships-announcement.component.html',
-  styleUrls: ['./m030103-manage-sholarships-announcement.component.css']
+  selector: 'app-m030103-manage-sholarship-announcement',
+  templateUrl: './m030103-manage-sholarship-announcement.component.html',
+  styleUrls: ['./m030103-manage-sholarship-announcement.component.css']
 })
-export class M030103ManageSholarshipsAnnouncementComponent implements OnInit {
+export class M030103ManageSholarshipAnnouncementComponent implements OnInit {
 
   constructor(private layoutService: LayoutService,
     private referenceService: ReferenceService,

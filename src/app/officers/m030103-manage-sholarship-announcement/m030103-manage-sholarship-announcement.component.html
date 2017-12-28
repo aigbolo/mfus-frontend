@@ -12,29 +12,38 @@
   </div>
 </div>
 <div class="row overide-row">
-  <div class="col-xs-3">
+  <div class="col-xs-2">
     <label class="normal">ปีการศึกษา</label>
     <input type="text" class="input-year" pInputText>
   </div>
-  <div class="col-xs-9">
+  <div class="col-xs-10">
       <label  class="normal">ทุนการศึกษา</label>
-      <p-autoComplete></p-autoComplete>
+      <p-autoComplete name="autocompleteName"
+      [dropdown]="true"
+      forceSelection="true">
+</p-autoComplete>
   </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-12">
       <label  class="normal">ประเภททุนการศึกษา</label>
-      <input type="text" pInputText>
+      <input type="text" pInputText disabled
+      class="scholarships-type"
+      >
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-3">
       <label  class="normal">จำนวนทุนการศึกษา</label>
-      <input type="text" pInputText>
+      <input type="text" pInputText
+      class="scholarships-amount"
+      >
     </div>
     <div class="col-xs-5">
         <label  class="normal">จำนวนเงิน/ทุนการศึกษา(บาท)</label>
-        <input type="text" pInputText>
+        <input type="text" pInputText
+        class="scholarships-aid"
+        >
     </div>
 </div>
 
@@ -45,23 +54,30 @@
 <div class="row overide-row">
     <div class="col-xs-3">
         <label  class="normal">เกรดเฉลี่ยขั้นต่ำ *</label>
-        <input type="text" pInputText>
+        <input type="text" pInputText
+        class="grade"
+        >
     </div>
     <div class="col-xs-9">
         <label  class="normal">สำหรับชั้นปี</label>
-        <input type="text" pInputText>
+        <p-checkbox name="group1" value="New York" label="ชั้นปีที่ 1"></p-checkbox>
+        <p-checkbox name="group1" value="New York" label="ชั้นปีที่ 2"></p-checkbox>
+        <p-checkbox name="group1" value="New York" label="ชั้นปีที่ 3"></p-checkbox>
+        <p-checkbox name="group1" value="New York" label="ชั้นปีที่ 4"></p-checkbox>
+        <p-checkbox name="group1" value="New York" label="ชั้นปีที่ 5"></p-checkbox>
+        <p-checkbox name="group1" value="New York" label="ชั้นปีที่ 6"></p-checkbox>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-12">
         <label  class="normal">สำนักวิชา</label>
-        <input type="text" pInputText>
+        <p-checkbox ></p-checkbox>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-12">
         <label  class="normal">สาขาวิชา</label>
-        <input type="text" pInputText>
+        <p-checkbox ></p-checkbox>
     </div>
 </div>
 
@@ -70,15 +86,27 @@
 </div>
 
 <div class="row overide-row">
-    <div class="col-xs-3">
+    <div class="col-xs-4">
         <label  class="normal">ประกาศเปิดรับสมัคร *</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+    </div>
+    <div class="col-xs-8">
+        <label  class="normal">เริ่มรับสมัคร *</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+        <label class="normal-inline">ถึงวันที่</label>
         <p-calendar [showIcon]="true"></p-calendar>
     </div>
 
 </div>
 <div class="row overide-row">
-    <div class="col-xs-12">
+    <div class="col-xs-4">
         <label  class="normal">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+    </div>
+    <div class="col-xs-8">
+        <label  class="normal">สัมภาษณ์</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+        <label class="normal-inline">ถึงวันที่</label>
         <p-calendar [showIcon]="true"></p-calendar>
     </div>
 </div>
