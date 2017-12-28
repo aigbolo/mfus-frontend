@@ -52,6 +52,7 @@ import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 import { JqueryScriptService } from './services/utils/jquery-script.service';
 import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
+import { M030103ManageSholarshipsAnnouncementComponent } from './officers/m030103-manage-sholarships-announcement/m030103-manage-sholarships-announcement.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { ForgotPasswordComponent } from './general/authentication/forgot-passwor
     M010102ManageOfficerComponent,
     S010102SearchOfficerComponent,
     IndexComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    M030103ManageSholarshipsAnnouncementComponent,
   ],
   imports: [
     // Angular
