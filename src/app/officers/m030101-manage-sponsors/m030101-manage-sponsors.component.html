@@ -6,6 +6,7 @@
                 <label class="normal">ชื่อผู้สนับสนุน *</label>
                 <input pInputText
                 type="text"
+                maxlength="200"
                 class="input-company-name"
                 formControlName="sponsors_name"
                 [(ngModel)]="manageForm.sponsors.sponsors_name"
@@ -28,6 +29,7 @@
                 <label class="normal">ที่อยู่ *</label>
                 <input pInputText
                 type="text"
+                maxlength="200"
                 class="input-address"
                 formControlName="address"
                 [(ngModel)]="manageForm.sponsors.address"
@@ -38,6 +40,7 @@
             <div class="col-xs-6 normal">
                 <label class="normal">จังหวัด *</label>
                 <p-autoComplete class="autocomplete-province"
+                maxlength="50"
                 [dropdown]="true"
                 [(ngModel)]="province"
                 field="province_name_t"
@@ -55,6 +58,7 @@
                 <p-autoComplete class="autocomplete-district"
                 [disabled]="!province.province_ref"
                 [dropdown]="true"
+                maxlength="50"
                 [(ngModel)]="district"
                 field="district_name_t"
                 [suggestions]="districtList"
@@ -72,6 +76,7 @@
                 <p-autoComplete class="autocomplete-sub-district"
                 [disabled]="!district.district_ref"
                 [dropdown]="true"
+                maxlength="50"
                 [(ngModel)]="subDistrict"
                 field="sub_district_name_t"
                 [suggestions]="subDistrictList"
@@ -86,6 +91,8 @@
                 <label class="normal">รหัสไปรษณีย์</label>
                 <input pInputText
                 type="text"
+                class="input-postcode"
+                maxlength="5"
                 formControlName="postcode"
                 [(ngModel)]="manageForm.sponsors.postcode"
                 disabled>
@@ -95,7 +102,9 @@
             <div class="col-xs-6 normal">
                 <label class="normal">เบอร์โทรศัพท์ *</label>
                 <input  pInputText
+                class="input-phone"
                 type="text"
+                maxlength="10"
                 formControlName="phone_no"
                 [(ngModel)]="manageForm.sponsors.phone_no">
             </div>
@@ -104,6 +113,8 @@
                 <label class="normal">อีเมลล์</label>
                 <input pInputText
                 type="text"
+                class="input-mail"
+                maxlength="50"
                 formControlName="email"
                 [(ngModel)]="manageForm.sponsors.email">
             </div>
@@ -113,7 +124,9 @@
                 <label class="normal">เว็บไซต์ที่ติดต่อได้</label>
                 <div>
                     <input pInputText
+                    class="input-website"
                     type="text"
+                    maxlength="100"
                     formControlName="website"
                     [(ngModel)]="manageForm.sponsors.website">
                 </div>

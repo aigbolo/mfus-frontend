@@ -45,11 +45,13 @@
   width: 150px;
 }
 .input-occupation,
-.input-position,
-.input-mail {
+.input-position,{
   width: 300px;
 }
-
+.input-mail,
+.input-website {
+  width: 250px;
+}
 .autocomplete-province{
   width: 200px;
 }
