@@ -35,12 +35,10 @@ export class M010102ManageOfficerComponent implements OnInit {
   // Autocomplete District
   districtList: RftDistrict[] = [];
   districtObject: RftDistrict;
-  listDistrict: RftDistrict[] = [];
 
   // Autocomplete SubDistrict
   subDistrictList: RftSubDistrict[] = [];
   subDistrictObject: RftSubDistrict;
-  listSubDistrict: RftSubDistrict[] = [];
 
   activeFlag: any[];
   titleList: any[];
@@ -109,9 +107,8 @@ export class M010102ManageOfficerComponent implements OnInit {
   autocompleteProvince(event) {
     let query = event.query;
     this.provinceList = [];
-    this.manageOfficerForm.rftDistrict = new RftDistrict();
-    this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
-    let objList = this.referenceService.getProvinces();
+    let objList: RftProvince[];
+    objList = this.referenceService.getProvinces();
     for (let obj of objList) {
       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.provinceList.push(obj);
@@ -121,24 +118,20 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   handleCompleteClickProvince() {
     setTimeout(() => {
-      this.provinceList = []
       this.provinceList = this.referenceService.getProvinces();
     }, 100)
   }
 
   selectProvince(event: SelectItem) {
-    this.districtList = [];
-    this.subDistrictList = [];
-    this.manageOfficerForm.rftDistrict = new RftDistrict();
-    this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
     this.referenceService.initialDistrict(this.manageOfficerForm.rftProvince.province_ref)
   }
 
   autocompleteDistrict(event) {
     let query = event.query;
     this.districtList = [];
-    this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
-    let objList = this.referenceService.getDistricts();
+
+    let objList: RftDistrict[]
+    objList = this.referenceService.getDistricts();
     for (let obj of objList) {
       if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.districtList.push(obj);
@@ -148,23 +141,19 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   handleCompleteClickDistrict() {
     setTimeout(() => {
-      this.districtList = [];
       this.districtList = this.referenceService.getDistricts();
-      this.listSubDistrict = [];
     }, 100)
   }
 
   selectDistrict(event: SelectItem) {
-
-    this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
     this.referenceService.initialSubDistrict(this.manageOfficerForm.rftDistrict.district_ref)
   }
 
   autocompleteSubDistrict(event) {
     let query = event.query;
     this.subDistrictList = [];
-    let objList = this.referenceService.getSubDistricts()
-    console.log(objList)
+    let objList: RftSubDistrict[]
+    objList = this.referenceService.getSubDistricts()
     for (let obj of objList) {
       if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.subDistrictList.push(obj);
@@ -174,13 +163,11 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   handleCompleteClickSubDistrict() {
     setTimeout(() => {
-      this.subDistrictList = [];
       this.subDistrictList = this.referenceService.getSubDistricts()
     }, 100)
   }
 
   selectSubDistrict(event: SelectItem) {
-    console.log(this.manageOfficerForm.rftSubDistrict.sub_district_ref)
     this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
   }
 
@@ -214,7 +201,7 @@ export class M010102ManageOfficerComponent implements OnInit {
     },error=>{
       console.log(error)
     },()=>{
-      this.updateOfficerForm = this.manageOfficerForm
+      this.updateOfficerForm.acOfficer = this.manageOfficerForm.acOfficer
       console.log(this.updateOfficerForm)
       this.pageRender = true;
       this.ngProgress.done()
@@ -224,15 +211,8 @@ export class M010102ManageOfficerComponent implements OnInit {
   onSubmit() {
     if (this.btnLabel == 'เพิ่มข้อมูล') {
       if (this.officerFormGroup.invalid) {
-        console.log("Form Invalid")
-        this.officerFormGroup.controls["officer_code"].markAsDirty();
-        this.officerFormGroup.controls["gender"].markAsDirty();
-        this.officerFormGroup.controls["personal_id"].markAsDirty();
-        this.officerFormGroup.controls["first_name"].markAsDirty();
-        this.officerFormGroup.controls["last_name"].markAsDirty();
-        this.officerFormGroup.controls["phone_no"].markAsDirty();
-        this.officerFormGroup.controls["email"].markAsDirty();
-        this.officerFormGroup.controls["image"].markAsDirty();
+        this.utilsService.findInvalidControls(this.officerFormGroup)
+        return
       }
       this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(this.flag);
       this.officerService.doInsert(this.manageOfficerForm.acOfficer, this.user);

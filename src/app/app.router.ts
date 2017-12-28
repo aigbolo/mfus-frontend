@@ -1,3 +1,4 @@
+import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
 import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from "./app.component";
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: "search-officer", component: S010102SearchOfficerComponent },
   { path: "manage-officer/:id", component: M010102ManageOfficerComponent },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
+  { path: "search-scholarship", component: S030102SearchScolarshipComponent },
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "manage-sponsors/:ref", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },

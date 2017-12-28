@@ -3,13 +3,18 @@ import { OfficerForm } from './../../forms/officer-form';
 import { AcOfficer } from './../../models/ac-officer';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from '../utils/configuration.service';
+import { LayoutService } from '../utils/layout.service';
+import { Severity } from '../../enum';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class M010102OfficerService {
 
   officerForm: OfficerForm
   constructor(private configurationService: ConfigurationService,
-    private utilService: UtilsService) { }
+    private utilService: UtilsService,
+    private layout: LayoutService,
+    private router: Router) { }
 
 
   doInsert(form: AcOfficer, user: string) {
@@ -20,13 +25,16 @@ export class M010102OfficerService {
 
     }, error => {
       console.log(error)
+      this.layout.setMsgDisplay(Severity.ERROR, 'บันทึกข้อมูลไม่สำเร็จ', '')
     }, () => {
       console.log('success')
       this.utilService.goToPage('search-officer')
+      this.layout.setMsgDisplay(Severity.SUCCESS, 'บันทึกข้อมูลเสร็จสิ้น', '')
     })
   }
 
   searchOfficer(form: OfficerForm) {
+    this.router.navigate(['/search-officer'], { queryParams: form.searchCriteria})
     return this.configurationService.requestMethodPOST('officers', form.searchCriteria)
   }
 

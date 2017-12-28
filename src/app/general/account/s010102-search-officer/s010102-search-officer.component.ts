@@ -5,7 +5,7 @@ import { LayoutService } from './../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { OfficerForm } from '../../../forms/officer-form';
 import { UtilsService } from '../../../services/utils/utils.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-officer',
@@ -24,25 +24,35 @@ export class S010102SearchOfficerComponent implements OnInit {
   constructor(public utilService: UtilsService,
     private layoutService: LayoutService,
     private officerService: M010102OfficerService,
-    private js: JqueryScriptService) { }
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลเจ้าหน้าที่')
+    this.route.queryParams.subscribe(params => {
+      });
   }
 
   onSearchClick() {
+    // this.officerService.searchOfficer(this.searchForm)
     this.officerService.searchOfficer(this.searchForm).subscribe(res=>{
       this.listOfficer = res
       for(let obj of this.listOfficer){
         obj.first_name = obj.first_name + ' ' +obj.last_name
       }
-      return this.listOfficer
+
     },error=>{
      console.log('error: ' + error)
     },()=>{
-      this.js.updateActiveFlagScript();
+      return this.listOfficer
     });
+
   }
+
+  // onSearchClick(){
+
+  //   this.officerService.searchOfficer(this.searchForm)
+  // }
 
   onResetClick() {
     this.searchForm = new OfficerForm();
