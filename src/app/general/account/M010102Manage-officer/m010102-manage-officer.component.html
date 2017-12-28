@@ -1,4 +1,4 @@
-<form [formGroup]="officerFormGroup" (ngSubmit)="onSubmit()">
+<form *ngIf="pageRender" [formGroup]="officerFormGroup" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-xs-9">
             <div class="row">
@@ -114,21 +114,18 @@
             </div>
         </div>
         <div class="col-xs-3">
-            <div class="row center">
-                <img src="{{ manageOfficerForm.acOfficer.profile_image }}" class="image-preview fixed-image">
-            </div>
-            <div class="row center">
-                <label (change)="onUpload($event)" class="btn-positive" label="เลือกไฟล์" pButton>
-            <input
-              name="image"
-              type="file"
-              accept="image/*, application/pdf"
-              class="display-none">
-          </label>
+            <div class="row overide-row">
+                <div class="col-xs-12 profile-upload">
+                    <img [src]="manageOfficerForm.acOfficer.profile_image" class="image-profile">
+                </div>
+                <div class="col-xs-12 profile-upload">
+                    <p-fileUpload customUpload="true" auto="true" (uploadHandler)="onUpload($event)" chooseLabel="เลือกไฟล์"></p-fileUpload>
+                </div>
+                <div class="col-xs-12">{{manageOfficerForm.acOfficer.profile_name}}</div>
             </div>
             <div class="row center">
                 <div>
-                    <p-checkbox binary="true" label="สามารถจัดการเจ้าหน้าที่">
+                    <p-checkbox [binary]="true" [(ngModel)]="flag" formControlName="manage_officer_flag" name="manage_officer_flag" label="สามารถจัดการเจ้าหน้าที่">
                     </p-checkbox>
                 </div>
             </div>

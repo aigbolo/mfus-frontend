@@ -7,14 +7,23 @@ import { ConfigurationService } from '../utils/configuration.service';
 @Injectable()
 export class M010102OfficerService {
 
-  officerForm: OfficerForm[]
+  officerForm: OfficerForm
   constructor(private configurationService: ConfigurationService,
-              private utilService: UtilsService) { }
+    private utilService: UtilsService) { }
 
 
-  insertNewOfficer(form: AcOfficer) {
+  doInsert(form: AcOfficer, user: string) {
+    form.create_user = user
+    form.update_user = user
     console.log(form)
+    return this.configurationService.requestMethodPOST('officers-insert', form).subscribe(res => {
 
+    }, error => {
+      console.log(error)
+    }, () => {
+      console.log('success')
+      this.utilService.goToPage('search-officer')
+    })
   }
 
   searchOfficer(form: OfficerForm) {
@@ -25,10 +34,7 @@ export class M010102OfficerService {
     return this.configurationService.requestMethodPOST('officers-update', ref)
   }
 
-  updateOfficer(form: OfficerForm) {
-    form.acOfficer.province = form.rftProvince.province_ref
-    form.acOfficer.district = form.rftDistrict.district_ref
-    form.acOfficer.sub_district = form.rftSubDistrict.sub_district_ref
+  doUpdate(form: AcOfficer) {
     return this.configurationService.requestMethodPUT('officers', form).subscribe(res => {
       console.log(res)
     }, error => {

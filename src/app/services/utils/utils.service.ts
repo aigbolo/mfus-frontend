@@ -31,6 +31,16 @@ export class UtilsService {
     return activeStatus;
   }
 
+  getManageOfficerFlag(value: string){
+    let flag: string
+    if(value == 'true'){
+      flag ='1'
+    }else{
+      flag = '2'
+    }
+    console.log(flag)
+    return flag
+  }
 
   getTitleList():SelectItem[] {
     let titleList = [
@@ -94,6 +104,20 @@ export class UtilsService {
       if (!controls[name].valid) {
         controls[name].markAsDirty();
       }
+    }
+  }
+
+  setManageStatus(value) {
+    switch (value) {
+      case '1': { return true; };
+      case '2': { return false; };
+    }
+  }
+
+  getManageStatus(value) {
+    switch (value) {
+      case true: { return '1'; };
+      case false: { return '2'; };
     }
   }
 }
