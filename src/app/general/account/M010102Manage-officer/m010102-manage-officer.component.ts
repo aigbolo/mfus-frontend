@@ -67,7 +67,6 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.btnLabel = 'แก้ไขข้อมูล'
       this.layoutService.setPageHeader('แก้ไขข้อมูลเจ้าหน้าที่');
       this.officerFormGroup.controls['officer_code'].disable();
-      this.officerFormGroup.controls['active_flag'].enable();
       this.onRowSelected()
     } else {
       this.pageRender = true;
@@ -90,19 +89,20 @@ export class M010102ManageOfficerComponent implements OnInit {
         Validators.compose([Validators.required])),
       last_name: new FormControl(this.manageOfficerForm.acOfficer.last_name,
         Validators.compose([Validators.required])),
-      address: new FormControl(this.manageOfficerForm.acOfficer.address),
+      address: new FormControl(this.manageOfficerForm.acOfficer.address,
+      Validators.required),
       postcode: new FormControl(this.manageOfficerForm.acOfficer.postcode),
       phone_no: new FormControl(this.manageOfficerForm.acOfficer.phone_no,
         Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])),
       email: new FormControl(this.manageOfficerForm.acOfficer.email,
-        Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)),
+        Validators.compose([Validators.required,
+          Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)])),
       province: new FormControl(this.manageOfficerForm.rftProvince),
       district: new FormControl(this.manageOfficerForm.rftDistrict),
       sub_district: new FormControl(this.manageOfficerForm.rftSubDistrict),
       manage_officer_flag: new FormControl(this.flag = false),
       image: new FormControl(this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png', Validators.compose([Validators.required]))
     });
-    this.officerFormGroup.controls['active_flag'].disable();
   }
 
   autocompleteProvince(event) {
@@ -124,8 +124,12 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   selectProvince() {
-    console.log(this.manageOfficerForm.rftProvince)
+    console.log('select province')
       this.referenceService.initialDistrict(this.manageOfficerForm.rftProvince.province_ref)
+      setTimeout(() => {
+        this.manageOfficerForm.rftDistrict = new RftDistrict
+        this.manageOfficerForm.rftSubDistrict = new RftSubDistrict
+      }, 100);
   }
 
   autocompleteDistrict(event) {
@@ -133,7 +137,6 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.districtList = [];
     let objList: RftDistrict[]
     objList = this.referenceService.getDistricts();
-    console.log(objList)
     for (let obj of objList) {
       if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.districtList.push(obj);
@@ -149,6 +152,10 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   selectDistrict() {
       this.referenceService.initialSubDistrict(this.manageOfficerForm.rftDistrict.district_ref)
+      setTimeout(() => {
+        this.manageOfficerForm.rftSubDistrict = new RftSubDistrict
+        this.manageOfficerForm.acOfficer.postcode = ''
+      }, 100);
   }
 
   autocompleteSubDistrict(event) {
@@ -171,6 +178,7 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   selectSubDistrict() {
     this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
+
   }
 
   onUpload(event) {
@@ -194,13 +202,8 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   onRowSelected() {
     this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(res => {
-      console.log(res)
       this.manageOfficerForm.acOfficer = res
-      console.log
-      this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.setManageStatus(res.manage_officer_flag)
-      console.log(this.manageOfficerForm.acOfficer.province,
-        this.manageOfficerForm.acOfficer.district,
-        this.manageOfficerForm.acOfficer.sub_district)
+      this.flag = this.utilsService.setManageStatus(res.manage_officer_flag)
       if (this.manageOfficerForm.acOfficer.profile_image == null) {
         this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png'
 
@@ -225,7 +228,6 @@ export class M010102ManageOfficerComponent implements OnInit {
             console.log('success')
           })
       }, 3000);
-
       console.log('onrow complete')
     })
   }
