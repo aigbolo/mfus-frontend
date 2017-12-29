@@ -68,7 +68,7 @@
                 <div class="col-xs-6">
                     <label class="normal">จังหวัด</label>
                     <div>
-                        <p-autoComplete field="province_name_t" [(ngModel)]="manageOfficerForm.rftProvince" formControlName="province_name_t" [suggestions]="provinceList" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince($event)"
+                        <p-autoComplete class="autocomplete-province" field="province_name_t" [(ngModel)]="manageOfficerForm.rftProvince" formControlName="province" [suggestions]="provinceList" (onSelect)="selectProvince()" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince()"
                             (completeMethod)="autocompleteProvince($event)">
                         </p-autoComplete>
                     </div>
@@ -76,8 +76,8 @@
                 <div class="col-xs-6">
                     <label class="normal">อำเภอ</label>
                     <div>
-                        <p-autoComplete [(ngModel)]="manageOfficerForm.rftDistrict" formControlName="district_name_t" [suggestions]="districtList" [dropdown]="true" [disabled]="manageOfficerForm.rftProvince.province_ref == null" (completeMethod)="autocompleteDistrict($event)"
-                            (onDropdownClick)="handleCompleteClickDistrict($event)" field="district_name_t" (onSelect)="selectDistrict()" forceSelection="true" name="autocompleteDistrict">
+                        <p-autoComplete class="autocomplete-district" [disabled]="!manageOfficerForm.rftProvince.province_ref" [dropdown]="true" maxlength="50" [(ngModel)]="manageOfficerForm.rftDistrict" field="district_name_t" [suggestions]="districtList" forceselection="true"
+                            formControlName="district" (onSelect)="selectDistrict()" (onDropdownClick)="handleCompleteClickDistrict()" (completeMethod)="autocompleteDistrict($event)">
                         </p-autoComplete>
                     </div>
                 </div>
@@ -86,15 +86,15 @@
                 <div class="col-xs-6">
                     <label class="normal">ตำบล</label>
                     <div>
-                        <p-autoComplete [(ngModel)]="manageOfficerForm.rftSubDistrict" formControlName="sub_district_name_t" [suggestions]="subDistrictList" [dropdown]="true" [disabled]="manageOfficerForm.rftDistrict.district_ref == null" (completeMethod)="autocompleteSubDistrict($event)"
-                            (onDropdownClick)="handleCompleteClickSubDistrict($event)" field="sub_district_name_t" (onSelect)="selectSubDistrict()" forceSelection="true" name="autocompleteSubdistrict">
+                        <p-autoComplete class="autocomplete-sub-district" [(ngModel)]="manageOfficerForm.rftSubDistrict" formControlName="sub_district" [suggestions]="subDistrictList" [dropdown]="true" [disabled]="!manageOfficerForm.rftDistrict.district_ref" (completeMethod)="autocompleteSubDistrict($event)"
+                            (onDropdownClick)="handleCompleteClickSubDistrict()" field="sub_district_name_t" (onSelect)="selectSubDistrict()" forceSelection="true" name="autocompleteSubdistrict">
                         </p-autoComplete>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <label class="normal"> รหัสไปรษณีย์ </label>
                     <div>
-                        <input type="text" [(ngModel)]="manageOfficerForm.rftSubDistrict.postcode" formControlName="postcode" name="postcode" disabled="true" pInputText>
+                        <input type="text" class="input-postcode" [(ngModel)]="manageOfficerForm.acOfficer.postcode" formControlName="postcode" name="postcode" disabled="true" pInputText>
                     </div>
                 </div>
             </div>
@@ -112,6 +112,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="col-xs-3">
             <div class="row overide-row">
@@ -131,6 +132,7 @@
             </div>
         </div>
     </div>
+
 </form>
 <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
