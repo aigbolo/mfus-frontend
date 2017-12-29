@@ -21,49 +21,55 @@ export class S010102SearchOfficerComponent implements OnInit {
 
   listOfficer: AcOfficer[];
 
-  constructor(public utilService: UtilsService,
+  constructor(public utilsService: UtilsService,
     private layoutService: LayoutService,
     private officerService: M010102OfficerService,
-    private route: ActivatedRoute
-    ) { }
+    private activateRoute: ActivatedRoute) {
+    this.searchForm.searchCriteria = this.utilsService.castToObject(
+      this.searchForm.searchCriteria, this.activateRoute.snapshot.queryParams);
+    if (this.searchForm.searchCriteria.officer_code != null ||
+      this.searchForm.searchCriteria.first_name != null ||
+      this.searchForm.searchCriteria.last_name != null ||
+      this.searchForm.searchCriteria.personal_id != null ||
+      this.searchForm.searchCriteria.active_flag != null) {
+      this.doSearch();
+    }
+  }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลเจ้าหน้าที่')
-    this.route.queryParams.subscribe(params => {
-      });
   }
 
   onSearchClick() {
-    // this.officerService.searchOfficer(this.searchForm)
-    this.officerService.searchOfficer(this.searchForm).subscribe(res=>{
+    this.utilsService.goToPageWithQueryParam('search-officer',this.searchForm.searchCriteria);
+    this.doSearch();
+  }
+
+  doSearch(){
+    this.officerService.searchOfficer(this.searchForm).subscribe(res => {
       this.listOfficer = res
-      for(let obj of this.listOfficer){
-        obj.first_name = obj.first_name + ' ' +obj.last_name
+      for (let obj of this.listOfficer) {
+        obj.first_name = obj.first_name + ' ' + obj.last_name
       }
 
-    },error=>{
-     console.log('error: ' + error)
-    },()=>{
+    }, error => {
+      console.log('error: ' + error)
+    }, () => {
       return this.listOfficer
     });
 
   }
-
-  // onSearchClick(){
-
-  //   this.officerService.searchOfficer(this.searchForm)
-  // }
 
   onResetClick() {
     this.searchForm = new OfficerForm();
   }
 
   onInsertPageClick() {
-    this.utilService.goToPage('manage-officer')
+    this.utilsService.goToPage('manage-officer')
   }
 
   onRowSelect(event) {
     this.selectofficer = event.data
-    this.utilService.goToPageWithParam('manage-officer/', this.selectofficer.officer_ref)
+    this.utilsService.goToPageWithParam('manage-officer/', this.selectofficer.officer_ref)
   }
 }

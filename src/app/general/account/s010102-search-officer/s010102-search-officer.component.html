@@ -8,7 +8,7 @@
     <div class="col-xs-4">
         <label class="normal"> สถานะ</label>
         <div>
-            <p-dropdown [(ngModel)]="searchForm.searchCriteria.active_flag" [options]="utilService.getActiveFlag('S')">
+            <p-dropdown [(ngModel)]="searchForm.searchCriteria.active_flag" [options]="utilsService.getActiveFlag('S')">
             </p-dropdown>
         </div>
     </div>
@@ -48,7 +48,7 @@
 </div>
 <div class="space"></div>
 <div class="row">
-    <p-dataTable [value]="listOfficer" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+    <p-dataTable [value]="listOfficer" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true" [pageLinks]="3">
         <p-column [sortable]="true" field="officer_code" header="รหัสเจ้าหน้าที่">
         </p-column>
         <p-column [sortable]="true" field="first_name" header="ชื่อเจ้าหน้าที่">
