@@ -24,7 +24,9 @@ import {
   RadioButtonModule,
   DataTableModule,
   SharedModule,
-  GrowlModule
+  GrowlModule,
+  CalendarModule,
+  SliderModule
 } from 'primeng/primeng';
 
 // Companent
@@ -53,6 +55,7 @@ import { M030102ManageScholarshipComponent } from './officers/m030102-manage-sch
 import { JqueryScriptService } from './services/utils/jquery-script.service';
 import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
+import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
 
 
 @NgModule({
@@ -74,7 +77,8 @@ import { S030102SearchScolarshipComponent } from './officers/s030102-search-scol
     S010102SearchOfficerComponent,
     IndexComponent,
     ForgotPasswordComponent,
-    S030102SearchScolarshipComponent
+    S030102SearchScolarshipComponent,
+    M030103ManageSholarshipAnnouncementComponent,
   ],
   imports: [
     // Angular
@@ -99,7 +103,9 @@ import { S030102SearchScolarshipComponent } from './officers/s030102-search-scol
     FormsModule,
     DataTableModule,
     SharedModule,
-    GrowlModule
+    GrowlModule,
+    CalendarModule,
+    SliderModule,
   ],
   providers: [
     {

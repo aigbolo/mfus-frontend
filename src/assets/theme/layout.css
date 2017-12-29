@@ -65,16 +65,13 @@ label {
 }
 label.normal {
   color: #b40000;
-  font-size: 16px;
   margin-top: 15px;
   width: 100%;
 }
 
 label.normal-inline {
   color: #b40000;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 15px;
+  margin-left:50px
 }
 
 /* BEGIN RADIOBUTTON */
@@ -181,8 +178,7 @@ div.ui-fileupload-content.ui-widget-content.ui-corner-bottom {
 
 /* INPUT TEXT */
 input.ui-inputtext {
-  /* padding:0.3em 0.5em !important; */
-  /* font-size: 20px !important; */
+  font-weight: 400 !important;
 }
 
 /* p-step primefaces position */
@@ -311,3 +307,9 @@ div.underline {
   padding-left:10px;
 }
 /* End Menu side bar CSS*/
+
+h4.custom-panel-title {
+  margin-top: 20px;
+  line-height: 30px;
+  border-bottom: 2px solid #3a8db7;
+}
