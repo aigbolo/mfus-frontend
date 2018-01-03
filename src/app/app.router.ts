@@ -24,6 +24,7 @@ const appRoutes: Routes = [
   { path: "search-officer", component: S010102SearchOfficerComponent },
   { path: "manage-officer/:id", component: M010102ManageOfficerComponent },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
+  { path: "manage-scholarship/:id", component: M030102ManageScholarshipComponent },
   { path: "search-scholarship", component: S030102SearchScolarshipComponent },
 
 

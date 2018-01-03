@@ -17,7 +17,8 @@ export class ScholarshipForm{
 
 class SearchCriteria{
   active_flag: string
-  sponsor_name: string
+  sponsors_ref: string
   scholarship_type: string
   scholarship_name: string
+
 }

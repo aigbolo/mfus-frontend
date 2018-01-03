@@ -1,3 +1,4 @@
+import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
 import { M010102OfficerService } from './services/officers/m010102-officer.service';
 import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
 import { S010102SearchOfficerComponent } from './general/account/s010102-search-officer/s010102-search-officer.component';
@@ -124,6 +125,7 @@ import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103
     EnsureIsNotAuth,
     M030101SponsorsService,
     JqueryScriptService,
+    M030102ScholarshipService
   ],
   bootstrap: [AppComponent]
 })

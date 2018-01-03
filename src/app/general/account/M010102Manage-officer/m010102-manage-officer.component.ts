@@ -1,3 +1,4 @@
+import { Severity } from './../../../enum';
 import { OfficerForm } from './../../../forms/officer-form';
 import { NgProgress } from 'ngx-progressbar';
 import { Subject } from 'rxjs/Subject';
@@ -25,6 +26,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   pageRender = false;
   user = localStorage.getItem('username');
   manageOfficerForm: OfficerForm;
+  manageOfficerForm2: OfficerForm;
   officerFormGroup: FormGroup;
 
   // Autocomplete Province
@@ -202,6 +204,7 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   onRowSelected() {
     this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(res => {
+      console.log(res)
       this.manageOfficerForm.acOfficer = res
       this.flag = this.utilsService.setManageStatus(res.manage_officer_flag)
       if (this.manageOfficerForm.acOfficer.profile_image == null) {
@@ -239,12 +242,17 @@ export class M010102ManageOfficerComponent implements OnInit {
         return
       }
       this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(this.flag);
-      this.officerService.doInsert(this.manageOfficerForm.acOfficer, this.user)
-      setTimeout(() => {
-        this.validateForm()
+      this.officerService.doInsert(this.manageOfficerForm.acOfficer, this.user).subscribe(res => {
+        console.log(res)
+      }, error => {
+        console.log(error)
+        this.layoutService.setMsgDisplay(Severity.ERROR, 'เกิดข้อผิดพลาาด','')
+      }, () => {
+        console.log('success')
         this.manageOfficerForm = new OfficerForm
-        this.manageOfficerForm.acOfficer.profile_image = '../../../../assets/images/empty_profile.png'
-      }, 500);
+        this.validateForm()
+        this.layoutService.setMsgDisplay(Severity.SUCCESS, 'บันทึกข้อมูลสำเร็จ', '')
+      })
     } else {
       this.manageOfficerForm.acOfficer.province = this.manageOfficerForm.rftProvince.province_ref
       this.manageOfficerForm.acOfficer.district = this.manageOfficerForm.rftDistrict.district_ref
@@ -257,6 +265,8 @@ export class M010102ManageOfficerComponent implements OnInit {
 
 
   onResetClick() {
+    console.log(this.manageOfficerForm)
+    console.log(this.manageOfficerForm2)
     if (this.btnLabel == 'เพิ่มข้อมูล') {
       console.log('reset insert')
       this.manageOfficerForm = new OfficerForm();
@@ -265,7 +275,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.manageOfficerForm.acOfficer.profile_type = ''
     } else {
       console.log('resetupdate')
-      this.manageOfficerForm = new OfficerForm();
+      window.location.reload()
     }
   }
 

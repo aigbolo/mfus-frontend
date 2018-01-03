@@ -1,15 +1,85 @@
-<div class="row">
-    <div class="col-xs-5">
-        <label class="normal">ผู้ให้ทุนการศึกษา</label>
-        <p-autoComplete>
-
-        </p-autoComplete>
+<form *ngIf="pageRender" [formGroup]="scholarshipFormGroup" (ngSubmit)="onSubmit()">
+    <div class="row overide-row">
+        <div class="col-xs-9">
+            <label class="normal">ผู้ให้ทุนการศึกษา</label>
+            <p-autoComplete
+              class="autocomplete-sub-district"
+              [(ngModel)]="manageScholarship.smSponsors"
+              [suggestions]="sponsorsList"
+              [dropdown]="true"
+              (completeMethod)="autocompleteSponsors($event)"
+              (onDropdownClick)="handleCompleteClickSponsosrs()"
+              field="sponsors_name"
+              forceSelection="true"
+              name="autocompleteSponsors"
+              formControlName="sponsor_name">
+            </p-autoComplete>
+        </div>
+        <div class="col-xs-3">
+            <label class="normal">สถานะ</label>
+            <p-dropdown
+              [(ngModel)]="manageScholarship.smScholarship.active_flag"
+              name="active_flag"
+              [options]="activeFlag"
+              [disabled]="manageScholarship.smScholarship.scholarship_ref"
+              formControlName="active_flag">
+            </p-dropdown>
+        </div>
     </div>
-    <div class="col-xs-3"></div>
-    <div class="col-xs-3">
-        <label class="normal">สถานะ</label>
-        <p-dropdown>
-
-        </p-dropdown>
+    <div class="row overide-row">
+        <div class="col-xs-9">
+            <label class="normal">ชื่อทุนการศึกษา</label>
+            <input class="input-address"
+              type="text"
+              [(ngModel)]="manageScholarship.smScholarship.scholarship_name"
+              formControlName="scholarship_name"
+              pInputText>
+        </div>
+        <div class="col-xs-3">
+            <label for="" class="normal">ประเภททุนการศึกษา</label>
+            <p-autoComplete [(ngModel)]="manageScholarship.smScholarship.scholarship_type" formControlName="scholarship_type"></p-autoComplete>
+        </div>
     </div>
-</div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">รายละเอียด</label>
+            <textarea
+              cols="30"
+              rows="10"
+              [(ngModel)]="manageScholarship.smScholarship.detail"
+              formControlName="detail"
+              pInputTextarea>
+            </textarea>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label for="" class="normal">จำนวน</label>
+            <input
+              type="text"
+              [(ngModel)]="manageScholarship.smScholarship.unit"
+              formControlName="unit"
+              pInputText>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">จำนวนเงิน</label>
+            <input type="text"
+              [(ngModel)]="manageScholarship.smScholarship.financial_aid"
+              formControlName="financial_aid"
+              pInputText>
+        </div>
+    </div>
+
+    <div class="row overide-row btn-row">
+        <div class="col-xs-6 btn-panel-left">
+            <button class="btn-back ui-button-info" type="button" label="ย้อนกลับ" (click)="onSearchPage()" pButton>
+      </button>
+        </div>
+        <div class="col-xs-6 btn-panel-right">
+            <button class="bbtn-reset ui-button-warning" type="button" label="เริ่มใหม่" pButton>
+      </button>
+            <button class="btn-save ui-button-success" type="submit" label="{{btnLabel}}" pButton>
+      </button>
+        </div>
+    </div>
+  </form>
