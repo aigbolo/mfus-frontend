@@ -139,16 +139,17 @@ export class ReferenceService {
     );
   }
 
-  getSchools() {
-    return this.rftSchools;
-  // getSchools(){
-  //  return this.configuration.requestMethodGET('autocomplete-schools')
+  // getSchools() {
+  //   return this.rftSchools;
   // }
+  getSchools() {
+    return this.configuration.requestMethodGET("autocomplete-schools");
   }
 
-
-  getMajorBySchoolRef(schoolRef:string){
-    return this.configuration.requestMethodGET('autocomplete-major'+schoolRef)
+  getMajorBySchoolRef(schoolRef: string) {
+    return this.configuration.requestMethodGET(
+      "autocomplete-major" + schoolRef
+    );
   }
 
   initialSponsors() {
@@ -166,9 +167,9 @@ export class ReferenceService {
     return this.smSponsors;
   }
 
-  getReferenceSponsor(ref: string){
-    let jsonPk = {'sponsors_ref': ref}
-    console.log(jsonPk)
-    return this.configuration.requestMethodPOST('sponsors-update', jsonPk)
+  getReferenceSponsor(ref: string) {
+    let jsonPk = { sponsors_ref: ref };
+    console.log(jsonPk);
+    return this.configuration.requestMethodPOST("sponsors-update", jsonPk);
   }
 }
