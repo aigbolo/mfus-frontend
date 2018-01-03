@@ -141,6 +141,14 @@ export class ReferenceService {
 
   getSchools() {
     return this.rftSchools;
+  // getSchools(){
+  //  return this.configuration.requestMethodGET('autocomplete-schools')
+  // }
+  }
+
+
+  getMajorBySchoolRef(schoolRef:string){
+    return this.configuration.requestMethodGET('autocomplete-major'+schoolRef)
   }
 
   initialSponsors() {
