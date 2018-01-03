@@ -313,3 +313,15 @@ h4.custom-panel-title {
   line-height: 30px;
   border-bottom: 2px solid #3a8db7;
 }
+
+
+p-checkbox.schools-checkbox {
+  display: inline-block;
+  width: 250px;
+  margin-right: 20px;
+}
+
+p-checkbox.collage-year-checkbox {
+  display: inline-block;
+  width: 100px;
+}

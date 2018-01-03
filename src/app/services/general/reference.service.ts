@@ -121,19 +121,14 @@ export class ReferenceService {
     return data;
   }
 
-  initialSchools(){
-    this.configuration.requestMethodGET('autocomplete-schools').subscribe(
-      data =>{
-        this.rftSchools = data;
-      },
-      err=>{
-        console.log(err);
-      }
-    )
+  getSchools(){
+   return this.configuration.requestMethodGET('autocomplete-schools')
   }
 
-  getSchools(){
-    return this.rftSchools
+
+
+  getMajorBySchoolRef(schoolRef:string){
+    return this.configuration.requestMethodGET('autocomplete-major'+schoolRef)
   }
 
 }
