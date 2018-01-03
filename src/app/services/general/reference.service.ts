@@ -38,6 +38,7 @@ export class ReferenceService {
 
   //Set RftDistrict
   initialDistrict(provinceRef: string){
+    console.log('initialDistrict')
     this.configuration.requestMethodGET('autocomplete-district/'+provinceRef).subscribe(
       data => {
         this.rftDistricts = data;

@@ -1,0 +1,53 @@
+<div class="row overide-row">
+    <div class="col-xs-3">
+        <label class="normal">ผู้สนับสนุน</label>
+        <p-autoComplete>
+
+        </p-autoComplete>
+    </div>
+    <div class="col-xs-6"></div>
+    <div class="col-xs-3">
+        <label for="" class="normal">สถานะ</label>
+        <p-dropdown [options]="activeFlag" [(ngModel)]="searchForm.searchCriteria.active_flag">
+
+        </p-dropdown>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-3">
+        <label class="normal">ประเภททุนการศึกษา</label>
+        <p-autoComplete>
+
+        </p-autoComplete>
+    </div>
+    <div class="col-xs-9">
+        <label for="" class="normal">ชื่อทุนการศึกษา</label>
+        <input type="text" name="scholarship_name" [(ngModel)]="searchForm.searchCriteria.scholarship_name" pInputText>
+    </div>
+</div>
+<div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton type="submit" class="btn-search primary" label="ค้นหา" (click)="onSearchClick()">
+</button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton type="button" class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
+</button>
+        <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPageClick()">
+</button>
+    </div>
+</div>
+
+<div class="row overide-row">
+    <p-dataTable [value]="scholarshipFormList" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+        <p-column field="index" header="ลำดับ">
+            <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                {{obj+1}}
+            </ng-template>
+        </p-column>
+        <p-column header="ชื่อผู้สนับสนุน" field=""></p-column>
+        <p-column header="ประเภททุนการศึกษา"></p-column>
+        <p-column header="ชื่อทุนการศึกษา"></p-column>
+        <p-column header="สถานะ"></p-column>
+    </p-dataTable>
+</div>

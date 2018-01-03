@@ -5,7 +5,7 @@ import { LayoutService } from './../../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { OfficerForm } from '../../../forms/officer-form';
 import { UtilsService } from '../../../services/utils/utils.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-officer',
@@ -21,27 +21,43 @@ export class S010102SearchOfficerComponent implements OnInit {
 
   listOfficer: AcOfficer[];
 
-  constructor(public utilService: UtilsService,
+  constructor(public utilsService: UtilsService,
     private layoutService: LayoutService,
     private officerService: M010102OfficerService,
-    private js: JqueryScriptService) { }
+    private activateRoute: ActivatedRoute) {
+    this.searchForm.searchCriteria = this.utilsService.castToObject(
+      this.searchForm.searchCriteria, this.activateRoute.snapshot.queryParams);
+    if (this.searchForm.searchCriteria.officer_code != null ||
+      this.searchForm.searchCriteria.first_name != null ||
+      this.searchForm.searchCriteria.last_name != null ||
+      this.searchForm.searchCriteria.personal_id != null ||
+      this.searchForm.searchCriteria.active_flag != null) {
+      this.doSearch();
+    }
+  }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลเจ้าหน้าที่')
   }
 
   onSearchClick() {
-    this.officerService.searchOfficer(this.searchForm).subscribe(res=>{
+    this.utilsService.goToPageWithQueryParam('search-officer',this.searchForm.searchCriteria);
+    this.doSearch();
+  }
+
+  doSearch(){
+    this.officerService.searchOfficer(this.searchForm).subscribe(res => {
       this.listOfficer = res
-      for(let obj of this.listOfficer){
-        obj.first_name = obj.first_name + ' ' +obj.last_name
+      for (let obj of this.listOfficer) {
+        obj.first_name = obj.first_name + ' ' + obj.last_name
       }
+
+    }, error => {
+      console.log('error: ' + error)
+    }, () => {
       return this.listOfficer
-    },error=>{
-     console.log('error: ' + error)
-    },()=>{
-      this.js.updateActiveFlagScript();
     });
+
   }
 
   onResetClick() {
@@ -49,11 +65,11 @@ export class S010102SearchOfficerComponent implements OnInit {
   }
 
   onInsertPageClick() {
-    this.utilService.goToPage('manage-officer')
+    this.utilsService.goToPage('manage-officer')
   }
 
   onRowSelect(event) {
     this.selectofficer = event.data
-    this.utilService.goToPageWithParam('manage-officer/', this.selectofficer.officer_ref)
+    this.utilsService.goToPageWithParam('manage-officer/', this.selectofficer.officer_ref)
   }
 }
