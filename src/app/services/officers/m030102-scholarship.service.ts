@@ -1,33 +1,48 @@
-import { SmScholarship } from './../../models/sm-scholarship';
-import { Router } from '@angular/router';
-import { LayoutService } from './../utils/layout.service';
-import { UtilsService } from './../utils/utils.service';
-import { ConfigurationService } from './../utils/configuration.service';
-import { Injectable } from '@angular/core';
-import { ScholarshipForm } from '../../forms/scholarship-form';
+import { SmScholarship } from "./../../models/sm-scholarship";
+import { Router } from "@angular/router";
+import { LayoutService } from "./../utils/layout.service";
+import { UtilsService } from "./../utils/utils.service";
+import { ConfigurationService } from "./../utils/configuration.service";
+import { Injectable } from "@angular/core";
+import { ScholarshipForm } from "../../forms/scholarship-form";
 
 @Injectable()
 export class M030102ScholarshipService {
-
-  constructor(private configurationService: ConfigurationService,
+  constructor(
+    private configurationService: ConfigurationService,
     private utilService: UtilsService,
     private layout: LayoutService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   searchScholarship(form: ScholarshipForm) {
-    console.log('searchScholarship')
-    this.router.navigate(['/search-scholarship'], { queryParams: form.searchCriteria})
-    return this.configurationService.requestMethodPOST('scholarships', form.searchCriteria)
+    this.router.navigate(["/search-scholarship"], {
+      queryParams: form.searchCriteria
+    });
+    return this.configurationService.requestMethodPOST(
+      "scholarships",
+      form.searchCriteria
+    );
   }
 
-  insertScholarship(form: ScholarshipForm, user: string){
-    console.log(form)
-    form.smScholarship.create_user = user
-    form.smScholarship.update_user = user
-    return this.configurationService.requestMethodPOST('scholarships-insert', form.smScholarship)
+  insertScholarship(form: ScholarshipForm, user: string) {
+    console.log(form);
+    form.smScholarship.create_user = user;
+    form.smScholarship.update_user = user;
+    return this.configurationService.requestMethodPOST(
+      "scholarships-insert",
+      form.smScholarship
+    );
   }
 
   selectScholarship(ref: SmScholarship) {
-    return this.configurationService.requestMethodPOST('scholarships-update', ref)
+    return this.configurationService.requestMethodPOST(
+      "scholarships-update",
+      ref
+    );
+  }
+
+  updateScholarship(form: SmScholarship){
+    return this.configurationService.requestMethodPUT('scholarships', form)
   }
 }

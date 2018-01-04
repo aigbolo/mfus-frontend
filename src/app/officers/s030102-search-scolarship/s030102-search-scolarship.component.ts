@@ -49,8 +49,6 @@ export class S030102SearchScolarshipComponent implements OnInit {
   }
 
   onRowSelect(event){
-    console.log('onRowSelect')
-    console.log(event.data)
     this.selectedScholarship = event.data;
     this.utilsService.goToPageWithParam('manage-scholarship/', this.selectedScholarship.scholarship_ref)
   }
@@ -62,9 +60,7 @@ export class S030102SearchScolarshipComponent implements OnInit {
   }
 
   doSearch(){
-    console.log('doSearch')
     this.scholarshipService.searchScholarship(this.searchForm).subscribe(res => {
-      console.log(res)
       this.scholarshipFormList = res
     }, error => {
       console.log('error: ' + error)

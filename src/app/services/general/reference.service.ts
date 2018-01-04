@@ -169,7 +169,6 @@ export class ReferenceService {
 
   getReferenceSponsor(ref: string) {
     let jsonPk = { sponsors_ref: ref };
-    console.log(jsonPk);
     return this.configuration.requestMethodPOST("sponsors-update", jsonPk);
   }
 }

@@ -21,7 +21,7 @@
               [(ngModel)]="manageScholarship.smScholarship.active_flag"
               name="active_flag"
               [options]="activeFlag"
-              [disabled]="manageScholarship.smScholarship.scholarship_ref"
+              [disabled]="!manageScholarship.smScholarship.scholarship_ref"
               formControlName="active_flag">
             </p-dropdown>
         </div>

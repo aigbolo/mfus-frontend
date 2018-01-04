@@ -39,6 +39,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
     this.ngProgress.start();
     this.referenceService.initialSponsors();
     this.validateForm();
+    this.activeFlag = this.utilsService.getActiveFlag("M");
     this.manageScholarship.smScholarship.scholarship_ref = this.route.snapshot.params[
       "id"
     ];
@@ -47,8 +48,8 @@ export class M030102ManageScholarshipComponent implements OnInit {
       this.layoutService.setPageHeader("แก้ไขข้อมูลทุนการศึกษา");
       this.onRowSelected();
     } else {
+      this.layoutService.setPageHeader("บันทึกข้อมูลทุนการศึกษา");
       this.btnLabel = "บันทึก";
-      this.activeFlag = this.utilsService.getActiveFlag("M");
       this.pageRender = true;
       this.ngProgress.done();
     }
@@ -119,11 +120,11 @@ export class M030102ManageScholarshipComponent implements OnInit {
           this.referenceService
             .getReferenceSponsor(res.sponsors_ref)
             .subscribe(res => {
-              console.log(res);
               this.manageScholarship.smSponsors = res;
             });
+          console.log(res);
           this.manageScholarship.smScholarship = res;
-          this.activeFlag = res.active_flag;
+          this.manageScholarship.smScholarship.active_flag = res.active_flag;
         },
         error => {
           console.log(error);
@@ -140,6 +141,14 @@ export class M030102ManageScholarshipComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.btnLabel == "เพิ่มข้อมูล") {
+      this.doInsert();
+    } else {
+      this.doUpdate();
+    }
+  }
+
+  doInsert() {
     if (this.scholarshipFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.scholarshipFormGroup);
       return;
@@ -148,8 +157,15 @@ export class M030102ManageScholarshipComponent implements OnInit {
     this.scholarshipService
       .insertScholarship(this.manageScholarship, this.user)
       .subscribe(
-        res => {},
-        serror => {
+        res => {
+          this.layoutService.setMsgDisplay(
+            Severity.SUCCESS,
+            "บันทึกข้อมูลสำเร็จ",
+            ""
+          );
+        },
+        error => {
+          console.log(error);
           this.layoutService.setMsgDisplay(
             Severity.ERROR,
             "เกิดข้อผิดพลาาด",
@@ -159,9 +175,31 @@ export class M030102ManageScholarshipComponent implements OnInit {
         () => {
           this.manageScholarship = new ScholarshipForm();
           this.validateForm();
+        }
+      );
+  }
+
+  doUpdate() {
+    this.scholarshipService
+      .updateScholarship(this.manageScholarship.smScholarship)
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        error => {
+          console.log(error);
+          this.layoutService.setMsgDisplay(
+            Severity.ERROR,
+            "เกิดข้อผิดพลาาด",
+            error
+          );
+        },
+        () => {
+          console.log("update success");
+          this.utilsService.goToPage("search-scholarship");
           this.layoutService.setMsgDisplay(
             Severity.SUCCESS,
-            "บันทึกข้อมูลสำเร็จ",
+            "แก้ไขข้อมูลสำเร็จ",
             ""
           );
         }
