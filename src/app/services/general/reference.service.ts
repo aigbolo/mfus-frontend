@@ -1,3 +1,4 @@
+import { RftMajor } from "./../../models/rft-major";
 import { RftSchool } from "./../../models/rft-school";
 import { RftDistrict } from "./../../models/rft-district";
 import { RftProvince } from "./../../models/rft-province";
@@ -15,6 +16,7 @@ export class ReferenceService {
   private smSponsors: SmSponsors[] = [];
   private smSponsor: SmSponsors;
   private rftSchools: RftSchool[] = [];
+  private rftMajors: RftMajor[] = [];
 
   constructor(private configuration: ConfigurationService) {}
 
@@ -139,17 +141,30 @@ export class ReferenceService {
     );
   }
 
-  // getSchools() {
-  //   return this.rftSchools;
-  // }
+  getSchool() {
+    return this.rftSchools;
+  }
+
   getSchools() {
     return this.configuration.requestMethodGET("autocomplete-schools");
   }
 
   getMajorBySchoolRef(schoolRef: string) {
     return this.configuration.requestMethodGET(
-      "autocomplete-major" + schoolRef
+      "autocomplete-major/" + schoolRef
     );
+  }
+
+  initialMajors(schoolRef: string) {
+    return this.configuration
+      .requestMethodGET("autocomplete-major/" + schoolRef)
+      .subscribe(data => {
+        this.rftMajors = data;
+      });
+  }
+
+  getMajors() {
+    return this.rftMajors;
   }
 
   initialSponsors() {

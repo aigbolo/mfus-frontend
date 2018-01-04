@@ -57,6 +57,7 @@ import { JqueryScriptService } from './services/utils/jquery-script.service';
 import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
 import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
+import { M010101ManageStudentComponent } from './general/account/m010101-manage-student/m010101-manage-student.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103
     ForgotPasswordComponent,
     S030102SearchScolarshipComponent,
     M030103ManageSholarshipAnnouncementComponent,
+    M010101ManageStudentComponent,
   ],
   imports: [
     // Angular

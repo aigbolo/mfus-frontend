@@ -1,3 +1,4 @@
+import { M010101ManageStudentComponent } from './general/account/m010101-manage-student/m010101-manage-student.component';
 import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
 import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
 import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
@@ -26,8 +27,7 @@ const appRoutes: Routes = [
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
   { path: "manage-scholarship/:id", component: M030102ManageScholarshipComponent },
   { path: "search-scholarship", component: S030102SearchScolarshipComponent },
-
-
+  { path: "manage-student", component: M010101ManageStudentComponent },
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "manage-sponsors/:ref", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
