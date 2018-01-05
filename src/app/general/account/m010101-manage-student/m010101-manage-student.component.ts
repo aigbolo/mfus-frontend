@@ -1,4 +1,7 @@
-import { UtilsService } from './../../../services/utils/utils.service';
+import { Severity } from './../../../enum';
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { M010101StudentService } from "./../../../services/students/m010101-student.service";
+import { UtilsService } from "./../../../services/utils/utils.service";
 import { LayoutService } from "./../../../services/utils/layout.service";
 import { Component, OnInit } from "@angular/core";
 import { RftSchool } from "../../../models/rft-school";
@@ -12,24 +15,89 @@ import { RftMajor } from "../../../models/rft-major";
   styleUrls: ["./m010101-manage-student.component.css"]
 })
 export class M010101ManageStudentComponent implements OnInit {
+  user = localStorage.getItem("username");
+
+  pageRender: boolean = false;
   schoolList: RftSchool[];
   majorsList: RftMajor[];
+  studentFormGroup: FormGroup;
   manageStudentForm: StudentForm = new StudentForm();
 
   uploadedFiles: any[] = [];
 
-  btnLabel: string
+  btnLabel: string;
   constructor(
+    private studentService: M010101StudentService,
     private referenceService: ReferenceService,
     private layoutService: LayoutService,
     private utilsService: UtilsService
   ) {}
 
   ngOnInit() {
-    this.btnLabel = 'บันทึก'
+    this.pageRender = true;
+    this.btnLabel = "บันทึก";
     this.referenceService.initialSchools();
     this.layoutService.setPageHeader("บันทึกข้อมูลผู้ใช้");
-    this.manageStudentForm.acStudent.profile_image = '../../../../assets/images/empty_profile.png'
+    this.manageStudentForm.acStudent.profile_image =
+      "../../../../assets/images/empty_profile.png";
+    this.validateForm();
+  }
+
+  validateForm() {
+    this.studentFormGroup = new FormGroup({
+      personal_id: new FormControl(
+        this.manageStudentForm.acStudent.personal_id,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]+$/)
+        ])
+      ),
+      student_id: new FormControl(
+        this.manageStudentForm.acStudent.student_id,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]+$/)
+        ])
+      ),
+      gender: new FormControl((this.manageStudentForm.acStudent.gender = "M")),
+      first_name_t: new FormControl(
+        this.manageStudentForm.acStudent.first_name_t,
+        Validators.compose([Validators.required])
+      ),
+      last_name_t: new FormControl(
+        this.manageStudentForm.acStudent.last_name_t,
+        Validators.compose([Validators.required])
+      ),
+      first_name_e: new FormControl(
+        this.manageStudentForm.acStudent.first_name_e
+      ),
+      last_name_e: new FormControl(
+        this.manageStudentForm.acStudent.last_name_e
+      ),
+      school: new FormControl(this.manageStudentForm.rftSchool),
+      major: new FormControl(this.manageStudentForm.rftMajor),
+      nationality: new FormControl(
+        this.manageStudentForm.acStudent.nationality
+      ),
+      race: new FormControl(this.manageStudentForm.acStudent.race),
+      religion: new FormControl(this.manageStudentForm.acStudent.religion),
+      phone_no: new FormControl(
+        this.manageStudentForm.acStudent.phone_no,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]+$/)
+        ])
+      ),
+      email: new FormControl(
+        this.manageStudentForm.acStudent.email,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(
+            /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+          )
+        ])
+      )
+    });
   }
 
   autoCompleteSchools(event) {
@@ -95,9 +163,27 @@ export class M010101ManageStudentComponent implements OnInit {
       });
   }
 
-  onSubmit(){
-    this.manageStudentForm.acStudent.school_ref = this.manageStudentForm.rftSchool.school_ref
-    this.manageStudentForm.acStudent.major_ref = this.manageStudentForm.rftMajor.major_ref
-    console.log(this.manageStudentForm)
+  onSubmit() {
+    if (this.studentFormGroup.invalid) {
+      this.utilsService.findInvalidControls(this.studentFormGroup);
+      return;
+    }
+    this.manageStudentForm.acStudent.school_ref = this.manageStudentForm.rftSchool.school_ref;
+    this.manageStudentForm.acStudent.major_ref = this.manageStudentForm.rftMajor.major_ref;
+    console.log(this.manageStudentForm);
+    this.studentService
+      .doInsert(this.manageStudentForm.acStudent, this.user)
+      .subscribe(
+        res => {},
+        error => {},
+        () => {
+          this.manageStudentForm = new StudentForm();
+          this.layoutService.setMsgDisplay(
+            Severity.SUCCESS,
+            "บันทึกข้อมูลสำเร็จ",
+            ""
+          );
+        }
+      );
   }
 }
