@@ -15,7 +15,7 @@ export class ReferenceService {
   private rftDistricts: RftDistrict[] = [];
   private rftSubDistricts: RftSubDistrict[] = [];
   private rftSchools: RftSchool[] = [];
-
+  private rftMajors: RftMajor[] = [];
   private sponsors: SmSponsors[] = [];
   private scholarships: SmScholarship[] = [];
 
@@ -149,6 +149,16 @@ export class ReferenceService {
   getSchools() {
     return this.configuration.requestMethodGET("autocomplete-schools");
   }
+  initialMajors(schoolRef: string) {
+       this.configuration.requestMethodGET("autocomplete-major/" + schoolRef)
+         .subscribe(data => {
+           this.rftMajors = data;
+          });
+      }
+
+  getMajors() {
+      return this.rftMajors;
+  }
 
   getMajorBySchoolRef(schoolRef: string) {
     return this.configuration.requestMethodGET(
@@ -156,7 +166,7 @@ export class ReferenceService {
     );
   }
 
-  initalSponsors() {
+  initialSponsors() {
     this.configuration.requestMethodGET("autocomplete-sponsors").subscribe(
       data=>{
         this.sponsors = data;

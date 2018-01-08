@@ -32,7 +32,7 @@
 .input-round {
   width: 50px;
 }
-.input-year {
+.input-year, .unit {
   width: 100px;
 }
 .input-name {
@@ -47,7 +47,7 @@
 .input-postcode {
   width: 70px;
 }
-.input-phone {
+.input-phone, .scholarships-aid {
   width: 150px;
 }
 .input-occupation,
@@ -58,13 +58,20 @@
 .input-website {
   width: 250px;
 }
-.autocomplete-province{
+.autocomplete-province .ui-autocomplete input{
   width: 200px;
 }
 
-.autocomplete-district{
+.autocomplete-district .ui-autocomplete input{
   width: 200px;
 }
-.autocomplete-sub-district{
+.autocomplete-sub-district .ui-autocomplete input{
   width: 200px;
+}
+
+.autocomplete-scholarships .ui-autocomplete input{
+  width: 500px;
+}
+.autocomplete-sponsors .ui-autocomplete input{
+  width: 400px;
 }
