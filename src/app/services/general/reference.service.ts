@@ -1,4 +1,5 @@
 import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
+import { SmSponsors } from './../../models/sm-sponsors';
 import { RftMajor } from "./../../models/rft-major";
 import { RftSchool } from "./../../models/rft-school";
 import { RftDistrict } from "./../../models/rft-district";
@@ -7,18 +8,18 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { ConfigurationService } from "../utils/configuration.service";
 import { RftSubDistrict } from "../../models/rft-sub-district";
-import { SmSponsors } from "../../models/sm-sponsors";
+import { SmScholarship } from "../../models/sm-scholarship";
 
 @Injectable()
 export class ReferenceService {
   private rftProvinces: RftProvince[] = [];
   private rftDistricts: RftDistrict[] = [];
   private rftSubDistricts: RftSubDistrict[] = [];
-  private smSponsors: SmSponsors[] = [];
-  private smSponsor: SmSponsors;
   private rftSchools: RftSchool[] = [];
   private rftMajors: RftMajor[] = [];
   private sc_type: RftScholarshipType[] = [];
+  private sponsors: SmSponsors[] = [];
+  private scholarships: SmScholarship[] = [];
 
   constructor(private configuration: ConfigurationService) {}
 
@@ -150,6 +151,16 @@ export class ReferenceService {
   getSchools() {
     return this.configuration.requestMethodGET("autocomplete-schools");
   }
+  initialMajors(schoolRef: string) {
+       this.configuration.requestMethodGET("autocomplete-major/" + schoolRef)
+         .subscribe(data => {
+           this.rftMajors = data;
+          });
+      }
+
+  getMajors() {
+      return this.rftMajors;
+  }
 
   getMajorBySchoolRef(schoolRef: string) {
     return this.configuration.requestMethodGET(
@@ -157,31 +168,19 @@ export class ReferenceService {
     );
   }
 
-  initialMajors(schoolRef: string) {
-    return this.configuration
-      .requestMethodGET("autocomplete-major/" + schoolRef)
-      .subscribe(data => {
-        this.rftMajors = data;
-      });
-  }
-
-  getMajors() {
-    return this.rftMajors;
-  }
-
   initialSponsors() {
     this.configuration.requestMethodGET("autocomplete-sponsors").subscribe(
-      data => {
-        this.smSponsors = data;
+      data=>{
+        this.sponsors = data;
       },
-      err => {
-        console.log(err);
+      err=>{
+        console.log(err)
       }
-    );
+    )
   }
 
-  getSponsors() {
-    return this.smSponsors;
+  getSponsors(){
+    return this.sponsors;
   }
 
   getReferenceSponsor(ref: string) {
@@ -196,5 +195,19 @@ export class ReferenceService {
   getScholarshipType() {
     console.log(this.sc_type)
     return this.sc_type;
+  }
+  initialScholarships(ref:string){
+    this.configuration.requestMethodGET('autocomplete-scholarships/'+ref).subscribe(
+      data=>{
+        this.scholarships = data;
+      },
+      err =>{
+        console.log(err)
+      }
+    )
+  }
+
+  getScholarships(){
+    return this.scholarships;
   }
 }

@@ -1,18 +1,18 @@
-import { Severity } from "./../../enum";
-import { ActivatedRoute } from "@angular/router";
-import { SelectItem } from "primeng/primeng";
-import { M030101SponsorsService } from "./../../services/officers/m030101-sponsors.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { RftSubDistrict } from "./../../models/rft-sub-district";
-import { UtilsService } from "./../../services/utils/utils.service";
-import { RftProvince } from "./../../models/rft-province";
-import { Observable } from "rxjs/Observable";
-import { ReferenceService } from "../../services/general/reference.service";
-import { LayoutService } from "../../services/utils/layout.service";
-import { Component, OnInit } from "@angular/core";
-import { RftDistrict } from "../../models/rft-district";
-import { M030101SponsorsForm } from "../../forms/sponsors-form";
-import { NgProgress } from "ngx-progressbar";
+import { Severity } from './../../enum';
+import { ActivatedRoute } from '@angular/router';
+import { SelectItem } from 'primeng/primeng';
+import { M030101SponsorsService } from './../../services/officers/m030101-sponsors.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RftSubDistrict } from './../../models/rft-sub-district';
+import { UtilsService } from './../../services/utils/utils.service';
+import { RftProvince } from './../../models/rft-province';
+import { Observable } from 'rxjs/Observable';
+import { ReferenceService } from '../../services/general/reference.service';
+import { LayoutService } from '../../services/utils/layout.service';
+import { Component, OnInit } from '@angular/core';
+import { RftDistrict } from '../../models/rft-district';
+import { SponsorsForm } from '../../forms/sponsors-form';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: "app-m030101-manage-sponsors",
@@ -21,8 +21,8 @@ import { NgProgress } from "ngx-progressbar";
 })
 export class M030101ManageSponsorsComponent implements OnInit {
   pageRender = false;
-  user = localStorage.getItem("username");
-  manageForm: M030101SponsorsForm = new M030101SponsorsForm();
+  user = localStorage.getItem('username');
+  manageForm: SponsorsForm = new SponsorsForm();
   manageFormGroup: FormGroup;
 
   image: any;
@@ -318,7 +318,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
   onInsertComplete() {
     this.image = null;
-    this.manageForm = new M030101SponsorsForm();
+    this.manageForm = new SponsorsForm;
     this.province = null;
     this.district = null;
     this.subDistrict = null;

@@ -15,9 +15,9 @@ export class SidebarComponent implements OnInit {
     {
       label: 'จัดการทุนการศึกษา',
       items: [
-        { label: 'บันทึกผู้ให้ทุนการศึกษา', routerLink: ['/sponsors'] },
-        { label: 'บันทึกทุนการศึกษา', routerLink: ['/manage-scholarship'] },
-        { label: 'บันทึกประกาศทุนการศึกษา', routerLink: ['/scholarship-announcement'] }
+        { label: 'บันทึกผู้ให้ทุนการศึกษา', routerLink: ['/search-sponsors'] },
+        { label: 'บันทึกทุนการศึกษา', routerLink: ['/search-scholarship'] },
+        { label: 'บันทึกประกาศทุนการศึกษา', routerLink: ['/search-scholarship-announcement'] }
       ]
     },
     {

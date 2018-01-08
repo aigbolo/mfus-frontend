@@ -714,11 +714,14 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
     transition: color 0.3s;
     top: 1.25em;
 }
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:before {
-    content: "";
+.ui-datepicker .ui-datepicker-title {
+  line-height: 2em !important;
 }
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev span {
-    display: none;
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span{
+  margin-top: 0 !important;
+}
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next{
+  height: 0em !important;
 }
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev.ui-datepicker-prev-hover {
     color: #2d353c;
@@ -741,12 +744,7 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
     transition: color 0.3s;
     top: 1.25em;
 }
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-next:before {
-    content: "";
-}
-body .ui-datepicker .ui-datepicker-header .ui-datepicker-next span {
-    display: none;
-}
+
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-next.ui-datepicker-next-hover {
     color: #2d353c;
 }

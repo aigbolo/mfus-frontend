@@ -2,7 +2,7 @@ import { SmSponsors } from './../models/sm-sponsors';
 
 
 
-export class M030101SponsorsForm {
+export class SponsorsForm {
 
   sponsors: SmSponsors;
   search_criteria:SearchCriteria;
