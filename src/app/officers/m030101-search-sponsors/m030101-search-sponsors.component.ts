@@ -1,6 +1,6 @@
 import { JqueryScriptService } from './../../services/utils/jquery-script.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { M030101SponsorsForm } from './../../forms/sponsors-form';
+import { SponsorsForm } from './../../forms/sponsors-form';
 import { UtilsService } from './../../services/utils/utils.service';
 import { LayoutService } from './../../services/utils/layout.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -15,7 +15,7 @@ import { SmSponsors } from '../../models/sm-sponsors';
   styleUrls: ['./m030101-search-sponsors.component.css']
 })
 export class M030101SearchSponsorsComponent implements OnInit {
-  searchForm:M030101SponsorsForm = new M030101SponsorsForm();
+  searchForm:SponsorsForm = new SponsorsForm();
   sponsorsList: SmSponsors[] = [];
   sponsor: SmSponsors = new SmSponsors;
   activeStatus = [];
@@ -62,7 +62,7 @@ export class M030101SearchSponsorsComponent implements OnInit {
   }
 
   onReset(){
-    this.searchForm = new M030101SponsorsForm;
+    this.searchForm = new SponsorsForm;
     this.sponsorsList = [];
     this.utilsService.goToPage('search-sponsors');
   }
