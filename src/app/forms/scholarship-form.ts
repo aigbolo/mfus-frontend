@@ -1,3 +1,4 @@
+import { RftScholarshipType } from './../models/rft-schoalrship_type';
 
 import { SmScholarship } from "../models/sm-scholarship";
 import { SmSponsors } from '../models/sm-sponsors';
@@ -7,6 +8,7 @@ export class ScholarshipForm{
   smSponsors: SmSponsors;
   searchCriteria: SearchCriteria;
   activeFlag: any[]
+  rftScholarshipType: RftScholarshipType
 
   constructor(){
     this.smScholarship = new SmScholarship();

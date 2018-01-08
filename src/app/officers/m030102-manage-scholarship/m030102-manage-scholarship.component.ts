@@ -1,3 +1,5 @@
+import { SelectItem } from "primeng/primeng";
+import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
 import { Severity } from "./../../enum";
 import { NgProgress } from "ngx-progressbar";
 import { M030101SponsorsService } from "./../../services/officers/m030101-sponsors.service";
@@ -24,6 +26,8 @@ export class M030102ManageScholarshipComponent implements OnInit {
   btnLabel: string;
   activeFlag: any[];
   sponsorsList: SmSponsors[];
+  sctype_type: RftScholarshipType[];
+  scholarship_type: RftScholarshipType;
 
   constructor(
     private utilsService: UtilsService,
@@ -37,6 +41,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
+    this.getScholarshipType();
     this.referenceService.initialSponsors();
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
@@ -49,10 +54,17 @@ export class M030102ManageScholarshipComponent implements OnInit {
       this.onRowSelected();
     } else {
       this.layoutService.setPageHeader("บันทึกข้อมูลทุนการศึกษา");
-      this.btnLabel = "บันทึก";
+      this.btnLabel = "เพิ่มข้อมูล";
       this.pageRender = true;
       this.ngProgress.done();
     }
+  }
+
+  getScholarshipType() {
+    this.referenceService.initialScholarshipType().subscribe(data => {
+      this.sctype_type = data;
+      return this.sctype_type;
+    });
   }
 
   validateForm() {
@@ -68,9 +80,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
         this.manageScholarship.smScholarship.scholarship_name,
         Validators.compose([Validators.required])
       ),
-      scholarship_type: new FormControl(
-        (this.manageScholarship.smScholarship.scholarship_type = "1")
-      ),
+      scholarship_type: new FormControl(),
       detail: new FormControl(
         this.manageScholarship.smScholarship.detail,
         Validators.compose([Validators.required])
@@ -93,7 +103,6 @@ export class M030102ManageScholarshipComponent implements OnInit {
   }
 
   autocompleteSponsors(event) {
-    console.log("autocompleteSponsors");
     let query = event.query;
     this.sponsorsList = [];
     let objList: SmSponsors[];
@@ -121,8 +130,11 @@ export class M030102ManageScholarshipComponent implements OnInit {
             .getReferenceSponsor(res.sponsors_ref)
             .subscribe(res => {
               this.manageScholarship.smSponsors = res;
+              this.getScholarshipType();
+              this.setScholarshipType(
+                this.manageScholarship.smScholarship.scholarship_type
+              );
             });
-          console.log(res);
           this.manageScholarship.smScholarship = res;
           this.manageScholarship.smScholarship.active_flag = res.active_flag;
         },
@@ -134,6 +146,14 @@ export class M030102ManageScholarshipComponent implements OnInit {
           this.ngProgress.done();
         }
       );
+  }
+
+  setScholarshipType(ref: string) {
+    for (let obj of this.sctype_type) {
+      if (ref == obj.sctype_ref) {
+        this.scholarship_type = obj;
+      }
+    }
   }
 
   onSearchPage() {
@@ -153,6 +173,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
       this.utilsService.findInvalidControls(this.scholarshipFormGroup);
       return;
     }
+    this.manageScholarship.smScholarship.scholarship_type = this.scholarship_type.sctype_ref;
     this.manageScholarship.smScholarship.sponsors_ref = this.manageScholarship.smSponsors.sponsors_ref;
     this.scholarshipService
       .insertScholarship(this.manageScholarship, this.user)
@@ -184,7 +205,6 @@ export class M030102ManageScholarshipComponent implements OnInit {
       .updateScholarship(this.manageScholarship.smScholarship)
       .subscribe(
         res => {
-          console.log(res);
         },
         error => {
           console.log(error);
@@ -195,7 +215,6 @@ export class M030102ManageScholarshipComponent implements OnInit {
           );
         },
         () => {
-          console.log("update success");
           this.utilsService.goToPage("search-scholarship");
           this.layoutService.setMsgDisplay(
             Severity.SUCCESS,
