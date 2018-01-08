@@ -161,6 +161,9 @@ export class M030102ManageScholarshipComponent implements OnInit {
   }
 
   onSubmit() {
+    this.manageScholarship.smScholarship.scholarship_type = this.scholarship_type.sctype_ref;
+    this.manageScholarship.smScholarship.sponsors_ref = this.manageScholarship.smSponsors.sponsors_ref;
+
     if (this.btnLabel == "เพิ่มข้อมูล") {
       this.doInsert();
     } else {
@@ -173,8 +176,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
       this.utilsService.findInvalidControls(this.scholarshipFormGroup);
       return;
     }
-    this.manageScholarship.smScholarship.scholarship_type = this.scholarship_type.sctype_ref;
-    this.manageScholarship.smScholarship.sponsors_ref = this.manageScholarship.smSponsors.sponsors_ref;
+
     this.scholarshipService
       .insertScholarship(this.manageScholarship, this.user)
       .subscribe(
