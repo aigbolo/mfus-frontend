@@ -4,10 +4,18 @@ import { SmScholarshipAnnouncement } from "../models/sm-scholarship-announcement
 
 
 
-export class M030101SponsorsForm {
+export class ScholarshipAnnouncementForm {
 
-  scholarships_announcement: SmScholarshipAnnouncement
+  scholarships_announcement: SmScholarshipAnnouncement;
   search_criteria:SearchCriteria;
+
+  announce_date: string;
+  registration_start_date: string;
+  registration_end_date: string;
+  announce_interview_date: string;
+  interview_start_date: string;
+  interview_end_date: string;
+  announce_result_date: string;
 
   constructor(){
     this.scholarships_announcement = new SmScholarshipAnnouncement;

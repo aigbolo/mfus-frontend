@@ -1,3 +1,4 @@
+import { SmSponsors } from './../../models/sm-sponsors';
 import { RftMajor } from "./../../models/rft-major";
 import { RftSchool } from "./../../models/rft-school";
 import { RftDistrict } from "./../../models/rft-district";
@@ -6,17 +7,17 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { ConfigurationService } from "../utils/configuration.service";
 import { RftSubDistrict } from "../../models/rft-sub-district";
-import { SmSponsors } from "../../models/sm-sponsors";
+import { SmScholarship } from "../../models/sm-scholarship";
 
 @Injectable()
 export class ReferenceService {
   private rftProvinces: RftProvince[] = [];
   private rftDistricts: RftDistrict[] = [];
   private rftSubDistricts: RftSubDistrict[] = [];
-  private smSponsors: SmSponsors[] = [];
-  private smSponsor: SmSponsors;
   private rftSchools: RftSchool[] = [];
-  private rftMajors: RftMajor[] = [];
+
+  private sponsors: SmSponsors[] = [];
+  private scholarships: SmScholarship[] = [];
 
   constructor(private configuration: ConfigurationService) {}
 
@@ -155,35 +156,38 @@ export class ReferenceService {
     );
   }
 
-  initialMajors(schoolRef: string) {
-    return this.configuration
-      .requestMethodGET("autocomplete-major/" + schoolRef)
-      .subscribe(data => {
-        this.rftMajors = data;
-      });
-  }
-
-  getMajors() {
-    return this.rftMajors;
-  }
-
-  initialSponsors() {
+  initalSponsors() {
     this.configuration.requestMethodGET("autocomplete-sponsors").subscribe(
-      data => {
-        this.smSponsors = data;
+      data=>{
+        this.sponsors = data;
       },
-      err => {
-        console.log(err);
+      err=>{
+        console.log(err)
       }
-    );
+    )
   }
 
-  getSponsors() {
-    return this.smSponsors;
+  getSponsors(){
+    return this.sponsors;
   }
 
   getReferenceSponsor(ref: string) {
     let jsonPk = { sponsors_ref: ref };
     return this.configuration.requestMethodPOST("sponsors-update", jsonPk);
+  }
+
+  initialScholarships(ref:string){
+    this.configuration.requestMethodGET('autocomplete-scholarships/'+ref).subscribe(
+      data=>{
+        this.scholarships = data;
+      },
+      err =>{
+        console.log(err)
+      }
+    )
+  }
+
+  getScholarships(){
+    return this.scholarships;
   }
 }

@@ -315,7 +315,7 @@ h4.custom-panel-title {
 }
 
 
-p-checkbox.schools-checkbox {
+p-checkbox.schools-checkbox,p-checkbox.majors-checkbox {
   display: inline-block;
   width: 250px;
   margin-right: 20px;

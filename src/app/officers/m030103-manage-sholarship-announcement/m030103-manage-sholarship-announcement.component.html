@@ -1,9 +1,17 @@
+<!-- <form [formGroup]="manageFormGroup" (ngSubmit)="onSubmit()" > -->
 <div class="row overide-row">
   <div class="col-xs-8">
-    <label class="normal">ผู้ให้ทุนการศึกษา</label>
+    <label class="normal">ผู้ให้ทุนการศึกษา *</label>
       <p-autoComplete name="autocompleteName"
-                      [dropdown]="true"
-                      forceSelection="true">
+      maxlength="50"
+      [dropdown]="true"
+      field="sponsors_name"
+      [suggestions]="sponsors"
+      forceselection="true"
+      [(ngModel)]="sponsor"
+      (onSelect)="onSelectSponsors()"
+      (onDropdownClick)="handleCompleteClickSponsors()"
+      (completeMethod)="autocompleteSponsors($event)">
         </p-autoComplete>
   </div>
   <div class="col-xs-3">
@@ -13,15 +21,27 @@
 </div>
 <div class="row overide-row">
   <div class="col-xs-2">
-    <label class="normal">ปีการศึกษา</label>
-    <input type="text" class="input-year" pInputText>
+    <label class="normal">ปีการศึกษา *</label>
+    <input type="text" class="input-year"
+    [(ngModel)]="sponsor" pInputText>
   </div>
-  <div class="col-xs-10">
-      <label  class="normal">ทุนการศึกษา</label>
-      <p-autoComplete name="autocompleteName"
+  <div class="col-xs-8">
+      <label  class="normal">ทุนการศึกษา *</label>
+      <p-autoComplete  maxlength="50"
       [dropdown]="true"
-      forceSelection="true">
-</p-autoComplete>
+      field="scholarship_name"
+      [suggestions]="scholarships"
+      forceselection="true"
+      [(ngModel)]="scholarship"
+      (onDropdownClick)="handleCompleteClickScholarships()"
+      (completeMethod)="autocompleteScholarships($event)">
+      </p-autoComplete>
+  </div>
+  <div class="col-xs-2">
+      <label class="normal">รอบที่</label>
+      <input type="text"  class="input-round" pInputText
+      [(ngModel)]="manageForm.scholarships_announcement.round"
+      disabled>
   </div>
 </div>
 <div class="row overide-row">
@@ -29,20 +49,23 @@
       <label  class="normal">ประเภททุนการศึกษา</label>
       <input type="text" pInputText disabled
       class="scholarships-type"
+      [(ngModel)]="scholarship.scholarship_type"
       >
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-3">
-      <label  class="normal">จำนวนทุนการศึกษา</label>
+      <label  class="normal">จำนวนทุนการศึกษา *</label>
       <input type="text" pInputText
       class="scholarships-amount"
+      [(ngModel)]="manageForm.scholarships_announcement.unit"
       >
     </div>
     <div class="col-xs-5">
-        <label  class="normal">จำนวนเงิน/ทุนการศึกษา(บาท)</label>
+        <label  class="normal">จำนวนเงิน/ทุนการศึกษา(บาท) *</label>
         <input type="text" pInputText
         class="scholarships-aid"
+        [(ngModel)]="manageForm.scholarships_announcement.financial_aid"
         >
     </div>
 </div>
@@ -56,28 +79,29 @@
         <label  class="normal">เกรดเฉลี่ยขั้นต่ำ *</label>
         <input type="text" pInputText
         class="grade"
+        [(ngModel)]="manageForm.scholarships_announcement.min_gpax"
         >
     </div>
     <div class="col-xs-9">
         <label  class="normal">สำหรับชั้นปี</label>
-        <p-checkbox class="collage-year-checkbox" name="group1" value="New York" label="ชั้นปีที่ 1"></p-checkbox>
-        <p-checkbox class="collage-year-checkbox" name="group1" value="New York" label="ชั้นปีที่ 2"></p-checkbox>
-        <p-checkbox class="collage-year-checkbox" name="group1" value="New York" label="ชั้นปีที่ 3"></p-checkbox>
-        <p-checkbox class="collage-year-checkbox" name="group1" value="New York" label="ชั้นปีที่ 4"></p-checkbox>
-        <p-checkbox class="collage-year-checkbox" name="group1" value="New York" label="ชั้นปีที่ 5"></p-checkbox>
-        <p-checkbox class="collage-year-checkbox" name="group1" value="New York" label="ชั้นปีที่ 6"></p-checkbox>
+        <p-checkbox class="collage-year-checkbox" name="collage-year" [(ngModel)]="selectedCollageYears" value="1" label="ชั้นปีที่ 1"></p-checkbox>
+        <p-checkbox class="collage-year-checkbox" name="collage-year" [(ngModel)]="selectedCollageYears" value="2" label="ชั้นปีที่ 2"></p-checkbox>
+        <p-checkbox class="collage-year-checkbox" name="collage-year" [(ngModel)]="selectedCollageYears" value="3" label="ชั้นปีที่ 3"></p-checkbox>
+        <p-checkbox class="collage-year-checkbox" name="collage-year" [(ngModel)]="selectedCollageYears" value="4" label="ชั้นปีที่ 4"></p-checkbox>
+        <p-checkbox class="collage-year-checkbox" name="collage-year" [(ngModel)]="selectedCollageYears" value="5" label="ชั้นปีที่ 5"></p-checkbox>
+        <p-checkbox class="collage-year-checkbox" name="collage-year" [(ngModel)]="selectedCollageYears" value="6" label="ชั้นปีที่ 6"></p-checkbox>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-12">
         <label  class="normal">สำนักวิชา</label>
-        <p-checkbox *ngFor="let school of rftSchools" class="schools-checkbox" label="{{school.school_name_t}}" value="{{school.school_ref}}"></p-checkbox>
+        <p-checkbox *ngFor="let school of rftSchools" class="schools-checkbox" label="{{school.school_name_t}}" value="{{school.school_ref}}" [(ngModel)]="selectedSchools" (onChange)="onChangeSchools()"></p-checkbox>
     </div>
 </div>
-<div class="row overide-row">
+<div class="row overide-row" *ngIf="selectedSchools.length > 0">
     <div class="col-xs-12">
         <label  class="normal">สาขาวิชา</label>
-        <p-checkbox ></p-checkbox>
+        <p-checkbox *ngFor="let major of rftMajors" class="majors-checkbox" label="{{major.major_name_t}}" value="{{major.major_ref}}" [(ngModel)]="selectedMajors"></p-checkbox>
     </div>
 </div>
 
@@ -88,32 +112,46 @@
 <div class="row overide-row">
     <div class="col-xs-4">
         <label  class="normal">ประกาศเปิดรับสมัคร *</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.announce_date"></p-calendar>
     </div>
     <div class="col-xs-8">
         <label  class="normal">เริ่มรับสมัคร *</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.registration_start_date"></p-calendar>
         <label class="normal-inline">ถึงวันที่</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.registration_end_date"></p-calendar>
     </div>
 
 </div>
 <div class="row overide-row">
     <div class="col-xs-4">
         <label  class="normal">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.announce_interview_date"></p-calendar>
     </div>
     <div class="col-xs-8">
         <label  class="normal">สัมภาษณ์</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.interview_start_date"></p-calendar>
         <label class="normal-inline">ถึงวันที่</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.announce_date"></p-calendar>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-12">
         <label  class="normal">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</label>
-        <p-calendar [showIcon]="true"></p-calendar>
+        <p-calendar [showIcon]="true"
+        [locale]="th"
+        [(ngModel)]="manageForm.scholarships_announcement.announce_date"></p-calendar>
     </div>
 </div>
 
@@ -132,3 +170,4 @@
         type="submit" class="btn-save ui-button-success" label="แก้ไขข้อมูล"></button>
     </div>
 </div>
+<!-- </form> -->
