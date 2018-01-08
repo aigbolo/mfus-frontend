@@ -1,84 +1,92 @@
-import { RftSchool } from './../../models/rft-school';
-import { RftDistrict } from './../../models/rft-district';
-import { RftProvince } from './../../models/rft-province';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ConfigurationService } from '../utils/configuration.service';
-import { RftSubDistrict } from '../../models/rft-sub-district';
+import { RftMajor } from "./../../models/rft-major";
+import { RftSchool } from "./../../models/rft-school";
+import { RftDistrict } from "./../../models/rft-district";
+import { RftProvince } from "./../../models/rft-province";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { ConfigurationService } from "../utils/configuration.service";
+import { RftSubDistrict } from "../../models/rft-sub-district";
+import { SmSponsors } from "../../models/sm-sponsors";
 
 @Injectable()
 export class ReferenceService {
-
   private rftProvinces: RftProvince[] = [];
   private rftDistricts: RftDistrict[] = [];
   private rftSubDistricts: RftSubDistrict[] = [];
-
+  private smSponsors: SmSponsors[] = [];
+  private smSponsor: SmSponsors;
   private rftSchools: RftSchool[] = [];
+  private rftMajors: RftMajor[] = [];
 
-  constructor(private configuration: ConfigurationService) { }
-
-
+  constructor(private configuration: ConfigurationService) {}
 
   //Set RftProvince
-  initialProvince(){
-    this.configuration.requestMethodGET('autocomplete-province').subscribe(
+  initialProvince() {
+    this.configuration.requestMethodGET("autocomplete-province").subscribe(
       data => {
         this.rftProvinces = data;
       },
       err => {
         console.log(err);
       }
-    )
+    );
   }
 
   getProvinces(): RftProvince[] {
-    return this.rftProvinces
+    return this.rftProvinces;
   }
 
-
   //Set RftDistrict
-  initialDistrict(provinceRef: string){
-    console.log('initialDistrict')
-    this.configuration.requestMethodGET('autocomplete-district/'+provinceRef).subscribe(
-      data => {
-        this.rftDistricts = data;
-      },
-      err => {
-        console.log(err);
-      }
-    )
+  initialDistrict(provinceRef: string) {
+    console.log("initialDistrict");
+    this.configuration
+      .requestMethodGET("autocomplete-district/" + provinceRef)
+      .subscribe(
+        data => {
+          this.rftDistricts = data;
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
   getDistricts(): RftDistrict[] {
-    return this.rftDistricts
+    return this.rftDistricts;
   }
 
   //Set RftDistrict
-  initialSubDistrict(districtRef: string){
-    this.configuration.requestMethodGET('autocomplete-subdistrict/'+districtRef).subscribe(
-      data => {
-        this.rftSubDistricts = data;
-      },
-      err => {
-        console.log(err);
-      }
-    )
+  initialSubDistrict(districtRef: string) {
+    this.configuration
+      .requestMethodGET("autocomplete-subdistrict/" + districtRef)
+      .subscribe(
+        data => {
+          this.rftSubDistricts = data;
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
   getSubDistricts(): RftSubDistrict[] {
-    console.log('service.getSubDistricts')
-    return this.rftSubDistricts
+    console.log("service.getSubDistricts");
+    return this.rftSubDistricts;
   }
 
-  getReferencesAddress(provinceRef:string,districtRef:string,subDistrictRef:string):Observable<any>{
-    console.log('getReferencesAddress');
-    let province: RftProvince = new RftProvince;
-    let district: RftDistrict = new RftDistrict;
-    let subDistrict: RftSubDistrict = new RftSubDistrict;
+  getReferencesAddress(
+    provinceRef: string,
+    districtRef: string,
+    subDistrictRef: string
+  ): Observable<any> {
+    console.log("getReferencesAddress");
+    let province: RftProvince = new RftProvince();
+    let district: RftDistrict = new RftDistrict();
+    let subDistrict: RftSubDistrict = new RftSubDistrict();
     let data = new Observable(observer => {
       setTimeout(() => {
         this.initialProvince();
-      },100);
+      }, 100);
       setTimeout(() => {
         let objList: RftProvince[];
         objList = this.rftProvinces;
@@ -88,11 +96,11 @@ export class ReferenceService {
             observer.next(province);
           }
         }
-        },200);
+      }, 200);
       setTimeout(() => {
         this.initialDistrict(province.province_ref);
-      },500);
-      setTimeout(()=>{
+      }, 500);
+      setTimeout(() => {
         let objList: RftDistrict[];
         objList = this.rftDistricts;
         for (let obj of objList) {
@@ -101,11 +109,11 @@ export class ReferenceService {
             observer.next(district);
           }
         }
-      },1000);
+      }, 1000);
       setTimeout(() => {
         this.initialSubDistrict(district.district_ref);
-      },1500);
-      setTimeout(()=>{
+      }, 1500);
+      setTimeout(() => {
         let objList: RftSubDistrict[];
         objList = this.rftSubDistricts;
         for (let obj of objList) {
@@ -114,22 +122,68 @@ export class ReferenceService {
             observer.next(subDistrict);
           }
         }
-      },2000);
+      }, 2000);
       setTimeout(() => {
         observer.complete();
-      },2200);
+      }, 2200);
     });
     return data;
   }
 
-  getSchools(){
-   return this.configuration.requestMethodGET('autocomplete-schools')
+  initialSchools() {
+    this.configuration.requestMethodGET("autocomplete-schools").subscribe(
+      data => {
+        this.rftSchools = data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-
-
-  getMajorBySchoolRef(schoolRef:string){
-    return this.configuration.requestMethodGET('autocomplete-major'+schoolRef)
+  getSchool() {
+    return this.rftSchools;
   }
 
+  getSchools() {
+    return this.configuration.requestMethodGET("autocomplete-schools");
+  }
+
+  getMajorBySchoolRef(schoolRef: string) {
+    return this.configuration.requestMethodGET(
+      "autocomplete-major/" + schoolRef
+    );
+  }
+
+  initialMajors(schoolRef: string) {
+    return this.configuration
+      .requestMethodGET("autocomplete-major/" + schoolRef)
+      .subscribe(data => {
+        this.rftMajors = data;
+      });
+  }
+
+  getMajors() {
+    return this.rftMajors;
+  }
+
+  initialSponsors() {
+    this.configuration.requestMethodGET("autocomplete-sponsors").subscribe(
+      data => {
+        this.smSponsors = data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getSponsors() {
+    return this.smSponsors;
+  }
+
+  getReferenceSponsor(ref: string) {
+    let jsonPk = { sponsors_ref: ref };
+    return this.configuration.requestMethodPOST("sponsors-update", jsonPk);
+  }
 }

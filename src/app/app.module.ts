@@ -1,3 +1,5 @@
+import { M010101StudentService } from './services/students/m010101-student.service';
+import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
 import { M010102OfficerService } from './services/officers/m010102-officer.service';
 import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
 import { S010102SearchOfficerComponent } from './general/account/s010102-search-officer/s010102-search-officer.component';
@@ -56,6 +58,7 @@ import { JqueryScriptService } from './services/utils/jquery-script.service';
 import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
 import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
+import { M010101ManageStudentComponent } from './general/account/m010101-manage-student/m010101-manage-student.component';
 
 
 @NgModule({
@@ -79,6 +82,7 @@ import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103
     ForgotPasswordComponent,
     S030102SearchScolarshipComponent,
     M030103ManageSholarshipAnnouncementComponent,
+    M010101ManageStudentComponent,
   ],
   imports: [
     // Angular
@@ -124,6 +128,8 @@ import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103
     EnsureIsNotAuth,
     M030101SponsorsService,
     JqueryScriptService,
+    M030102ScholarshipService,
+    M010101StudentService
   ],
   bootstrap: [AppComponent]
 })

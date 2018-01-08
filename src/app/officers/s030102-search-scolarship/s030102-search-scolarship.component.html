@@ -1,11 +1,17 @@
 <div class="row overide-row">
-    <div class="col-xs-3">
+    <div class="col-xs-9">
         <label class="normal">ผู้สนับสนุน</label>
-        <p-autoComplete>
-
-        </p-autoComplete>
+        <p-autoComplete class="autocomplete-sub-district"
+                    [(ngModel)]="searchForm.smSponsors"
+                    [suggestions]="sponsorsList"
+                    [dropdown]="true"
+                    (completeMethod)="autocompleteSponsors($event)"
+                    (onDropdownClick)="handleCompleteClickSponsosrs()"
+                    field="sponsors_name"
+                    forceSelection="true"
+                    name="autocompleteSponsors">
+                  </p-autoComplete>
     </div>
-    <div class="col-xs-6"></div>
     <div class="col-xs-3">
         <label for="" class="normal">สถานะ</label>
         <p-dropdown [options]="activeFlag" [(ngModel)]="searchForm.searchCriteria.active_flag">
@@ -33,7 +39,7 @@
     <div class="col-xs-6 btn-panel-right">
         <button pButton type="button" class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
 </button>
-        <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPageClick()">
+        <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPage()">
 </button>
     </div>
 </div>
@@ -45,9 +51,9 @@
                 {{obj+1}}
             </ng-template>
         </p-column>
-        <p-column header="ชื่อผู้สนับสนุน" field=""></p-column>
-        <p-column header="ประเภททุนการศึกษา"></p-column>
-        <p-column header="ชื่อทุนการศึกษา"></p-column>
-        <p-column header="สถานะ"></p-column>
+        <p-column header="ชื่อผู้สนับสนุน" field="sponsors_name"></p-column>
+        <p-column header="ประเภททุนการศึกษา" field="scholarship_type"></p-column>
+        <p-column header="ชื่อทุนการศึกษา" field="scholarship_name"></p-column>
+        <p-column header="สถานะ" field="active_flag"></p-column>
     </p-dataTable>
 </div>

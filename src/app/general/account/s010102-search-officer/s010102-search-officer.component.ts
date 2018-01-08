@@ -47,11 +47,11 @@ export class S010102SearchOfficerComponent implements OnInit {
 
   doSearch(){
     this.officerService.searchOfficer(this.searchForm).subscribe(res => {
+      console.log(res)
       this.listOfficer = res
       for (let obj of this.listOfficer) {
         obj.first_name = obj.first_name + ' ' + obj.last_name
       }
-
     }, error => {
       console.log('error: ' + error)
     }, () => {

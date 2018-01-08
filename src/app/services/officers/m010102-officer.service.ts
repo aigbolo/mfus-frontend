@@ -10,8 +10,6 @@ import { OfficerForm } from '../../forms/officer-form';
 @Injectable()
 export class M010102OfficerService {
 
-
-  officerForm: OfficerForm
   constructor(private configurationService: ConfigurationService,
     private utilService: UtilsService,
     private layout: LayoutService,
@@ -21,15 +19,7 @@ export class M010102OfficerService {
   doInsert(form: AcOfficer, user: string) {
     form.create_user = user
     form.update_user = user
-    return this.configurationService.requestMethodPOST('officers-insert', form).subscribe(res => {
-      console.log(res)
-    }, error => {
-      console.log(error)
-      this.layout.setMsgDisplay(Severity.ERROR, 'เกิดข้อผิดพลาาด','')
-    }, () => {
-      console.log('success')
-      this.layout.setMsgDisplay(Severity.SUCCESS, 'บันทึกข้อมูลสำเร็จ', '')
-    })
+    return this.configurationService.requestMethodPOST('officers-insert', form)
   }
 
   searchOfficer(form: OfficerForm) {
