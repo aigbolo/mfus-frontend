@@ -8,6 +8,8 @@ export class SmScholarshipAnnouncement {
   public  financial_aid: number;
   public  min_gpax: number;
   public  collage_year: string;
+  public  schools: string;
+  public  majors: string;
   public  announce_date: Date;
   public  registration_start_date: Date;
   public  registration_end_date: Date;

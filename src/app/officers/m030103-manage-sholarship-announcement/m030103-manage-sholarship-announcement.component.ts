@@ -11,6 +11,7 @@ import { LayoutService } from './../../services/utils/layout.service';
 import { Component, OnInit } from '@angular/core';
 import { RftSchool } from '../../models/rft-school';
 import { RftMajor } from '../../models/rft-major';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-m030103-manage-sholarship-announcement',
@@ -48,7 +49,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   validatorForm() {
     this.manageFormGroup = new FormGroup({
       autocomplete_sponsors: new FormControl(this.sponsor, Validators.compose([Validators.required])),
-      document_ref_no: new FormControl(this.manageForm.scholarships_announcement.document_ref_no, Validators.compose([Validators.required])),
+      document_ref_no: new FormControl(this.manageForm.scholarships_announcement.document_ref_no),
       year: new FormControl(this.manageForm.scholarships_announcement.year, Validators.compose([Validators.required])),
       autocomplete_scholarships: new FormControl(this.scholarship, Validators.compose([Validators.required])),
       round: new FormControl(this.manageForm.scholarships_announcement.round),
@@ -57,8 +58,8 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       financial_aid: new FormControl(this.manageForm.scholarships_announcement.financial_aid, Validators.compose([Validators.required])),
       min_gpax: new FormControl(this.manageForm.scholarships_announcement.min_gpax, Validators.compose([Validators.required])),
       collage_year: new FormControl(this.manageForm.scholarships_announcement.collage_year),
-      schools: new FormControl(this.selectedSchools),
-      majors: new FormControl(this.selectedMajors),
+      schools: new FormControl(this.manageForm.scholarships_announcement.schools),
+      majors: new FormControl(this.manageForm.scholarships_announcement.majors),
       announce_date: new FormControl(this.manageForm.scholarships_announcement.announce_date, Validators.compose([Validators.required])),
       registration_start_date: new FormControl(this.manageForm.scholarships_announcement.registration_start_date, Validators.compose([Validators.required])),
       registration_end_date: new FormControl(this.manageForm.scholarships_announcement.registration_end_date, Validators.compose([Validators.required])),
@@ -138,10 +139,29 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     }, 100);
   }
 
+  onSelectScholarship(){
+    this.getRound();
+  }
+
+  getRound(){
+    if(this.manageForm.scholarships_announcement.year != null && this.scholarship.scholarship_ref != null){
+      this.referenceService.getRoundAnnouncement(this.manageForm.scholarships_announcement.year,this.scholarship.scholarship_ref).subscribe(
+        data=>{
+          this.manageForm.scholarships_announcement.round = data;
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
+
+  }
+
   onChangeSchools(){
     let schools = '';
     let isFirst = true;
     this.selectedMajors = [];
+    this.manageForm.scholarships_announcement.majors = '';
     setTimeout(() => {
       for (let obj of this.selectedSchools){
         if(!isFirst){
@@ -150,6 +170,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
         schools = schools+obj;
         isFirst = false;
       }
+      this.manageForm.scholarships_announcement.schools = schools;
       console.log(schools)
     }, 100);
 
@@ -171,7 +192,13 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
 
 
   onSubmit(){
+    console.log('onSubmit')
+    console.log(this.manageForm.scholarships_announcement.announce_date)
+    if (this.manageFormGroup.invalid) {
+      this.utilsService.findInvalidControls(this.manageFormGroup);
+    } else {
 
+    }
   }
 
 }

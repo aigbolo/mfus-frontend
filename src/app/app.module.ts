@@ -1,3 +1,4 @@
+import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
 import { M010101StudentService } from './services/students/m010101-student.service';
 import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
 import { M010102OfficerService } from './services/officers/m010102-officer.service';
@@ -133,7 +134,8 @@ import { S060101SearchNewsComponent } from './officers/s060101-search-news/s0601
     M030101SponsorsService,
     JqueryScriptService,
     M030102ScholarshipService,
-    M010101StudentService
+    M010101StudentService,
+    M030103ScholarshipAnnouncementService
   ],
   bootstrap: [AppComponent]
 })

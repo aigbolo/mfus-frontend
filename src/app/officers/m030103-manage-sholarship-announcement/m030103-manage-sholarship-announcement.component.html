@@ -17,7 +17,7 @@
         </p-autoComplete>
   </div>
   <div class="col-xs-3">
-    <label  class="normal">เลขเอกสารอ้างอิง *</label>
+    <label  class="normal">เลขเอกสารอ้างอิง</label>
     <input type="text"
     formControlName="document_ref_no"
     [(ngModel)]="manageForm.scholarships_announcement.document_ref_no" pInputText>
@@ -26,9 +26,10 @@
 <div class="row overide-row">
   <div class="col-xs-2">
     <label class="normal">ปีการศึกษา *</label>
-    <input type="text" class="input-year"
+    <input type="text" class="input-year" pInputText
     formControlName="year"
-    [(ngModel)]="manageForm.scholarships_announcement.year" pInputText>
+    [(ngModel)]="manageForm.scholarships_announcement.year"
+    (blur)="getRound()">
   </div>
   <div class="col-xs-8">
       <label  class="normal">ทุนการศึกษา *</label>
@@ -40,6 +41,7 @@
       [suggestions]="scholarships"
       forceselection="true"
       [(ngModel)]="scholarship"
+      (onSelect)="onSelectScholarship()"
       formControlName="autocomplete_scholarships"
       (onDropdownClick)="handleCompleteClickScholarships()"
       (completeMethod)="autocompleteScholarships($event)">
@@ -69,7 +71,7 @@
       <input type="text" pInputText
       class="unit"
       formControlName="unit"
-      [(ngModel)]="manageForm.scholarships_announcement.unit"
+      [(ngModel)]="scholarship.unit"
       >
     </div>
     <div class="col-xs-5">
@@ -77,7 +79,7 @@
         <input type="text" pInputText
         class="scholarships-aid"
         formControlName="financial_aid"
-        [(ngModel)]="manageForm.scholarships_announcement.financial_aid"
+        [(ngModel)]="scholarship.financial_aid"
         >
     </div>
 </div>
