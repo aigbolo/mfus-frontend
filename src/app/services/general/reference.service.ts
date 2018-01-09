@@ -1,3 +1,4 @@
+import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
 import { SmSponsors } from './../../models/sm-sponsors';
 import { RftMajor } from "./../../models/rft-major";
 import { RftSchool } from "./../../models/rft-school";
@@ -16,6 +17,7 @@ export class ReferenceService {
   private rftSubDistricts: RftSubDistrict[] = [];
   private rftSchools: RftSchool[] = [];
   private rftMajors: RftMajor[] = [];
+  private sc_type: RftScholarshipType[] = [];
   private sponsors: SmSponsors[] = [];
   private scholarships: SmScholarship[] = [];
 
@@ -186,6 +188,14 @@ export class ReferenceService {
     return this.configuration.requestMethodPOST("sponsors-update", jsonPk);
   }
 
+  initialScholarshipType() {
+    return this.configuration.requestMethodGET("autocomplete-sctype")
+  }
+
+  getScholarshipType() {
+    console.log(this.sc_type)
+    return this.sc_type;
+  }
   initialScholarships(ref:string){
     this.configuration.requestMethodGET('autocomplete-scholarships/'+ref).subscribe(
       data=>{

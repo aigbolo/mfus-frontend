@@ -337,8 +337,6 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   onResetClick() {
-    console.log(this.manageOfficerForm);
-    console.log(this.manageOfficerForm2);
     if (this.btnLabel == "เพิ่มข้อมูล") {
       console.log("reset insert");
       this.manageOfficerForm = new OfficerForm();

@@ -13,6 +13,6 @@ export class M010101StudentService {
   doInsert(form: AcStudent, user: string) {
     form.create_user = user
     form.update_user = user
-    return this.configurationService.requestMethodPOST('student-insert', form)
+    return this.configurationService.requestMethodPOST('students-insert', form)
   }
 }

@@ -1,4 +1,5 @@
-import { Severity } from './../../../enum';
+import { SelectItem } from "primeng/primeng";
+import { Severity } from "./../../../enum";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { M010101StudentService } from "./../../../services/students/m010101-student.service";
 import { UtilsService } from "./../../../services/utils/utils.service";
@@ -22,10 +23,11 @@ export class M010101ManageStudentComponent implements OnInit {
   majorsList: RftMajor[];
   studentFormGroup: FormGroup;
   manageStudentForm: StudentForm = new StudentForm();
-
+  minyear: string;
   uploadedFiles: any[] = [];
-
   btnLabel: string;
+  titleList: SelectItem[];
+
   constructor(
     private studentService: M010101StudentService,
     private referenceService: ReferenceService,
@@ -34,6 +36,8 @@ export class M010101ManageStudentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getYearRange();
+    this.titleList = this.utilsService.getTitleList();
     this.pageRender = true;
     this.btnLabel = "บันทึก";
     this.referenceService.initialSchools();
@@ -63,6 +67,13 @@ export class M010101ManageStudentComponent implements OnInit {
       first_name_t: new FormControl(
         this.manageStudentForm.acStudent.first_name_t,
         Validators.compose([Validators.required])
+      ),
+      birth_date: new FormControl(
+        this.manageStudentForm.acStudent.birth_date,
+        Validators.compose([Validators.required])
+      ),
+      title_ref: new FormControl(
+        (this.manageStudentForm.acStudent.title_ref = "Mr")
       ),
       last_name_t: new FormControl(
         this.manageStudentForm.acStudent.last_name_t,
@@ -100,6 +111,10 @@ export class M010101ManageStudentComponent implements OnInit {
     });
   }
 
+  getYearRange() {
+    let yearRange: number = new Date().getFullYear();
+    return yearRange - 30 + ":" + yearRange;
+  }
   autoCompleteSchools(event) {
     let query = event.query;
     this.schoolList = [];
@@ -175,9 +190,11 @@ export class M010101ManageStudentComponent implements OnInit {
       .doInsert(this.manageStudentForm.acStudent, this.user)
       .subscribe(
         res => {},
-        error => {},
+        error => {
+          console.log(error);
+        },
         () => {
-          this.manageStudentForm = new StudentForm();
+          this.onResetClick()
           this.layoutService.setMsgDisplay(
             Severity.SUCCESS,
             "บันทึกข้อมูลสำเร็จ",
@@ -185,5 +202,11 @@ export class M010101ManageStudentComponent implements OnInit {
           );
         }
       );
+  }
+
+  onResetClick(){
+    this.manageStudentForm = new StudentForm();
+    this.manageStudentForm.acStudent.profile_image =
+      "../../../../assets/images/empty_profile.png";
   }
 }
