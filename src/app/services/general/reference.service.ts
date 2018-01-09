@@ -200,4 +200,9 @@ export class ReferenceService {
   getScholarships(){
     return this.scholarships;
   }
+
+  getRoundAnnouncement( year:number,scholarshipRef:string){
+    let body = {'year':year,'scholarship_ref':scholarshipRef}
+    return this.configuration.requestMethodPOST('round',body);
+  }
 }
