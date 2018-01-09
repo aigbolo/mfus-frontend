@@ -1,5 +1,61 @@
 <div class="row overide-row">
+    <div class="col-xs-12">
+        <label class="normal">หัวข้อข่าว</label>
+        <input class="input-address"
+          type="text"
+          [(ngModel)]="searchForm.searchCriteria.news_topic"
+          pInputText>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-9">
+        <label class="normal">วันที่เผยแพร่</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [locale]="th"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+          [utc]="true"
+          [maxDate]="searchForm.searchCriteria.publish_end_date"
+          [(ngModel)]="searchForm.searchCriteria.publish_start_date">
+        </p-calendar>
+        <label for="" style="padding-left: 30px; padding-right: 5px;">ถึง</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [locale]="th"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+          [minDate]="searchForm.searchCriteria.publish_start_date"
+          [disabled]="!searchForm.searchCriteria.publish_start_date"
+          [(ngModel)]="searchForm.searchCriteria.publish_end_date">
+        </p-calendar>
+    </div>
+    <div class="col-xs-3">
+        <label class="normal">สถานะ</label>
+        <p-dropdown
+          [options]="activeFlag"
+          [(ngModel)]="searchForm.searchCriteria.active_flag">
+        </p-dropdown>
+    </div>
+</div>
+<div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton type="submit" class="btn-search primary" label="ค้นหา" (click)="onSearchClick()">
+</button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton type="button" class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
+</button>
+        <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPage()">
+</button>
+    </div>
+</div>
+<div class="row overide-row">
   <div class="col-xs-12">
-    <input type="text" class="" pInputText>
+    <p-dataTable [value]="newsFormList" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+      <p-column header="วันที่เผยแพร่" field="publish_date"></p-column>
+      <p-column header="หัวข้อข่าว" field="news_topic"></p-column>
+      <p-column header="สถานะ" field="active_flag"></p-column>
+    </p-dataTable>
   </div>
 </div>
