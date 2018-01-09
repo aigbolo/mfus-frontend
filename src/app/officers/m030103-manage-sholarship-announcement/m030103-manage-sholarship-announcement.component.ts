@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { RftSchool } from '../../models/rft-school';
 import { RftMajor } from '../../models/rft-major';
 import { DatePipe } from '@angular/common';
+import { M030103ScholarshipAnnouncementService } from '../../services/officers/m030103-scholarship-announcement.service';
 
 @Component({
   selector: 'app-m030103-manage-sholarship-announcement',
@@ -19,6 +20,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./m030103-manage-sholarship-announcement.component.css']
 })
 export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel implements OnInit {
+  user = localStorage.getItem('username');
   manageForm: ScholarshipAnnouncementForm = new ScholarshipAnnouncementForm;
   manageFormGroup: FormGroup;
   sponsors: SmSponsors[] = [];
@@ -33,6 +35,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   selectedMajors = [];
   constructor(private layoutService: LayoutService,
     private referenceService: ReferenceService,
+    private scholarshipAnnouncementService: M030103ScholarshipAnnouncementService,
     private utilsService: UtilsService,
     private route: ActivatedRoute,
     public ngProgress: NgProgress) {
@@ -42,8 +45,8 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   ngOnInit() {
     this.ngProgress.start();
     this.layoutService.setPageHeader('บันทึกข้อมูลการประกาศทุนการศึกษา');
-   this.initialReferences();
-   this.validatorForm();
+    this.initialReferences();
+    this.validatorForm();
   }
 
   validatorForm() {
@@ -76,6 +79,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       data =>{
         this.rftSchools = data;
         console.log(this.rftSchools);
+        this.ngProgress.done();
       },
       err=>{
         console.log(err);
@@ -140,6 +144,9 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   }
 
   onSelectScholarship(){
+    this.manageForm.scholarships_announcement.scholarship_ref = this.scholarship.scholarship_ref;
+    this.manageForm.scholarships_announcement.unit = this.scholarship.unit;
+    this.manageForm.scholarships_announcement.financial_aid = this.scholarship.financial_aid;
     this.getRound();
   }
 
@@ -157,7 +164,24 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
 
   }
 
-  onChangeSchools(){
+  onSelectCollageYear(){
+    let collages = '';
+    let isFirst = true;
+    this.manageForm.scholarships_announcement.collage_year = '';
+    setTimeout(() => {
+      for (let obj of this.selectedCollageYears){
+        if(!isFirst){
+          collages = collages+','
+        }
+        collages = collages+obj;
+        isFirst = false;
+      }
+      this.manageForm.scholarships_announcement.collage_year = collages;
+      console.log(collages)
+    }, 100);
+  }
+
+  onSelectSchools(){
     let schools = '';
     let isFirst = true;
     this.selectedMajors = [];
@@ -190,14 +214,40 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
 
   }
 
+  onSelectMajors(){
+    let majors = '';
+    let isFirst = true;
+    this.manageForm.scholarships_announcement.majors = '';
+    setTimeout(() => {
+      for (let obj of this.selectedMajors){
+        if(!isFirst){
+          majors = majors+','
+        }
+        majors = majors+obj;
+        isFirst = false;
+      }
+      this.manageForm.scholarships_announcement.majors = majors;
+      console.log(majors)
+    }, 100);
+  }
 
   onSubmit(){
     console.log('onSubmit')
-    console.log(this.manageForm.scholarships_announcement.announce_date)
     if (this.manageFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.manageFormGroup);
     } else {
+      this.manageForm.scholarships_announcement.create_user = this.user;
+      this.manageForm.scholarships_announcement.update_user = this.user;
 
+      this.scholarshipAnnouncementService.doInsert(this.manageForm).subscribe(
+        data=>{
+          console.log('Insert completed');
+        },
+        err=>{
+          console.log('Insert error');
+          console.log(err);
+        }
+      )
     }
   }
 

@@ -71,7 +71,7 @@
       <input type="text" pInputText
       class="unit"
       formControlName="unit"
-      [(ngModel)]="scholarship.unit"
+      [(ngModel)]="manageForm.scholarships_announcement.unit"
       >
     </div>
     <div class="col-xs-5">
@@ -79,7 +79,7 @@
         <input type="text" pInputText
         class="scholarships-aid"
         formControlName="financial_aid"
-        [(ngModel)]="scholarship.financial_aid"
+        [(ngModel)]="manageForm.scholarships_announcement.financial_aid"
         >
     </div>
 </div>
@@ -103,32 +103,32 @@
         name="collage-year"
         [(ngModel)]="selectedCollageYears"
         value="1" label="ชั้นปีที่ 1"
-        formControlName="collage_year"></p-checkbox>
+        formControlName="collage_year" (onChange)="onSelectCollageYear()"></p-checkbox>
         <p-checkbox class="collage-year-checkbox"
         name="collage-year"
         [(ngModel)]="selectedCollageYears"
         value="2" label="ชั้นปีที่ 2"
-        formControlName="collage_year"></p-checkbox>
+        formControlName="collage_year" (onChange)="onSelectCollageYear()"></p-checkbox>
         <p-checkbox class="collage-year-checkbox"
         name="collage-year"
         [(ngModel)]="selectedCollageYears"
         value="3" label="ชั้นปีที่ 3"
-        formControlName="collage_year"></p-checkbox>
+        formControlName="collage_year" (onChange)="onSelectCollageYear()"></p-checkbox>
         <p-checkbox class="collage-year-checkbox"
         name="collage-year"
         [(ngModel)]="selectedCollageYears"
         value="4" label="ชั้นปีที่ 4"
-        formControlName="collage_year"></p-checkbox>
+        formControlName="collage_year" (onChange)="onSelectCollageYear()"></p-checkbox>
         <p-checkbox class="collage-year-checkbox"
         name="collage-year"
         [(ngModel)]="selectedCollageYears"
         value="5" label="ชั้นปีที่ 5"
-        formControlName="collage_year"></p-checkbox>
+        formControlName="collage_year" (onChange)="onSelectCollageYear()"></p-checkbox>
         <p-checkbox class="collage-year-checkbox"
         name="collage-year"
         [(ngModel)]="selectedCollageYears"
         value="6" label="ชั้นปีที่ 6"
-        formControlName="collage_year"></p-checkbox>
+        formControlName="collage_year" (onChange)="onSelectCollageYear()"></p-checkbox>
     </div>
 </div>
 <div class="row overide-row">
@@ -140,7 +140,7 @@
         value="{{school.school_ref}}"
         formControlName="schools"
         [(ngModel)]="selectedSchools"
-        (onChange)="onChangeSchools()"></p-checkbox>
+        (onChange)="onSelectSchools()"></p-checkbox>
     </div>
 </div>
 <div class="row overide-row" *ngIf="selectedSchools.length > 0">
@@ -151,7 +151,7 @@
         label="{{major.major_name_t}}"
         value="{{major.major_ref}}"
         formControlName="majors"
-        [(ngModel)]="selectedMajors"></p-checkbox>
+        [(ngModel)]="selectedMajors" (onChange)="onSelectMajors()"></p-checkbox>
     </div>
 </div>
 
@@ -210,6 +210,10 @@
         formControlName="announce_result_date"
         [(ngModel)]="manageForm.scholarships_announcement.announce_result_date"></p-calendar>
     </div>
+</div>
+
+<div class="row overide-row">
+  <h4 class="custom-panel-title">อัพโหลดโปสเตอร์</h4>
 </div>
 
 <!-- Action buttons here -->
