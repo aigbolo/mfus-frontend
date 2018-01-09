@@ -179,6 +179,7 @@ export class M010101ManageStudentComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.manageStudentForm.acStudent.birth_date)
     if (this.studentFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.studentFormGroup);
       return;

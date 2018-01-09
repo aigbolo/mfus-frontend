@@ -60,6 +60,8 @@ import { ForgotPasswordComponent } from './general/authentication/forgot-passwor
 import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
 import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
 import { M010101ManageStudentComponent } from './general/account/m010101-manage-student/m010101-manage-student.component';
+import { M060101ManageNewsComponent } from './officers/m060101-manage-news/m060101-manage-news.component';
+import { S060101SearchNewsComponent } from './officers/s060101-search-news/s060101-search-news.component';
 
 
 @NgModule({
@@ -84,6 +86,8 @@ import { M010101ManageStudentComponent } from './general/account/m010101-manage-
     S030102SearchScolarshipComponent,
     M030103ManageSholarshipAnnouncementComponent,
     M010101ManageStudentComponent,
+    M060101ManageNewsComponent,
+    S060101SearchNewsComponent,
   ],
   imports: [
     // Angular

@@ -22,9 +22,12 @@
 <div class="row overide-row">
     <div class="col-xs-3">
         <label class="normal">ประเภททุนการศึกษา</label>
-        <p-autoComplete>
-
-        </p-autoComplete>
+        <p-dropdown
+              [(ngModel)]="searchForm.rftScholarshipType"
+              name="sctype_type"
+              optionLabel="sctype_name"
+              [options]="sctype_type">
+            </p-dropdown>
     </div>
     <div class="col-xs-9">
         <label for="" class="normal">ชื่อทุนการศึกษา</label>
