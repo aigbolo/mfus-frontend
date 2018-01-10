@@ -13,7 +13,9 @@
       formControlName="autocomplete_sponsors"
       (onSelect)="onSelectSponsors()"
       (onDropdownClick)="handleCompleteClickSponsors()"
-      (completeMethod)="autocompleteSponsors($event)">
+      (completeMethod)="autocompleteSponsors($event)"
+      [disabled]="updateMode"
+      >
         </p-autoComplete>
   </div>
   <div class="col-xs-3">
@@ -29,6 +31,7 @@
     <input type="text" class="input-year" pInputText
     formControlName="year"
     [(ngModel)]="manageForm.scholarships_announcement.year"
+    [disabled]="updateMode"
     (blur)="getRound()">
   </div>
   <div class="col-xs-8">
@@ -44,7 +47,8 @@
       (onSelect)="onSelectScholarship()"
       formControlName="autocomplete_scholarships"
       (onDropdownClick)="handleCompleteClickScholarships()"
-      (completeMethod)="autocompleteScholarships($event)">
+      (completeMethod)="autocompleteScholarships($event)"
+      [disabled]="updateMode">
       </p-autoComplete>
   </div>
   <div class="col-xs-2">
@@ -163,19 +167,19 @@
     <div class="col-xs-4">
         <label  class="normal">ประกาศเปิดรับสมัคร *</label>
         <p-calendar [showIcon]="true"
-        [locale]="th" [utc]="true"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="announce_date"
         [(ngModel)]="manageForm.scholarships_announcement.announce_date"></p-calendar>
     </div>
     <div class="col-xs-8">
         <label  class="normal">เริ่มรับสมัคร *</label>
         <p-calendar [showIcon]="true"
-        [locale]="th" [utc]="true"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="registration_start_date"
         [(ngModel)]="manageForm.scholarships_announcement.registration_start_date"></p-calendar>
         <label class="normal-inline">ถึงวันที่</label>
         <p-calendar [showIcon]="true"
-        [locale]="th" [utc]="true"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="registration_end_date"
         [(ngModel)]="manageForm.scholarships_announcement.registration_end_date"></p-calendar>
     </div>
@@ -185,19 +189,19 @@
     <div class="col-xs-4">
         <label  class="normal">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</label>
         <p-calendar [showIcon]="true"
-        [locale]="th" [utc]="true"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="announce_interview_date"
         [(ngModel)]="manageForm.scholarships_announcement.announce_interview_date"></p-calendar>
     </div>
     <div class="col-xs-8">
         <label  class="normal">สัมภาษณ์</label>
         <p-calendar [showIcon]="true"
-        [locale]="th" [utc]="true"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="interview_start_date"
         [(ngModel)]="manageForm.scholarships_announcement.interview_start_date"></p-calendar>
         <label class="normal-inline">ถึงวันที่</label>
         <p-calendar [showIcon]="true"
-        [locale]="th" [utc]="true"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="interview_end_date"
         [(ngModel)]="manageForm.scholarships_announcement.interview_end_date"></p-calendar>
     </div>
@@ -206,7 +210,7 @@
     <div class="col-xs-12">
         <label  class="normal">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</label>
         <p-calendar [showIcon]="true"
-        [locale]="th"
+        [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
         formControlName="announce_result_date"
         [(ngModel)]="manageForm.scholarships_announcement.announce_result_date"></p-calendar>
     </div>
@@ -235,14 +239,14 @@
 <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
         <button pButton
-        class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+        class="btn-back ui-button-info" label="ย้อนกลับ" (click)="onPageSearch()"></button>
     </div>
     <div class="col-xs-6 btn-panel-right">
         <button pButton
-        class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
-        <button pButton
+        class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onReset()"></button>
+        <button pButton *ngIf="!manageForm.scholarships_announcement.announcement_ref"
         type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
-        <button pButton
+        <button pButton *ngIf="manageForm.scholarships_announcement.announcement_ref"
         type="submit" class="btn-save ui-button-success" label="แก้ไขข้อมูล"></button>
     </div>
 </div>

@@ -64,6 +64,7 @@ import { M010101ManageStudentComponent } from './general/account/m010101-manage-
 import { M060101ManageNewsComponent } from './officers/m060101-manage-news/m060101-manage-news.component';
 import { S060101SearchNewsComponent } from './officers/s060101-search-news/s060101-search-news.component';
 import { M060101NewsService } from './services/officers/m060101-news.service';
+import { M030103SearchScholarshipAnnouncementComponent } from './officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component';
 
 
 @NgModule({
@@ -90,6 +91,7 @@ import { M060101NewsService } from './services/officers/m060101-news.service';
     M010101ManageStudentComponent,
     M060101ManageNewsComponent,
     S060101SearchNewsComponent,
+    M030103SearchScholarshipAnnouncementComponent,
   ],
   imports: [
     // Angular

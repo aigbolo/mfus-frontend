@@ -208,7 +208,9 @@ export class ReferenceService {
   }
 
   initialScholarships(ref:string){
-    this.configuration.requestMethodGET('autocomplete-scholarships/'+ref).subscribe(
+
+    let url = (ref != null?'autocomplete-scholarships/'+ref:'autocomplete-scholarships');
+    this.configuration.requestMethodGET(url).subscribe(
       data=>{
         this.scholarships = data;
       },

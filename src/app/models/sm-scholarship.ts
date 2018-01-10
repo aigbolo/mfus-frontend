@@ -1,4 +1,4 @@
-import { RftScholarshipType } from './rft-schoalrship_type';
+
 export class SmScholarship {
   public scholarship_ref: string;
   public sponsors_ref: string;
@@ -12,9 +12,5 @@ export class SmScholarship {
   public create_datetime: Date;
   public update_user: string;
   public update_datetime: Date;
-  public rftScholarshipType: RftScholarshipType;
 
-  constructor(){
-    this.rftScholarshipType = new RftScholarshipType
-  }
 }

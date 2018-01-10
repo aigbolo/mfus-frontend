@@ -1,3 +1,5 @@
+import { ReferenceService } from './../general/reference.service';
+import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import { ConfigurationService } from './../utils/configuration.service';
 import { Injectable } from '@angular/core';
@@ -5,6 +7,7 @@ import { ScholarshipAnnouncementForm } from '../../forms/scholarship-announcemen
 import { SmScholarshipAnnouncement } from '../../models/sm-scholarship-announcement';
 import { SmScholarship } from '../../models/sm-scholarship';
 import { M030102ScholarshipService } from './m030102-scholarship.service';
+import { SmSponsors } from '../../models/sm-sponsors';
 
 @Injectable()
 export class M030103ScholarshipAnnouncementService {
@@ -12,7 +15,8 @@ export class M030103ScholarshipAnnouncementService {
 
 
   constructor(private config: ConfigurationService,
-              private scholarshipService: M030102ScholarshipService) { }
+              private scholarshipService: M030102ScholarshipService,
+              private referenceService: ReferenceService,) { }
 
   doSearch(form:ScholarshipAnnouncementForm){
     return this.config.requestMethodPOST('scholarships-announcement',form.search_criteria);
@@ -28,16 +32,8 @@ export class M030103ScholarshipAnnouncementService {
   }
 
 
-  onRowSelect(model:SmScholarshipAnnouncement){
+  getScholarshipAnnouncement(model:SmScholarshipAnnouncement){
     return this.config.requestMethodPOST('scholarships-announcement-update',model)
-  }
-
-  getScholarship(scholarhipRef:string){
-    console.log(scholarhipRef);
-    let model: SmScholarship = new SmScholarship();
-    model.scholarship_ref = scholarhipRef;
-    console.log(JSON.stringify(model));
-    return this.scholarshipService.selectScholarship(model);
   }
 
 }

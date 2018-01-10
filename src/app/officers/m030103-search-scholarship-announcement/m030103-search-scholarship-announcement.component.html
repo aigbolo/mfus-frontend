@@ -1,0 +1,110 @@
+<div class="row overide-row">
+  <div class="col-xs-12">
+    <div class="row overide-row">
+      <div class="col-xs-2">
+        <label class="normal">ปีการศึกษา</label>
+        <input
+        type="text" class="input-year" pInputText
+        maxlength="200"
+        [(ngModel)]="searchForm.search_criteria.year">
+      </div>
+
+      <div class="col-xs-2">
+        <label class="normal">รอบ</label>
+        <input
+        type="text" class="input-round" pInputText
+        maxlength="200"
+        [(ngModel)]="searchForm.search_criteria.round">
+      </div>
+
+      <div class="col-xs-6">
+        <label class="normal">เลขเอกสารอ้างอิง</label>
+        <input
+        type="text" pInputText
+        maxlength="200"
+        [(ngModel)]="searchForm.search_criteria.document_ref_no">
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ผู้ให้ทุนการศึกษา</label>
+        <p-autoComplete
+        class="autocomplete-sponsors"
+        maxlength="50"
+        [dropdown]="true"
+        field="sponsors_name"
+        [suggestions]="sponsors"
+        forceselection="true"
+        [(ngModel)]="sponsor"
+        (onSelect)="onSelectSponsors()"
+        (onDropdownClick)="handleCompleteClickSponsors()"
+        (completeMethod)="autocompleteSponsors($event)"
+        >
+          </p-autoComplete>
+      </div>
+
+    </div>
+
+
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ทุนการศึกษา</label>
+        <p-autoComplete
+        class="autocomplete-scholarships"
+        maxlength="50"
+        [dropdown]="true"
+        field="scholarship_name"
+        [suggestions]="scholarships"
+        forceselection="true"
+        [(ngModel)]="scholarship"
+        (onDropdownClick)="handleCompleteClickScholarships()"
+        (completeMethod)="autocompleteScholarships($event)">
+        </p-autoComplete>
+      </div>
+
+    </div>
+
+<!-- Action buttons here -->
+<div class="row overide-row btn-row">
+  <div class="col-xs-6 btn-panel-left">
+    <button pButton
+      class="btn-search primary"
+      label="ค้นหาข้อมูล" (click)="onSearch()"></button>
+  </div>
+  <div class="col-xs-6 btn-panel-right">
+      <button pButton
+        (click)="onReset()"
+        class="btn-reset ui-button-warning"
+        label="เริ่มใหม่"></button>
+      <button pButton
+        (click)="onPageInsert()"
+        class="btn-new ui-button-info"
+        label="เพิ่มข้อมูล"></button>
+    </div>
+</div>
+
+    <p-dataTable [value]="sponsorsList"
+      [(selection)]="sponsor"
+      selectionMode="single"
+      dataKey="sponsors_ref"
+      (onRowSelect)="onRowSelect($event)"
+      [rows]="10" [paginator]="true"
+      [pageLinks]="3"
+      [rowsPerPageOptions]="[5,10,20]"
+      emptyMessage="ไม่พบข้อมูล" [loading]="onLoad">
+
+      <p-column field="" header="ลำดับ" styleClass="row-number">
+          <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
+      </p-column>
+      <p-column field="sponsors_name" header="ชื่อผู้สนับสนุน" styleClass="sponsors-name"></p-column>
+      <p-column field="address" header="ที่อยู่" styleClass="address"></p-column>
+      <p-column field="phone_no" header="เบอร์โทรศัพท์" styleClass="phone-no"></p-column>
+      <p-column field="active_flag" header="สถานะ" styleClass="active-flag"></p-column>
+    </p-dataTable>
+
+
+

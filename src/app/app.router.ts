@@ -17,6 +17,7 @@ import { IndexComponent } from './general/info/index/index.component';
 import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 import { M060101ManageNewsComponent } from './officers/m060101-manage-news/m060101-manage-news.component';
 import { S060101SearchNewsComponent } from './officers/s060101-search-news/s060101-search-news.component';
+import { M030103SearchScholarshipAnnouncementComponent } from './officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component';
 
 const appRoutes: Routes = [
   { path: "", component: IndexComponent },
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
   { path: "manage-scholarship-announcement", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
   { path: "manage-scholarship-announcement/:id", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
+  { path: "search-scholarship-announcement", component: M030103SearchScholarshipAnnouncementComponent, canActivate: [] },
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
