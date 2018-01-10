@@ -9,13 +9,14 @@ import { RftSchool } from "../../../models/rft-school";
 import { ReferenceService } from "../../../services/general/reference.service";
 import { StudentForm } from "../../../forms/student-form";
 import { RftMajor } from "../../../models/rft-major";
+import { CalendarModel } from '../../../models/calendar-model';
 
 @Component({
   selector: "app-m010101-manage-student",
   templateUrl: "./m010101-manage-student.component.html",
   styleUrls: ["./m010101-manage-student.component.css"]
 })
-export class M010101ManageStudentComponent implements OnInit {
+export class M010101ManageStudentComponent extends CalendarModel implements OnInit {
   user = localStorage.getItem("username");
 
   pageRender: boolean = false;
@@ -33,7 +34,9 @@ export class M010101ManageStudentComponent implements OnInit {
     private referenceService: ReferenceService,
     private layoutService: LayoutService,
     private utilsService: UtilsService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.getYearRange();

@@ -29,7 +29,8 @@ import {
   SharedModule,
   GrowlModule,
   CalendarModule,
-  SliderModule
+  SliderModule,
+  EditorModule,
 } from 'primeng/primeng';
 
 // Companent
@@ -62,6 +63,7 @@ import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103
 import { M010101ManageStudentComponent } from './general/account/m010101-manage-student/m010101-manage-student.component';
 import { M060101ManageNewsComponent } from './officers/m060101-manage-news/m060101-manage-news.component';
 import { S060101SearchNewsComponent } from './officers/s060101-search-news/s060101-search-news.component';
+import { M060101NewsService } from './services/officers/m060101-news.service';
 
 
 @NgModule({
@@ -115,6 +117,8 @@ import { S060101SearchNewsComponent } from './officers/s060101-search-news/s0601
     GrowlModule,
     CalendarModule,
     SliderModule,
+    EditorModule
+
   ],
   providers: [
     {
@@ -135,7 +139,8 @@ import { S060101SearchNewsComponent } from './officers/s060101-search-news/s0601
     JqueryScriptService,
     M030102ScholarshipService,
     M010101StudentService,
-    M030103ScholarshipAnnouncementService
+    M030103ScholarshipAnnouncementService,
+    M060101NewsService
   ],
   bootstrap: [AppComponent]
 })

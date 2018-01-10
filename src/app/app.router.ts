@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   { path: "manage-scholarship-announcement", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
   { path: "manage-scholarship-announcement/:id", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
   { path: "manage-news", component: M060101ManageNewsComponent },
+  { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
 ]
 

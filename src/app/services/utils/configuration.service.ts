@@ -15,11 +15,13 @@ export class ConfigurationService {
   }
 
   requestMethodPOST(path: string, param: any): Observable<any> {
+    console.log(param)
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     })
     const body = JSON.stringify(param);
+    console.log(body)
     return this.http.post(this.url + path, body, { responseType: 'json', headers: headers })
   }
 
