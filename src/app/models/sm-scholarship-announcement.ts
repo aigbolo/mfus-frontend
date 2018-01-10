@@ -17,7 +17,8 @@ export class SmScholarshipAnnouncement {
   public  interview_start_date: Date;
   public  interview_end_date: Date;
   public  announce_result_date: Date;
-  public  poster_pdf: any;
+  public  poster_file: any;
+  public  poster_name: string;
   public  create_user: string;
   public  create_datetime: Date;
   public  update_user: string;

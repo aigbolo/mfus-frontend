@@ -31,9 +31,10 @@ const appRoutes: Routes = [
   { path: "search-scholarship", component: S030102SearchScolarshipComponent },
   { path: "manage-student", component: M010101ManageStudentComponent },
   { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [] },
-  { path: "manage-sponsors/:ref", component: M030101ManageSponsorsComponent, canActivate: [] },
+  { path: "manage-sponsors/:id", component: M030101ManageSponsorsComponent, canActivate: [] },
   { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [] },
   { path: "manage-scholarship-announcement", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
+  { path: "manage-scholarship-announcement/:id", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [] },
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
 ]

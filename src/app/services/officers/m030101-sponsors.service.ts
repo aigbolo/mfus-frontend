@@ -1,3 +1,4 @@
+import { SmSponsors } from './../../models/sm-sponsors';
 import { HttpHeaders } from '@angular/common/http';
 import { ConfigurationService } from './../utils/configuration.service';
 import { Injectable } from '@angular/core';
@@ -26,8 +27,9 @@ export class M030101SponsorsService {
   }
 
 
-  onRowSelect(form:SponsorsForm){
+  onRowSelect(model:SmSponsors){
     console.log('onRowSelects');
-    return this.config.requestMethodPOST('sponsors-update',form.sponsors)
+    return this.config.requestMethodPOST('sponsors-update',model)
   }
 }
+
