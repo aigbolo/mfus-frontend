@@ -1,4 +1,3 @@
-
 export class SmScholarship {
   public scholarship_ref: string;
   public sponsors_ref: string;
@@ -12,5 +11,4 @@ export class SmScholarship {
   public create_datetime: Date;
   public update_user: string;
   public update_datetime: Date;
-
 }

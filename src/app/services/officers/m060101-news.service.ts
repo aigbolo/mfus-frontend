@@ -30,4 +30,8 @@ export class M060101NewsService {
   insertNews(form: SmNews){
     return this.configurationService.requestMethodPOST('news-insert', form)
   }
+
+  updateNews(form: SmNews){
+    return this.configurationService.requestMethodPUT('news', form)
+  }
 }

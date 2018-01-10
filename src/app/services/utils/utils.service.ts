@@ -120,4 +120,102 @@ export class UtilsService {
       case false: { return '2'; };
     }
   }
+
+  convertDay(id: number){
+    let day
+    switch (id) {
+      case 1: {
+        day = "จันทร์";
+        break;
+      }
+      case 2: {
+        day = "อังคาร";
+        break;
+      }
+      case 3: {
+        day = "พุธ";
+        break;
+      }
+      case 4: {
+        day = "พฤหัสบดี";
+        break;
+      }
+      case 5: {
+        day = "ศุกร์";
+        break;
+      }
+      case 6: {
+        day = "เสาร์";
+        break;
+      }
+      case 7: {
+        day = "อาทิตย์";
+        break;
+      }
+      default: {
+        day = "";
+        break;
+      }
+    }
+    return day
+  }
+
+  convertMonth(id: number){
+    let month
+    switch (id) {
+      case 1: {
+        month = "มกราคม";
+        break;
+      }
+      case 2: {
+        month = "กุมภาพันธ์";
+        break;
+      }
+      case 3: {
+        month = "มีนาคม";
+        break;
+      }
+      case 4: {
+        month = "เมษายน";
+        break;
+      }
+      case 5: {
+        month = "พฤษภาคม";
+        break;
+      }
+      case 6: {
+        month = "มิถุนายน";
+        break;
+      }
+      case 7: {
+        month = "กรกฎาคม";
+        break;
+      }
+      case 8: {
+        month = "สิงหาคม";
+        break;
+      }
+      case 9: {
+        month = "กันยายน";
+        break;
+      }
+      case 10: {
+        month = "ตุลาคม";
+        break;
+      }
+      case 11: {
+        month = "พฤศจิกายน";
+        break;
+      }
+      case 12: {
+        month = "ธันวาคม";
+        break;
+      }
+      default: {
+        month = "";
+        break;
+      }
+    }
+    return month
+  }
 }
