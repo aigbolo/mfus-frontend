@@ -55,13 +55,12 @@ export class M030101ManageSponsorsComponent implements OnInit {
     this.activeStatus = this.utilsService.getActiveFlag("M");
 
     this.validatorForm();
-    console.log(this.user);
     this.manageForm.sponsors.active_flag = "Y";
     this.manageForm.sponsors.create_user = this.user;
     this.manageForm.sponsors.update_user = this.user;
 
-    if (this.route.snapshot.params["ref"] != null) {
-      this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["ref"];
+    if (this.route.snapshot.params["id"] != null) {
+      this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["id"];
       this.onUpdatePageSetup();
     } else {
       this.ngProgress.done();
@@ -73,7 +72,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
     let values: Array<any> = [];
     this.layoutService.setPageHeader("แก้ไขข้อมูลผู้ให้ทุนการศึกษา");
     setTimeout(() => {
-      this.sponsorsService.onRowSelect(this.manageForm).subscribe(
+      this.sponsorsService.onRowSelect(this.manageForm.sponsors).subscribe(
         data => {
           this.manageForm.sponsors = data;
           console.log(data);

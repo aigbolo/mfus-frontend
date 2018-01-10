@@ -20,6 +20,7 @@ import { M030103ScholarshipAnnouncementService } from '../../services/officers/m
   styleUrls: ['./m030103-manage-sholarship-announcement.component.css']
 })
 export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel implements OnInit {
+  pageRender = false;
   user = localStorage.getItem('username');
   manageForm: ScholarshipAnnouncementForm = new ScholarshipAnnouncementForm;
   manageFormGroup: FormGroup;
@@ -33,6 +34,11 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   selectedCollageYears = [];
   selectedSchools = [];
   selectedMajors = [];
+
+  image: string = null;
+  imageName: string = "";
+  uploadedFiles: any[] = [];
+
   constructor(private layoutService: LayoutService,
     private referenceService: ReferenceService,
     private scholarshipAnnouncementService: M030103ScholarshipAnnouncementService,
@@ -47,6 +53,15 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     this.layoutService.setPageHeader('บันทึกข้อมูลการประกาศทุนการศึกษา');
     this.initialReferences();
     this.validatorForm();
+
+    if (this.route.snapshot.params["id"] != null) {
+      this.manageForm.scholarships_announcement.announcement_ref = this.route.snapshot.params["id"];
+      this.onUpdatePageSetup();
+    } else {
+      this.ngProgress.done();
+      this.pageRender = true;
+    }
+
   }
 
   validatorForm() {
@@ -67,9 +82,9 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       registration_start_date: new FormControl(this.manageForm.scholarships_announcement.registration_start_date, Validators.compose([Validators.required])),
       registration_end_date: new FormControl(this.manageForm.scholarships_announcement.registration_end_date, Validators.compose([Validators.required])),
       announce_interview_date: new FormControl(this.manageForm.scholarships_announcement.announce_interview_date, Validators.compose([Validators.required])),
-      interview_start_date: new FormControl(this.manageForm.interview_start_date),
-      interview_end_date: new FormControl(this.manageForm.interview_end_date),
-      announce_result_date: new FormControl(this.manageForm.announce_result_date, Validators.compose([Validators.required])),
+      interview_start_date: new FormControl(this.manageForm.scholarships_announcement.interview_start_date),
+      interview_end_date: new FormControl(this.manageForm.scholarships_announcement.interview_end_date),
+      announce_result_date: new FormControl(this.manageForm.scholarships_announcement.announce_result_date, Validators.compose([Validators.required])),
 
     });
   }
@@ -78,8 +93,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     this.referenceService.getSchools().subscribe(
       data =>{
         this.rftSchools = data;
-        console.log(this.rftSchools);
-        this.ngProgress.done();
+
       },
       err=>{
         console.log(err);
@@ -87,6 +101,85 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     );
 
     this.referenceService.initialSponsors();
+  }
+
+  onUpdatePageSetup(){
+
+    this.layoutService.setPageHeader("แก้ไขข้อมูลการประกาศทุนการศึกษา");
+    setTimeout(() => {
+      this.scholarshipAnnouncementService.onRowSelect(this.manageForm.scholarships_announcement).subscribe(
+        data=>{
+          console.log(data);
+          this.manageForm.scholarships_announcement = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      )
+    }, 1500);
+
+    setTimeout(() => {
+      this.image = this.manageForm.scholarships_announcement.poster_file;
+      this.imageName = this.manageForm.scholarships_announcement.poster_name;
+
+      this.setupCollageSchoolsAndMajors();
+      this.scholarshipAnnouncementService.getScholarship(this.manageForm.scholarships_announcement.scholarship_ref).subscribe(
+        data=>{
+          this.scholarship = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      )
+
+    }, 2000);
+
+    setTimeout(()=>{
+      this.setupDate();
+      this.referenceService.initialScholarships(this.scholarship.sponsors_ref);
+      this.sponsor = this.referenceService.getSponsor(this.scholarship.sponsors_ref);
+    },2500);
+
+    setTimeout(()=>{
+      this.pageRender = true;
+      this.ngProgress.done();
+    },3000);
+  }
+
+  setupDate(){
+    if(this.manageForm.scholarships_announcement.announce_date != null)
+      this.manageForm.scholarships_announcement.announce_date = new Date(this.manageForm.scholarships_announcement.announce_date);
+    if(this.manageForm.scholarships_announcement.registration_start_date != null)
+      this.manageForm.scholarships_announcement.registration_start_date = new Date(this.manageForm.scholarships_announcement.registration_start_date);
+    if(this.manageForm.scholarships_announcement.registration_end_date != null)
+      this.manageForm.scholarships_announcement.registration_end_date = new Date(this.manageForm.scholarships_announcement.registration_end_date);
+    if(this.manageForm.scholarships_announcement.announce_interview_date != null)
+      this.manageForm.scholarships_announcement.announce_interview_date = new Date(this.manageForm.scholarships_announcement.announce_interview_date);
+    if(this.manageForm.scholarships_announcement.interview_start_date != null)
+      this.manageForm.scholarships_announcement.interview_start_date = new Date(this.manageForm.scholarships_announcement.interview_start_date);
+    if(this.manageForm.scholarships_announcement.interview_end_date != null)
+      this.manageForm.scholarships_announcement.interview_end_date = new Date(this.manageForm.scholarships_announcement.interview_end_date);
+    if(this.manageForm.scholarships_announcement.announce_result_date != null)
+      this.manageForm.scholarships_announcement.announce_result_date = new Date(this.manageForm.scholarships_announcement.announce_result_date);
+
+  }
+
+  setupCollageSchoolsAndMajors(){
+    this.selectedCollageYears = [];
+    this.selectedSchools = [];
+    this.selectedMajors = [];
+    console.log(this.manageForm.scholarships_announcement);
+    if(this.manageForm.scholarships_announcement.collage_year != null)
+    this.selectedCollageYears = this.manageForm.scholarships_announcement.collage_year.split(',');
+
+    if(this.manageForm.scholarships_announcement.schools != null)
+    this.selectedSchools = this.manageForm.scholarships_announcement.schools.split(',');
+
+    if(this.manageForm.scholarships_announcement.majors != null)
+    this.selectedMajors = this.manageForm.scholarships_announcement.majors.split(',');
+
+    this.onSelectSchools();
+
   }
 
   autocompleteSponsors(event) {
@@ -231,8 +324,35 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     }, 100);
   }
 
+  onUpload(event) {
+    console.log(event.files);
+    if (event.files != null)
+    this.uploadedFiles = [];
+
+
+      for (let file of event.files) {
+        this.uploadedFiles.push(file);
+      }
+      this.image = this.uploadedFiles[0].objectURL;
+      this.imageName = this.uploadedFiles[0].name;
+      this.manageForm.scholarships_announcement.poster_name = this.uploadedFiles[0].name;
+
+    this.utilsService.convertBlobToString(this.uploadedFiles[0].objectURL)
+      .subscribe(
+        val => {
+          this.manageForm.scholarships_announcement.poster_file  = val;
+        },
+        err => {
+          console.log(err);
+        }
+
+      );
+
+  }
+
   onSubmit(){
     console.log('onSubmit')
+
     if (this.manageFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.manageFormGroup);
     } else {

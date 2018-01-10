@@ -183,6 +183,16 @@ export class ReferenceService {
     return this.sponsors;
   }
 
+  getSponsor(sponsorsRef:string):SmSponsors{
+    let data: SmSponsors;
+    for(let obj of this.sponsors){
+      if(obj.sponsors_ref == sponsorsRef){
+        data = obj;
+      }
+    }
+    return data;
+  }
+
   getReferenceSponsor(ref: string) {
     let jsonPk = { sponsors_ref: ref };
     return this.configuration.requestMethodPOST("sponsors-update", jsonPk);
@@ -196,6 +206,7 @@ export class ReferenceService {
     console.log(this.sc_type)
     return this.sc_type;
   }
+
   initialScholarships(ref:string){
     this.configuration.requestMethodGET('autocomplete-scholarships/'+ref).subscribe(
       data=>{
