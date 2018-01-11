@@ -14,6 +14,7 @@ import { NgModule } from '@angular/core';
 import { RoutersModule } from './app.router';
 import { NgProgressModule } from 'ngx-progressbar';
 import { AuthInterceptor } from './auth.interceptor';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 // PrimeNG
 import {
@@ -65,7 +66,18 @@ import { M060101ManageNewsComponent } from './officers/m060101-manage-news/m0601
 import { S060101SearchNewsComponent } from './officers/s060101-search-news/s060101-search-news.component';
 import { M060101NewsService } from './services/officers/m060101-news.service';
 import { M030103SearchScholarshipAnnouncementComponent } from './officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "right",
+  allowNegative: false,
+  allowZero: true,
+  decimal: ".",
+  precision: 2,
+  prefix: "",
+  suffix: "",
+  thousands: ","
+};
 
 @NgModule({
   declarations: [
@@ -119,7 +131,8 @@ import { M030103SearchScholarshipAnnouncementComponent } from './officers/m03010
     GrowlModule,
     CalendarModule,
     SliderModule,
-    EditorModule
+    EditorModule,
+    CurrencyMaskModule
 
   ],
   providers: [
@@ -128,6 +141,7 @@ import { M030103SearchScholarshipAnnouncementComponent } from './officers/m03010
       useClass: AuthInterceptor,
       multi: true
     },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     ReferenceService,
     ConfigurationService,
     LayoutService,
@@ -147,3 +161,5 @@ import { M030103SearchScholarshipAnnouncementComponent } from './officers/m03010
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

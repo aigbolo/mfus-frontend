@@ -30,6 +30,9 @@
     <label class="normal">ปีการศึกษา *</label>
     <input type="text" class="input-year" pInputText
     formControlName="year"
+    pattern="\d*"
+    maxlength="4"
+    minlength="4"
     [(ngModel)]="manageForm.scholarships_announcement.year"
     [disabled]="updateMode"
     (blur)="getRound()">
@@ -74,6 +77,8 @@
       <label  class="normal">จำนวนทุนการศึกษา *</label>
       <input type="text" pInputText
       class="unit"
+      pattern="\d*"
+      maxlength="4"
       formControlName="unit"
       [(ngModel)]="manageForm.scholarships_announcement.unit"
       >
@@ -82,6 +87,11 @@
         <label  class="normal">จำนวนเงิน/ทุนการศึกษา(บาท) *</label>
         <input type="text" pInputText
         class="scholarships-aid"
+        currencyMask
+
+        min="0"
+        max="99999.99"
+        maxlength="9"
         formControlName="financial_aid"
         [(ngModel)]="manageForm.scholarships_announcement.financial_aid"
         >

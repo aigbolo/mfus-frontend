@@ -6,17 +6,18 @@ import { ActivatedRoute } from '@angular/router';
 import { UtilsService } from './../../services/utils/utils.service';
 import { LayoutService } from './../../services/utils/layout.service';
 import { M030103ScholarshipAnnouncementService } from './../../services/officers/m030103-scholarship-announcement.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmScholarship } from '../../models/sm-scholarship';
 
 @Component({
   selector: 'app-m030103-search-scholarship-announcement',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m030103-search-scholarship-announcement.component.html',
   styleUrls: ['./m030103-search-scholarship-announcement.component.css']
 })
 export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   searchForm:ScholarshipAnnouncementForm = new ScholarshipAnnouncementForm;
-  scholarshipAnnouncements: SmScholarshipAnnouncement[] = [];
+  scholarshipAnnouncementList: any[] = [];
   scholarshipAnnouncement: SmScholarshipAnnouncement = new SmScholarshipAnnouncement;
   onLoad = false;
 
@@ -38,17 +39,17 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
 
 
   onSearch(){
-    this.utilsService.goToPageWithQueryParam('search-sponsors',this.searchForm.search_criteria);
+    this.utilsService.goToPageWithQueryParam('search-scholarship-announcement',this.searchForm.search_criteria);
     this.doSearch();
   }
 
   doSearch(){
     this.onLoad = true;
     this.scholarshipAnnouncementService.doSearch(this.searchForm).subscribe(data=>{
-      this.scholarshipAnnouncements = data;
+      this.scholarshipAnnouncementList = data;
     },
     error =>{
-      console.log('error..............');
+      console.log(error);
     },
     ()=>{
       this.onLoad = false;
@@ -57,17 +58,16 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   }
 
   onRowSelect(event){
-    console.log('onRowSelect..............');
-    this.utilsService.goToPage('manage-sponsors/'+this.scholarshipAnnouncement.announcement_ref)
+    this.utilsService.goToPage('manage-scholarship-announcement/'+this.scholarshipAnnouncement.announcement_ref)
   }
 
   onReset(){
     this.searchForm = new ScholarshipAnnouncementForm;
-    this.scholarshipAnnouncements = [];
-    this.utilsService.goToPage('search-sponsors');
+    this.scholarshipAnnouncementList = [];
+    this.utilsService.goToPage('search-scholarship-announcement');
   }
   onPageInsert(){
-    this.utilsService.goToPage('manage-sponsors');
+    this.utilsService.goToPage('manage-scholarship-announcement');
   }
 
   autocompleteSponsors(event) {
@@ -96,6 +96,7 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   }
 
   onSelectSponsors(){
+    this.searchForm.search_criteria.sponsors_ref = this.sponsor.sponsors_ref;
     this.referenceService.initialScholarships(this.sponsor.sponsors_ref)
   }
 
@@ -124,5 +125,8 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
     }, 100);
   }
 
+  onSelectScholarship(){
+    this.searchForm.search_criteria.scholarship_ref = this.scholarship.scholarship_ref;
+  }
 
 }
