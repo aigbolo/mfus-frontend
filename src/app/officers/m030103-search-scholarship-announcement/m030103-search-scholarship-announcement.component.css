@@ -1,0 +1,25 @@
+.row-number{
+  width:50px;
+  text-align:center;
+}
+.year-round{
+  width:110px;
+  text-align:center;
+}
+.document_ref{
+  width:120px;
+  text-align:center;
+}
+.unit{
+  width: 100px;
+  text-align:center;
+}
+.financial-aid{
+  width: 100px;
+  text-align: right;
+}
+.sponsors_name{
+  float: left;
+  width: 100%;
+  font-weight: 600;
+}

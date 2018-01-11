@@ -1,4 +1,4 @@
-import { M040102ManageScholarshipInfoComponent } from './students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
+import { M040102ManageScholarshipInfoComponent } from "./students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component";
 import { ApplyScholarshipsComponent } from "./students/apply-scholarships/apply-scholarships.component";
 import { M010101ManageStudentComponent } from "./general/account/m010101-manage-student/m010101-manage-student.component";
 import { S030102SearchScolarshipComponent } from "./officers/s030102-search-scolarship/s030102-search-scolarship.component";
@@ -6,6 +6,7 @@ import { M030103ManageSholarshipAnnouncementComponent } from "./officers/m030103
 import { M030101SearchSponsorsComponent } from "./officers/m030101-search-sponsors/m030101-search-sponsors.component";
 import { Routes, RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
+import { M040101ManageApplicantInfoComponent } from "./students/apply-scholarships/m040101-manage-applicant-info/m040101-manage-applicant-info.component";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./general/authentication/login/login.component";
 import { ChangePasswordComponent } from "./general/authentication/change-password/change-password.component";
@@ -19,7 +20,7 @@ import { IndexComponent } from "./general/info/index/index.component";
 import { ForgotPasswordComponent } from "./general/authentication/forgot-password/forgot-password.component";
 import { M060101ManageNewsComponent } from "./officers/m060101-manage-news/m060101-manage-news.component";
 import { S060101SearchNewsComponent } from "./officers/s060101-search-news/s060101-search-news.component";
-import { M040101ManageApplicantInfoComponent } from './students/apply-scholarships/m040101-manage-applicant-info/m040101-manage-applicant-info.component';
+import { M030103SearchScholarshipAnnouncementComponent } from "./officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component";
 
 const appRoutes: Routes = [
   { path: "", component: IndexComponent },
@@ -65,6 +66,36 @@ const appRoutes: Routes = [
     component: M030103ManageSholarshipAnnouncementComponent,
     canActivate: []
   },
+  {
+    path: "manage-sponsors",
+    component: M030101ManageSponsorsComponent,
+    canActivate: []
+  },
+  {
+    path: "manage-sponsors/:id",
+    component: M030101ManageSponsorsComponent,
+    canActivate: []
+  },
+  {
+    path: "search-sponsors",
+    component: M030101SearchSponsorsComponent,
+    canActivate: []
+  },
+  {
+    path: "manage-scholarship-announcement",
+    component: M030103ManageSholarshipAnnouncementComponent,
+    canActivate: []
+  },
+  {
+    path: "manage-scholarship-announcement/:id",
+    component: M030103ManageSholarshipAnnouncementComponent,
+    canActivate: []
+  },
+  {
+    path: "search-scholarship-announcement",
+    component: M030103SearchScholarshipAnnouncementComponent,
+    canActivate: []
+  },
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
@@ -72,8 +103,14 @@ const appRoutes: Routes = [
     path: "manage-application",
     component: ApplyScholarshipsComponent,
     children: [
-      {path: "manage-applicant-info", component: M040101ManageApplicantInfoComponent},
-      {path: "manage-scholarship-info", component: M040102ManageScholarshipInfoComponent}
+      {
+        path: "manage-applicant-info",
+        component: M040101ManageApplicantInfoComponent
+      },
+      {
+        path: "manage-scholarship-info",
+        component: M040102ManageScholarshipInfoComponent
+      }
     ]
   }
 ];

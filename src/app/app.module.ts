@@ -15,6 +15,7 @@ import { NgModule } from '@angular/core';
 import { RoutersModule } from './app.router';
 import { NgProgressModule } from 'ngx-progressbar';
 import { AuthInterceptor } from './auth.interceptor';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 // PrimeNG
 import {
@@ -69,7 +70,19 @@ import { M060101NewsService } from './services/officers/m060101-news.service';
 import { M040101ManageApplicantInfoComponent } from './students/apply-scholarships/m040101-manage-applicant-info/m040101-manage-applicant-info.component';
 import { ApplyScholarshipsComponent } from './students/apply-scholarships/apply-scholarships.component';
 import { M040102ManageScholarshipInfoComponent } from './students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
+import { M030103SearchScholarshipAnnouncementComponent } from './officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "right",
+  allowNegative: false,
+  allowZero: true,
+  decimal: ".",
+  precision: 2,
+  prefix: "",
+  suffix: "",
+  thousands: ","
+};
 
 @NgModule({
   declarations: [
@@ -98,7 +111,8 @@ import { M040102ManageScholarshipInfoComponent } from './students/apply-scholars
     M040101ManageApplicantInfoComponent,
     ApplyScholarshipsComponent,
     M040102ManageScholarshipInfoComponent,
-    M040102ManageScholarshipInfoComponent
+    M040102ManageScholarshipInfoComponent,
+    M030103SearchScholarshipAnnouncementComponent,
   ],
   imports: [
     // Angular
@@ -128,6 +142,7 @@ import { M040102ManageScholarshipInfoComponent } from './students/apply-scholars
     SliderModule,
     EditorModule,
     StepsModule,
+    CurrencyMaskModule
 
   ],
   providers: [
@@ -136,6 +151,7 @@ import { M040102ManageScholarshipInfoComponent } from './students/apply-scholars
       useClass: AuthInterceptor,
       multi: true
     },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     ReferenceService,
     ConfigurationService,
     LayoutService,
@@ -156,3 +172,5 @@ import { M040102ManageScholarshipInfoComponent } from './students/apply-scholars
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

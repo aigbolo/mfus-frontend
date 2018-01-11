@@ -17,10 +17,16 @@ export class ScholarshipAnnouncementForm {
 }
 
 class SearchCriteria{
-  sponsors_name: string;
-  active_flag: string;
+  year: number;
+  round: number;
+  document_ref_no: string;
+  sponsors_ref: string;
+  scholarship_ref:string;
   constructor(){
-  this.sponsors_name = null;
-  this.active_flag = null;
+  this.year = null;
+  this.round = null;
+  this.document_ref_no = null;
+  this.sponsors_ref = null;
+  this.scholarship_ref = null;
   }
 }

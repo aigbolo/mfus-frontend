@@ -210,17 +210,17 @@ export class ReferenceService {
     return this.sc_type;
   }
 
-  initialScholarships(ref: string) {
-    this.configuration
-      .requestMethodGET("autocomplete-scholarships/" + ref)
-      .subscribe(
-        data => {
-          this.scholarships = data;
-        },
-        err => {
-          console.log(err);
-        }
-      );
+  initialScholarships(ref:string){
+
+    let url = (ref != null?'autocomplete-scholarships/'+ref:'autocomplete-scholarships');
+    this.configuration.requestMethodGET(url).subscribe(
+      data=>{
+        this.scholarships = data;
+      },
+      err =>{
+        console.log(err)
+      }
+    )
   }
 
   getScholarships() {

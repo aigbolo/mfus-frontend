@@ -1,3 +1,5 @@
+import { Severity } from './../../enum';
+import { SmScholarshipAnnouncement } from './../../models/sm-scholarship-announcement';
 import { CalendarModel } from './../../models/calendar-model';
 import { SmScholarship } from './../../models/sm-scholarship';
 import { SmSponsors } from './../../models/sm-sponsors';
@@ -20,6 +22,7 @@ import { M030103ScholarshipAnnouncementService } from '../../services/officers/m
   styleUrls: ['./m030103-manage-sholarship-announcement.component.css']
 })
 export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel implements OnInit {
+  updateMode:boolean  = false;
   pageRender = false;
   user = localStorage.getItem('username');
   manageForm: ScholarshipAnnouncementForm = new ScholarshipAnnouncementForm;
@@ -57,6 +60,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     if (this.route.snapshot.params["id"] != null) {
       this.manageForm.scholarships_announcement.announcement_ref = this.route.snapshot.params["id"];
       this.onUpdatePageSetup();
+      this.updateMode = true;
     } else {
       this.ngProgress.done();
       this.pageRender = true;
@@ -73,8 +77,8 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       round: new FormControl(this.manageForm.scholarships_announcement.round),
       scholarship_type: new FormControl(this.manageForm.scholarships_announcement.scholarship_ref),
       unit: new FormControl(this.manageForm.scholarships_announcement.unit, Validators.compose([Validators.required])),
-      financial_aid: new FormControl(this.manageForm.scholarships_announcement.financial_aid, Validators.compose([Validators.required])),
-      min_gpax: new FormControl(this.manageForm.scholarships_announcement.min_gpax, Validators.compose([Validators.required])),
+      financial_aid: new FormControl(this.manageForm.scholarships_announcement.financial_aid, Validators.compose([Validators.required,Validators.max(99999.99)])),
+      min_gpax: new FormControl(this.manageForm.scholarships_announcement.min_gpax, Validators.compose([Validators.required, Validators.max(4.00)])),
       collage_year: new FormControl(this.manageForm.scholarships_announcement.collage_year),
       schools: new FormControl(this.manageForm.scholarships_announcement.schools),
       majors: new FormControl(this.manageForm.scholarships_announcement.majors),
@@ -101,49 +105,52 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     );
 
     this.referenceService.initialSponsors();
+    this.referenceService.initialScholarships(null);
   }
 
   onUpdatePageSetup(){
 
     this.layoutService.setPageHeader("แก้ไขข้อมูลการประกาศทุนการศึกษา");
+
+
     setTimeout(() => {
-      this.scholarshipAnnouncementService.onRowSelect(this.manageForm.scholarships_announcement).subscribe(
-        data=>{
-          console.log(data);
-          this.manageForm.scholarships_announcement = data;
+      this.scholarshipAnnouncementService.getScholarshipAnnouncement(this.manageForm.scholarships_announcement).subscribe(
+        val=>{
+          this.manageForm.scholarships_announcement = new SmScholarshipAnnouncement;
+          this.manageForm.scholarships_announcement = val;
         },
         err=>{
           console.log(err);
-        }
-      )
-    }, 1500);
-
-    setTimeout(() => {
-      this.image = this.manageForm.scholarships_announcement.poster_file;
-      this.imageName = this.manageForm.scholarships_announcement.poster_name;
-
-      this.setupCollageSchoolsAndMajors();
-      this.scholarshipAnnouncementService.getScholarship(this.manageForm.scholarships_announcement.scholarship_ref).subscribe(
-        data=>{
-          this.scholarship = data;
         },
-        err=>{
-          console.log(err);
+        ()=>{
+          this.image = this.manageForm.scholarships_announcement.poster_file;
+          this.imageName = this.manageForm.scholarships_announcement.poster_name;
+          this.setupCollageSchoolsAndMajors();
+          this.setupDate();
+          setTimeout(() => {
+            if(this.manageForm.scholarships_announcement.scholarship_ref != null){
+              this.scholarships =  this.referenceService.getScholarships();
+              for (let obj of this.scholarships){
+                if(obj.scholarship_ref == this.manageForm.scholarships_announcement.scholarship_ref){
+                    this.scholarship = obj;
+                }
+              }
+            }
+            setTimeout(()=>{
+              if(this.scholarship.sponsors_ref != null){
+                    this.sponsor = this.referenceService.getSponsor(this.scholarship.sponsors_ref)
+                    this.pageRender = true;
+                    this.ngProgress.done();
+              }
+            },1500);
+
+          },1000);
+
+
         }
       )
 
-    }, 2000);
-
-    setTimeout(()=>{
-      this.setupDate();
-      this.referenceService.initialScholarships(this.scholarship.sponsors_ref);
-      this.sponsor = this.referenceService.getSponsor(this.scholarship.sponsors_ref);
-    },2500);
-
-    setTimeout(()=>{
-      this.pageRender = true;
-      this.ngProgress.done();
-    },3000);
+      }, 500);
   }
 
   setupDate(){
@@ -174,11 +181,12 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
 
     if(this.manageForm.scholarships_announcement.schools != null)
     this.selectedSchools = this.manageForm.scholarships_announcement.schools.split(',');
+    this.initMajors();
 
     if(this.manageForm.scholarships_announcement.majors != null)
     this.selectedMajors = this.manageForm.scholarships_announcement.majors.split(',');
 
-    this.onSelectSchools();
+    console.log(this.selectedMajors);
 
   }
 
@@ -291,9 +299,14 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       console.log(schools)
     }, 100);
 
+
+    this.initMajors();
+  }
+
+  initMajors(){
     setTimeout(() => {
-      if(schools != ''){
-      this.referenceService.getMajorBySchoolRef(schools).subscribe(
+      if(this.manageForm.scholarships_announcement.schools != ''){
+      this.referenceService.getMajorBySchoolRef(this.manageForm.scholarships_announcement.schools).subscribe(
         data=>{
           this.rftMajors = data;
           console.log(this.rftMajors )
@@ -303,8 +316,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
         }
       )
       }
-    }, 1000);
-
+    }, 500);
   }
 
   onSelectMajors(){
@@ -359,16 +371,44 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       this.manageForm.scholarships_announcement.create_user = this.user;
       this.manageForm.scholarships_announcement.update_user = this.user;
 
-      this.scholarshipAnnouncementService.doInsert(this.manageForm).subscribe(
-        data=>{
-          console.log('Insert completed');
-        },
-        err=>{
-          console.log('Insert error');
-          console.log(err);
-        }
-      )
+      if(this.manageForm.scholarships_announcement.announcement_ref == null){
+        this.scholarshipAnnouncementService.doInsert(this.manageForm).subscribe(
+          data=>{
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+          },
+          err=>{
+            this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");
+            console.log(err);
+          }
+        )
+      }else{
+        this.scholarshipAnnouncementService.doUpdate(this.manageForm).subscribe(
+          data=>{
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"แก้ไขข้อมูลสำเร็จ","");
+          },
+          err=>{
+            this.layoutService.setMsgDisplay(Severity.ERROR,"แก้ไขข้อมูลไม่สำเร็จ","");
+            console.log(err);
+          },()=>{
+            // this.utilsService.goToPage("search-scholarship-announcement");
+          }
+        )
+      }
+
     }
+  }
+
+  onReset() {
+    window.location.reload();
+  }
+
+  onInsertComplete() {
+    this.image = null;
+    this.manageForm = new ScholarshipAnnouncementForm;
+
+  }
+  onPageSearch() {
+    this.utilsService.goToPage("search-scholarship-announcement");
   }
 
 }
