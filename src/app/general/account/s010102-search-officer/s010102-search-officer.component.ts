@@ -20,24 +20,17 @@ export class S010102SearchOfficerComponent implements OnInit {
   selectofficer: AcOfficer
 
   listOfficer: AcOfficer[];
-
+  activeFlag: any[] = []
   constructor(public utilsService: UtilsService,
     private layoutService: LayoutService,
     private officerService: M010102OfficerService,
     private activateRoute: ActivatedRoute) {
-    this.searchForm.searchCriteria = this.utilsService.castToObject(
-      this.searchForm.searchCriteria, this.activateRoute.snapshot.queryParams);
-    if (this.searchForm.searchCriteria.officer_code != null ||
-      this.searchForm.searchCriteria.first_name != null ||
-      this.searchForm.searchCriteria.last_name != null ||
-      this.searchForm.searchCriteria.personal_id != null ||
-      this.searchForm.searchCriteria.active_flag != null) {
-      this.doSearch();
-    }
+
   }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลเจ้าหน้าที่')
+    this.activeFlag = this.utilsService.getActiveFlag('S')
   }
 
   onSearchClick() {
@@ -46,6 +39,7 @@ export class S010102SearchOfficerComponent implements OnInit {
   }
 
   doSearch(){
+    console.log(this.searchForm.searchCriteria)
     this.officerService.searchOfficer(this.searchForm).subscribe(res => {
       console.log(res)
       this.listOfficer = res

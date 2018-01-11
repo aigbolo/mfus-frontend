@@ -1,3 +1,4 @@
+import { LayoutService } from './../../services/utils/layout.service';
 import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
 import { ReferenceService } from "./../../services/general/reference.service";
 import { UtilsService } from "./../../services/utils/utils.service";
@@ -13,6 +14,7 @@ import { M030102ScholarshipService } from "../../services/officers/m030102-schol
   styleUrls: ["./s030102-search-scolarship.component.css"]
 })
 export class S030102SearchScolarshipComponent implements OnInit {
+
   scholarshipFormList: any[];
 
   sponsorsList: SmSponsors[];
@@ -28,10 +30,12 @@ export class S030102SearchScolarshipComponent implements OnInit {
   constructor(
     private utilsService: UtilsService,
     private referenceService: ReferenceService,
-    private scholarshipService: M030102ScholarshipService
+    private scholarshipService: M030102ScholarshipService,
+    private layoutService: LayoutService
   ) {}
 
   ngOnInit() {
+    this.layoutService.setPageHeader("ค้นหาข้อมูลทุนการศึกษา");
     this.getScholarshipType();
     this.activeFlag = this.utilsService.getActiveFlag("S");
     this.referenceService.initialSponsors();

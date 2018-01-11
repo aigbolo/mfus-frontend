@@ -25,6 +25,10 @@
   width:120px
 }
 
+/*step number */
+.ui-steps .ui-steps-number {
+  padding-top: 5px;
+}
 /*End Alter library components */
 
 
