@@ -4,7 +4,7 @@
     <label class="normal">ผู้ให้ทุนการศึกษา *</label>
       <p-autoComplete
       class="autocomplete-sponsors"
-      maxlength="50"
+      maxlength="200"
       [dropdown]="true"
       field="sponsors_name"
       [suggestions]="sponsors"
@@ -22,6 +22,7 @@
     <label  class="normal">เลขเอกสารอ้างอิง</label>
     <input type="text"
     formControlName="document_ref_no"
+    maxlength="50"
     [(ngModel)]="manageForm.scholarships_announcement.document_ref_no" pInputText>
   </div>
 </div>
@@ -41,7 +42,7 @@
       <label  class="normal">ทุนการศึกษา *</label>
       <p-autoComplete
       class="autocomplete-scholarships"
-      maxlength="50"
+      maxlength="200"
       [dropdown]="true"
       field="scholarship_name"
       [suggestions]="scholarships"
@@ -88,9 +89,6 @@
         <input type="text" pInputText
         class="scholarships-aid"
         currencyMask
-
-        min="0"
-        max="99999.99"
         maxlength="9"
         formControlName="financial_aid"
         [(ngModel)]="manageForm.scholarships_announcement.financial_aid"
@@ -107,6 +105,8 @@
         <label  class="normal">เกรดเฉลี่ยขั้นต่ำ *</label>
         <input type="text" pInputText
         class="grade"
+        maxlength="4"
+        pattern="\d*"
         formControlName="min_gpax"
         [(ngModel)]="manageForm.scholarships_announcement.min_gpax"
         >

@@ -15,6 +15,8 @@
         <label class="normal">รอบ</label>
         <input
         type="text" class="input-round" pInputText
+        pattern="\d*"
+        max="99"
         maxlength="2"
         [(ngModel)]="searchForm.search_criteria.round">
       </div>
@@ -23,7 +25,7 @@
         <label class="normal">เลขเอกสารอ้างอิง</label>
         <input
         type="text" pInputText
-        maxlength="200"
+        maxlength="50"
         [(ngModel)]="searchForm.search_criteria.document_ref_no">
       </div>
     </div>
@@ -35,7 +37,7 @@
         <label class="normal">ผู้ให้ทุนการศึกษา</label>
         <p-autoComplete
         class="autocomplete-sponsors"
-        maxlength="50"
+        maxlength="200"
         [dropdown]="true"
         field="sponsors_name"
         [suggestions]="sponsors"
@@ -116,7 +118,11 @@
       </ng-template>
       </p-column>
       <p-column field="unit" header="จำนวน(ทุน)" styleClass="unit"></p-column>
-      <p-column field="financial_aid" header="ทุนละ(บาท)" styleClass="financial-aid"></p-column>
+      <p-column field="" header="ทุนละ(บาท)" styleClass="financial-aid">
+        <ng-template let-car="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{car['financial_aid']|currency:" "}}</span>
+      </ng-template>
+      </p-column>
     </p-dataTable>
 
 

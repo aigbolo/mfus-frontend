@@ -45,6 +45,7 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
 
   doSearch(){
     this.onLoad = true;
+
     this.scholarshipAnnouncementService.doSearch(this.searchForm).subscribe(data=>{
       this.scholarshipAnnouncementList = data;
     },
@@ -97,7 +98,8 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
 
   onSelectSponsors(){
     this.searchForm.search_criteria.sponsors_ref = this.sponsor.sponsors_ref;
-    this.referenceService.initialScholarships(this.sponsor.sponsors_ref)
+    this.referenceService.initialScholarships(this.sponsor.sponsors_ref);
+    this.scholarship = new SmScholarship;
   }
 
   autocompleteScholarships(event) {

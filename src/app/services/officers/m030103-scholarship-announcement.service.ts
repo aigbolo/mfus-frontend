@@ -19,6 +19,7 @@ export class M030103ScholarshipAnnouncementService {
               private referenceService: ReferenceService,) { }
 
   doSearch(form:ScholarshipAnnouncementForm){
+    console.log(JSON.stringify(form.search_criteria))
     return this.config.requestMethodPOST('scholarships-announcement',form.search_criteria);
   }
 
