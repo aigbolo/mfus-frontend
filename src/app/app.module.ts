@@ -1,3 +1,4 @@
+import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
 import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
 import { M010101StudentService } from './services/students/m010101-student.service';
 import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
@@ -32,6 +33,7 @@ import {
   CalendarModule,
   SliderModule,
   EditorModule,
+  StepsModule
 } from 'primeng/primeng';
 
 // Companent
@@ -65,6 +67,9 @@ import { M010101ManageStudentComponent } from './general/account/m010101-manage-
 import { M060101ManageNewsComponent } from './officers/m060101-manage-news/m060101-manage-news.component';
 import { S060101SearchNewsComponent } from './officers/s060101-search-news/s060101-search-news.component';
 import { M060101NewsService } from './services/officers/m060101-news.service';
+import { M040101ManageApplicantInfoComponent } from './students/apply-scholarships/m040101-manage-applicant-info/m040101-manage-applicant-info.component';
+import { ApplyScholarshipsComponent } from './students/apply-scholarships/apply-scholarships.component';
+import { M040102ManageScholarshipInfoComponent } from './students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { M030103SearchScholarshipAnnouncementComponent } from './officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 
@@ -103,6 +108,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M010101ManageStudentComponent,
     M060101ManageNewsComponent,
     S060101SearchNewsComponent,
+    M040101ManageApplicantInfoComponent,
+    ApplyScholarshipsComponent,
+    M040102ManageScholarshipInfoComponent,
+    M040102ManageScholarshipInfoComponent,
     M030103SearchScholarshipAnnouncementComponent,
   ],
   imports: [
@@ -132,6 +141,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CalendarModule,
     SliderModule,
     EditorModule,
+    StepsModule,
     CurrencyMaskModule
 
   ],
@@ -156,7 +166,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M030102ScholarshipService,
     M010101StudentService,
     M030103ScholarshipAnnouncementService,
-    M060101NewsService
+    M060101NewsService,
+    M040101ApplyScholarshipService
   ],
   bootstrap: [AppComponent]
 })

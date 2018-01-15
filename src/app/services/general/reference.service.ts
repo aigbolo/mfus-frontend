@@ -1,5 +1,5 @@
 import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
-import { SmSponsors } from './../../models/sm-sponsors';
+import { SmSponsors } from "./../../models/sm-sponsors";
 import { RftMajor } from "./../../models/rft-major";
 import { RftSchool } from "./../../models/rft-school";
 import { RftDistrict } from "./../../models/rft-district";
@@ -21,6 +21,7 @@ export class ReferenceService {
   private sponsors: SmSponsors[] = [];
   private scholarships: SmScholarship[] = [];
 
+  activeIndex: number = 0
   constructor(private configuration: ConfigurationService) {}
 
   //Set RftProvince
@@ -151,15 +152,17 @@ export class ReferenceService {
   getSchools() {
     return this.configuration.requestMethodGET("autocomplete-schools");
   }
+
   initialMajors(schoolRef: string) {
-       this.configuration.requestMethodGET("autocomplete-major/" + schoolRef)
-         .subscribe(data => {
-           this.rftMajors = data;
-          });
-      }
+    this.configuration
+      .requestMethodGET("autocomplete-major/" + schoolRef)
+      .subscribe(data => {
+        this.rftMajors = data;
+      });
+  }
 
   getMajors() {
-      return this.rftMajors;
+    return this.rftMajors;
   }
 
   getMajorBySchoolRef(schoolRef: string) {
@@ -170,23 +173,23 @@ export class ReferenceService {
 
   initialSponsors() {
     this.configuration.requestMethodGET("autocomplete-sponsors").subscribe(
-      data=>{
+      data => {
         this.sponsors = data;
       },
-      err=>{
-        console.log(err)
+      err => {
+        console.log(err);
       }
-    )
+    );
   }
 
-  getSponsors(){
+  getSponsors() {
     return this.sponsors;
   }
 
-  getSponsor(sponsorsRef:string):SmSponsors{
+  getSponsor(sponsorsRef: string): SmSponsors {
     let data: SmSponsors;
-    for(let obj of this.sponsors){
-      if(obj.sponsors_ref == sponsorsRef){
+    for (let obj of this.sponsors) {
+      if (obj.sponsors_ref == sponsorsRef) {
         data = obj;
       }
     }
@@ -199,11 +202,11 @@ export class ReferenceService {
   }
 
   initialScholarshipType() {
-    return this.configuration.requestMethodGET("autocomplete-sctype")
+    return this.configuration.requestMethodGET("autocomplete-sctype");
   }
 
   getScholarshipType() {
-    console.log(this.sc_type)
+    console.log(this.sc_type);
     return this.sc_type;
   }
 
@@ -220,12 +223,31 @@ export class ReferenceService {
     )
   }
 
-  getScholarships(){
+  getScholarships() {
     return this.scholarships;
   }
 
-  getRoundAnnouncement( year:number,scholarshipRef:string){
-    let body = {'year':year,'scholarship_ref':scholarshipRef}
-    return this.configuration.requestMethodPOST('round',body);
+  getRoundAnnouncement(year: number, scholarshipRef: string) {
+    let body = { year: year, scholarship_ref: scholarshipRef };
+    return this.configuration.requestMethodPOST("round", body);
+  }
+
+  getSchoolByRef(ref: string) {
+    let json = { school_ref: ref };
+    return this.configuration.requestMethodPOST("schools-update", json)
+  }
+
+  getMajorByRef(ref: string) {
+    let json = { major_ref: ref };
+    return this.configuration.requestMethodPOST("majors-update", json)
+  }
+
+  nextIndex(index) {
+    this.activeIndex = index;
+    console.log(this.activeIndex);
+  }
+
+  getIndex() {
+    return this.activeIndex;
   }
 }

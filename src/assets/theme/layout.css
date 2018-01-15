@@ -183,7 +183,7 @@ input.ui-inputtext {
 
 /* p-step primefaces position */
 .ui-steps:before {
-  top: 40px !important;
+  top: 34px !important;
 }
 .ui-steps .ui-steps-title {
   white-space: normal !important;

@@ -173,7 +173,6 @@ export class M060101ManageNewsComponent extends CalendarModel
 
   onPreview() {
     let previewDate = new Date(this.manageNewsForm.smNews.publish_date);
-
     this.previewDate =
       "วัน " +
       this.utilsService.convertDay(previewDate.getDay()) +

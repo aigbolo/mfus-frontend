@@ -1,3 +1,4 @@
+import { LayoutService } from './../../services/utils/layout.service';
 import { M060101NewsService } from './../../services/officers/m060101-news.service';
 import { UtilsService } from "./../../services/utils/utils.service";
 import { Component, OnInit } from "@angular/core";
@@ -19,11 +20,13 @@ export class S060101SearchNewsComponent extends CalendarModel
   newsFormList: SmNews[];
 
   constructor(private utilsService: UtilsService,
-              private newsService: M060101NewsService) {
+              private newsService: M060101NewsService,
+              private layoutService: LayoutService) {
     super();
   }
 
   ngOnInit() {
+    this.layoutService.setPageHeader("ค้นหาข้อมูลข่าวสาร");
     this.activeFlag = this.utilsService.getActiveFlag("S");
   }
 

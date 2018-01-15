@@ -1,11 +1,13 @@
 import { Observable } from 'rxjs/Observable';
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, MenuItem } from 'primeng/primeng';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 @Injectable()
 export class UtilsService {
 
+  items: MenuItem[] = []
+  activeIndex: number = 0;
 
 
   constructor(private router: Router) { }
@@ -217,5 +219,85 @@ export class UtilsService {
       }
     }
     return month
+  }
+
+  getCollageYear():SelectItem[] {
+    let collageYear = [
+      { label: '1', value: '1' },
+      { label: '2', value: '2' },
+      { label: '3', value: '3' },
+      { label: '4', value: '4' },
+      { label: '5', value: '5' },
+      { label: '6', value: '6' }
+    ]
+    return collageYear;
+  }
+
+  getApplicationStep(){
+    this.items = [
+      {
+        label: "ข้อมูลผู้ขอทุน",
+        command: (event: any) => {
+          this.activeIndex = 0;
+        }
+      },
+      {
+        label: "ข้อมูลทุนการศึกษา",
+        command: (event: any) => {
+          this.activeIndex = 1;
+        }
+      },
+      {
+        label: "ข้อมูลสถานะทางการเงินของครอบครัว",
+        command: (event: any) => {
+          this.activeIndex = 2;
+        }
+      },
+      {
+        label: "ข้อมูลครอบครัวและที่อยู่",
+        command: (event: any) => {
+          this.activeIndex = 3;
+        }
+      },
+      {
+        label: "ข้อมูลเอกสาร/หลักฐาน",
+        command: (event: any) => {
+          this.activeIndex = 4;
+        }
+      }
+    ];
+  }
+
+  getAge(data: Date) {
+    let birth = new Date(data);
+    let current = new Date();
+    let age = current.getFullYear() - birth.getFullYear();
+    if (current.getMonth() < birth.getMonth() && current.getDate() < birth.getDate()) {
+      age--;
+    }else if(current.getMonth() < birth.getMonth()){
+      age--;
+    }
+    return age
+  }
+
+  getBirthDay(birth_date: Date) {
+    let date = new Date(birth_date);
+     let birthday =
+      date.getDate() +
+      " " +
+      this.convertMonth(date.getMonth() + 1) +
+      " " +
+      date.getFullYear().toString();
+      return birthday
+  }
+
+  getGender(ref: string){
+    let gender = ''
+    if(ref == 'M'){
+      gender = "ชาย"
+    }else{
+      gender = "หญิง"
+    }
+    return gender
   }
 }
