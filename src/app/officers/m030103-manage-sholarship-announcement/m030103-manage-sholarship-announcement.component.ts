@@ -406,8 +406,22 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   }
 
   onInsertComplete() {
-    this.image = null;
+
     this.manageForm = new ScholarshipAnnouncementForm;
+    this.sponsors = [];
+    this.sponsor = new SmSponsors;
+    this.scholarships = [];
+    this.scholarship = new SmScholarship;
+    this.rftSchools = [];
+    this.rftMajors = [];
+
+    this.selectedCollageYears = [];
+    this.selectedSchools = [];
+    this.selectedMajors = [];
+
+    this.image = null;
+    this.imageName = "";
+    this.uploadedFiles = [];
     this.ngOnInit();
   }
   onPageSearch() {
