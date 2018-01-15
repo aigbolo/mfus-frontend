@@ -2,6 +2,10 @@
   width: 80%;
 }
 
+.center{
+text-align: center
+}
+
 textarea {
   resize: none;
   height: 400px;
@@ -14,7 +18,29 @@ textarea {
   width: 100%;
 }
 
-.scholarship-datatable{
+.btn-position{
   float: right;
   border-radius: 25px !important;
+}
+
+div.ng-star-inserted{
+  margin-top: 5px;
+}
+
+.datatable-index{
+  width: 60px !important;
+  text-align: center
+}
+
+span.ui-button-icon-left.ui-clickable.fa.fa-fw.fa-minus{
+  margin-left: -0.8em !important;
+}
+
+.text-left{
+  float: left;
+}
+
+.txt-area-center{
+  width: 80%;
+  margin-left: 10%
 }
