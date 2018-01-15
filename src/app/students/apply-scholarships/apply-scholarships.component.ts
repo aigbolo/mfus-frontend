@@ -39,7 +39,7 @@ export class ApplyScholarshipsComponent implements OnInit {
       collage_year: new FormControl(this.applyApplicationForm.apApplication.collage_year = '1',
     Validators.compose([Validators.required])),
       gpax: new FormControl(this.applyApplicationForm.apApplication.gpax,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required,Validators.max(4.00)])),
       advisor_name: new FormControl(this.applyApplicationForm.apApplication.advisor_name,
         Validators.compose([Validators.required])),
       livelihood: new FormControl(this.applyApplicationForm.apApplication.livelihood,
