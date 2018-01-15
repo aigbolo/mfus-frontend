@@ -35,6 +35,7 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลประกาศทุนการศึกษา');
     this.referenceService.initialSponsors();
+    this.searchForm.search_criteria.year = new Date().getFullYear();
   }
 
 
@@ -44,17 +45,20 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   }
 
   doSearch(){
-    this.onLoad = true;
+    if(this.searchForm.search_criteria.year != null){
+      this.onLoad = true;
 
-    this.scholarshipAnnouncementService.doSearch(this.searchForm).subscribe(data=>{
-      this.scholarshipAnnouncementList = data;
-    },
-    error =>{
-      console.log(error);
-    },
-    ()=>{
-      this.onLoad = false;
-    });
+      this.scholarshipAnnouncementService.doSearch(this.searchForm).subscribe(data=>{
+        this.scholarshipAnnouncementList = data;
+      },
+      error =>{
+        console.log(error);
+      },
+      ()=>{
+        this.onLoad = false;
+      });
+    }
+
 
   }
 
