@@ -72,6 +72,10 @@ import { ApplyScholarshipsComponent } from './students/apply-scholarships/apply-
 import { M040102ManageScholarshipInfoComponent } from './students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { M030103SearchScholarshipAnnouncementComponent } from './officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import { M020103ManageFamilyAndAddressComponent } from './students/m020103-manage-family-and-address/m020103-manage-family-and-address.component';
+import { FamilyComponent } from './students/m020103-manage-family-and-address/family/family.component';
+import { SiblingComponent } from './students/m020103-manage-family-and-address/sibling/sibling.component';
+import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -113,6 +117,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040102ManageScholarshipInfoComponent,
     M040102ManageScholarshipInfoComponent,
     M030103SearchScholarshipAnnouncementComponent,
+    M020103ManageFamilyAndAddressComponent,
+    FamilyComponent,
+    SiblingComponent,
+    AddressComponent,
   ],
   imports: [
     // Angular

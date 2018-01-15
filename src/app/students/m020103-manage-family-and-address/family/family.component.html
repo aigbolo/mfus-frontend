@@ -1,0 +1,932 @@
+<form [formGroup]="manageFormGroup" (ngSubmit)="nextButtonOnClick()" >
+
+  <div class="content-box" id="parent-box">
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ผู้ปกครอง</label>
+        <div class="col-xs-12">
+          <p-radioButton name="parent"
+          inputId="opt1"
+          value="1"
+          label="บิดา-มารดา"
+          formControlName="parent_flag"
+          [(ngModel)]="manageForm.acParent.parent_flag"
+          (onClick)="whenChangeParentFlag(1)">
+          </p-radioButton>
+          <p-radioButton name="parent"
+          inputId="opt2" value="2"
+          label="ผู้อุปการะ"
+          formControlName="parent_flag"
+          [(ngModel)]="manageForm.acParent.parent_flag"
+          (onClick)="whenChangeParentFlag(2)">
+          </p-radioButton>
+        </div>
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">สถานภาพครอบครัว</label>
+        <div class="col-xs-12">
+          <p-radioButton name="relationship"
+          inputId="opt1"
+          value="1"
+          label="สมรสและอยู่ด้วยกัน"
+          formControlName="relationship_status"
+          [(ngModel)]="manageForm.acParent.relationship_status">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-4">
+          <p-radioButton name="relationship"
+          inputId="opt2"
+          value="2"
+          label="สมรสแต่ไม่ได้อยู่ด้วยกัน"
+          formControlName="relationship_status"
+          [(ngModel)]="manageForm.acParent.relationship_status">
+          </p-radioButton>
+
+        </div>
+        <div class="col-xs-8">
+          <label class="normal-inline">เนื่องจาก</label>
+          <input type="text" pInputText
+          class="relationship-remark"
+          style="width:430px"
+          maxlength="100"
+          formControlName="because"
+          [attr.disabled]="(manageForm.acParent.relationship_status != '2')?'':null"
+          [(ngModel)]="manageForm.acParent.because">
+        </div>
+        <div class="col-xs-12">
+          <p-radioButton name="relationship"
+          inputId="opt3"
+          value="3"
+          label="หย่าร้าง"
+          formControlName="relationship_status"
+          [(ngModel)]="manageForm.acParent.relationship_status">
+          </p-radioButton>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-box" id="father-box" >
+    <div class="row overide-row">
+      <h4 class="custom-panel-title">บิดา</h4>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เลขประจำตัวประชาชน *</label>
+        <input type="text" pInputText
+        class="personal-id"
+        maxlength="13"
+        minlength="13"
+        pattern="\d*"
+        formControlName="father_pid"
+        [(ngModel)]="manageForm.acParent.father_pid"
+        >
+      </div>
+      <div class="col-xs-6">
+        <label class="normal">สถานะ</label>
+        <p-radioButton
+        name="father_status"
+        value="1"
+        label="มีชีวิตอยู่"
+        formControlName="father_status"
+        [(ngModel)]="manageForm.acParent.father_status">
+        </p-radioButton>
+        <p-radioButton
+        name="father_status"
+        value="2"
+        label="เสียชีวิต"
+        formControlName="father_status"
+        [(ngModel)]="manageForm.acParent.father_status">
+        </p-radioButton>
+
+        <label class="normal-inline">เมื่อ พ.ศ.</label>
+        <input type="text" pInputText
+        class="input-year"
+        [attr.disabled]="(manageForm.acParent.father_status != '2')?'':null"
+        pattern="\d*"
+        maxlength="4"
+        minlength="4"
+        placeholder="ปี พ.ศ."
+        formControlName="father_died_year"
+        [(ngModel)]="manageForm.acParent.father_died_year"
+        >
+      </div>
+
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ชื่อ-นามสกุล *</label>
+        <input type="text" pInputText
+        class="input-name"
+        maxlength="50"
+        formControlName="father_name"
+        [(ngModel)]="manageForm.acParent.father_name" >
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
+
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่ *</label>
+        <input type="text" pInputText
+        class="input-address"
+        name="father-address"
+        maxlength="200"
+        formControlName="father_address"
+        [(ngModel)]="manageForm.acParent.father_address" >
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">จังหวัด *</label>
+        <p-autoComplete field="province_name_t" [(ngModel)]="dadProvince" [suggestions]="fProvinceList"
+          [size]="25" (onSelect)="selectProvince(0)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(0)"
+          (completeMethod)="autocompleteProvince($event,1)"
+          maxlength="30"
+          formControlName="father_province">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.province_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อำเภอ *</label>
+        <p-autoComplete field="district_name_t" [(ngModel)]="dadDistrict" [suggestions]="fDistrictList"
+          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(0)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(0)"
+          [disabled]="!dadProvince.province_ref"
+          (completeMethod)="autocompleteDistrict($event)"
+          maxlength="30"
+          formControlName="father_district">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ตำบล *</label>
+        <p-autoComplete field="sub_district_name_t" [(ngModel)]="dadSubDistrict" [suggestions]="fSubDistrictList"
+          (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(0)" forceSelection="true"
+          [disabled]="!dadDistrict.district_ref"
+          (onDropdownClick)="handleCompleteClickSubDistrict(0)"
+          maxlength="30"
+          formControlName="father_sub_district">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.sub_district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <input type="text" pInputText class="input-postcode"
+        name="father-postcode"
+        maxlength="5"
+        formControlName="father_postcode"
+        [(ngModel)]="manageForm.acParent.father_postcode"
+        disabled
+        >
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์</label>
+        <input type="tel" pInputText
+        class="input-phone"
+        maxlength="10"
+        formControlName="father_phone"
+        [(ngModel)]="manageForm.acParent.father_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อีเมล</label>
+        <input type="email" pInputText
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        class="input-mail"
+        maxlength="50"
+        formControlName="father_email"
+        [(ngModel)]="manageForm.acParent.father_email">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">อาชีพ</label>
+        <input type="text" pInputText
+        class="input-occupation"
+        maxlength="50"
+        formControlName="father_occupation"
+        [(ngModel)]="manageForm.acParent.father_occupation">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">ตำแหน่ง</label>
+        <input type="text" pInputText
+        class="input-position"
+        maxlength="50"
+        formControlName="father_position"
+        [(ngModel)]="manageForm.acParent.father_position">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">สถานที่ทำงาน</label>
+        <input type="text" pInputText
+        class="input-address"
+        maxlength="200"
+        name="father-workaddress"
+        formControlName="father_work_address"
+        [(ngModel)]="manageForm.acParent.father_work_address">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+        <input type="tel" pInputText
+        class="input-phone"
+        maxlength="15"
+        formControlName="father_work_phone"
+        [(ngModel)]="manageForm.acParent.father_work_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">แฟ็กซ์</label>
+        <input type="tel" pInputText
+        class="input-phone"
+        maxlength="15"
+        formControlName="father_work_fax"
+        [(ngModel)]="manageForm.acParent.father_work_fax">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">มีที่ดิน</label>
+        <div class="col-xs-12">
+          <p-radioButton name="father-land-status"
+          value="1"
+          label="ไม่มี"
+          formControlName="father_land_flag"
+          [(ngModel)]="manageForm.acParent.father_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton name="father-land-status"
+          value="2"
+          label="มี"
+          formControlName="father_land_flag"
+          [(ngModel)]="manageForm.acParent.father_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">จำนวน</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          alt="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="father_land_all"
+          [(ngModel)]="manageForm.acParent.father_land_all">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เป็นเจ้าของ</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="father_land_own"
+          [(ngModel)]="manageForm.acParent.father_land_own">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เช่า</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="father_land_rent"
+          [(ngModel)]="manageForm.acParent.father_land_rent">
+          <label class="normal-inline">ไร่</label>
+        </div>
+      </div>
+    </div>
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">รายได้เฉลี่ย/เดือน</label>
+        <div class="col-xs-12">
+          <input type="text" class="input-income"
+          pInputText
+          currencyMask
+          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+          min="0"
+          max="999999.99"
+          maxlength="10"
+          title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+          formControlName="father_income_monthly"
+          [(ngModel)]="manageForm.acParent.father_income_monthly">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-box" id="mother-box">
+    <div class="row overide-row">
+      <h4 class="custom-panel-title">มารดา</h4>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เลขประจำตัวประชาชน *</label>
+        <input type="text" pInputText
+        class="personal-id"
+        pattern="\d*"
+        maxlength="13"
+        minlength="13"
+        formControlName="mother_pid"
+        [(ngModel)]="manageForm.acParent.mother_pid">
+      </div>
+      <div class="col-xs-4">
+        <label class="normal">สถานะ</label>
+        <p-radioButton name="mother_status"
+        value="1"
+        label="มีชีวิตอยู่"
+        formControlName="mother_status"
+        [(ngModel)]="manageForm.acParent.mother_status">
+        </p-radioButton>
+        <p-radioButton name="mother_status"
+        value="2"
+        label="เสียชีวิต"
+        formControlName="mother_status"
+        [(ngModel)]="manageForm.acParent.mother_status">
+        </p-radioButton>
+      </div>
+      <div class="col-xs-3">
+        <label class="fake-label"></label>
+        <label class="normal-inline">เมื่อ พ.ศ.</label>
+        <input type="text" pInputText
+        [attr.disabled]="(manageForm.acParent.mother_status != '2')?'':null"
+        pattern="\d*"
+        maxlength="4"
+        minlength="4"
+        placeholder="ปี พ.ศ."
+        class="input-year"
+        formControlName="mother_died_year"
+        [(ngModel)]="manageForm.acParent.mother_died_year">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ชื่อ-นามสกุล *</label>
+        <input type="text" pInputText
+        class="input-name"
+        maxlength="50"
+        formControlName="mother_name"
+        [(ngModel)]="manageForm.acParent.mother_name">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
+
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่ *</label>
+        <input type="text" pInputText
+        class="input-address"
+        name="mother-address"
+        maxlength="200"
+        formControlName="mother_address"
+        [(ngModel)]="manageForm.acParent.mother_address">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">จังหวัด *</label>
+        <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="momProvince" [suggestions]="mProvinceList"
+          [size]="25" (onSelect)="selectProvince(1)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
+          (completeMethod)="autocompleteProvince($event)"
+          maxlength="30"
+          formControlName="mother_province">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.province_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อำเภอ *</label>
+        <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="momDistrict" [suggestions]="mDistrictList"
+          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
+          [disabled]="!momProvince.province_ref"
+          maxlength="30"
+          (completeMethod)="autocompleteDistrict($event)"
+          formControlName="mother_district">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ตำบล *</label>
+        <p-autoComplete field="sub_district_name_t" [(ngModel)]="momSubDistrict" [suggestions]="mSubDistrictList"
+          (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
+          [disabled]="!momDistrict.district_ref"
+          maxlength="30"
+          (onDropdownClick)="handleCompleteClickSubDistrict(1)"
+          formControlName="mother_sub_district">
+          <ng-template let-obj pTemplate="obj"
+          >
+            {{obj.sub_district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <input type="text" pInputText
+        class="input-postcode"
+        maxlength="5"
+        formControlName="mother_postcode"
+        [(ngModel)]="manageForm.acParent.mother_postcode"
+        disabled>
+      </div>
+    </div>
+
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์</label>
+        <input type="tel" pInputText
+        class="input-phone"
+        maxlength="10"
+        formControlName="mother_phone"
+        [(ngModel)]="manageForm.acParent.mother_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อีเมล</label>
+        <input type="email" pInputText
+        class="input-mail"
+        maxlength="50"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        formControlName="mother_email"
+        [(ngModel)]="manageForm.acParent.mother_email">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">อาชีพ</label>
+        <input type="text" pInputText
+        class="input-occupation"
+        maxlength="50"
+        formControlName="mother_occupation"
+        [(ngModel)]="manageForm.acParent.mother_occupation">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">ตำแหน่ง</label>
+        <input type="text" pInputText
+        class="input-position"
+        maxlength="50"
+        formControlName="mother_position"
+        [(ngModel)]="manageForm.acParent.mother_position">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">สถานที่ทำงาน</label>
+        <input type="text" pInputText
+        class="input-address"
+        maxlength="200"
+        formControlName="mother_work_address"
+        [(ngModel)]="manageForm.acParent.mother_work_address">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+        <input type="tel" pInputText
+        class="input-phone"
+        maxlength="15"
+        formControlName="mother_work_phone"
+        [(ngModel)]="manageForm.acParent.mother_work_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">แฟ็กซ์</label>
+        <input type="tel" pInputText
+        class="input-phone"
+        maxlength="15"
+        formControlName="mother_work_fax"
+        [(ngModel)]="manageForm.acParent.mother_work_fax">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">มีที่ดิน</label>
+        <div class="col-xs-12">
+          <p-radioButton name="mother-land-status"
+          value="1"
+          label="ไม่มี"
+          formControlName="mother_land_flag"
+          [(ngModel)]="manageForm.acParent.mother_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton name="mother-land-status"
+          value="2"
+          label="มี"
+          formControlName="mother_land_flag"
+          [(ngModel)]="manageForm.acParent.mother_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">จำนวน</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="mother_land_all"
+          [(ngModel)]="manageForm.acParent.mother_land_all">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เป็นเจ้าของ</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="mother_land_own"
+          [(ngModel)]="manageForm.acParent.mother_land_own">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เช่า</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="mother_land_rent"
+          [(ngModel)]="manageForm.acParent.mother_land_rent">
+          <label class="normal-inline">ไร่</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">รายได้เฉลี่ย/เดือน</label>
+        <div class="col-xs-12">
+          <input type="text" class="input-income"
+          pInputText
+          currencyMask
+          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+          min="0"
+          max="999999.99"
+          maxlength="10"
+          title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+          formControlName="mother_income_monthly"
+          [(ngModel)]="manageForm.acParent.mother_income_monthly">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-box" id="patrol-box">
+    <div class="row overide-row">
+      <h4 class="custom-panel-title">ผู้อุปการะ</h4>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ความสัมพันธ์ *</label>
+        <input type="text" pInputText
+        maxlength="50"
+        class="relationship"
+        formControlName="patrol_relationship"
+        [(ngModel)]="manageForm.acParent.patrol_relationship">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เลขประจำตัวประชาชน *</label>
+        <input type="text" pInputText
+        pattern="\d*"
+        maxlength="13"
+        minlength="13"
+        class="personal-id"
+        formControlName="patrol_pid"
+        [(ngModel)]="manageForm.acParent.patrol_pid">
+      </div>
+      <div class="col-xs-4">
+        <label class="normal">สถานะ</label>
+        <p-radioButton name="patrol_status"
+        value="1"
+        label="มีชีวิตอยู่"
+        formControlName="patrol_status"
+        [(ngModel)]="manageForm.acParent.patrol_status">
+        </p-radioButton>
+        <p-radioButton name="patrol_status"
+        value="2"
+        label="เสียชีวิต"
+        formControlName="patrol_status"
+        [(ngModel)]="manageForm.acParent.patrol_status">
+        </p-radioButton>
+      </div>
+      <div class="col-xs-3">
+        <label class="fake-label"></label>
+        <label class="normal-inline">เมื่อ พ.ศ.</label>
+        <input type="text" pInputText
+        [attr.disabled]="(manageForm.acParent.patrol_status != '2')?'':null"
+        pattern="\d*"
+        maxlength="4"
+        minlength="4"
+        placeholder="ปี พ.ศ."
+        formControlName="patrol_died_year"
+        [(ngModel)]="manageForm.acParent.patrol_died_year">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ชื่อ-นามสกุล *</label>
+        <input type="text" pInputText
+        class="input-name"
+        maxlength="50"
+        formControlName="patrol_name"
+        [(ngModel)]="manageForm.acParent.patrol_name">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">วันเกิด(เดือน/วัน/ปี) *</label>
+
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ที่อยู่ *</label>
+        <input type="text" pInputText
+        class="input-address"
+        maxlength="200"
+        formControlName="patrol_address"
+        [(ngModel)]="manageForm.acParent.patrol_address">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">จังหวัด *</label>
+        <p-autoComplete field="province_name_t" [(ngModel)]="patrolProvince" [suggestions]="pProvinceList"
+          [size]="25" (onSelect)="selectProvince(2)" forceselection="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
+          (completeMethod)="autocompleteProvince($event)"
+          maxlength="30"
+          formControlName="patrol_province">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.province_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อำเภอ *</label>
+        <p-autoComplete field="district_name_t" [(ngModel)]="patrolDistrict" [suggestions]="pDistrictList"
+          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
+          [disabled]="!patrolProvince.province_ref"
+          (completeMethod)="autocompleteDistrict($event)"
+          maxlength="30"
+          formControlName="patrol_district">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">ตำบล *</label>
+        <p-autoComplete field="sub_district_name_t" [(ngModel)]="patrolSubDistrict" [suggestions]="pSubDistrictList"
+          (completeMethod)="autocompleteSubDistrict($event)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
+          [disabled]="!patrolDistrict.district_ref"
+          (onDropdownClick)="handleCompleteClickSubDistrict(2)"
+          maxlength="30"
+          formControlName="patrol_sub_district">
+          <ng-template let-obj pTemplate="obj">
+            {{obj.sub_district_name_t}}
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">รหัสไปรษณีย์</label>
+        <input type="text" pInputText
+        class="input-postcode"
+        maxlength="5"
+        formControlName="patrol_postcode"
+        [(ngModel)]="manageForm.acParent.patrol_postcode"
+        disabled>
+      </div>
+    </div>
+
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ *</label>
+        <input type="text" pInputText
+        class="input-phone"
+        maxlength="10"
+        formControlName="patrol_phone"
+        [(ngModel)]="manageForm.acParent.patrol_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">อีเมล</label>
+        <input type="text" pInputText
+        class="input-mail"
+        maxlength="50"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        formControlName="patrol_email"
+        [(ngModel)]="manageForm.acParent.patrol_email">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">อาชีพ</label>
+        <input type="text" pInputText
+        class="input-occupation"
+        maxlength="50"
+        formControlName="patrol_occupation"
+        [(ngModel)]="manageForm.acParent.patrol_occupation">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">ตำแหน่ง</label>
+        <input type="text" pInputText
+        class="input-position"
+        maxlength="50"
+        formControlName="patrol_position"
+        [(ngModel)]="manageForm.acParent.patrol_position">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">สถานที่ทำงาน</label>
+        <input type="text" pInputText
+        class="input-address"
+        maxlength="200"
+        formControlName="patrol_work_address"
+        [(ngModel)]="manageForm.acParent.patrol_work_address">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-5">
+        <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+        <input type="text" pInputText
+        class="input-phone"
+        maxlength="15"
+        formControlName="patrol_work_phone"
+        [(ngModel)]="manageForm.acParent.patrol_work_phone">
+      </div>
+      <div class="col-xs-7">
+        <label class="normal">แฟ็กซ์</label>
+        <input type="text" pInputText
+        class="input-phone"
+        maxlength="15"
+        formControlName="patrol_work_fax"
+        [(ngModel)]="manageForm.acParent.patrol_work_fax">
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">มีที่ดิน</label>
+        <div class="col-xs-12">
+          <p-radioButton name="patrol-land-status"
+          value="1"
+          label="ไม่มี"
+          formControlName="patrol_land_flag"
+          [(ngModel)]="manageForm.acParent.patrol_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton name="patrol-land-status"
+          value="2"
+          label="มี"
+          formControlName="patrol_land_flag"
+          [(ngModel)]="manageForm.acParent.patrol_land_flag">
+          </p-radioButton>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">จำนวน</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="patrol_land_all"
+          [(ngModel)]="manageForm.acParent.patrol_land_all">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เป็นเจ้าของ</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="patrol_land_own"
+          [(ngModel)]="manageForm.acParent.patrol_land_own">
+          <label class="normal-inline">ไร่</label>
+        </div>
+        <div class="col-xs-3">
+          <label class="normal-inline">เช่า</label>
+          <input type="text" pInputText
+          class="land-amt"
+          step="any"
+          pattern="([0-9]{0,2}|([0-9]{0,2})+(\.[0-9]{0,2}))"
+          min="0"
+          max="99.99"
+          maxlength="5"
+          title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          formControlName="patrol_land_rent"
+          [(ngModel)]="manageForm.acParent.patrol_land_rent">
+          <label class="normal-inline">ไร่</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">รายได้เฉลี่ย/เดือน</label>
+        <div class="col-xs-12">
+          <input type="text" class="input-income"
+          pInputText
+          currencyMask
+          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+          min="0"
+          max="999999.99"
+          maxlength="10"
+          title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+          formControlName="patrol_income_monthly"
+          [(ngModel)]="manageForm.acParent.patrol_income_monthly">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row overide-row"></div>
+  <div class="row overide-row formFooter">
+    <div class="col-xs-12" style="text-align:right">
+      <button pButton type="submit" label="ถัดไป" ></button>
+    </div>
+  </div>
+  </form>

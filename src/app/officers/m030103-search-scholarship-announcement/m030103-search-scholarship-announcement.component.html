@@ -1,3 +1,4 @@
+<form  [formGroup]="searchFormGroup" (ngSubmit)="doSearch()" >
 <div class="row overide-row">
   <div class="col-xs-12">
     <div class="row overide-row">
@@ -8,6 +9,7 @@
         pattern="\d*"
         maxlength="4"
         minlength="4"
+        formControlName="year"
         [(ngModel)]="searchForm.search_criteria.year">
       </div>
 
@@ -18,6 +20,7 @@
         pattern="\d*"
         max="99"
         maxlength="2"
+        formControlName="round"
         [(ngModel)]="searchForm.search_criteria.round">
       </div>
 
@@ -26,6 +29,7 @@
         <input
         type="text" pInputText
         maxlength="50"
+        formControlName="document_ref_no"
         [(ngModel)]="searchForm.search_criteria.document_ref_no">
       </div>
     </div>
@@ -42,6 +46,7 @@
         field="sponsors_name"
         [suggestions]="sponsors"
         forceselection="true"
+        formControlName="sponsors_name"
         [(ngModel)]="sponsor"
         (onSelect)="onSelectSponsors()"
         (onDropdownClick)="handleCompleteClickSponsors()"
@@ -64,6 +69,7 @@
         field="scholarship_name"
         [suggestions]="scholarships"
         forceselection="true"
+        formControlName="scholarship_name"
         [(ngModel)]="scholarship"
         (onSelect)="onSelectScholarship()"
         (onDropdownClick)="handleCompleteClickScholarships()"
@@ -78,7 +84,7 @@
   <div class="col-xs-6 btn-panel-left">
     <button pButton
       class="btn-search primary"
-      label="ค้นหาข้อมูล" (click)="onSearch()"></button>
+      label="ค้นหาข้อมูล" type="submit"></button>
   </div>
   <div class="col-xs-6 btn-panel-right">
       <button pButton
@@ -91,7 +97,7 @@
         label="เพิ่มข้อมูล"></button>
     </div>
 </div>
-
+</form>
     <p-dataTable [value]="scholarshipAnnouncementList"
       [(selection)]="scholarshipAnnouncement"
       selectionMode="single"

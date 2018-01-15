@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReferenceService } from './../../services/general/reference.service';
 import { SmSponsors } from './../../models/sm-sponsors';
 import { SmScholarshipAnnouncement } from './../../models/sm-scholarship-announcement';
@@ -17,6 +18,7 @@ import { SmScholarship } from '../../models/sm-scholarship';
 })
 export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   searchForm:ScholarshipAnnouncementForm = new ScholarshipAnnouncementForm;
+  searchFormGroup: FormGroup;
   scholarshipAnnouncementList: any[] = [];
   scholarshipAnnouncement: SmScholarshipAnnouncement = new SmScholarshipAnnouncement;
   onLoad = false;
@@ -35,8 +37,22 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลประกาศทุนการศึกษา');
     this.referenceService.initialSponsors();
+    this.searchForm.search_criteria.year = new Date().getFullYear();
+    this.validatorForm();
   }
 
+  validatorForm() {
+    this.searchFormGroup = new FormGroup({
+
+      year: new FormControl(this.searchForm.search_criteria.year, Validators.compose([Validators.required])),
+      round: new FormControl(this.searchForm.search_criteria.round),
+      document_ref_no: new FormControl(this.searchForm.search_criteria.document_ref_no),
+      sponsors_name: new FormControl(this.searchForm.search_criteria.sponsors_ref),
+      scholarship_name: new FormControl(this.searchForm.search_criteria.scholarship_ref),
+
+
+    });
+  }
 
   onSearch(){
     this.utilsService.goToPageWithQueryParam('search-scholarship-announcement',this.searchForm.search_criteria);
@@ -44,17 +60,22 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   }
 
   doSearch(){
-    this.onLoad = true;
+    if (this.searchFormGroup.invalid) {
+      this.utilsService.findInvalidControls(this.searchFormGroup);
+    }else{
+      this.onLoad = true;
 
-    this.scholarshipAnnouncementService.doSearch(this.searchForm).subscribe(data=>{
-      this.scholarshipAnnouncementList = data;
-    },
-    error =>{
-      console.log(error);
-    },
-    ()=>{
-      this.onLoad = false;
-    });
+      this.scholarshipAnnouncementService.doSearch(this.searchForm).subscribe(data=>{
+        this.scholarshipAnnouncementList = data;
+      },
+      error =>{
+        console.log(error);
+      },
+      ()=>{
+        this.onLoad = false;
+      });
+    }
+
 
   }
 
