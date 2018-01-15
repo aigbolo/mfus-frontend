@@ -1,3 +1,4 @@
+
 import { Severity } from './../../enum';
 import { ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
@@ -316,11 +317,12 @@ export class M030101ManageSponsorsComponent implements OnInit {
   }
 
   onInsertComplete() {
-    this.image = null;
     this.manageForm = new SponsorsForm;
-    this.province = null;
-    this.district = null;
-    this.subDistrict = null;
+
+    this.province = new RftProvince;
+    this.district = new RftDistrict;
+    this.subDistrict = new RftSubDistrict;
+    this.ngOnInit();
   }
   onPageSearch() {
     this.utilsService.goToPage("search-sponsors");

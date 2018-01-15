@@ -1,3 +1,4 @@
+import { AddressService } from './services/utils/address.service';
 import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
 import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
 import { M010101StudentService } from './services/students/m010101-student.service';
@@ -166,6 +167,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AuthenticationService,
     UtilsService,
     M010102OfficerService,
+    AddressService,
     // EnsureIsAuthService,
     EnsureIsAuth,
     EnsureIsNotAuth,

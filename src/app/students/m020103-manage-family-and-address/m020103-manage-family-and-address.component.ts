@@ -1,3 +1,4 @@
+import { AddressService } from './../../services/utils/address.service';
 import { NgProgress } from 'ngx-progressbar';
 import { ActivatedRoute } from '@angular/router';
 import { UtilsService } from './../../services/utils/utils.service';
@@ -31,6 +32,11 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private referenceService: ReferenceService,
     private utilsService: UtilsService,
     private route: ActivatedRoute,
+    public fatherAddressService: AddressService,
+    public motherAddressService: AddressService,
+    public patrolAddressService: AddressService,
+    public homeAddressService: AddressService,
+    public currentAddressService: AddressService,
     public ngProgress: NgProgress) {}
 
   ngOnInit() {
@@ -74,6 +80,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
         label: "ข้อมูลที่อยู่", command: (event: any) => {this.activeIndex = 2;}}
     ];
   }
+
+
 
 }
 

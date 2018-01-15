@@ -38,11 +38,11 @@
 
 
 /*input's style*/
-.input-round, .input-grade {
+.input-round, .input-grade, .input-land {
   width: 50px;
   text-align:center;
 }
-.input-year, .input-unit, .input-land {
+.input-year, .input-unit {
   width: 100px;
 }
 .input-name {
