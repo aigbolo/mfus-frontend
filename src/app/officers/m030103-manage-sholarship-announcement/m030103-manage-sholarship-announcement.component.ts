@@ -379,6 +379,9 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
           err=>{
             this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");
             console.log(err);
+          },
+          ()=>{
+            this.onInsertComplete();
           }
         )
       }else{
@@ -390,7 +393,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
             this.layoutService.setMsgDisplay(Severity.ERROR,"แก้ไขข้อมูลไม่สำเร็จ","");
             console.log(err);
           },()=>{
-            // this.utilsService.goToPage("search-scholarship-announcement");
+            this.onPageSearch();
           }
         )
       }
