@@ -1,3 +1,8 @@
+import { NgProgress } from 'ngx-progressbar';
+import { ActivatedRoute } from '@angular/router';
+import { UtilsService } from './../../services/utils/utils.service';
+import { ReferenceService } from './../../services/general/reference.service';
+import { LayoutService } from './../../services/utils/layout.service';
 import { RftEducationLevel } from './../../models/rft-education-level';
 import { Observable } from 'rxjs/Observable';
 import { AcSibling } from './../../models/ac-sibling';
@@ -22,12 +27,16 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
 
   educationLevelList: RftEducationLevel[];
-  constructor() {}
+  constructor(private layoutService: LayoutService,
+    private referenceService: ReferenceService,
+    private utilsService: UtilsService,
+    private route: ActivatedRoute,
+    public ngProgress: NgProgress) {}
 
   ngOnInit() {
     this.familyAndAddressForm = new FamilyAndAddressForm();
     this.stepDisplay();
-
+    this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
   }
 
 
