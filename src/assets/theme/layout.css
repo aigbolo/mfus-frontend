@@ -64,15 +64,14 @@ label {
   font-weight: normal !important;
 }
 label.normal {
-  color: #b40000;
   margin-top: 15px;
   width: 100%;
+  color: #b40000;
 }
-
 label.normal-inline {
   color: #b40000;
-  margin-left:50px
 }
+
 
 /* BEGIN RADIOBUTTON */
 label.ui-radiobutton-label {
