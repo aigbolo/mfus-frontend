@@ -38,11 +38,11 @@
 
 
 /*input's style*/
-.input-round, .grade {
+.input-round, .input-grade {
   width: 50px;
   text-align:center;
 }
-.input-year, .unit {
+.input-year, .input-unit, .input-land {
   width: 100px;
 }
 .input-name {
@@ -57,7 +57,7 @@
 .input-postcode {
   width: 70px;
 }
-.input-phone, .scholarships-aid {
+.input-phone, .input-scholarships-aid {
   width: 150px;
 }
 .input-occupation,
