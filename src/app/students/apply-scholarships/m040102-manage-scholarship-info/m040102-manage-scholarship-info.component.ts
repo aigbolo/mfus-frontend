@@ -3,6 +3,7 @@ import { SmScholarshipAnnouncement } from './../../../models/sm-scholarship-anno
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApplyScholarshipsComponent } from '../apply-scholarships.component';
 import { ApScholarshipHistory } from '../../../models/ap-scholarship-history';
+import { ApStudentLoanFund } from '../../../models/ap-student-loan-fund';
 
 @Component({
   selector: 'app-m040102-manage-scholarship-info',
@@ -57,14 +58,22 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   addScholarship(){
-    // this.history = new ApScholarshipHistory();
-    // let historyList = [...this.applyScholarship.applyScholarshipForm.scholarshipHistoryList];
-    // historyList.push(this.history);
-    // this.applyScholarship.applyScholarshipForm.scholarshipHistoryList = historyList;
     this.applyApplication.applyApplicationForm.apScholarshipHistory.push(new ApScholarshipHistory)
   }
 
   deleteScholarship(obj: ApScholarshipHistory){
     this.applyApplication.applyApplicationForm.apScholarshipHistory.splice(this.applyApplication.applyApplicationForm.apScholarshipHistory.indexOf(obj), 1);
+  }
+
+  addStdLoan(){
+    this.applyApplication.applyApplicationForm.apStudentLoanFund.push(new ApStudentLoanFund)
+  }
+
+  deleteStdLoan(obj: ApStudentLoanFund){
+    this.applyApplication.applyApplicationForm.apStudentLoanFund.splice(this.applyApplication.applyApplicationForm.apStudentLoanFund.indexOf(obj), 1)
+  }
+
+  onNext(){
+    console.log(this.applyApplication.applyApplicationForm.apApplication.money_spend_plan)
   }
 }

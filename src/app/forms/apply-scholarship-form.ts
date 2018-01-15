@@ -17,8 +17,8 @@ export class ApplyScholarshipForm{
   public apApplication: ApApplication
   public smScholarshipAnnouncement: SmScholarshipAnnouncement
   public apScholarshipHistory: ApScholarshipHistory[]
-  public apStudentLoanFund: ApStudentLoanFund
-  public apFamiyDebt: ApFamilyDebt
+  public apStudentLoanFund: ApStudentLoanFund[]
+  public apFamiyDebt: ApFamilyDebt[]
   public apFamilyFinancial: ApFamilyFinancial
   public acParent: AcParent
   public acSibling: AcSibling
@@ -36,8 +36,8 @@ export class ApplyScholarshipForm{
     this.apApplication = new ApApplication()
     this.smScholarshipAnnouncement = new SmScholarshipAnnouncement
     this.apScholarshipHistory = []
-    this. apStudentLoanFund = new ApStudentLoanFund
-    this.apFamiyDebt = new ApFamilyDebt
+    this.apStudentLoanFund = []
+    this.apFamiyDebt = []
     this.apFamilyFinancial = new ApFamilyFinancial
     this.acParent = new AcParent
     this.acSibling = new AcSibling
