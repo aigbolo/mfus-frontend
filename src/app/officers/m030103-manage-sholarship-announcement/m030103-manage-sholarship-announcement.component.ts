@@ -78,7 +78,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
       scholarship_type: new FormControl(this.manageForm.scholarships_announcement.scholarship_ref),
       unit: new FormControl(this.manageForm.scholarships_announcement.unit, Validators.compose([Validators.required])),
       financial_aid: new FormControl(this.manageForm.scholarships_announcement.financial_aid, Validators.compose([Validators.required,Validators.max(99999.99)])),
-      min_gpax: new FormControl(this.manageForm.scholarships_announcement.min_gpax, Validators.compose([Validators.required, Validators.max(4.00)])),
+      min_gpax: new FormControl(this.manageForm.scholarships_announcement.min_gpax, Validators.compose([Validators.required, Validators.max(4.00),Validators.pattern('[0-4]+(\.?[0-9]{0,2})')])),
       collage_year: new FormControl(this.manageForm.scholarships_announcement.collage_year),
       schools: new FormControl(this.manageForm.scholarships_announcement.schools),
       majors: new FormControl(this.manageForm.scholarships_announcement.majors),

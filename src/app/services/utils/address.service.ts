@@ -24,7 +24,7 @@ export class AddressService {
     );
   }
 
-  getProvinces(): RftProvince[] {
+  getProvinces() {
     return this.rftProvinces;
   }
 

@@ -253,7 +253,7 @@ export class FamilyComponent implements OnInit {
      this.manageForm.acParent.father_province = null;
      this.manageForm.acParent.father_postcode = null;
      let objList: RftProvince[];
-     objList = this.familyAndAddress.fatherAddressService.getProvinces;
+     objList = this.familyAndAddress.fatherAddressService.getProvinces();
      for (let obj of objList) {
        // Filter By string event
        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
@@ -267,7 +267,7 @@ export class FamilyComponent implements OnInit {
      this.momSubDistrict = new RftSubDistrict();
      this.manageForm.acParent.mother_postcode = null;
      let objList: RftProvince[];
-     objList = this.listProvince;
+     objList = this.familyAndAddress.motherAddressService.getProvinces();
      for (let obj of objList) {
        // Filter By string event
        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
@@ -281,7 +281,7 @@ export class FamilyComponent implements OnInit {
      this.patrolSubDistrict = new RftSubDistrict();
      this.manageForm.acParent.patrol_postcode = null;
      let objList: RftProvince[];
-     objList = this.listProvince;
+     objList = this.familyAndAddress.patrolAddressService.getProvinces();
      for (let obj of objList) {
        // Filter By string event
        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
@@ -299,7 +299,7 @@ export class FamilyComponent implements OnInit {
    this.fDistrictList = [];
    this.dadSubDistrict = new RftSubDistrict();
    let objList: RftDistrict[];
-   objList = this.fListDistrict;
+   objList = this.familyAndAddress.fatherAddressService.getDistricts();
    for (let obj of objList) {
      // Filter By string event
      if (this.dadProvince.province_ref === obj.province_ref) {
@@ -316,7 +316,8 @@ export class FamilyComponent implements OnInit {
    console.log("autocompleteSubDistrict: " + this.dadDistrict.district_ref);
    let query = event.query;
    this.fSubDistrictList = [];
-   let objList: RftSubDistrict[] = this.fListSubDistrict;
+   let objList: RftSubDistrict[];
+   objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
    for (let obj of objList) {
      // Filter By string event
      if (obj.province_ref == this.dadProvince.province_ref) {
@@ -335,56 +336,47 @@ export class FamilyComponent implements OnInit {
 
  handleCompleteClickProvince(index: number) {
    console.log("handleCompleteClickProvince");
-   console.log(this.listProvince.length);
    if (index == 0) {
-     this.fProvinceList = [];
+      this.fProvinceList = [];
+      this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
+      this.fDistrictList = [];
+      this.fSubDistrictList = [];
 
-     setTimeout(() => {
-       this.fProvinceList = this.listProvince;
-       this.fDistrictList = [];
-       this.fSubDistrictList = [];
-     }, 100);
    }
    if (index == 1) {
-     this.mProvinceList = [];
-     setTimeout(() => {
-       this.mProvinceList = this.listProvince;
-       this.mDistrictList = [];
-       this.mSubDistrictList = [];
-     }, 100);
+      this.mProvinceList = [];
+      this.mProvinceList = this.familyAndAddress.motherAddressService.getProvinces();
+      this.mDistrictList = [];
+      this.mSubDistrictList = [];
    }
    if (index == 2) {
-     this.pProvinceList = [];
-     setTimeout(() => {
-       this.pProvinceList = this.listProvince;
-       this.pDistrictList = [];
-       this.pSubDistrictList = [];
-     }, 100);
+      this.pProvinceList = [];
+      this.pProvinceList = this.familyAndAddress.patrolAddressService.getProvinces();
+      this.pDistrictList = [];
+      this.pSubDistrictList = [];
+
    }
  }
 
  handleCompleteClickDistrict(index: number) {
    console.log("handleCompleteClickDistrict");
    if (index == 0) {
-     this.fDistrictList = [];
-     setTimeout(() => {
-       this.fDistrictList = this.fListDistrict;
-       this.fSubDistrictList = [];
-     }, 100);
+      this.fDistrictList = [];
+      this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
+      this.fSubDistrictList = [];
+
    }
    if (index == 1) {
-     this.mDistrictList = [];
-     setTimeout(() => {
-       this.mDistrictList = this.mListDistrict;
-       this.mSubDistrictList = [];
-     }, 100);
+
+      this.mDistrictList = [];
+      this.mDistrictList = this.familyAndAddress.motherAddressService.getDistricts();
+      this.mSubDistrictList = [];
+
    }
    if (index == 2) {
-     this.pDistrictList = [];
-     setTimeout(() => {
-       this.pDistrictList = this.pListDistrict;
-       this.pSubDistrictList = [];
-     }, 100);
+      this.pDistrictList = [];
+      this.pDistrictList = this.familyAndAddress.patrolAddressService.getDistricts();
+      this.pSubDistrictList = [];
    }
  }
 
@@ -392,27 +384,18 @@ export class FamilyComponent implements OnInit {
    console.log("handleCompleteClickSubDistrict");
 
    if (index == 0) {
-     this.fSubDistrictList = [];
-
-     setTimeout(() => {
-       this.fSubDistrictList = this.fListSubDistrict;
-     }, 100);
+      this.fSubDistrictList = [];
+      this.fSubDistrictList = this.familyAndAddress.fatherAddressService.getSubDistricts();
    }
 
    if (index == 1) {
-     this.mSubDistrictList = [];
-
-     setTimeout(() => {
-       this.mSubDistrictList = this.mListSubDistrict;
-     }, 100);
+      this.mSubDistrictList = [];
+      this.mSubDistrictList = this.familyAndAddress.motherAddressService.getSubDistricts();
    }
 
    if (index == 2) {
-     this.pSubDistrictList = [];
-
-     setTimeout(() => {
-       this.pSubDistrictList = this.pListSubDistrict;
-     }, 100);
+      this.pSubDistrictList = [];
+      this.pSubDistrictList = this.familyAndAddress.patrolAddressService.getSubDistricts();
    }
  }
 

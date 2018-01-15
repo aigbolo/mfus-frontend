@@ -37,12 +37,15 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     public patrolAddressService: AddressService,
     public homeAddressService: AddressService,
     public currentAddressService: AddressService,
-    public ngProgress: NgProgress) {}
+    private ngProgress: NgProgress) {}
 
   ngOnInit() {
     this.familyAndAddressForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
+    this.fatherAddressService.initialProvince();
+    this.motherAddressService.initialProvince();
+    this.patrolAddressService.initialProvince();
   }
 
 
