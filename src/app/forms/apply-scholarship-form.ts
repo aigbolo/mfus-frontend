@@ -16,7 +16,7 @@ export class ApplyScholarshipForm{
   public acStudent: AcStudent
   public apApplication: ApApplication
   public smScholarshipAnnouncement: SmScholarshipAnnouncement
-  public apScholarshipHistory: ApScholarshipHistory
+  public apScholarshipHistory: ApScholarshipHistory[]
   public apStudentLoanFund: ApStudentLoanFund
   public apFamiyDebt: ApFamilyDebt
   public apFamilyFinancial: ApFamilyFinancial
@@ -29,12 +29,13 @@ export class ApplyScholarshipForm{
   public fullname: string
   public age: number
   public birth_day: string
+  public year: string
 
   constructor(){
     this.acStudent = new AcStudent()
     this.apApplication = new ApApplication()
     this.smScholarshipAnnouncement = new SmScholarshipAnnouncement
-    this.apScholarshipHistory = new ApScholarshipHistory
+    this.apScholarshipHistory = []
     this. apStudentLoanFund = new ApStudentLoanFund
     this.apFamiyDebt = new ApFamilyDebt
     this.apFamilyFinancial = new ApFamilyFinancial
@@ -47,5 +48,6 @@ export class ApplyScholarshipForm{
     this.fullname = ""
     this.age = null
     this.birth_day = ""
+    this.year = ""
   }
 }

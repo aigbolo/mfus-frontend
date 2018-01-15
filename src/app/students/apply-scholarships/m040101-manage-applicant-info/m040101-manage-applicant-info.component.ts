@@ -36,8 +36,6 @@ export class M040101ManageApplicantInfoComponent implements OnInit {
     }
     this.referenceService.nextIndex(1)
     this.utilsService.activeIndex = this.referenceService.getIndex()
-    this.utilsService.goToPage('manage-application/manage-scholarship-info')
-
   }
 
 }
