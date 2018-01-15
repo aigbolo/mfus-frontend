@@ -405,7 +405,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   onInsertComplete() {
     this.image = null;
     this.manageForm = new ScholarshipAnnouncementForm;
-
+    this.ngOnInit();
   }
   onPageSearch() {
     this.utilsService.goToPage("search-scholarship-announcement");
