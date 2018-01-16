@@ -10,6 +10,7 @@ import { AcSibling } from './../../models/ac-sibling';
 import { FamilyAndAddressForm } from './../../forms/family-and-address-form';
 import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
+import { M020103FamilyAndAddressService } from '../../services/students/m020103-family-and-address.service';
 
 @Component({
   selector: 'app-m020103-manage-family-and-address',
@@ -32,6 +33,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private referenceService: ReferenceService,
     private utilsService: UtilsService,
     private route: ActivatedRoute,
+    private familyAndAddressService: M020103FamilyAndAddressService,
     public fatherAddressService: AddressService,
     public motherAddressService: AddressService,
     public patrolAddressService: AddressService,
@@ -110,6 +112,16 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.activeIndex = index;
     console.log("activeIndex = " + this.activeIndex);
 
+  }
+
+  onSubmit(form: FamilyAndAddressForm){
+    this.manageForm = new FamilyAndAddressForm();
+    this.manageForm = form;
+    console.log("home_address = " + form.acAddress.home_address);
+    console.log("home_address = " + this.manageForm.acAddress.home_address);
+
+
+    this.familyAndAddressService.doInsert(this.manageForm);
   }
 
 }

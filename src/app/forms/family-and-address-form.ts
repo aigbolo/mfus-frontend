@@ -52,17 +52,23 @@ export class FamilyAndAddressForm {
   this.patrolDistrict = new RftDistrict();
   this.patrolSubDistrict = new RftSubDistrict();
 
+  this.homeProvince = new RftProvince();
+  this.homeDistrict = new RftDistrict();
+  this.homeSubDistrict = new RftSubDistrict();
+
+  this.currentProvince = new RftProvince();
+  this.currentDistrict = new RftDistrict();
+  this.currentSubDistrict = new RftSubDistrict();
+
 
     this.search_criteria = new SearchCriteria;
   }
 }
 
 class SearchCriteria{
-  sponsors_name: string;
-  active_flag: string;
+
   constructor(){
-  this.sponsors_name = null;
-  this.active_flag = null;
+
   }
 }
 

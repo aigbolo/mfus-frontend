@@ -28,7 +28,6 @@ export class SiblingComponent implements OnInit {
     this.manageForm = this.familyAndAddress.getData();
     console.log(this.manageForm.siblingList);
     this.getDropDown();
-    // this.validatorForm();
   }
 
 

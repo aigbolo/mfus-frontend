@@ -232,6 +232,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
   }
 
   onUpload(event) {
+    console.log('onUpload');
     if (event.files != null) this.uploadedFiles = [];
 
     for (let file of event.files) {
