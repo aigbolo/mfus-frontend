@@ -1,0 +1,13 @@
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <p-dataList [value]="applyApplication.applyApplicationForm.documentList">
+            <ng-template let-col let-doc="rowIndex" pTemplate="item">
+            </ng-template>
+            <ng-template let-doc pTemplate="item">
+                <p-checkbox></p-checkbox>
+                {{doc.document_name}}
+                <label pButton class="btn-positive" label="{{label}}" (click)="click()"></label>
+            </ng-template>
+        </p-dataList>
+    </div>
+</div>

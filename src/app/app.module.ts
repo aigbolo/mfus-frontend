@@ -1,3 +1,4 @@
+import {DataListModule} from 'primeng/primeng';
 import { AddressService } from './services/utils/address.service';
 import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
 import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
@@ -78,6 +79,7 @@ import { FamilyComponent } from './students/m020103-manage-family-and-address/fa
 import { SiblingComponent } from './students/m020103-manage-family-and-address/sibling/sibling.component';
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
+import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -124,6 +126,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     SiblingComponent,
     AddressComponent,
     M040103ManageFamilyFinancialComponent,
+    M040105ManageDocumentUploadComponent,
   ],
   imports: [
     // Angular
@@ -153,7 +156,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     SliderModule,
     EditorModule,
     StepsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    DataListModule
 
   ],
   providers: [

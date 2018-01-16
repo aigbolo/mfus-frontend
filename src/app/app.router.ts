@@ -26,6 +26,7 @@ import { M030103SearchScholarshipAnnouncementComponent } from "./officers/m03010
 import { FamilyComponent } from './students/m020103-manage-family-and-address/family/family.component';
 import { SiblingComponent } from './students/m020103-manage-family-and-address/sibling/sibling.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
+import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
 
 const appRoutes: Routes = [
 
@@ -77,6 +78,10 @@ const appRoutes: Routes = [
       {
         path: "manage-family-financial",
         component: M040103ManageFamilyFinancialComponent
+      },
+      {
+        path: "manage-document-upload",
+        component: M040105ManageDocumentUploadComponent
       }
     ]
   },

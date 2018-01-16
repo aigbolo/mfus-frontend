@@ -1,9 +1,11 @@
+import { UtilsService } from './../../../services/utils/utils.service';
 import { M040101ApplyScholarshipService } from './../../../services/students/m040101-apply-scholarship.service';
 import { SmScholarshipAnnouncement } from './../../../models/sm-scholarship-announcement';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApplyScholarshipsComponent } from '../apply-scholarships.component';
 import { ApScholarshipHistory } from '../../../models/ap-scholarship-history';
 import { ApStudentLoanFund } from '../../../models/ap-student-loan-fund';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-m040102-manage-scholarship-info',
@@ -13,48 +15,53 @@ import { ApStudentLoanFund } from '../../../models/ap-student-loan-fund';
 })
 export class M040102ManageScholarshipInfoComponent implements OnInit {
 
-  scholarshipList: SmScholarshipAnnouncement[] = [];
-  listScholarship: SmScholarshipAnnouncement[] = [];
+  autocompleteScholarshipAnnouncementList: any[] = []
+  initialList: any[] = []
   constructor(public applyApplication: ApplyScholarshipsComponent,
-              private applyScholarshipService: M040101ApplyScholarshipService) { }
+              private applyScholarshipService: M040101ApplyScholarshipService,
+              private referenceService: ReferenceService,
+              private utilsService: UtilsService) { }
 
   ngOnInit() {
+    this.initialScholarshipAnnouncement()
   }
 
-  searchScholarshipAnnouncementFromYear() {
-    this.listScholarship = []
-    this.scholarshipList = []
-    this.applyScholarshipService.searchScholarshipAnnouncementFromYear(this.applyApplication.applyApplicationForm.year)
-      .subscribe(
-      (res: any[]) => {
-        console.log(res)
-        this.listScholarship.push(...res);
+  initialScholarshipAnnouncement() {
+    console.log('initial Data')
+    this.applyScholarshipService.initialScholarshipAnnouncement()
+      .subscribe(data=> {
+        this.initialList.push(...data);
+        console.log('listScholarship' , this.initialList)
       })
   }
 
-  selectedData(){
-
-  }
 
   autocompleteScholarship(event) {
     let query = event.query;
-    this.scholarshipList = [];
-    let objList: SmScholarshipAnnouncement[];
-    objList = this.listScholarship;
+    this.autocompleteScholarshipAnnouncementList = []
+    let objList: any[];
+    objList = this.initialList;
     for (let obj of objList) {
-      if (obj.scholarship_ref.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        this.scholarshipList.push(obj);
+      if (obj.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.autocompleteScholarshipAnnouncementList.push(obj);
       }
     }
-    console.log(this.scholarshipList)
   }
 
   handleCompleteClickautocompleteScholarship(event) {
-    this.scholarshipList = [];
     setTimeout(() => {
-      this.scholarshipList = this.listScholarship;
-      console.log(this.scholarshipList)
+      this.autocompleteScholarshipAnnouncementList = []
+      this.autocompleteScholarshipAnnouncementList = this.initialList
     }, 100)
+  }
+
+  selectedData(){
+    console.log(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement)
+    this.applyApplication.applyApplicationForm.sponsors_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sponsors_name
+    this.applyApplication.applyApplicationForm.sctype_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sctype_name
+    this.applyApplication.applyApplicationForm.detail = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.detail
+    this.applyApplication.applyApplicationForm.min_gpax = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.min_gpax
+    this.applyApplication.applyApplicationForm.apApplication.annoucement_ref = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref
   }
 
   addScholarship(){
@@ -74,6 +81,8 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   onNext(){
-    console.log(this.applyApplication.applyApplicationForm.apApplication.money_spend_plan)
+    console.log(this.applyApplication.applyApplicationForm)
+    this.referenceService.nextIndex(2)
+    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 }

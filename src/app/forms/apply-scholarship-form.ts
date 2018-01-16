@@ -30,6 +30,12 @@ export class ApplyScholarshipForm{
   public age: number
   public birth_day: string
   public year: string
+  public autocompleteScholarshipAnnouncement: any
+  public detail: string
+  public min_gpax: string
+  public sctype_name: string
+  public sponsors_name: string
+  public documentList: any[]
 
   constructor(){
     this.acStudent = new AcStudent()
@@ -49,5 +55,11 @@ export class ApplyScholarshipForm{
     this.age = null
     this.birth_day = ""
     this.year = ""
+    this.autocompleteScholarshipAnnouncement = null
+    this.detail = ""
+    this.min_gpax = ""
+    this.sctype_name = ""
+    this.sponsors_name = ""
+    this.documentList = []
   }
 }

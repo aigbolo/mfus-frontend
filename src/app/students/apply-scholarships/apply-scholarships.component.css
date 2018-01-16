@@ -18,6 +18,9 @@ textarea {
   width: 100%;
 }
 
+.fullsize{
+  size: initial
+}
 .btn-position{
   float: right;
   border-radius: 25px !important;
