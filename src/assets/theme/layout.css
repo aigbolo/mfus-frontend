@@ -70,8 +70,11 @@ label.normal {
 }
 label.normal-inline {
   color: #b40000;
+  margin-left: 50px;
 }
-
+label.unit-label {
+  color: #b40000;
+}
 
 /* BEGIN RADIOBUTTON */
 label.ui-radiobutton-label {

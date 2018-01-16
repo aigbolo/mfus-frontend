@@ -1,0 +1,87 @@
+
+
+
+
+
+
+
+    <div class="row overide-row btn-row">
+      <div class="col-xs-6 btn-panel-left">
+      </div>
+      <div class="col-xs-6 btn-panel-right">
+        <button pButton type="button" style="float:right" class="ui-button-success" label="เพิ่มรายการ"
+    (click)="addButtonOnClick()"></button>
+      </div>
+    </div>
+  <p-dataList [value]="manageForm.siblingList" class="sibling-list">
+      <ng-template let-sib pTemplate="item" let-i="index">
+        <div class="row overide-row">
+          <div class="col-xs-4">
+            <label class="normal">ชื่อ - นามสกุล *</label>
+            <input type="text"
+            class="input-name"
+            pInputText
+            maxlength="50"
+            [(ngModel)]="sib.sibling_name">
+          </div>
+          <div class="col-xs-4">
+            <label class="normal">ปีเกิด</label>
+            <input type="text"
+            class="input-year"
+            pInputText
+            maxlength="4"
+            [(ngModel)]="sib.born_year">
+          </div>
+          <div class="col-xs-4" style="text-align: right;">
+            <button pButton type="button" class="ui-button-danger" label="ลบรายการ"
+            (click)="deleteButtonOnClick(i)" formnovalidate></button>
+          </div>
+        </div>
+
+        <div class="row overide-row">
+          <div class="col-xs-4">
+            <label class="normal">ระดับการศึกษา</label>
+            <p-dropdown
+            [options]="educationLevel"
+            class="input-name"
+            laceholder="เดือน"
+            optionField="birth-month"
+            [(ngModel)]="sib.education_level">
+
+          </p-dropdown>
+          </div>
+          <div class="col-xs-5">
+            <label class="normal">อาชีพ</label>
+            <input type="text" class="input-occupation"
+            pInputText
+            maxlength="50"
+            [(ngModel)]="sib.occupation">
+          </div>
+          <div class="col-xs-3">
+            <label class="normal">รายได้เฉลี่ย/เดือน</label>
+            <input type="text" class="input-income"
+            pInputText
+            currencyMask
+            [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+            min="0"
+            max="999999.99"
+            maxlength="10"
+            title="กรอกได้สูงสุดไม่เกิน 999,999.99 บาท"
+            [(ngModel)]="sib.income_monthly">
+          </div>
+        </div>
+      </ng-template>
+      </p-dataList>
+
+
+      <div class="row overide-row btn-row">
+        <div class="col-xs-6 btn-panel-left">
+        </div>
+        <div class="col-xs-6 btn-panel-right">
+          <button pButton type="button"  label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
+          <button pButton type="button"  label="ถัดไป" (click)="nextButtonOnClick()"></button>
+        </div>
+      </div>
+
+
+

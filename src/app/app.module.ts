@@ -136,6 +136,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgProgressModule,
+    CurrencyMaskModule,
 
     // Primeng
     PanelMenuModule,

@@ -37,17 +37,7 @@ export class FamilyComponent implements OnInit {
  pSubDistrictList: RftSubDistrict[] = [];
 
 
- dadProvince: RftProvince = new RftProvince();
- dadDistrict: RftDistrict = new RftDistrict();
- dadSubDistrict: RftSubDistrict = new RftSubDistrict();
 
- momProvince: RftProvince = new RftProvince();
- momDistrict: RftDistrict = new RftDistrict();
- momSubDistrict: RftSubDistrict = new RftSubDistrict();
-
- patrolProvince: RftProvince = new RftProvince();
- patrolDistrict: RftDistrict = new RftDistrict();
- patrolSubDistrict: RftSubDistrict = new RftSubDistrict();
 
  constructor(
    private utilsService: UtilsService,
@@ -57,6 +47,7 @@ export class FamilyComponent implements OnInit {
  ngOnInit() {
    console.log("FamilyComponent.ngOnInit ");
    this.validatorForm();
+   this.manageForm = this.familyAndAddress.getData();
  }
 
  validatorForm() {
@@ -97,9 +88,9 @@ export class FamilyComponent implements OnInit {
      momDay: new FormControl('',Validators.compose([Validators.required])),
      momYear: new FormControl('', Validators.compose([Validators.required])),
      mother_address: new FormControl(this.manageForm.acParent.mother_address,Validators.compose([Validators.required])),
-     mother_province: new FormControl(this.momProvince,Validators.compose([Validators.required])),
-     mother_district: new FormControl(this.momDistrict,Validators.compose([Validators.required])),
-     mother_sub_district: new FormControl(this.momSubDistrict,Validators.compose([Validators.required])),
+     mother_province: new FormControl(this.manageForm.momProvince,Validators.compose([Validators.required])),
+     mother_district: new FormControl(this.manageForm.momDistrict,Validators.compose([Validators.required])),
+     mother_sub_district: new FormControl(this.manageForm.momSubDistrict,Validators.compose([Validators.required])),
      mother_postcode: new FormControl(this.manageForm.acParent.mother_postcode),
      mother_phone: new FormControl(this.manageForm.acParent.mother_phone),
      mother_email: new FormControl(this.manageForm.acParent.mother_email),
@@ -123,9 +114,9 @@ export class FamilyComponent implements OnInit {
      patrolDay: new FormControl(''),
      patrolYear: new FormControl(''),
      patrol_address: new FormControl(this.manageForm.acParent.patrol_address),
-     patrol_province: new FormControl(this.patrolProvince),
-     patrol_district: new FormControl(this.patrolDistrict),
-     patrol_sub_district: new FormControl(this.patrolSubDistrict),
+     patrol_province: new FormControl(this.manageForm.patrolProvince),
+     patrol_district: new FormControl(this.manageForm.patrolDistrict),
+     patrol_sub_district: new FormControl(this.manageForm.patrolSubDistrict),
      patrol_postcode: new FormControl(this.manageForm.acParent.patrol_postcode),
      patrol_phone: new FormControl(this.manageForm.acParent.patrol_phone),
      patrol_email: new FormControl(this.manageForm.acParent.patrol_email),
@@ -248,8 +239,8 @@ export class FamilyComponent implements OnInit {
    let query = event.query;
    if(seq == 1){
      this.fProvinceList = [];
-     this.dadDistrict = new RftDistrict();
-     this.dadSubDistrict = new RftSubDistrict();
+     this.manageForm.dadDistrict = new RftDistrict();
+     this.manageForm.dadSubDistrict = new RftSubDistrict();
      this.manageForm.acParent.father_province = null;
      this.manageForm.acParent.father_postcode = null;
      let objList: RftProvince[];
@@ -263,8 +254,8 @@ export class FamilyComponent implements OnInit {
    }
    if(seq == 2){
      this.mProvinceList = [];
-     this.momDistrict = new RftDistrict();
-     this.momSubDistrict = new RftSubDistrict();
+     this.manageForm.momDistrict = new RftDistrict();
+     this.manageForm.momSubDistrict = new RftSubDistrict();
      this.manageForm.acParent.mother_postcode = null;
      let objList: RftProvince[];
      objList = this.familyAndAddress.motherAddressService.getProvinces();
@@ -277,8 +268,8 @@ export class FamilyComponent implements OnInit {
    }
    if(seq == 3){
      this.pProvinceList = [];
-     this.patrolDistrict = new RftDistrict();
-     this.patrolSubDistrict = new RftSubDistrict();
+     this.manageForm.patrolDistrict = new RftDistrict();
+     this.manageForm.patrolSubDistrict = new RftSubDistrict();
      this.manageForm.acParent.patrol_postcode = null;
      let objList: RftProvince[];
      objList = this.familyAndAddress.patrolAddressService.getProvinces();
@@ -297,12 +288,12 @@ export class FamilyComponent implements OnInit {
    console.log("autocompleteDistrict");
    let query = event.query;
    this.fDistrictList = [];
-   this.dadSubDistrict = new RftSubDistrict();
+   this.manageForm.dadSubDistrict = new RftSubDistrict();
    let objList: RftDistrict[];
    objList = this.familyAndAddress.fatherAddressService.getDistricts();
    for (let obj of objList) {
      // Filter By string event
-     if (this.dadProvince.province_ref === obj.province_ref) {
+     if (this.manageForm.dadProvince.province_ref === obj.province_ref) {
        if (
          obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
        ) {
@@ -313,15 +304,15 @@ export class FamilyComponent implements OnInit {
  }
 
  autocompleteSubDistrict(event) {
-   console.log("autocompleteSubDistrict: " + this.dadDistrict.district_ref);
+   console.log("autocompleteSubDistrict: " + this.manageForm.dadDistrict.district_ref);
    let query = event.query;
    this.fSubDistrictList = [];
    let objList: RftSubDistrict[];
    objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
    for (let obj of objList) {
      // Filter By string event
-     if (obj.province_ref == this.dadProvince.province_ref) {
-       if (obj.district_ref == this.dadDistrict.district_ref) {
+     if (obj.province_ref == this.manageForm.dadProvince.province_ref) {
+       if (obj.district_ref == this.manageForm.dadDistrict.district_ref) {
          if (
            obj.sub_district_name_t
              .toLowerCase()
@@ -401,11 +392,28 @@ export class FamilyComponent implements OnInit {
 
  // Autocomplete Selected
  selectProvince(index: number) {
-
+  if(index == 0){
+    this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
+  }
+  if(index == 1){
+    this.familyAndAddress.motherAddressService.initialDistrict(this.manageForm.momProvince.province_ref);
+  }
+  if(index == 2){
+    this.familyAndAddress.patrolAddressService.initialDistrict(this.manageForm.patrolProvince.province_ref);
+  }
 
  }
 
  selectDistrict(index: number) {
+  if(index == 0){
+    this.familyAndAddress.fatherAddressService.initialSubDistrict(this.manageForm.dadDistrict.district_ref);
+  }
+  if(index == 1){
+    this.familyAndAddress.motherAddressService.initialSubDistrict(this.manageForm.momDistrict.district_ref);
+  }
+  if(index == 2){
+    this.familyAndAddress.patrolAddressService.initialSubDistrict(this.manageForm.patrolDistrict.district_ref);
+  }
  }
 
 
@@ -413,16 +421,9 @@ export class FamilyComponent implements OnInit {
 
  }
 
- setupDistictList() {
-
- }
-
- setupSubDistictList() {
-
- }
 
  nextButtonOnClick() {
-
+  this.familyAndAddress.onChangePanel(1,this.manageForm);
  }
 }
 

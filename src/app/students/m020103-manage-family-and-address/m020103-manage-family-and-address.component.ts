@@ -19,7 +19,7 @@ import { Component, OnInit } from '@angular/core';
 export class M020103ManageFamilyAndAddressComponent implements OnInit {
   items: MenuItem[];
   activeIndex: number = 0;
-  familyAndAddressForm: FamilyAndAddressForm = new FamilyAndAddressForm();
+  manageForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
   onLoaded = false;
   private data: Observable<number>;
@@ -40,9 +40,11 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private ngProgress: NgProgress) {}
 
   ngOnInit() {
-    this.familyAndAddressForm = new FamilyAndAddressForm();
+    this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
+    this.initialSetup();
+    this.getEducationDropDown();
     this.fatherAddressService.initialProvince();
     this.motherAddressService.initialProvince();
     this.patrolAddressService.initialProvince();
@@ -51,26 +53,26 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
   initialSetup(){
     console.log('initialSetup');
-    if(this.familyAndAddressForm.acParent.parent_ref == '' || this.familyAndAddressForm.acParent.parent_ref == undefined){
+    if(this.manageForm.acParent.parent_ref == '' || this.manageForm.acParent.parent_ref == undefined){
 
 
-    this.familyAndAddressForm.acParent.parent_flag = "1";
-    this.familyAndAddressForm.acParent.relationship_status = "1";
-    this.familyAndAddressForm.acParent.father_status = "1";
-    this.familyAndAddressForm.acParent.mother_status = "1";
-    this.familyAndAddressForm.acParent.patrol_status = "1";
-    this.familyAndAddressForm.acParent.father_land_flag = "1";
-    this.familyAndAddressForm.acParent.mother_land_flag = "1";
-    this.familyAndAddressForm.acParent.patrol_land_flag = "1";
+    this.manageForm.acParent.parent_flag = "1";
+    this.manageForm.acParent.relationship_status = "1";
+    this.manageForm.acParent.father_status = "1";
+    this.manageForm.acParent.mother_status = "1";
+    this.manageForm.acParent.patrol_status = "1";
+    this.manageForm.acParent.father_land_flag = "1";
+    this.manageForm.acParent.mother_land_flag = "1";
+    this.manageForm.acParent.patrol_land_flag = "1";
 
 
-    this.familyAndAddressForm.acParent.student_ref = '1';
-    this.familyAndAddressForm.acAddress.student_ref = '1';
+    this.manageForm.acParent.student_ref = '1';
+    this.manageForm.acAddress.student_ref = '1';
 
-    this.familyAndAddressForm.siblingList = [];
+    this.manageForm.siblingList = [];
     this.sibling = new AcSibling();
     this.sibling.student_ref = '1';
-    this.familyAndAddressForm.siblingList.push(this.sibling);
+    this.manageForm.siblingList.push(this.sibling);
   }
   }
   stepDisplay() {
@@ -84,7 +86,31 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     ];
   }
 
+  getEducationDropDown(){
+    this.referenceService
+    .getEducationLevel()
+    .subscribe((res: RftEducationLevel[]) => {
+      this.educationLevelList = [];
+      this.educationLevelList.push(...res);
 
+    });
+  }
+
+  getData(): FamilyAndAddressForm {
+    console.log("getData");
+    return this.manageForm;
+  }
+
+  onChangePanel(index: number, form: FamilyAndAddressForm) {
+    console.log("onChangePanel");
+    this.manageForm = new FamilyAndAddressForm();
+    this.manageForm = form;
+
+
+    this.activeIndex = index;
+    console.log("activeIndex = " + this.activeIndex);
+
+  }
 
 }
 

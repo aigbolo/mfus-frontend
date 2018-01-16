@@ -303,6 +303,19 @@ body .ui-dropdown .ui-dropdown-trigger .fa {
     color: #3a8db7;
     margin-top: .3em;
 }
+
+p-dropdown .ui-dropdown {
+  height: 30px;
+}
+
+p-dropdown .ui-dropdown label {
+  line-height: 22px;
+}
+
+p-dropdown .ui-dropdown .ui-dropdown-trigger .ui-clickable {
+  margin-top: 8px;
+}
+
 body .ui-dropdown:not(.ui-state-disabled):hover .ui-dropdown-trigger,
 body .ui-dropdown.ui-state-focus .ui-dropdown-trigger,
 body .ui-dropdown.ui-state-focus .ui-dropdown-label,
