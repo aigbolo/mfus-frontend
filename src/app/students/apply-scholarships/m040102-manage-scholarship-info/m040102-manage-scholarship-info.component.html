@@ -1,28 +1,42 @@
 <div class="row overide-row">
     <h4 class="custom-panel-title">ข้อมูลทุนการศึกษา</h4>
 </div>
-<div class="row overide-row">
+<div class="row overide-row" styleClass="fullWidth">
     <div class="col-xs-12">
         <label class="normal">ทุนการศึกษา *</label>
-        <p-autoComplete [suggestions]="scholarshipList" name="name_and_round" [(ngModel)]="applyApplication.applyApplicationForm.smScholarshipAnnouncement" (onSelect)="selectedData()" [dropdown]="true" (completeMethod)="autocompleteScholarship($event)" (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
-            field="name_and_round" size="35" forceselection="true" name="autocompleteScholarship">
+        <p-autoComplete
+          [suggestions]="autocompleteScholarshipAnnouncementList"
+          name="name"
+          [(ngModel)]="applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement"
+          (onSelect)="selectedData()"
+          [dropdown]="true"
+          (completeMethod)="autocompleteScholarship($event)"
+          (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
+          field="name"
+          size="85"
+          forceselection="true"
+          name="autocompleteScholarship">
         </p-autoComplete>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-3">
-        <label class="normal">ประเภททุนการศึกษา</label>
+        <label class="normal" >ประเภททุนการศึกษา</label>
+        {{applyApplication.applyApplicationForm.sctype_name}}
     </div>
     <div class="col-xs-6">
-        <label class="normal">ผู้สนับสนุน</label>
+        <label class="normal" >ผู้สนับสนุน</label>
+        {{applyApplication.applyApplicationForm.sponsors_name}}
     </div>
     <div class="col-xs-3">
-        <label class="normal">เกรดขั้นต่ำ</label>
+        <label class="normal" >เกรดขั้นต่ำ</label>
+        {{applyApplication.applyApplicationForm.min_gpax}}
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-12">
-        <label for="" class="normal">รายละเอียดทุนการศึกษา</label>
+        <label for="" class="normal" >รายละเอียดทุนการศึกษา</label>
+        {{applyApplication.applyApplicationForm.detail}}
     </div>
 </div>
 <div class="row overide-row">
