@@ -9,6 +9,7 @@ import { Observable } from "rxjs/Observable";
 import { ConfigurationService } from "../utils/configuration.service";
 import { RftSubDistrict } from "../../models/rft-sub-district";
 import { SmScholarship } from "../../models/sm-scholarship";
+import { RequestOptions } from "@angular/http";
 
 @Injectable()
 export class ReferenceService {
@@ -249,5 +250,11 @@ export class ReferenceService {
 
   getIndex() {
     return this.activeIndex;
+  }
+
+  getEducationLevel() {
+    console.log('getEducationLevel');
+
+    return this.configuration.requestMethodGET('autocomplete-edlevel');
   }
 }

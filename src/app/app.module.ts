@@ -78,6 +78,7 @@ import { FamilyComponent } from './students/m020103-manage-family-and-address/fa
 import { SiblingComponent } from './students/m020103-manage-family-and-address/sibling/sibling.component';
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
+import { DataListModule } from 'primeng/components/datalist/datalist';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -133,6 +134,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgProgressModule,
+    CurrencyMaskModule,
 
     // Primeng
     PanelMenuModule,
@@ -153,7 +155,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     SliderModule,
     EditorModule,
     StepsModule,
-    CurrencyMaskModule
+    DataListModule
 
   ],
   providers: [
