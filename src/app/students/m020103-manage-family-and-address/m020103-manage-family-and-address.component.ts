@@ -1,3 +1,4 @@
+import { AcUser } from './../../models/ac-user';
 import { AddressService } from './../../services/utils/address.service';
 import { NgProgress } from 'ngx-progressbar';
 import { ActivatedRoute } from '@angular/router';
@@ -23,8 +24,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   sibling: AcSibling = new AcSibling();
   onLoaded = false;
 
-
-  user = localStorage.getItem('user');
+  user = localStorage.getItem('user')
+  usr :AcUser = JSON.parse(localStorage.getItem('user'));
 
   educationLevelList: RftEducationLevel[];
   items: MenuItem[];
@@ -42,7 +43,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private ngProgress: NgProgress) {}
 
   ngOnInit() {
-    console.log(this.user);
+    console.log(this.usr);
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");

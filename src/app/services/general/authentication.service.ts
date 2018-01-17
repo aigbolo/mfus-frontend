@@ -86,4 +86,12 @@ export class AuthenticationService {
 
   }
 
+  getUser(){
+    return JSON.parse(localStorage.getItem('user'));
+
+  }
+  getAccount(){
+    return JSON.parse(localStorage.getItem('user.account'));
+  }
+
 }
