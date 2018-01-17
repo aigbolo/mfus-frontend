@@ -52,6 +52,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    console.log("FamilyComponent.ngOnInit ");
    this.validatorForm();
    this.manageForm = this.familyAndAddress.getData();
+
  }
 
  validatorForm() {
@@ -63,9 +64,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
      father_status: new FormControl(this.manageForm.acParent.father_status),
      father_died_year: new FormControl(this.manageForm.acParent.father_died_year),
      father_name: new FormControl(this.manageForm.acParent.father_name,Validators.compose([Validators.required])),
-     dadMonth: new FormControl('',Validators.compose([Validators.required])),
-     dadDay: new FormControl('',Validators.compose([Validators.required])),
-     dadYear: new FormControl('',Validators.compose([Validators.required])),
+     father_birth_date: new FormControl(this.manageForm.acParent.father_birth_date,Validators.compose([Validators.required])),
      father_address: new FormControl(this.manageForm.acParent.father_address,Validators.compose([Validators.required])),
      father_province: new FormControl(this.manageForm.acParent.father_province,Validators.compose([Validators.required])),
      father_district: new FormControl(this.manageForm.acParent.father_district,Validators.compose([Validators.required])),
@@ -88,9 +87,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
      mother_status: new FormControl(this.manageForm.acParent.mother_status),
      mother_died_year: new FormControl(this.manageForm.acParent.mother_died_year),
      mother_name: new FormControl(this.manageForm.acParent.mother_name,Validators.compose([Validators.required])),
-     momMonth: new FormControl('',Validators.compose([Validators.required])),
-     momDay: new FormControl('',Validators.compose([Validators.required])),
-     momYear: new FormControl('', Validators.compose([Validators.required])),
+     mother_birth_date: new FormControl(this.manageForm.acParent.mother_birth_date,Validators.compose([Validators.required])),
      mother_address: new FormControl(this.manageForm.acParent.mother_address,Validators.compose([Validators.required])),
      mother_province: new FormControl(this.manageForm.momProvince,Validators.compose([Validators.required])),
      mother_district: new FormControl(this.manageForm.momDistrict,Validators.compose([Validators.required])),
@@ -114,9 +111,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
      patrol_status: new FormControl(this.manageForm.acParent.patrol_status),
      patrol_died_year: new FormControl(this.manageForm.acParent.patrol_died_year),
      patrol_name: new FormControl(this.manageForm.acParent.patrol_name),
-     patrolMonth: new FormControl(''),
-     patrolDay: new FormControl(''),
-     patrolYear: new FormControl(''),
+     patrol_birth_date: new FormControl(this.manageForm.acParent.patrol_birth_date),
      patrol_address: new FormControl(this.manageForm.acParent.patrol_address),
      patrol_province: new FormControl(this.manageForm.patrolProvince),
      patrol_district: new FormControl(this.manageForm.patrolDistrict),
@@ -144,9 +139,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
          this.manageFormGroup.controls["father_pid"].setValidators([Validators.required]);
          this.manageFormGroup.controls["father_name"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["dadMonth"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["dadDay"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["dadYear"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_birth_date"].setValidators([Validators.required]);
          this.manageFormGroup.controls["father_address"].setValidators([Validators.required]);
          this.manageFormGroup.controls["father_province"].setValidators([Validators.required]);
          this.manageFormGroup.controls["father_district"].setValidators([Validators.required]);
@@ -154,9 +147,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
          this.manageFormGroup.controls["mother_pid"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_name"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["momMonth"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["momDay"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["momYear"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_address"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_province"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_district"].setValidators([Validators.required]);
@@ -168,12 +159,8 @@ export class FamilyComponent extends CalendarModel implements OnInit {
          this.manageFormGroup.controls["patrol_pid"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_name"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_name"].updateValueAndValidity();
-         this.manageFormGroup.controls["patrolMonth"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrolMonth"].updateValueAndValidity();
-         this.manageFormGroup.controls["patrolDay"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrolDay"].updateValueAndValidity();
-         this.manageFormGroup.controls["patrolYear"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrolYear"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_birth_date"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_address"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_address"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_province"].setValidators([Validators.nullValidator]);
@@ -183,35 +170,28 @@ export class FamilyComponent extends CalendarModel implements OnInit {
          this.manageFormGroup.controls["patrol_sub_district"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
        }else{
-         this.manageFormGroup.controls["father_pid"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+
+        this.manageFormGroup.controls["father_pid"].setValidators([Validators.nullValidator]);
+        this.manageFormGroup.controls["father_pid"].updateValueAndValidity();
          this.manageFormGroup.controls["father_name"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
-         this.manageFormGroup.controls["dadMonth"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
-         this.manageFormGroup.controls["dadDay"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
-         this.manageFormGroup.controls["dadYear"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_birth_date"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_birth_date"].updateValueAndValidity();
          this.manageFormGroup.controls["father_address"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_address"].updateValueAndValidity();
          this.manageFormGroup.controls["father_province"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_province"].updateValueAndValidity();
          this.manageFormGroup.controls["father_district"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_district"].updateValueAndValidity();
          this.manageFormGroup.controls["father_sub_district"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_sub_district"].updateValueAndValidity();
 
          this.manageFormGroup.controls["mother_pid"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["mother_pid"].updateValueAndValidity();
          this.manageFormGroup.controls["mother_name"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["mother_name"].updateValueAndValidity();
-         this.manageFormGroup.controls["momMonth"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["momMonth"].updateValueAndValidity();
-         this.manageFormGroup.controls["momDay"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["momDay"].updateValueAndValidity();
-         this.manageFormGroup.controls["momYear"].setValidators([Validators.nullValidator]);
-         this.manageFormGroup.controls["momYear"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_birth_date"].updateValueAndValidity();
          this.manageFormGroup.controls["mother_address"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["mother_address"].updateValueAndValidity();
          this.manageFormGroup.controls["mother_province"].setValidators([Validators.nullValidator]);

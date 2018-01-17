@@ -18,17 +18,17 @@ import { M020103FamilyAndAddressService } from '../../services/students/m020103-
   styleUrls: ['./m020103-manage-family-and-address.component.css']
 })
 export class M020103ManageFamilyAndAddressComponent implements OnInit {
-  items: MenuItem[];
-  activeIndex: number = 0;
+
   manageForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
   onLoaded = false;
-  private data: Observable<number>;
-  private values: Array<number> = [];
-  private status: string;
 
+
+  user = localStorage.getItem('user');
 
   educationLevelList: RftEducationLevel[];
+  items: MenuItem[];
+  activeIndex: number = 0;
   constructor(private layoutService: LayoutService,
     private referenceService: ReferenceService,
     private utilsService: UtilsService,
@@ -42,6 +42,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private ngProgress: NgProgress) {}
 
   ngOnInit() {
+    console.log(this.user);
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
@@ -68,12 +69,18 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.manageForm.acParent.patrol_land_flag = "1";
 
 
-    this.manageForm.acParent.student_ref = '1';
-    this.manageForm.acAddress.student_ref = '1';
+    this.manageForm.acParent.student_ref = this.user;
+    this.manageForm.acParent.create_user = this.user;
+    this.manageForm.acParent.update_user = this.user;
+    this.manageForm.acAddress.student_ref = this.user;
+    this.manageForm.acAddress.create_user = this.user;
+    this.manageForm.acAddress.update_user = this.user;
 
     this.manageForm.siblingList = [];
     this.sibling = new AcSibling();
-    this.sibling.student_ref = '1';
+    this.sibling.student_ref = this.user;
+    this.sibling.create_user = this.user;
+    this.sibling.update_user = this.user;
     this.manageForm.siblingList.push(this.sibling);
   }
   }
@@ -121,7 +128,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     console.log("home_address = " + this.manageForm.acAddress.home_address);
 
 
-    this.familyAndAddressService.doInsert(this.manageForm);
+    this.familyAndAddressService.doInsert(this.manageForm).subscribe();
   }
 
 }

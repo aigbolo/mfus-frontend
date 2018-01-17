@@ -62,7 +62,9 @@ export class SiblingComponent implements OnInit {
     this.dataCheckcing();
     this.sibling = new AcSibling();
     if(this.newRow){
-      this.sibling.student_ref = '1';
+      this.sibling.student_ref = this.familyAndAddress.user;
+      this.sibling.create_user = this.familyAndAddress.user;
+      this.sibling.update_user = this.familyAndAddress.user;
       this.manageForm.siblingList.push(this.sibling);
     }
 

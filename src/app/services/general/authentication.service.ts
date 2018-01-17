@@ -54,4 +54,36 @@ export class AuthenticationService {
   }
   // End
 
+  setAccountInfo(user: AcUser){
+    console.log('setAccountInfo')
+    console.log(user)
+    console.log(user.user_role)
+    if(user.user_role == '1'){
+      console.log('Is student')
+      const param = { student_ref: user.account_ref};
+      this.config.requestMethodPOST('students-update',param).subscribe(
+        data=>{
+          console.log(data);
+          localStorage.setItem('user.account', JSON.stringify(data));
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
+    if(user.user_role == '2'){
+      console.log('Is officer')
+      const param = { officer_ref: user.account_ref};
+      this.config.requestMethodPOST('officers-update',param).subscribe(
+        data=>{
+          localStorage.setItem('user.account', JSON.stringify(data));
+        },
+        err=>{
+          console.log(err)
+        }
+      )
+    }
+
+  }
+
 }

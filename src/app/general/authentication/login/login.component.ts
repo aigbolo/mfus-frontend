@@ -46,9 +46,10 @@ export class LoginComponent implements OnInit {
           if (user) {
             this.logedinFalse = false;
             localStorage.setItem('token', user.ac_user.api_token);
-            localStorage.setItem('username', user.ac_user.user_id);
+            localStorage.setItem('user', JSON.stringify(user.ac_user));
             this.router.navigateByUrl('/');
             this.authService.setLoggedinStage(user.ac_user.api_token);
+            this.authService.setAccountInfo(user.ac_user);
             this.layout.setDisplayName(user.ac_user.user_id);
             return
           }
