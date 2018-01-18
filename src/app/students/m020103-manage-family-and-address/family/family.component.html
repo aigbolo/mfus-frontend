@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <div class="content-box" id="father-box" >
+  <div class="content-box" id="father-box" *ngIf="manageForm.acParent.parent_flag == '1'">
     <div class="row overide-row">
       <h4 class="custom-panel-title">บิดา</h4>
     </div>
@@ -104,14 +104,14 @@
         [(ngModel)]="manageForm.acParent.father_status">
         </p-radioButton>
 
-        <label class="normal-inline">เมื่อ ค.ศ.</label>
+        <label class="normal-inline">เมื่อปี</label>
         <input type="text" pInputText
         class="input-year"
         [attr.disabled]="(manageForm.acParent.father_status != '2')?'':null"
         pattern="\d*"
         maxlength="4"
         minlength="4"
-        placeholder="ปี พ.ศ."
+        placeholder="ปี ค.ศ."
         formControlName="father_died_year"
         [(ngModel)]="manageForm.acParent.father_died_year"
         >
@@ -132,6 +132,8 @@
         <label class="normal">วัน เดือน ปี เกิด *</label>
         <p-calendar [showIcon]="true"
         [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
+        [monthNavigator]="true" [yearNavigator]="true"
+        yearRange="1950:2050"
         formControlName="father_birth_date"
         [(ngModel)]="manageForm.acParent.father_birth_date"></p-calendar>
 
@@ -153,7 +155,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">จังหวัด *</label>
-        <p-autoComplete field="province_name_t"
+        <p-autoComplete class="autocomplete-province"
+          field="province_name_t"
           [(ngModel)]="manageForm.dadProvince"
           [suggestions]="fProvinceList"
           (onSelect)="selectProvince(0)"
@@ -170,7 +173,8 @@
       </div>
       <div class="col-xs-7">
         <label class="normal">อำเภอ *</label>
-        <p-autoComplete field="district_name_t"
+        <p-autoComplete class="autocomplete-district"
+          field="district_name_t"
           [(ngModel)]="manageForm.dadDistrict"
           [suggestions]="fDistrictList"
           [dropdown]="true"
@@ -190,7 +194,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">ตำบล *</label>
-        <p-autoComplete field="sub_district_name_t"
+        <p-autoComplete class="autocomplete-sub-district"
+          field="sub_district_name_t"
           [(ngModel)]="manageForm.dadSubDistrict"
           [suggestions]="fSubDistrictList"
           (completeMethod)="autocompleteSubDistrict($event)"
@@ -317,6 +322,7 @@
           max="99.99"
           maxlength="5"
           alt="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.father_land_flag != '2')?'':null"
           formControlName="father_land_all"
           [(ngModel)]="manageForm.acParent.father_land_all">
            <label class="unit-label">ไร่</label>
@@ -331,6 +337,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.father_land_flag != '2')?'':null"
           formControlName="father_land_own"
           [(ngModel)]="manageForm.acParent.father_land_own">
            <label class="unit-label">ไร่</label>
@@ -345,6 +352,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.father_land_flag != '2')?'':null"
           formControlName="father_land_rent"
           [(ngModel)]="manageForm.acParent.father_land_rent">
            <label class="unit-label">ไร่</label>
@@ -358,7 +366,7 @@
           <input type="text" class="input-income"
           pInputText
           currencyMask
-          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+
           min="0"
           max="999999.99"
           maxlength="10"
@@ -371,7 +379,7 @@
 
   </div>
 
-  <div class="content-box" id="mother-box">
+  <div class="content-box" id="mother-box" *ngIf="manageForm.acParent.parent_flag == '1'">
     <div class="row overide-row">
       <h4 class="custom-panel-title">มารดา</h4>
     </div>
@@ -401,14 +409,14 @@
         formControlName="mother_status"
         [(ngModel)]="manageForm.acParent.mother_status">
         </p-radioButton>
-        <label class="normal-inline">เมื่อ ค.ศ.</label>
+        <label class="normal-inline">เมื่อปี</label>
         <input type="text" pInputText
         class="input-year"
         [attr.disabled]="(manageForm.acParent.mother_status != '2')?'':null"
         pattern="\d*"
         maxlength="4"
         minlength="4"
-        placeholder="ปี พ.ศ."
+        placeholder="ปี ค.ศ."
         class="input-year"
         formControlName="mother_died_year"
         [(ngModel)]="manageForm.acParent.mother_died_year">
@@ -429,6 +437,8 @@
         <label class="normal">วัน เดือน ปี เกิด *</label>
         <p-calendar [showIcon]="true"
         [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
+        [monthNavigator]="true" [yearNavigator]="true"
+        yearRange="1950:2050"
         formControlName="mother_birth_date"
         [(ngModel)]="manageForm.acParent.mother_birth_date"></p-calendar>
       </div>
@@ -449,7 +459,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">จังหวัด *</label>
-        <p-autoComplete name="autocompleteProvince" field="province_name_t" [(ngModel)]="manageForm.momProvince" [suggestions]="mProvinceList"
+        <p-autoComplete class="autocomplete-province"
+          field="province_name_t" [(ngModel)]="manageForm.momProvince" [suggestions]="mProvinceList"
           [size]="25" (onSelect)="selectProvince(1)" [forceSelection]="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
           (completeMethod)="autocompleteProvince($event,1)"
           maxlength="30"
@@ -461,7 +472,8 @@
       </div>
       <div class="col-xs-7">
         <label class="normal">อำเภอ *</label>
-        <p-autoComplete name="autocompleteDistrict" field="district_name_t" [(ngModel)]="manageForm.momDistrict" [suggestions]="mDistrictList"
+        <p-autoComplete class="autocomplete-district"
+          field="district_name_t" [(ngModel)]="manageForm.momDistrict" [suggestions]="mDistrictList"
           [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
           [disabled]="!manageForm.acParent.mother_province"
           maxlength="30"
@@ -477,7 +489,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">ตำบล *</label>
-        <p-autoComplete field="sub_district_name_t" [(ngModel)]="manageForm.momSubDistrict" [suggestions]="mSubDistrictList"
+        <p-autoComplete class="autocomplete-sub-district"
+          field="sub_district_name_t" [(ngModel)]="manageForm.momSubDistrict" [suggestions]="mSubDistrictList"
           (completeMethod)="autocompleteSubDistrict($event,1)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
           [disabled]="!manageForm.acParent.mother_district"
           maxlength="30"
@@ -599,6 +612,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.mother_land_flag != '2')?'':null"
           formControlName="mother_land_all"
           [(ngModel)]="manageForm.acParent.mother_land_all">
            <label class="unit-label">ไร่</label>
@@ -613,6 +627,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.mother_land_flag != '2')?'':null"
           formControlName="mother_land_own"
           [(ngModel)]="manageForm.acParent.mother_land_own">
           <label class="unit-label">ไร่</label>
@@ -627,6 +642,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.mother_land_flag != '2')?'':null"
           formControlName="mother_land_rent"
           [(ngModel)]="manageForm.acParent.mother_land_rent">
           <label class="unit-label">ไร่</label>
@@ -641,7 +657,7 @@
           <input type="text" class="input-income"
           pInputText
           currencyMask
-          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+
           min="0"
           max="999999.99"
           maxlength="10"
@@ -654,7 +670,7 @@
 
   </div>
 
-  <div class="content-box" id="patrol-box">
+  <div class="content-box" id="patrol-box" *ngIf="manageForm.acParent.parent_flag == '2'">
     <div class="row overide-row">
       <h4 class="custom-panel-title">ผู้อุปการะ</h4>
     </div>
@@ -695,14 +711,14 @@
         formControlName="patrol_status"
         [(ngModel)]="manageForm.acParent.patrol_status">
         </p-radioButton>
-        <label class="normal-inline">เมื่อ ค.ศ.</label>
+        <label class="normal-inline">เมื่อปี</label>
         <input type="text" pInputText
         class="input-year"
         [attr.disabled]="(manageForm.acParent.patrol_status != '2')?'':null"
         pattern="\d*"
         maxlength="4"
         minlength="4"
-        placeholder="ปี พ.ศ."
+        placeholder="ปี ค.ศ."
         formControlName="patrol_died_year"
         [(ngModel)]="manageForm.acParent.patrol_died_year">
 
@@ -722,6 +738,8 @@
         <label class="normal">วัน เดือน ปี เกิด *</label>
         <p-calendar [showIcon]="true"
         [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
+        [monthNavigator]="true" [yearNavigator]="true"
+        yearRange="1950:2050"
         formControlName="patrol_birth_date"
         [(ngModel)]="manageForm.acParent.patrol_birth_date"></p-calendar>
       </div>
@@ -741,7 +759,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">จังหวัด *</label>
-        <p-autoComplete field="province_name_t" [(ngModel)]="manageForm.patrolProvince" [suggestions]="pProvinceList"
+        <p-autoComplete class="autocomplete-province"
+          field="province_name_t" [(ngModel)]="manageForm.patrolProvince" [suggestions]="pProvinceList"
           [size]="25" (onSelect)="selectProvince(2)" [forceSelection]="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
           (completeMethod)="autocompleteProvince($event,2)"
           maxlength="30"
@@ -753,7 +772,8 @@
       </div>
       <div class="col-xs-7">
         <label class="normal">อำเภอ *</label>
-        <p-autoComplete field="district_name_t" [(ngModel)]="manageForm.patrolDistrict" [suggestions]="pDistrictList"
+        <p-autoComplete class="autocomplete-district"
+          field="district_name_t" [(ngModel)]="manageForm.patrolDistrict" [suggestions]="pDistrictList"
           [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
           [disabled]="!manageForm.acParent.patrol_province"
           (completeMethod)="autocompleteDistrict($event,2)"
@@ -769,7 +789,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">ตำบล *</label>
-        <p-autoComplete field="sub_district_name_t" [(ngModel)]="manageForm.patrolSubDistrict" [suggestions]="pSubDistrictList"
+        <p-autoComplete class="autocomplete-sub-district"
+          field="sub_district_name_t" [(ngModel)]="manageForm.patrolSubDistrict" [suggestions]="pSubDistrictList"
           (completeMethod)="autocompleteSubDistrict($event,2)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
           [disabled]="!manageForm.acParent.patrol_district"
           (onDropdownClick)="handleCompleteClickSubDistrict(2)"
@@ -890,6 +911,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.patrol_land_flag != '2')?'':null"
           formControlName="patrol_land_all"
           [(ngModel)]="manageForm.acParent.patrol_land_all">
            <label class="unit-label">ไร่</label>
@@ -904,6 +926,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.patrol_land_flag != '2')?'':null"
           formControlName="patrol_land_own"
           [(ngModel)]="manageForm.acParent.patrol_land_own">
            <label class="unit-label">ไร่</label>
@@ -918,6 +941,7 @@
           max="99.99"
           maxlength="5"
           title="กรอกได้สูงสุดไม่เกิน 99.99 ไร่"
+          [attr.disabled]="(manageForm.acParent.patrol_land_flag != '2')?'':null"
           formControlName="patrol_land_rent"
           [(ngModel)]="manageForm.acParent.patrol_land_rent">
            <label class="unit-label">ไร่</label>
@@ -932,7 +956,7 @@
           <input type="text" class="input-income"
           pInputText
           currencyMask
-          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+
           min="0"
           max="999999.99"
           maxlength="10"

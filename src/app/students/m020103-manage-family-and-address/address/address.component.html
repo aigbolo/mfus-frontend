@@ -94,7 +94,7 @@
       <div class="col-xs-12">
         <label class="normal">แนบภาพแสดงเส้นทางไปบ้านนักศึกษา</label>
         <div class="col-xs-12 direction-upload">
-          <img [src]="image" class="image-direction">
+          <img *ngIf="image != null" [src]="image" class="image-direction">
       </div>
       <div class="col-xs-12 profile-upload">
           <p-fileUpload
@@ -198,7 +198,7 @@
     <div class="row overide-row formFooter">
       <div class="col-xs-12" style="text-align:right">
         <button pButton type="button" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
-        <button pButton type="submit" class="ui-button-success" label="บันทึก" (click)="submitButtonOnClick()" ></button>
+        <button pButton type="submit" class="ui-button-success" label="บันทึก"></button>
       </div>
     </div>
   </form>

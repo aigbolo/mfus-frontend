@@ -1,3 +1,5 @@
+import { AcStudent } from './../../models/ac-student';
+import { Severity } from './../../enum';
 import { AuthenticationService } from './../../services/general/authentication.service';
 import { AcUser } from './../../models/ac-user';
 import { AddressService } from './../../services/utils/address.service';
@@ -26,6 +28,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   onLoaded = false;
 
   user: AcUser = new AcUser;
+  student: AcStudent = new AcStudent;
 
   educationLevelList: RftEducationLevel[];
   items: MenuItem[];
@@ -45,7 +48,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authService.getUser();
-    console.log(this.user);
+    this.student = this.authService.getAccount();
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
@@ -54,6 +57,18 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.fatherAddressService.initialProvince();
     this.motherAddressService.initialProvince();
     this.patrolAddressService.initialProvince();
+    this.homeAddressService.initialProvince();
+    this.currentAddressService.initialProvince();
+
+
+    this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
+      data=>{
+        console.log(data);
+        this.manageForm.acParent = data;
+      },err=>{
+        console.log(err)
+      }
+    )
   }
 
 
@@ -148,7 +163,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           ()=>{
             this.familyAndAddressService.doInsertAddress(this.manageForm.acAddress).subscribe(
               data=>{
-                console.log('Insert Address Completed')
+                console.log('Insert Address Completed');
+                this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
               },
               err=>{
                 console.log('Insert Address Error');

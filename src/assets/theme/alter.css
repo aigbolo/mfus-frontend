@@ -39,10 +39,10 @@
 
 /*input's style*/
 .input-round, .input-grade, .input-land {
-  width: 50px;
+  width: 60px;
   text-align:center;
 }
-.input-year, .input-unit {
+ .input-income{
   width: 100px;
 }
 .input-name {
@@ -54,7 +54,7 @@
 .input-address {
   width: 90%;
 }
-.input-postcode {
+.input-postcode,.input-year, .input-unit {
   width: 70px;
 }
 .input-phone, .input-scholarships-aid {

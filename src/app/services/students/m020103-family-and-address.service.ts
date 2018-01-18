@@ -24,11 +24,20 @@ export class M020103FamilyAndAddressService {
     return this.config.requestMethodPOST('address-insert',address)
   }
 
-  doUpdate(form:FamilyAndAddressForm){
-    console.log('doUpdate')
-    return this.config.requestMethodPUT('sponsors',form)
+  doGetParent(studentRef:string){
+    const param = {student_ref:studentRef}
+    return this.config.requestMethodPOST('parents-update',param);
   }
 
+  doGetSiblings(studentRef:string){
+    const param = {student_ref:studentRef}
+    return this.config.requestMethodPOST('siblings',param);
+  }
+
+  doGetAddress(studentRef:string){
+    const param = {student_ref:studentRef}
+    return this.config.requestMethodPOST('address',param);
+  }
 
 }
 

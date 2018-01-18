@@ -46,7 +46,7 @@ export class AddressComponent implements OnInit {
   ngOnInit() {
     console.log("ngOnInit");
     // this.ngProgress.start();
-    this.image = "/assets/images/empty_profile.png";
+    this.image = null;
     this.manageForm = new FamilyAndAddressForm();
     this.validatorForm();
     this.manageForm = this.familyAndAddress.getData();
