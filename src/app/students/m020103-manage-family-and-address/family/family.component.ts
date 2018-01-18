@@ -89,9 +89,9 @@ export class FamilyComponent extends CalendarModel implements OnInit {
      mother_name: new FormControl(this.manageForm.acParent.mother_name,Validators.compose([Validators.required])),
      mother_birth_date: new FormControl(this.manageForm.acParent.mother_birth_date,Validators.compose([Validators.required])),
      mother_address: new FormControl(this.manageForm.acParent.mother_address,Validators.compose([Validators.required])),
-     mother_province: new FormControl(this.manageForm.momProvince,Validators.compose([Validators.required])),
-     mother_district: new FormControl(this.manageForm.momDistrict,Validators.compose([Validators.required])),
-     mother_sub_district: new FormControl(this.manageForm.momSubDistrict,Validators.compose([Validators.required])),
+     mother_province: new FormControl(this.manageForm.acParent.mother_province,Validators.compose([Validators.required])),
+     mother_district: new FormControl(this.manageForm.acParent.mother_district,Validators.compose([Validators.required])),
+     mother_sub_district: new FormControl(this.manageForm.acParent.mother_sub_district,Validators.compose([Validators.required])),
      mother_postcode: new FormControl(this.manageForm.acParent.mother_postcode),
      mother_phone: new FormControl(this.manageForm.acParent.mother_phone),
      mother_email: new FormControl(this.manageForm.acParent.mother_email),
@@ -113,9 +113,9 @@ export class FamilyComponent extends CalendarModel implements OnInit {
      patrol_name: new FormControl(this.manageForm.acParent.patrol_name),
      patrol_birth_date: new FormControl(this.manageForm.acParent.patrol_birth_date),
      patrol_address: new FormControl(this.manageForm.acParent.patrol_address),
-     patrol_province: new FormControl(this.manageForm.patrolProvince),
-     patrol_district: new FormControl(this.manageForm.patrolDistrict),
-     patrol_sub_district: new FormControl(this.manageForm.patrolSubDistrict),
+     patrol_province: new FormControl(this.manageForm.acParent.patrol_province),
+     patrol_district: new FormControl(this.manageForm.acParent.patrol_district),
+     patrol_sub_district: new FormControl(this.manageForm.acParent.patrol_sub_district),
      patrol_postcode: new FormControl(this.manageForm.acParent.patrol_postcode),
      patrol_phone: new FormControl(this.manageForm.acParent.patrol_phone),
      patrol_email: new FormControl(this.manageForm.acParent.patrol_email),
@@ -219,15 +219,20 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
 
  autocompleteProvince(event,seq: number) {
-   console.log("autocompleteProvince: "+seq);
+   let e = event.originalEvent;
+console.log('event is: '+e.type);
    let query = event.query;
    if(seq == 0){
      this.fProvinceList = [];
-     this.manageForm.dadDistrict = new RftDistrict();
-     this.manageForm.dadSubDistrict = new RftSubDistrict();
-     this.manageForm.acParent.father_province = null;
-     this.manageForm.acParent.father_postcode = null;
      let objList: RftProvince[];
+     if(e.type == 'input'){
+      this.manageForm.dadDistrict = new RftDistrict();
+      this.manageForm.dadSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.father_province = null;
+      this.manageForm.acParent.father_district = null;
+      this.manageForm.acParent.father_sub_district = null;
+      this.manageForm.acParent.father_postcode = null;
+     }
      objList = this.familyAndAddress.fatherAddressService.getProvinces();
      for (let obj of objList) {
        // Filter By string event
@@ -238,10 +243,15 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    }
    if(seq == 1){
      this.mProvinceList = [];
-     this.manageForm.momDistrict = new RftDistrict();
-     this.manageForm.momSubDistrict = new RftSubDistrict();
-     this.manageForm.acParent.mother_postcode = null;
      let objList: RftProvince[];
+     if(e.type == 'input'){
+      this.manageForm.momDistrict = new RftDistrict();
+      this.manageForm.momSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.mother_province = null;
+      this.manageForm.acParent.mother_district = null;
+      this.manageForm.acParent.mother_sub_district = null;
+      this.manageForm.acParent.mother_postcode = null;
+     }
      objList = this.familyAndAddress.motherAddressService.getProvinces();
      for (let obj of objList) {
        // Filter By string event
@@ -252,10 +262,15 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    }
    if(seq == 2){
      this.pProvinceList = [];
-     this.manageForm.patrolDistrict = new RftDistrict();
-     this.manageForm.patrolSubDistrict = new RftSubDistrict();
-     this.manageForm.acParent.patrol_postcode = null;
      let objList: RftProvince[];
+     if(e.type == 'input'){
+      this.manageForm.patrolDistrict = new RftDistrict();
+      this.manageForm.patrolSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.patrol_province = null;
+      this.manageForm.acParent.patrol_district = null;
+      this.manageForm.acParent.patrol_sub_district = null;
+      this.manageForm.acParent.patrol_postcode = null;
+     }
      objList = this.familyAndAddress.patrolAddressService.getProvinces();
      for (let obj of objList) {
        // Filter By string event
@@ -289,7 +304,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    }
    if(seq == 1){
     this.fDistrictList = [];
-    this.manageForm.momSubDistrict = new RftSubDistrict();
     let objList: RftDistrict[];
     objList = this.familyAndAddress.motherAddressService.getDistricts();
     for (let obj of objList) {
@@ -305,7 +319,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
   }
   if(seq == 2){
     this.fDistrictList = [];
-    this.manageForm.patrolSubDistrict = new RftSubDistrict();
     let objList: RftDistrict[];
     objList = this.familyAndAddress.patrolAddressService.getDistricts();
     for (let obj of objList) {
@@ -327,59 +340,32 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    let query = event.query;
    if(seq == 0){
     this.fSubDistrictList = [];
-    let objList: RftSubDistrict[];
-    objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
+    let objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
     for (let obj of objList) {
       // Filter By string event
-      if (obj.province_ref == this.manageForm.dadProvince.province_ref) {
-        if (obj.district_ref == this.manageForm.dadDistrict.district_ref) {
-          if (
-            obj.sub_district_name_t
-              .toLowerCase()
-              .indexOf(query.toLowerCase()) == 0
-          ) {
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
             this.fSubDistrictList.push(obj);
           }
-        }
-      }
     }
    }
    if(seq == 1){
     this.mSubDistrictList = [];
-    let objList: RftSubDistrict[];
-    objList = this.familyAndAddress.motherAddressService.getSubDistricts();
+    let objList = this.familyAndAddress.motherAddressService.getSubDistricts();
     for (let obj of objList) {
       // Filter By string event
-      if (obj.province_ref == this.manageForm.momProvince.province_ref) {
-        if (obj.district_ref == this.manageForm.momDistrict.district_ref) {
-          if (
-            obj.sub_district_name_t
-              .toLowerCase()
-              .indexOf(query.toLowerCase()) == 0
-          ) {
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
             this.mSubDistrictList.push(obj);
           }
-        }
-      }
     }
   }
   if(seq == 2){
     this.pSubDistrictList = [];
-    let objList: RftSubDistrict[];
-    objList = this.familyAndAddress.patrolAddressService.getSubDistricts();
+    let objList = this.familyAndAddress.patrolAddressService.getSubDistricts();
     for (let obj of objList) {
       // Filter By string event
-      if (obj.province_ref == this.manageForm.patrolProvince.province_ref) {
-        if (obj.district_ref == this.manageForm.patrolDistrict.district_ref) {
-          if (
-            obj.sub_district_name_t
-              .toLowerCase()
-              .indexOf(query.toLowerCase()) == 0
-          ) {
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
             this.pSubDistrictList.push(obj);
           }
-        }
-      }
     }
   }
 
@@ -390,22 +376,16 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    if (index == 0) {
       setTimeout(()=>{
         this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
-        this.fDistrictList = [];
-        this.fSubDistrictList = [];
       },100);
    }
    if (index == 1) {
       setTimeout(()=>{
         this.mProvinceList = this.familyAndAddress.motherAddressService.getProvinces();
-        this.mDistrictList = [];
-        this.mSubDistrictList = [];
       },100);
    }
    if (index == 2) {
      setTimeout(()=>{
       this.pProvinceList = this.familyAndAddress.patrolAddressService.getProvinces();
-      this.pDistrictList = [];
-      this.pSubDistrictList = [];
 
      },100);
 
@@ -459,12 +439,30 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  selectProvince(index: number) {
   if(index == 0){
     this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
+    this.manageForm.acParent.father_province = this.manageForm.dadProvince.province_ref;
+    this.manageForm.dadDistrict = null;
+    this.manageForm.dadSubDistrict = null;
+    this.manageForm.acParent.father_district = null;
+    this.manageForm.acParent.father_sub_district = null;
+    this.manageForm.acParent.father_postcode = null;
   }
   if(index == 1){
     this.familyAndAddress.motherAddressService.initialDistrict(this.manageForm.momProvince.province_ref);
+    this.manageForm.acParent.mother_province = this.manageForm.momProvince.province_ref;
+    this.manageForm.momDistrict = null;
+    this.manageForm.momSubDistrict = null;
+    this.manageForm.acParent.mother_district = null;
+    this.manageForm.acParent.mother_sub_district = null;
+    this.manageForm.acParent.mother_postcode = null;
   }
   if(index == 2){
     this.familyAndAddress.patrolAddressService.initialDistrict(this.manageForm.patrolProvince.province_ref);
+    this.manageForm.acParent.patrol_province = this.manageForm.patrolProvince.province_ref;
+    this.manageForm.patrolDistrict = null;
+    this.manageForm.patrolSubDistrict = null;
+    this.manageForm.acParent.patrol_district = null;
+    this.manageForm.acParent.patrol_sub_district = null;
+    this.manageForm.acParent.patrol_postcode = null;
   }
 
  }
@@ -472,24 +470,30 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  selectDistrict(index: number) {
   if(index == 0){
     this.familyAndAddress.fatherAddressService.initialSubDistrict(this.manageForm.dadDistrict.district_ref);
+    this.manageForm.acParent.father_district = this.manageForm.dadDistrict.district_ref;
   }
   if(index == 1){
     this.familyAndAddress.motherAddressService.initialSubDistrict(this.manageForm.momDistrict.district_ref);
+    this.manageForm.acParent.mother_district = this.manageForm.momDistrict.district_ref;
   }
   if(index == 2){
     this.familyAndAddress.patrolAddressService.initialSubDistrict(this.manageForm.patrolDistrict.district_ref);
+    this.manageForm.acParent.patrol_district = this.manageForm.patrolDistrict.district_ref;
   }
  }
 
 
  selectSubDistrict(index: number) {
   if(index == 0){
+    this.manageForm.acParent.father_sub_district = this.manageForm.dadSubDistrict.sub_district_ref;
     this.manageForm.acParent.father_postcode = this.manageForm.dadSubDistrict.postcode;
   }
   if(index == 1){
+    this.manageForm.acParent.mother_sub_district = this.manageForm.momSubDistrict.sub_district_ref;
     this.manageForm.acParent.mother_postcode = this.manageForm.momSubDistrict.postcode;
   }
   if(index == 2){
+    this.manageForm.acParent.patrol_sub_district = this.manageForm.patrolSubDistrict.sub_district_ref;
     this.manageForm.acParent.patrol_postcode = this.manageForm.patrolSubDistrict.postcode;
   }
  }

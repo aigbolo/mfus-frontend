@@ -1,3 +1,5 @@
+import { NavbarComponent } from './../../../layout/navbar/navbar.component';
+import { UtilsService } from './../../../services/utils/utils.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private layout: LayoutService,
     private authService: AuthenticationService,
+    private utilsService: UtilsService,
     public ngProgress: NgProgress
   ) {
     this.layout.clearPageHeader();
@@ -47,10 +50,12 @@ export class LoginComponent implements OnInit {
             this.logedinFalse = false;
             localStorage.setItem('token', user.ac_user.api_token);
             localStorage.setItem('user', JSON.stringify(user.ac_user));
-            this.router.navigateByUrl('/');
+
             this.authService.setLoggedinStage(user.ac_user.api_token);
             this.authService.setAccountInfo(user.ac_user);
-            this.layout.setDisplayName(user.ac_user.user_id);
+            this.layout.setDisplayName(localStorage.getItem('username'));
+            // this.router.navigateByUrl('/');
+            this.utilsService.goToPage("/");
             return
           }
           this.logedinFalse = true;

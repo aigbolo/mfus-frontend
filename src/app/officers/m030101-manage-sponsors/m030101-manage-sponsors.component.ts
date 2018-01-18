@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/general/authentication.service';
 
 import { Severity } from './../../enum';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +15,7 @@ import { Component, OnInit } from '@angular/core';
 import { RftDistrict } from '../../models/rft-district';
 import { SponsorsForm } from '../../forms/sponsors-form';
 import { NgProgress } from 'ngx-progressbar';
+import { AcUser } from '../../models/ac-user';
 
 @Component({
   selector: "app-m030101-manage-sponsors",
@@ -22,7 +24,7 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class M030101ManageSponsorsComponent implements OnInit {
   pageRender = false;
-  user = localStorage.getItem('username');
+  user: AcUser = new AcUser;
   manageForm: SponsorsForm = new SponsorsForm();
   manageFormGroup: FormGroup;
 
@@ -43,12 +45,14 @@ export class M030101ManageSponsorsComponent implements OnInit {
     private layoutService: LayoutService,
     private referenceService: ReferenceService,
     private utilsService: UtilsService,
+    private authService: AuthenticationService,
     private sponsorsService: M030101SponsorsService,
     private route: ActivatedRoute,
     public ngProgress: NgProgress
   ) {}
 
   ngOnInit() {
+    this.user = this.authService.getUser();
     this.ngProgress.start();
     this.layoutService.setPageHeader("บันทึกข้อมูลผู้ให้ทุนการศึกษา");
     this.image = "../../assets/images/empty_profile.png";
@@ -57,8 +61,8 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
     this.validatorForm();
     this.manageForm.sponsors.active_flag = "Y";
-    this.manageForm.sponsors.create_user = this.user;
-    this.manageForm.sponsors.update_user = this.user;
+    this.manageForm.sponsors.create_user = this.user.user_ref;
+    this.manageForm.sponsors.update_user = this.user.user_ref;
 
     if (this.route.snapshot.params["id"] != null) {
       this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["id"];

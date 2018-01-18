@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/general/authentication.service';
 import { AcUser } from './../../models/ac-user';
 import { AddressService } from './../../services/utils/address.service';
 import { NgProgress } from 'ngx-progressbar';
@@ -24,8 +25,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   sibling: AcSibling = new AcSibling();
   onLoaded = false;
 
-  user = localStorage.getItem('user')
-  usr :AcUser = JSON.parse(localStorage.getItem('user'));
+  user: AcUser = new AcUser;
 
   educationLevelList: RftEducationLevel[];
   items: MenuItem[];
@@ -40,10 +40,12 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     public patrolAddressService: AddressService,
     public homeAddressService: AddressService,
     public currentAddressService: AddressService,
+    private authService: AuthenticationService,
     private ngProgress: NgProgress) {}
 
   ngOnInit() {
-    console.log(this.usr);
+    this.user = this.authService.getUser();
+    console.log(this.user);
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
@@ -70,18 +72,18 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.manageForm.acParent.patrol_land_flag = "1";
 
 
-    this.manageForm.acParent.student_ref = this.user;
-    this.manageForm.acParent.create_user = this.user;
-    this.manageForm.acParent.update_user = this.user;
-    this.manageForm.acAddress.student_ref = this.user;
-    this.manageForm.acAddress.create_user = this.user;
-    this.manageForm.acAddress.update_user = this.user;
+    this.manageForm.acParent.student_ref = this.user.account_ref;
+    this.manageForm.acParent.create_user = this.user.user_ref;
+    this.manageForm.acParent.update_user = this.user.user_ref;
+    this.manageForm.acAddress.student_ref = this.user.account_ref;
+    this.manageForm.acAddress.create_user = this.user.user_ref;
+    this.manageForm.acAddress.update_user = this.user.user_ref;
 
     this.manageForm.siblingList = [];
     this.sibling = new AcSibling();
-    this.sibling.student_ref = this.user;
-    this.sibling.create_user = this.user;
-    this.sibling.update_user = this.user;
+    this.sibling.student_ref = this.user.account_ref;
+    this.sibling.create_user = this.user.user_ref;
+    this.sibling.update_user = this.user.user_ref;
     this.manageForm.siblingList.push(this.sibling);
   }
   }
@@ -125,11 +127,41 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   onSubmit(form: FamilyAndAddressForm){
     this.manageForm = new FamilyAndAddressForm();
     this.manageForm = form;
-    console.log("home_address = " + form.acAddress.home_address);
-    console.log("home_address = " + this.manageForm.acAddress.home_address);
 
+    this.familyAndAddressService.doInsertParent(this.manageForm.acParent).subscribe(
+      data=>{
+        console.log('Insert Parent Completed')
+      },
+      err=>{
+        console.log('Insert Parent Error');
+        console.log(err);
+      },
+      ()=>{
+        this.familyAndAddressService.doInsertSibling(this.manageForm.siblingList).subscribe(
+          data=>{
+            console.log('Insert Siblings Completed')
+          },
+          err=>{
+            console.log('Insert Siblings Error');
+            console.log(err);
+          },
+          ()=>{
+            this.familyAndAddressService.doInsertAddress(this.manageForm.acAddress).subscribe(
+              data=>{
+                console.log('Insert Address Completed')
+              },
+              err=>{
+                console.log('Insert Address Error');
+                console.log(err);
+              },
+              ()=>{
 
-    this.familyAndAddressService.doInsert(this.manageForm).subscribe();
+              }
+            )
+          }
+        )
+      }
+    )
   }
 
 }

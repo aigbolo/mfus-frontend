@@ -22,6 +22,7 @@ export class NavbarComponent implements OnDestroy {
     private auth: AuthenticationService,
     private router: Router
   ) {
+
     this.subscriptionStatus = this.auth.getLoggedinStage().subscribe(status => { this.status = status })
     this.subscriptionDisplay = this.layout.getDisplayName().subscribe(name => { this.displayName = name })
   }
