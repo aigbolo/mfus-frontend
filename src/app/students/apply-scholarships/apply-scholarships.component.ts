@@ -18,6 +18,8 @@ export class ApplyScholarshipsComponent implements OnInit {
   applyApplicationForm: ApplyScholarshipForm = new ApplyScholarshipForm();
   applicationFormGroup: FormGroup
   page_header: string;
+  user_ref: string = "pAVhtdlBQA9KN6MB1rw6hLd5a55fd0c84d08"
+  account_ref: string = "Vg518d4wKwGFh19dDiMSkKE5a55fd0c6d816"
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,
@@ -30,54 +32,34 @@ export class ApplyScholarshipsComponent implements OnInit {
     this.ngProgress.start()
     this.utilsService.getApplicationStep();
     this.getApplicationData();
-    this.validateForm();
   }
 
-  validateForm(){
-    this.applicationFormGroup = new FormGroup({
-      //applicant
-      collage_year: new FormControl(this.applyApplicationForm.apApplication.collage_year = '1',
-    Validators.compose([Validators.required])),
-      gpax: new FormControl(this.applyApplicationForm.apApplication.gpax,
-        Validators.compose([Validators.required,Validators.max(4.00)])),
-      advisor_name: new FormControl(this.applyApplicationForm.apApplication.advisor_name,
-        Validators.compose([Validators.required])),
-      livelihood: new FormControl(this.applyApplicationForm.apApplication.livelihood,
-        Validators.compose([Validators.required])),
-      //student
-      phone_no: new FormControl(this.applyApplicationForm.acStudent.phone_no,
-        Validators.compose([Validators.required])),
-      email: new FormControl(this.applyApplicationForm.acStudent.email,
-        Validators.compose([Validators.required]))
-    })
-  }
 
   getApplicationData() {
     this.applyScholarshipService
-      .getApplySchcolarshipData("Vg518d4wKwGFh19dDiMSkKE5a55fd0c6d816")
+      .getApplySchcolarshipData(this.account_ref)
       .subscribe(data => {
+        console.log(data)
         this.applyApplicationForm.acStudent = data;
+
+        this.applyApplicationForm.student_name = data.student_name
+        this.applyApplicationForm.school_name_t = data.school_name_t
+        this.applyApplicationForm.major_name_t = data.major_name_t
+
         this.applyApplicationForm.birth_day = this.utilsService.getBirthDay(
           data.birth_date
         );
-        this.applyApplicationForm.fullname =
-          data.first_name_t + " " + data.last_name_t;
+        this.applyApplicationForm.gender = this.utilsService.getGender(
+          data.gender
+        );
         this.applyApplicationForm.age = this.utilsService.getAge(
           data.birth_date
         );
-        this.applyApplicationForm.acStudent.gender = this.utilsService.getGender(
-          data.gender
-        );
-        this.referenceService
-          .getSchoolByRef(data.school_ref)
-          .subscribe(data => {
-            this.applyApplicationForm.rftSchool = data;
-          });
-        this.referenceService.getMajorByRef(data.major_ref).subscribe(data => {
-          this.applyApplicationForm.rftMajor = data;
-        });
         this.pageRender = true;
         this.ngProgress.done()
+      },error=>{
+        console.log(error)
+      }, ()=>{
       });
 
   }

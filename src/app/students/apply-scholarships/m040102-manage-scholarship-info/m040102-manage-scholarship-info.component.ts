@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UtilsService } from './../../../services/utils/utils.service';
 import { M040101ApplyScholarshipService } from './../../../services/students/m040101-apply-scholarship.service';
 import { SmScholarshipAnnouncement } from './../../../models/sm-scholarship-announcement';
@@ -15,7 +16,10 @@ import { ReferenceService } from '../../../services/general/reference.service';
 })
 export class M040102ManageScholarshipInfoComponent implements OnInit {
 
+  scholarshipFormGroup: FormGroup
   autocompleteScholarshipAnnouncementList: any[] = []
+  apScholarshipHistory:ApScholarshipHistory = new ApScholarshipHistory
+  apStudentLoanFund: ApStudentLoanFund = new ApStudentLoanFund
   initialList: any[] = []
   constructor(public applyApplication: ApplyScholarshipsComponent,
               private applyScholarshipService: M040101ApplyScholarshipService,
@@ -24,6 +28,16 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
 
   ngOnInit() {
     this.initialScholarshipAnnouncement()
+    this.validateForm()
+  }
+
+  validateForm(){
+    this.scholarshipFormGroup = new FormGroup({
+      scholarshipAnnouncementName: new FormControl(this.applyApplication.applyApplicationForm.smScholarshipAnnouncement,
+        Validators.compose([Validators.required])),
+      money_spend_plan: new FormControl(this.applyApplication.applyApplicationForm.apApplication.money_spend_plan,
+        Validators.compose([Validators.required])),
+    })
   }
 
   initialScholarshipAnnouncement() {
@@ -65,7 +79,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   addScholarship(){
-    this.applyApplication.applyApplicationForm.apScholarshipHistory.push(new ApScholarshipHistory)
+    let scholarshipHistory = new ApScholarshipHistory()
+    scholarshipHistory.create_user = this.applyApplication.user_ref
+    scholarshipHistory.update_user = this.applyApplication.user_ref
+    scholarshipHistory.student_ref = this.applyApplication.account_ref
+    this.applyApplication.applyApplicationForm.apScholarshipHistory.push(scholarshipHistory)
   }
 
   deleteScholarship(obj: ApScholarshipHistory){
@@ -73,7 +91,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   addStdLoan(){
-    this.applyApplication.applyApplicationForm.apStudentLoanFund.push(new ApStudentLoanFund)
+    let studentLoanFund = new ApStudentLoanFund()
+    studentLoanFund.create_user = this.applyApplication.user_ref
+    studentLoanFund.update_user = this.applyApplication.user_ref
+    studentLoanFund.student_ref = this.applyApplication.account_ref
+    this.applyApplication.applyApplicationForm.apStudentLoanFund.push(studentLoanFund)
   }
 
   deleteStdLoan(obj: ApStudentLoanFund){
@@ -81,7 +103,14 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   onNext(){
-    console.log(this.applyApplication.applyApplicationForm)
+    console.log('next')
+    if (this.scholarshipFormGroup.invalid) {
+      console.log('valid')
+      this.utilsService.findInvalidControls(this.scholarshipFormGroup);
+      return;
+    }
+    this.applyApplication.applyApplicationForm.apApplication.create_user = this.applyApplication.user_ref
+    this.applyApplication.applyApplicationForm.apApplication.update_user = this.applyApplication.user_ref
     this.referenceService.nextIndex(2)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }

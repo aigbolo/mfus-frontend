@@ -105,6 +105,7 @@ export class UtilsService {
     for (const name in controls) {
       if (!controls[name].valid) {
         controls[name].markAsDirty();
+        console.log(name)
       }
     }
   }
@@ -281,7 +282,9 @@ export class UtilsService {
   }
 
   getBirthDay(birth_date: Date) {
+    console.log(birth_date)
     let date = new Date(birth_date);
+    console.log(date)
      let birthday =
       date.getDate() +
       " " +

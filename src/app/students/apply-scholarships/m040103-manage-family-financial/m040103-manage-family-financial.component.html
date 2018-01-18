@@ -1,48 +1,98 @@
-<div class="row overide-row">
-    <h4 class="custom-panel-title">รายรับ - รายจ่าย</h4>
-</div>
-<div class="row overide-row">
-    <div class="col-xs-3">
-        <label class="normal">รายรับ</label>
-        <input type="number" name="income_monthly" [(ngModel)]="applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly" pInputText>
+<form *ngIf="applyApplication.pageRender" [formGroup]="familyFinancialFormGroup" (ngSubmit)="onNext()">
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">รายรับ - รายจ่าย</h4>
     </div>
-    <div class="col-xs-1"></div>
-    <div class="col-xs-3">
-        <label for="" class="normal">รายจ่าย</label>
-        <input type="number" name="expense_monthly" [(ngModel)]="applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly" pInputText>
+    <div class="row overide-row">
+        <div class="col-xs-3">
+            <label class="normal">รายรับ</label>
+            <input type="text"
+              name="income_monthly"
+              [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+              min="0"
+              max="999999.99"
+              maxlength="10"
+              formControlName="income_monthly"
+              currencyMask
+              [(ngModel)]="applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly"
+              pInputText>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-3">
+            <label for="" class="normal">รายจ่าย</label>
+            <input type="text"
+              name="expense_monthly"
+              [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+              min="0"
+              max="999999.99"
+              maxlength="10"
+              currencyMask
+              formControlName="expense_monthly"
+              [(ngModel)]="applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly"
+              pInputText>
+        </div>
     </div>
-</div>
-<div class="row overide-row">
-    <h4 class="custom-panel-title">ภาระหนี้สินครอบครัว</h4>
-    <div class="col-xs-12">
-        <p-dataTable [value]="applyApplication.applyApplicationForm.apFamiyDebt" [immutable]=false>
-            <p-column header="ลำดับ" field="seq" styleClass="datatable-index">
-                <ng-template let-col let-obj="rowIndex" pTemplate="body">
-                    {{obj+1}}
-                </ng-template>
-            </p-column>
-            <p-column header="รายละเอียด" field="debt_detail">
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" [(ngModel)]="obj.debt_detail" pInputText>
-                </ng-template>
-            </p-column>
-            <p-column field="debt_amount">
-                <ng-template pTemplate="header">
-                    <div class="text-left">จำนวน(บาท)</div>
-                    <button type="button" pButton class="ui-button-success btn-position" icon="fa-plus" (click)="addRow()"></button>
-                </ng-template>
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" pInputText maxlength="4" [(ngModel)]="obj.money_amount">
-                    <button type="button" pButton class="ui-button-warning btn-position" icon="fa-minus" (click)="deleteRow(obj)"></button>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">ภาระหนี้สินครอบครัว</h4>
+        <div class="col-xs-12">
+            <p-dataTable [value]="applyApplication.applyApplicationForm.apFamiyDebt" [immutable]=false>
+                <p-column header="ลำดับ" field="seq" styleClass="datatable-index">
+                    <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                        {{obj+1}}
+                    </ng-template>
+                </p-column>
+                <p-column header="รายละเอียด" field="debt_detail">
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="obj.debt_detail"
+                          pInputText>
+                    </ng-template>
+                </p-column>
+                <p-column field="debt_amount">
+                    <ng-template pTemplate="header">
+                        <div class="text-left">จำนวน(บาท)</div>
+                        <button class="ui-button-success btn-position"
+                          type="button"
+                          icon="fa-plus"
+                          (click)="addRow()"
+                          pButton>
+                        </button>
+                    </ng-template>
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [ngModelOptions]="{standalone: true}"
+                          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+                          min="0"
+                          max="999999.99"
+                          maxlength="10"
+                          currencyMask
+                          [(ngModel)]="obj.money_amount"
+                          pInputText>
+                        <button class="ui-button-warning btn-position"
+                          type="button"
+                          icon="fa-minus"
+                          (click)="deleteRow(obj)"
+                          pButton>
+                        </button>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
     </div>
-</div>
-<div class="space"></div>
-<div class="row formFooter overide-row">
-    <div class="col-xs-12">
-        <button pButton type="button" class="btn-primary" (click)="onNext()" label="ต่อไป" style="float:right;"></button>
-        <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ" style="float:right;"></button>
+    <div class="space"></div>
+    <div class="row formFooter overide-row">
+        <div class="col-xs-12  text-right">
+            <button class="ui-button-primary"
+              type="submit"
+              label="ต่อไป"
+              pButton>
+            </button>
+            <button class="ui-button-warning"
+              type="button"
+              (click)="onPrevious()"
+              label="กลับ"
+              pButton>
+            </button>
+        </div>
     </div>
-</div>
+</form>

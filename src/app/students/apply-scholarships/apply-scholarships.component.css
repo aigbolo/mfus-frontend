@@ -43,7 +43,15 @@ span.ui-button-icon-left.ui-clickable.fa.fa-fw.fa-minus{
   float: left;
 }
 
+.text-right{
+  float: right
+}
+
 .txt-area-center{
   width: 80%;
   margin-left: 10%
+}
+
+li.ng-star-inserted{
+  padding-bottom: 2px
 }

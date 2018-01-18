@@ -23,10 +23,10 @@ export class ApplyScholarshipForm{
   public acParent: AcParent
   public acSibling: AcSibling
   public acAddress: AcAddress
-  public apDocumentUpload: ApDocumentUpload
+  public apDocumentUpload: ApDocumentUpload[]
   public rftSchool: RftSchool
   public rftMajor: RftMajor
-  public fullname: string
+  public student_name: string
   public age: number
   public birth_day: string
   public year: string
@@ -36,6 +36,9 @@ export class ApplyScholarshipForm{
   public sctype_name: string
   public sponsors_name: string
   public documentList: any[]
+  public school_name_t: string
+  public major_name_t: string
+  public gender: string
 
   constructor(){
     this.acStudent = new AcStudent()
@@ -48,10 +51,10 @@ export class ApplyScholarshipForm{
     this.acParent = new AcParent
     this.acSibling = new AcSibling
     this.acAddress = new AcAddress
-    this.apDocumentUpload = new ApDocumentUpload
+    this.apDocumentUpload = []
     this.rftSchool = new RftSchool
     this.rftMajor = new RftMajor
-    this.fullname = ""
+    this.student_name = ""
     this.age = null
     this.birth_day = ""
     this.year = ""
@@ -61,5 +64,8 @@ export class ApplyScholarshipForm{
     this.sctype_name = ""
     this.sponsors_name = ""
     this.documentList = []
+    this.school_name_t = ""
+    this.major_name_t = ""
+    this.gender = ""
   }
 }

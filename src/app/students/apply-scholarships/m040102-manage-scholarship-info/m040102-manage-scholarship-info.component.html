@@ -1,117 +1,183 @@
-<div class="row overide-row">
-    <h4 class="custom-panel-title">ข้อมูลทุนการศึกษา</h4>
-</div>
-<div class="row overide-row" styleClass="fullWidth">
-    <div class="col-xs-12">
-        <label class="normal">ทุนการศึกษา *</label>
-        <p-autoComplete
-          [suggestions]="autocompleteScholarshipAnnouncementList"
-          name="name"
-          [(ngModel)]="applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement"
-          (onSelect)="selectedData()"
-          [dropdown]="true"
-          (completeMethod)="autocompleteScholarship($event)"
-          (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
-          field="name"
-          size="85"
-          forceselection="true"
-          name="autocompleteScholarship">
-        </p-autoComplete>
+<form *ngIf="applyApplication.pageRender" [formGroup]="scholarshipFormGroup" (ngSubmit)="onNext()">
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">ข้อมูลทุนการศึกษา</h4>
     </div>
-</div>
-<div class="row overide-row">
-    <div class="col-xs-3">
-        <label class="normal" >ประเภททุนการศึกษา</label>
-        {{applyApplication.applyApplicationForm.sctype_name}}
+    <div class="row overide-row" styleClass="fullWidth">
+        <div class="col-xs-12">
+            <label class="normal">ทุนการศึกษา *</label>
+            <p-autoComplete
+              [suggestions]="autocompleteScholarshipAnnouncementList"
+              formControlName="scholarshipAnnouncementName"
+              [(ngModel)]="applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement"
+              (onSelect)="selectedData()"
+              [dropdown]="true"
+              (completeMethod)="autocompleteScholarship($event)"
+              (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
+              field="name" size="85"
+              [forceSelection]="true"
+              name="autocompleteScholarship">
+            </p-autoComplete>
+        </div>
     </div>
-    <div class="col-xs-6">
-        <label class="normal" >ผู้สนับสนุน</label>
-        {{applyApplication.applyApplicationForm.sponsors_name}}
+    <div class="row overide-row">
+        <div class="col-xs-3">
+            <label class="normal">ประเภททุนการศึกษา</label>
+            {{applyApplication.applyApplicationForm.sctype_name}}
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">ผู้สนับสนุน</label>
+            {{applyApplication.applyApplicationForm.sponsors_name}}
+        </div>
+        <div class="col-xs-3">
+            <label class="normal">เกรดขั้นต่ำ</label>
+            {{applyApplication.applyApplicationForm.min_gpax}}
+        </div>
     </div>
-    <div class="col-xs-3">
-        <label class="normal" >เกรดขั้นต่ำ</label>
-        {{applyApplication.applyApplicationForm.min_gpax}}
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label for="" class="normal">รายละเอียดทุนการศึกษา</label>
+            {{applyApplication.applyApplicationForm.detail}}
+        </div>
     </div>
-</div>
-<div class="row overide-row">
-    <div class="col-xs-12">
-        <label for="" class="normal" >รายละเอียดทุนการศึกษา</label>
-        {{applyApplication.applyApplicationForm.detail}}
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">ประวัติทุนการศึกษา (ทุกประเภท)</h4>
     </div>
-</div>
-<div class="row overide-row">
-    <h4 class="custom-panel-title">ประวัติทุนการศึกษา (ทุกประเภท)</h4>
-</div>
-<div class="row overide-row">
-    <div class="col-xs-12">
-        <p-dataTable [value]="applyApplication.applyApplicationForm.apScholarshipHistory" [immutable]="false">
-            <p-column header="ลำดับ" field="seq" styleClass="datatable-index">
-                <ng-template let-col let-obj="rowIndex" pTemplate="body" >
-                    {{obj+1}}
-                </ng-template>
-            </p-column>
-            <p-column header="ชื่อทุนการศึกษา" field="scholarship_name">
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" name="scholarship_name" [(ngModel)]="obj.scholarship_name" pInputText>
-                </ng-template>
-            </p-column>
-            <p-column header="ปีการศึกษา" field="year" size="20px">
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" name="scholarship_year" [(ngModel)]="obj.year" maxlength="4" pInputText>
-                </ng-template>
-            </p-column>
-            <p-column field="debt_amount">
-                <ng-template pTemplate="header">
-                    <div class="text-left">จำนวน(บาท)</div>
-                    <button type="button" pButton class="ui-button-success btn-position" icon="fa-plus" (click)="addScholarship()"></button>
-                </ng-template>
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" name="scholarship_amount" [(ngModel)]="obj.money_amount" maxlength="8" pInputText>
-                    <button type="button" pButton class="ui-button-warning btn-position" icon="fa-minus" (click)="deleteScholarship(obj)"></button>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <p-dataTable
+              [value]="applyApplication.applyApplicationForm.apScholarshipHistory"
+              [immutable]="false">
+                <p-column styleClass="datatable-index"  header="ลำดับ"  field="seq">
+                    <ng-template
+                      let-col
+                      let-obj="rowIndex"
+                      pTemplate="body">
+                        {{obj+1}}
+                    </ng-template>
+                </p-column>
+                <p-column header="ชื่อทุนการศึกษา" field="scholarship_name">
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="obj.scholarship_name"
+                          pInputText>
+                    </ng-template>
+                </p-column>
+                <p-column header="ปีการศึกษา" field="year" size="20px">
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [(ngModel)]="obj.year"
+                          [ngModelOptions]="{standalone: true}"
+                          minlength="4"
+                          maxlength="4"
+                          pInputText>
+                    </ng-template>
+                </p-column>
+                <p-column field="debt_amount">
+                    <ng-template pTemplate="header">
+                        <div class="text-left">จำนวน(บาท)</div>
+                        <button class="ui-button-success btn-position"
+                          type="button"
+                          icon="fa-plus"
+                          (click)="addScholarship()"
+                          pButton>
+                        </button>
+                    </ng-template>
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [(ngModel)]="obj.money_amount"
+                          [ngModelOptions]="{standalone: true}"
+                          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+                          min="0"
+                          max="999999.99"
+                          currencyMask
+                          pInputText>
+                        <button class="ui-button-warning btn-position"
+                          type="button"
+                          icon="fa-minus"
+                          (click)="deleteScholarship(obj)"
+                          pButton>
+                        </button>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
     </div>
-</div>
-<div class="row overide-row">
-    <h4 class="custom-panel-title">กองทุนกู้ยืมเพื่อการศึกษา</h4>
-</div>
-<div class="row overide-row">
-    <div class="col-xs-12 txt-area-center">
-        <p-dataTable [value]="applyApplication.applyApplicationForm.apStudentLoanFund" [immutable]="false" >
-            <p-column header="ลำดับ" field="student_loan_seq" styleClass="datatable-index">
-                <ng-template let-col let-obj="rowIndex" pTemplate="body">
-                    {{obj+1}}
-                </ng-template>
-            </p-column>
-            <p-column header="ปีการศึกษา" field="year" >
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" pInputText maxlength="4" [(ngModel)]="obj.year">
-                </ng-template>
-            </p-column>
-            <p-column field="money_amount">
-                <ng-template pTemplate="header">
-                    <div class="text-left">จำนวน(บาท)</div>
-                    <button type="button" pButton class="ui-button-success btn-position" icon="fa-plus" (click)="addStdLoan()"></button>
-                </ng-template>
-                <ng-template let-col let-obj="rowData" pTemplate="body">
-                    <input type="text" pInputText maxlength="4" [(ngModel)]="obj.money_amount" >
-                    <button type="button" pButton class="ui-button-warning btn-position" icon="fa-minus" (click)="deleteStdLoan(obj)" ></button>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">กองทุนกู้ยืมเพื่อการศึกษา</h4>
     </div>
-</div>
-<div class="row overide-row">
-    <h4 class="custom-panel-title">แผนการใช้เงิน</h4>
-    <div class="col-xs-12 txt-area-center">
-            <textarea
-            class="fullWidth" pInputTextarea [(ngModel)]="applyApplication.applyApplicationForm.apApplication.money_spend_plan"></textarea>
+    <div class="row overide-row">
+        <div class="col-xs-12 txt-area-center">
+            <p-dataTable [value]="applyApplication.applyApplicationForm.apStudentLoanFund" [immutable]="false">
+                <p-column styleClass="datatable-index" header="ลำดับ" field="student_loan_seq" >
+                    <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                        {{obj+1}}
+                    </ng-template>
+                </p-column>
+                <p-column header="ปีการศึกษา" field="year">
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [ngModelOptions]="{standalone: true}"
+                          minlength="4"
+                          maxlength="4"
+                          [(ngModel)]="obj.year"
+                          pInputText>
+                    </ng-template>
+                </p-column>
+                <p-column field="money_amount">
+                    <ng-template pTemplate="header">
+                        <div class="text-left">จำนวน(บาท)</div>
+                        <button class="ui-button-success btn-position"
+                          type="button"
+                          icon="fa-plus"
+                          (click)="addStdLoan()"
+                          pButton>
+                        </button>
+                    </ng-template>
+                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                        <input type="text"
+                          [ngModelOptions]="{standalone: true}"
+                          [options]="{ prefix: '', thousands: ',', decimal: '.' }"
+                          min="0"
+                          max="999999.99"
+                          currencyMask
+                          [(ngModel)]="obj.money_amount"
+                          pInputText>
+                        <button class="ui-button-warning btn-position"
+                          type="button"
+                          icon="fa-minus"
+                          (click)="deleteStdLoan(obj)"
+                          pButton>
+                        </button>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
     </div>
-</div>
-<div class="row formFooter overide-row">
-    <div class="col-xs-12">
-        <button pButton type="button" class="btn-primary" (click)="onNext()" label="ต่อไป" style="float:right;"></button>
-        <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ" style="float:right;"></button>
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">แผนการใช้เงิน</h4>
+        <div class="col-xs-12 txt-area-center">
+            <textarea class="fullWidth"
+              [(ngModel)]="applyApplication.applyApplicationForm.apApplication.money_spend_plan"
+              name="money_spend_plan"
+              formControlName="money_spend_plan"
+              pInputTextarea>
+            </textarea>
+        </div>
     </div>
-</div>
+    <div class="row formFooter overide-row">
+        <div class="col-xs-12 text-right">
+            <button class="ui-button-primary"
+              type="submit"
+              label="ต่อไป"
+              pButton>
+            </button>
+            <button class="ui-button-warning"
+              type="button"
+              (click)="onPrevious()"
+              label="กลับ"
+              pButton>
+            </button>
+        </div>
+    </div>
+</form>

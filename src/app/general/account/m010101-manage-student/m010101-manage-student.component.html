@@ -195,7 +195,7 @@
                 <img class="image-profile" [src]="manageStudentForm.acStudent.profile_image">
             </div>
             <div class="col-xs-12 profile-upload">
-                <p-fileUpload customUpload="true" auto="true" (uploadHandler)="onUpload($event)" chooseLabel="เลือกไฟล์">
+                <p-fileUpload customUpload="true" auto="true" accept="image/*" (uploadHandler)="onUpload($event)" chooseLabel="เลือกไฟล์">
                 </p-fileUpload>
             </div>
         </div>

@@ -4,10 +4,31 @@
             <ng-template let-col let-doc="rowIndex" pTemplate="item">
             </ng-template>
             <ng-template let-doc pTemplate="item">
-                <p-checkbox></p-checkbox>
-                {{doc.document_name}}
-                <label pButton class="btn-positive" label="{{label}}" (click)="click()"></label>
+              <div class="row overide-row">
+                <div class="col-xs-5">
+                  <label class="normal-inline">
+                    {{doc.document_name}}
+                  </label>
+                </div>
+                <div class="col-xs-2">
+                  <p-fileUpload customUpload="true" auto="true" accept="image/*" (uploadHandler)="onUpload($event, doc.document_ref)" chooseLabel="{{doc.label}}"></p-fileUpload>
+                </div>
+                <div class="col-xs-4">
+                  <label class="normal-inline">
+                    {{doc.upload_name}}
+                  </label>
+                </div>
+                <div class="col-xs-1">
+                  <button type="button" class="ui-button-danger text-right fa fa-times" (click)="onDelete(doc)" label="ลบ"  pButton></button>
+                </div>
+              </div>
             </ng-template>
         </p-dataList>
+    </div>
+</div>
+<div class="row formFooter overide-row">
+    <div class="col-xs-12">
+        <button pButton type="button" class="btn-primary" (click)="onInsertClick()" label="{{btnLabel}}" style="float:right;"></button>
+        <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ" style="float:right;"></button>
     </div>
 </div>
