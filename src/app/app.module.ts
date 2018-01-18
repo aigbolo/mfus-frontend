@@ -1,3 +1,4 @@
+import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
 import {DataListModule} from 'primeng/primeng';
 import { AddressService } from './services/utils/address.service';
 import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
@@ -184,7 +185,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M010101StudentService,
     M030103ScholarshipAnnouncementService,
     M060101NewsService,
-    M040101ApplyScholarshipService
+    M040101ApplyScholarshipService,
+    M020103FamilyAndAddressService
   ],
   bootstrap: [AppComponent]
 })
