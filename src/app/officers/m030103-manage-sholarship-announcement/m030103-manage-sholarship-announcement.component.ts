@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/general/authentication.service';
 import { Severity } from './../../enum';
 import { SmScholarshipAnnouncement } from './../../models/sm-scholarship-announcement';
 import { CalendarModel } from './../../models/calendar-model';
@@ -15,6 +16,7 @@ import { RftSchool } from '../../models/rft-school';
 import { RftMajor } from '../../models/rft-major';
 import { DatePipe } from '@angular/common';
 import { M030103ScholarshipAnnouncementService } from '../../services/officers/m030103-scholarship-announcement.service';
+import { AcUser } from '../../models/ac-user';
 
 @Component({
   selector: 'app-m030103-manage-sholarship-announcement',
@@ -24,7 +26,7 @@ import { M030103ScholarshipAnnouncementService } from '../../services/officers/m
 export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel implements OnInit {
   updateMode:boolean  = false;
   pageRender = false;
-  user = localStorage.getItem('username');
+  user: AcUser = new AcUser;
   manageForm: ScholarshipAnnouncementForm = new ScholarshipAnnouncementForm;
   manageFormGroup: FormGroup;
   sponsors: SmSponsors[] = [];
@@ -47,11 +49,13 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     private scholarshipAnnouncementService: M030103ScholarshipAnnouncementService,
     private utilsService: UtilsService,
     private route: ActivatedRoute,
+    private authService: AuthenticationService,
     public ngProgress: NgProgress) {
       super();
      }
 
   ngOnInit() {
+    this.user = this.authService.getUser();
     this.ngProgress.start();
     this.layoutService.setPageHeader('บันทึกข้อมูลการประกาศทุนการศึกษา');
     this.initialReferences();
@@ -368,8 +372,8 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
     if (this.manageFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.manageFormGroup);
     } else {
-      this.manageForm.scholarships_announcement.create_user = this.user;
-      this.manageForm.scholarships_announcement.update_user = this.user;
+      this.manageForm.scholarships_announcement.create_user = this.user.user_ref;
+      this.manageForm.scholarships_announcement.update_user = this.user.user_ref;
 
       if(this.manageForm.scholarships_announcement.announcement_ref == null){
         this.scholarshipAnnouncementService.doInsert(this.manageForm).subscribe(
