@@ -1,3 +1,4 @@
+import { Severity } from './../../../enum';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Rx';
 import { ApplyScholarshipsComponent } from './../apply-scholarships.component';
@@ -5,12 +6,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { M040101ApplyScholarshipService } from '../../../services/students/m040101-apply-scholarship.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ApDocumentUpload } from '../../../models/ap-document-upload';
+import { LayoutService } from '../../../services/utils/layout.service';
 
 @Component({
   selector: 'app-m040105-manage-document-upload',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './m040105-manage-document-upload.component.html',
-  styleUrls: ['./../apply-scholarships.component.css']
+  styleUrls: ['./../apply-scholarships.component.css', './m040105-manage-document-upload.component.css']
 })
 export class M040105ManageDocumentUploadComponent implements OnInit {
 
@@ -25,7 +27,8 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
 
   constructor(public applyApplication: ApplyScholarshipsComponent,
     private applyScholarshipService: M040101ApplyScholarshipService,
-    private utilsService: UtilsService) { }
+    private utilsService: UtilsService,
+    private layoutService: LayoutService) { }
 
   ngOnInit() {
     this.initialDocumentList()
@@ -39,11 +42,12 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
         obj.upload_name = this.file_name
         this.applyApplication.applyApplicationForm.documentList.push(obj)
       }
-      console.log(this.applyApplication.applyApplicationForm.documentList)
     })
   }
 
   onUpload(event, ref: string) {
+    let documentList = this.applyApplication.applyApplicationForm.documentList
+    let documentUpload = this.applyApplication.applyApplicationForm.apDocumentUpload
     new Observable((observer: Observer<boolean>) => {
       setTimeout(() => {
         if (event.files != null) this.uploadedFiles = [];
@@ -56,6 +60,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
         this.uploadDocument.document_image = this.uploadedFiles[0].objectURL;
         this.uploadDocument.document_name = this.uploadedFiles[0].name;
         this.uploadDocument.document_type = this.uploadedFiles[0].type;
+        this.uploadDocument.document_ref = ref
         this.uploadDocument.create_user = this.applyApplication.user_ref
         this.uploadDocument.update_user = this.applyApplication.user_ref
         this.utilsService
@@ -63,30 +68,30 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
           .subscribe(val => {
             this.uploadDocument.document_image = val;
           });
-        if (this.applyApplication.applyApplicationForm.apDocumentUpload.length == 0) {
-          this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
-          this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
-          this.applyApplication.applyApplicationForm.apDocumentUpload.push(this.uploadDocument)
+
+        // let index = new ApDocumentUpload()
+        // index = documentList.find(i => i.document_ref == ref)
+        if (typeof documentList.find(i => i.document_ref == ref).upload_name === "undefined") {
+          documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
+          documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
+          documentUpload.push(this.uploadDocument)
         } else {
-          let index = new ApDocumentUpload();
-          index = this.applyApplication.applyApplicationForm.apDocumentUpload.find(i => i.document_ref == ref)
-          this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
-          this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
-          if (typeof index === "undefined") {
-            this.applyApplication.applyApplicationForm.apDocumentUpload.push(this.uploadDocument)
-          } else {
-            this.applyApplication.applyApplicationForm.apDocumentUpload[this.applyApplication.applyApplicationForm.apDocumentUpload.indexOf(index)] = this.uploadDocument;
-          }
+          documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
+          documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
+          documentUpload[documentUpload.indexOf(documentUpload.find(i => i.document_ref == ref))] = this.uploadDocument;
         }
+
+        console.log(documentUpload)
       }, 2000);
     }).subscribe()
-
   }
 
-  onDelete(doc: ApDocumentUpload) {
-    console.log(doc)
-    console.log(this.applyApplication.applyApplicationForm.apDocumentUpload.indexOf(doc))
-    // this.applyApplication.applyApplicationForm.apDocumentUpload.splice(this.applyApplication.applyApplicationForm.apDocumentUpload.indexOf(doc), 1)
+  onDelete(doc, ref) {
+    this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).upload_name = ""
+    this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).label = "เลือกไฟล์"
+    this.applyApplication.applyApplicationForm.apDocumentUpload.splice(this.applyApplication.applyApplicationForm.documentList.indexOf(doc), 1);
+    this.applyApplication.applyApplicationForm.apDocumentUpload[this.applyApplication.applyApplicationForm.documentList.indexOf(doc)]
+    console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
   }
 
   onInsertClick() {
@@ -109,24 +114,41 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
       family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
     }
-    this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent).subscribe(res => {
-      this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication).subscribe(res => {
-        console.log(res)
-        this.applyApplication.applyApplicationForm.apApplication.application_ref = res
-        this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory).subscribe(res => {
-          this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund).subscribe(res => {
-            this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt).subscribe(res => {
-              this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
-              this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload).subscribe(res => {
-                console.log('complete')
-              }, error => {
-                console.log(error)
+    this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
+      .subscribe(res => {
+        this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
+          .subscribe(res => {
+            console.log(res)
+            this.applyApplication.applyApplicationForm.apApplication.application_ref = res
+            this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+              .subscribe(res => {
+                this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+                  .subscribe(res => {
+                    this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+                      .subscribe(res => {
+                        this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+                        this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
+                          .subscribe(res => {
+                            console.log('complete')
+                          }, error => {
+                            console.log(error)
+                            this.layoutService.setMsgDisplay(
+                              Severity.ERROR,
+                              "บันทึกข้อมูลผิดพลาด",
+                              ""
+                            );
+                          }, () => {
+                            this.layoutService.setMsgDisplay(
+                              Severity.SUCCESS,
+                              "บันทึกข้อมูลสำเร็จ",
+                              ""
+                            );
+                          })
+                      })
+                  })
               })
-            })
           })
-        })
       })
-    })
   }
 
 

@@ -1,8 +1,9 @@
 <div class="row overide-row">
+    <h4 class="custom-panel-title">ข้อมูลเอกสารหลักฐาน</h4>
+</div>
+<div class="row overide-row">
     <div class="col-xs-12">
         <p-dataList [value]="applyApplication.applyApplicationForm.documentList">
-            <ng-template let-col let-doc="rowIndex" pTemplate="item">
-            </ng-template>
             <ng-template let-doc pTemplate="item">
               <div class="row overide-row">
                 <div class="col-xs-5">
@@ -19,7 +20,7 @@
                   </label>
                 </div>
                 <div class="col-xs-1">
-                  <button type="button" class="ui-button-danger text-right fa fa-times" (click)="onDelete(doc)" label="ลบ"  pButton></button>
+                  <button type="button" class="ui-button-danger text-right " (click)="onDelete(doc, doc.document_ref)" icon="fa-times" pButton></button>
                 </div>
               </div>
             </ng-template>
@@ -28,7 +29,7 @@
 </div>
 <div class="row formFooter overide-row">
     <div class="col-xs-12">
-        <button pButton type="button" class="btn-primary" (click)="onInsertClick()" label="{{btnLabel}}" style="float:right;"></button>
+        <button pButton type="button" class="ui-button-success" (click)="onInsertClick()" label="{{btnLabel}}" style="float:right;"></button>
         <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ" style="float:right;"></button>
     </div>
 </div>

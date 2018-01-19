@@ -39,7 +39,6 @@ export class ApplyScholarshipsComponent implements OnInit {
     this.applyScholarshipService
       .getApplySchcolarshipData(this.account_ref)
       .subscribe(data => {
-        console.log(data)
         this.applyApplicationForm.acStudent = data;
 
         this.applyApplicationForm.student_name = data.student_name
