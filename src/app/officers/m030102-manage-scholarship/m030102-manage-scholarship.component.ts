@@ -7,7 +7,7 @@ import { M030102ScholarshipService } from "./../../services/officers/m030102-sch
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { UtilsService } from "./../../services/utils/utils.service";
 import { ScholarshipForm } from "./../../forms/scholarship-form";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { SmSponsors } from "../../models/sm-sponsors";
 import { ReferenceService } from "../../services/general/reference.service";
 import { ActivatedRoute } from "@angular/router";
@@ -15,6 +15,7 @@ import { LayoutService } from "../../services/utils/layout.service";
 
 @Component({
   selector: "app-m030102-manage-scholarship",
+  encapsulation: ViewEncapsulation.None,
   templateUrl: "./m030102-manage-scholarship.component.html",
   styleUrls: ["./m030102-manage-scholarship.component.css"]
 })
