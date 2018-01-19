@@ -23,6 +23,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   file_size: string;
   image: string;
   label: string;
+  display: boolean
   uploadDocument: ApDocumentUpload
 
   constructor(public applyApplication: ApplyScholarshipsComponent,
@@ -110,45 +111,42 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
     console.log('documentUpload: -----------------------------------------')
     console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
 
-    let financialAndDebt = {
-      ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
-      family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
-    }
-    this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
-      .subscribe(res => {
-        this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
-          .subscribe(res => {
-            console.log(res)
-            this.applyApplication.applyApplicationForm.apApplication.application_ref = res
-            this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-              .subscribe(res => {
-                this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
-                  .subscribe(res => {
-                    this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
-                      .subscribe(res => {
-                        this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
-                        this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
-                          .subscribe(res => {
-                            console.log('complete')
-                          }, error => {
-                            console.log(error)
-                            this.layoutService.setMsgDisplay(
-                              Severity.ERROR,
-                              "บันทึกข้อมูลผิดพลาด",
-                              ""
-                            );
-                          }, () => {
-                            this.layoutService.setMsgDisplay(
-                              Severity.SUCCESS,
-                              "บันทึกข้อมูลสำเร็จ",
-                              ""
-                            );
-                          })
-                      })
-                  })
-              })
-          })
-      })
+    // let financialAndDebt = {
+    //   ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
+    //   family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
+    // }
+    // this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
+    //   .subscribe(res => {
+    //     this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
+    //       .subscribe(res => {
+    //         console.log(res)
+    //         this.applyApplication.applyApplicationForm.apApplication.application_ref = res
+    //         this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+    //           .subscribe(res => {
+    //             this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+    //               .subscribe(res => {
+    //                 this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+    //                   .subscribe(res => {
+    //                     this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+    //                     this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
+    //                       .subscribe(res => {
+    //                         console.log('complete')
+    //                       }, error => {
+    //                         console.log(error)
+    //                         this.layoutService.setMsgDisplay(
+    //                           Severity.ERROR,
+    //                           "บันทึกข้อมูลผิดพลาด",
+    //                           ""
+    //                         );
+    //                       }, () => {
+
+                            this.display = true
+      //                     })
+      //                 })
+      //             })
+      //         })
+      //     })
+      // })
   }
 
 
