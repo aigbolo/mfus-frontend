@@ -10,7 +10,7 @@ export class EnsureIsNotAuth implements CanActivate {
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('token')) {
-      this.router.navigateByUrl('/change-password');
+      this.router.navigateByUrl('/');
       return false;
     }
     else {
