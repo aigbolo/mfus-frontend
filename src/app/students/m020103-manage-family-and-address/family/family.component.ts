@@ -134,7 +134,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  whenChangeParentFlag(index: number) {
-     console.log("whenChangeParentFlag: " + index);
+     this.resetValue();
      if (index == 1) {
 
          this.manageFormGroup.controls["father_pid"].setValidators([Validators.required]);
@@ -145,6 +145,16 @@ export class FamilyComponent extends CalendarModel implements OnInit {
          this.manageFormGroup.controls["father_district"].setValidators([Validators.required]);
          this.manageFormGroup.controls["father_sub_district"].setValidators([Validators.required]);
 
+         this.manageFormGroup.controls["father_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_sub_district"].updateValueAndValidity();
+
+
+
          this.manageFormGroup.controls["mother_pid"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_name"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.required]);
@@ -153,13 +163,21 @@ export class FamilyComponent extends CalendarModel implements OnInit {
          this.manageFormGroup.controls["mother_district"].setValidators([Validators.required]);
          this.manageFormGroup.controls["mother_sub_district"].setValidators([Validators.required]);
 
+         this.manageFormGroup.controls["mother_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_sub_district"].updateValueAndValidity();
+
          this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_relationship"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_pid"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_name"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_name"].updateValueAndValidity();
-         this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_birth_date"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_address"].setValidators([Validators.nullValidator]);
          this.manageFormGroup.controls["patrol_address"].updateValueAndValidity();
@@ -204,9 +222,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
          this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.required]);
          this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.required]);
          this.manageFormGroup.controls["patrol_name"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["patrolMonth"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["patrolDay"].setValidators([Validators.required]);
-         this.manageFormGroup.controls["patrolYear"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.required]);
          this.manageFormGroup.controls["patrol_address"].setValidators([Validators.required]);
          this.manageFormGroup.controls["patrol_province"].setValidators([Validators.required]);
          this.manageFormGroup.controls["patrol_district"].setValidators([Validators.required]);
@@ -498,9 +514,146 @@ console.log('event is: '+e.type);
   }
  }
 
+ resetValue(){
 
+   if(this.manageForm.acParent.parent_flag == '1'){
+    this.manageForm.acParent.patrol_relationship = null;
+    this.manageForm.acParent.patrol_pid = null;
+    this.manageForm.acParent.patrol_died_year = null;
+    this.manageForm.acParent.patrol_birth_date = null;
+    this.manageForm.acParent.patrol_name = null;
+    this.manageForm.acParent.patrol_province = null;
+    this.manageForm.acParent.patrol_district = null;
+    this.manageForm.acParent.patrol_sub_district = null;
+    this.manageForm.acParent.patrol_postcode = null;
+    this.manageForm.acParent.patrol_phone = null;
+    this.manageForm.acParent.patrol_email = null;
+    this.manageForm.acParent.patrol_occupation = null;
+    this.manageForm.acParent.patrol_position = null;
+    this.manageForm.acParent.patrol_work_address = null;
+    this.manageForm.acParent.patrol_work_phone = null;
+    this.manageForm.acParent.patrol_work_fax = null;
+    this.manageForm.acParent.patrol_land_flag = null;
+    this.manageForm.acParent.patrol_income_monthly = null;
+    this.manageForm.acParent.patrol_land_all = null;
+    this.manageForm.acParent.patrol_land_own = null;
+    this.manageForm.acParent.patrol_land_rent = null;
+
+    this.manageForm.patrolProvince = null;
+    this.manageForm.patrolDistrict = null;
+    this.manageForm.patrolSubDistrict = null;
+   }else{
+    this.manageForm.acParent.father_pid = null;
+    this.manageForm.acParent.father_died_year = null;
+    this.manageForm.acParent.father_birth_date = null;
+    this.manageForm.acParent.father_phone = null;
+    this.manageForm.acParent.father_name = null;
+    this.manageForm.acParent.father_address = null;
+    this.manageForm.acParent.father_province = null;
+    this.manageForm.acParent.father_district = null;
+    this.manageForm.acParent.father_sub_district = null;
+    this.manageForm.acParent.father_postcode = null;
+    this.manageForm.acParent.father_email = null;
+    this.manageForm.acParent.father_occupation = null;
+    this.manageForm.acParent.father_position = null;
+    this.manageForm.acParent.father_work_address = null;
+    this.manageForm.acParent.father_work_phone = null;
+    this.manageForm.acParent.father_work_fax = null;
+    this.manageForm.acParent.father_land_flag = null;
+    this.manageForm.acParent.father_income_monthly = null;
+    this.manageForm.acParent.mother_pid = null;
+    this.manageForm.acParent.mother_died_year = null;
+    this.manageForm.acParent.mother_birth_date = null;
+    this.manageForm.acParent.mother_name = null;
+    this.manageForm.acParent.mother_province = null;
+    this.manageForm.acParent.mother_district = null;
+    this.manageForm.acParent.mother_sub_district = null;
+    this.manageForm.acParent.mother_postcode = null;
+    this.manageForm.acParent.mother_address = null;
+    this.manageForm.acParent.mother_phone = null;
+    this.manageForm.acParent.mother_email = null;
+    this.manageForm.acParent.mother_occupation = null;
+    this.manageForm.acParent.mother_position = null;
+    this.manageForm.acParent.mother_work_address = null;
+    this.manageForm.acParent.mother_work_phone = null;
+    this.manageForm.acParent.mother_work_fax = null;
+    this.manageForm.acParent.mother_land_flag = null;
+    this.manageForm.acParent.mother_land_all = null;
+    this.manageForm.acParent.mother_income_monthly = null;
+    this.manageForm.acParent.father_land_all = null;
+    this.manageForm.acParent.father_land_own = null;
+    this.manageForm.acParent.father_land_rent = null;
+    this.manageForm.acParent.mother_land_all = null;
+    this.manageForm.acParent.mother_land_own = null;
+    this.manageForm.acParent.mother_land_rent = null;
+
+    this.manageForm.dadProvince = null;
+    this.manageForm.dadDistrict = null;
+    this.manageForm.dadSubDistrict = null;
+    this.manageForm.momProvince = null;
+    this.manageForm.momDistrict = null;
+    this.manageForm.momSubDistrict = null;
+   }
+ }
+
+ onRelationshipChange(){
+  if(this.manageForm.acParent.relationship_status != '2'){
+    this.manageForm.acParent.because = null;
+  }
+ }
+
+ onDieStatusChange(index:number){
+  if(index == 0){
+    if(this.manageForm.acParent.father_status == '1'){
+      this.manageForm.acParent.father_died_year = null;
+    }
+  }
+  if(index == 1){
+    if(this.manageForm.acParent.mother_status == '1'){
+      this.manageForm.acParent.mother_died_year = null;
+    }
+  }
+  if(index == 2){
+    if(this.manageForm.acParent.patrol_status == '1'){
+      this.manageForm.acParent.patrol_died_year = null;
+    }
+  }
+ }
+
+ onLandStatusChange(index:number){
+  if(index == 0){
+    if(this.manageForm.acParent.father_land_flag == '1'){
+      this.manageForm.acParent.father_land_all = null;
+      this.manageForm.acParent.father_land_own = null;
+      this.manageForm.acParent.father_land_rent = null;
+    }
+  }
+  if(index == 1){
+    if(this.manageForm.acParent.mother_land_flag == '1'){
+      this.manageForm.acParent.mother_land_all = null;
+      this.manageForm.acParent.mother_land_own = null;
+      this.manageForm.acParent.mother_land_rent = null;
+    }
+  }
+  if(index == 2){
+    if(this.manageForm.acParent.patrol_land_flag == '1'){
+      this.manageForm.acParent.patrol_land_all = null;
+      this.manageForm.acParent.patrol_land_own = null;
+      this.manageForm.acParent.patrol_land_rent = null;
+    }
+  }
+ }
+
+resetButtonOnClick(){
+  this.ngOnInit();
+}
  nextButtonOnClick() {
-  this.familyAndAddress.onChangePanel(1,this.manageForm);
+  if (this.manageFormGroup.invalid) {
+    this.utilsService.findInvalidControls(this.manageFormGroup);
+  } else {
+    this.familyAndAddress.onChangePanel(1,this.manageForm);
+  }
+
  }
 }
 
