@@ -17,12 +17,20 @@ export class M020103FamilyAndAddressService {
   }
 
   doInsertSibling(siblings:AcSibling[]){
-    return this.config.requestMethodPOST('siblings-insert',siblings)
+    return this.config.requestMethodPUT('siblings',siblings)
   }
 
   doInsertAddress(address: AcAddress){
     return this.config.requestMethodPOST('address-insert',address)
   }
+
+  doUpdateParent(parent: AcParent){
+    return this.config.requestMethodPUT('parents',parent)
+   }
+
+   doUpdateAddress(address: AcAddress){
+     return this.config.requestMethodPUT('address',address)
+   }
 
   doGetParent(studentRef:string){
     const param = {student_ref:studentRef}
@@ -36,7 +44,7 @@ export class M020103FamilyAndAddressService {
 
   doGetAddress(studentRef:string){
     const param = {student_ref:studentRef}
-    return this.config.requestMethodPOST('address',param);
+    return this.config.requestMethodPOST('address-update',param);
   }
 
 }
