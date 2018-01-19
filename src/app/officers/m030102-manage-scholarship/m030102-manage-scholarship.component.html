@@ -36,7 +36,7 @@
               pInputText>
         </div>
         <div class="col-xs-3">
-            <label for="" class="normal">ประเภททุนการศึกษา</label>
+            <label class="normal">ประเภททุนการศึกษา</label>
             <p-dropdown
               [(ngModel)]="scholarship_type"
               name="sctype_type"
@@ -49,7 +49,7 @@
     <div class="row overide-row">
         <div class="col-xs-12">
             <label class="normal">รายละเอียด</label>
-            <textarea
+            <textarea class="fullWidth"
               cols="30"
               rows="10"
               [(ngModel)]="manageScholarship.smScholarship.detail"

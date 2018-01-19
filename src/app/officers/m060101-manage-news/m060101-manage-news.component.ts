@@ -1,3 +1,5 @@
+import { AcOfficer } from './../../models/ac-officer';
+import { AcUser } from './../../models/ac-user';
 import { Severity } from "./../../enum";
 import { NgProgress } from "ngx-progressbar";
 import { ActivatedRoute } from "@angular/router";
@@ -5,20 +7,24 @@ import { LayoutService } from "./../../services/utils/layout.service";
 import { Validators } from "@angular/forms";
 import { FormGroup, FormControl } from "@angular/forms";
 import { UtilsService } from "./../../services/utils/utils.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { NewsForm } from "../../forms/news-form";
 import { CalendarModel } from "../../models/calendar-model";
 import { M060101NewsService } from "../../services/officers/m060101-news.service";
+import { AuthenticationService } from '../../services/general/authentication.service';
 
 @Component({
   selector: "app-m060101-manage-news",
+  encapsulation: ViewEncapsulation.None,
   templateUrl: "./m060101-manage-news.component.html",
   styleUrls: ["./m060101-manage-news.component.css"]
 })
 export class M060101ManageNewsComponent extends CalendarModel
   implements OnInit {
-  user = localStorage.getItem("username");
+  // user = localStorage.getItem("username");
 
+  user: AcUser = new AcUser()
+  account: AcOfficer = new AcOfficer()
   pageRender: boolean = false;
   newsFormGroup: FormGroup;
   manageNewsForm: NewsForm = new NewsForm();
@@ -37,7 +43,8 @@ export class M060101ManageNewsComponent extends CalendarModel
     private layoutService: LayoutService,
     private route: ActivatedRoute,
     private newsService: M060101NewsService,
-    public ngProgress: NgProgress
+    public ngProgress: NgProgress,
+    private authService: AuthenticationService
   ) {
     super();
   }
@@ -45,6 +52,7 @@ export class M060101ManageNewsComponent extends CalendarModel
   ngOnInit() {
     this.ngProgress.start();
     this.activeFlag = this.utilsService.getActiveFlag("M");
+    this.login()
     this.vaidateForm();
     this.manageNewsForm.smNews.news_ref = this.route.snapshot.params["id"];
     if (!this.manageNewsForm.smNews.news_ref) {
@@ -57,6 +65,11 @@ export class M060101ManageNewsComponent extends CalendarModel
       this.layoutService.setPageHeader("แก้ไขข้อมูลข่าวสาร");
       this.onRowSelected();
     }
+  }
+
+  login(){
+    this.user = this.authService.getUser();
+    this.account = this.authService.getAccount();
   }
 
   vaidateForm() {
@@ -72,7 +85,7 @@ export class M060101ManageNewsComponent extends CalendarModel
         Validators.compose([Validators.required])
       ),
       publish_date: new FormControl(
-        this.manageNewsForm.smNews.publish_date,
+        this.manageNewsForm.smNews.publish_date = new Date,
         Validators.compose([Validators.required])
       ),
       active_flag: new FormControl(
@@ -126,8 +139,8 @@ export class M060101ManageNewsComponent extends CalendarModel
   }
 
   doInsert() {
-    this.manageNewsForm.smNews.create_user = this.user;
-    this.manageNewsForm.smNews.update_user = this.user;
+    this.manageNewsForm.smNews.create_user = this.account.officer_ref;
+    this.manageNewsForm.smNews.update_user = this.account.officer_ref;
     this.newsService.insertNews(this.manageNewsForm.smNews).subscribe(
       res => {},
       error => {

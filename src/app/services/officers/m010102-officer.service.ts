@@ -32,15 +32,6 @@ export class M010102OfficerService {
   }
 
   doUpdate(form: AcOfficer) {
-    return this.configurationService.requestMethodPUT('officers', form).subscribe(res => {
-      console.log(res)
-    }, error => {
-      console.log(error)
-      this.layout.setMsgDisplay(Severity.ERROR, 'เกิดข้อผิดพลาาด', error)
-    }, () => {
-      console.log('update success')
-      this.utilService.goToPage('search-officer')
-      this.layout.setMsgDisplay(Severity.SUCCESS, 'แก้ไขข้อมูลสำเร็จ', '')
-    })
+    return this.configurationService.requestMethodPUT('officers', form)
   }
 }

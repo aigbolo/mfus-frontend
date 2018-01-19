@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../../services/general/authentication.service';
+import { AcStudent } from './../../../models/ac-student';
 import { Severity } from "./../../../enum";
 import { OfficerForm } from "./../../../forms/officer-form";
 import { NgProgress } from "ngx-progressbar";
@@ -15,6 +17,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { RftProvince } from "../../../models/rft-province";
 import { UtilsService } from "../../../services/utils/utils.service";
 import { SelectItem } from "primeng/primeng";
+import { AcUser } from "../../../models/ac-user";
 
 @Component({
   selector: "app-manage-officer",
@@ -23,10 +26,13 @@ import { SelectItem } from "primeng/primeng";
 })
 export class M010102ManageOfficerComponent implements OnInit {
   pageRender = false;
-  user = localStorage.getItem("username");
+  // user = localStorage.getItem("username");
   manageOfficerForm: OfficerForm;
   manageOfficerForm2: OfficerForm;
   officerFormGroup: FormGroup;
+
+  user: AcUser = new AcUser()
+  officer: AcOfficer = new AcOfficer()
 
   // Autocomplete Province
   provinceList: RftProvince[] = [];
@@ -47,20 +53,24 @@ export class M010102ManageOfficerComponent implements OnInit {
   flag: boolean;
   btnLabel: string;
 
+  user_ref:string;
+
   constructor(
     private utilsService: UtilsService,
     private referenceService: ReferenceService,
     private officerService: M010102OfficerService,
     private layoutService: LayoutService,
     private route: ActivatedRoute,
-    public ngProgress: NgProgress
-  ) {}
+    public ngProgress: NgProgress,
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
     this.ngProgress.start();
     this.manageOfficerForm = new OfficerForm();
     this.btnLabel = "เพิ่มข้อมูล";
     this.layoutService.setPageHeader("บันทึกข้อมูลเจ้าหน้าที่");
+    this.login()
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
     this.titleList = this.utilsService.getTitleList();
@@ -79,6 +89,13 @@ export class M010102ManageOfficerComponent implements OnInit {
     }
   }
 
+  login(){
+    this.user = this.authService.getUser();
+    this.officer = this.authService.getAccount();
+    this.user_ref = this.officer.officer_ref
+    console.log('user: ', this.user)
+    console.log('officer: ', this.officer)
+  }
   validateForm() {
     this.officerFormGroup = new FormGroup({
       officer_code: new FormControl(
@@ -163,7 +180,6 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   selectProvince() {
-    console.log("select province");
     this.referenceService.initialDistrict(
       this.manageOfficerForm.rftProvince.province_ref
     );
@@ -246,84 +262,84 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.officerService
       .selectOfficer(this.manageOfficerForm.acOfficer)
       .subscribe(
-        res => {
-          console.log(res);
-          this.manageOfficerForm.acOfficer = res;
-          this.flag = this.utilsService.setManageStatus(
-            res.manage_officer_flag
-          );
-          if (this.manageOfficerForm.acOfficer.profile_image == null) {
-            this.manageOfficerForm.acOfficer.profile_image =
-              "../../../../assets/images/empty_profile.png";
-          }
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          setTimeout(() => {
-            let result: Array<any> = [];
-            this.referenceService
-              .getReferencesAddress(
-                this.manageOfficerForm.acOfficer.province,
-                this.manageOfficerForm.acOfficer.district,
-                this.manageOfficerForm.acOfficer.sub_district
-              )
-              .subscribe(
-                data => {
-                  result.push(data);
-                  this.manageOfficerForm.rftProvince = result[0];
-                  this.manageOfficerForm.rftDistrict = result[1];
-                  this.manageOfficerForm.rftSubDistrict = result[2];
-                },
-                error => {
-                  console.log("error", error);
-                },
-                () => {
-                  this.pageRender = true;
-                  this.ngProgress.done();
-                  console.log("success");
-                }
-              );
-          }, 3000);
-          console.log("onrow complete");
+      res => {
+        // console.log(res);
+        this.manageOfficerForm.acOfficer = res;
+        this.flag = this.utilsService.setManageStatus(
+          res.manage_officer_flag
+        );
+        if (this.manageOfficerForm.acOfficer.profile_image == null) {
+          this.manageOfficerForm.acOfficer.profile_image =
+            "../../../../assets/images/empty_profile.png";
         }
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        setTimeout(() => {
+          let result: Array<any> = [];
+          this.referenceService
+            .getReferencesAddress(
+            this.manageOfficerForm.acOfficer.province,
+            this.manageOfficerForm.acOfficer.district,
+            this.manageOfficerForm.acOfficer.sub_district
+            )
+            .subscribe(
+            data => {
+              result.push(data);
+              this.manageOfficerForm.rftProvince = result[0];
+              this.manageOfficerForm.rftDistrict = result[1];
+              this.manageOfficerForm.rftSubDistrict = result[2];
+            },
+            error => {
+              console.log("error", error);
+            },
+            () => {
+              this.pageRender = true;
+              this.ngProgress.done();
+              console.log("success");
+            }
+            );
+        }, 3000);
+        console.log("onrow complete");
+      }
       );
   }
 
   onSubmit() {
+    if (this.officerFormGroup.invalid) {
+      this.utilsService.findInvalidControls(this.officerFormGroup);
+      return;
+    }
     if (this.btnLabel == "เพิ่มข้อมูล") {
-      if (this.officerFormGroup.invalid) {
-        this.utilsService.findInvalidControls(this.officerFormGroup);
-        return;
-      }
       this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(
         this.flag
       );
       this.officerService
-        .doInsert(this.manageOfficerForm.acOfficer, this.user)
+        .doInsert(this.manageOfficerForm.acOfficer, this.user_ref)
         .subscribe(
-          res => {
-            console.log(res);
-          },
-          error => {
-            console.log(error);
-            this.layoutService.setMsgDisplay(
-              Severity.ERROR,
-              "เกิดข้อผิดพลาาด",
-              ""
-            );
-          },
-          () => {
-            console.log("success");
-            this.manageOfficerForm = new OfficerForm();
-            this.validateForm();
-            this.layoutService.setMsgDisplay(
-              Severity.SUCCESS,
-              "บันทึกข้อมูลสำเร็จ",
-              ""
-            );
-          }
+        res => {
+          // console.log(res);
+        },
+        error => {
+          console.log(error);
+          this.layoutService.setMsgDisplay(
+            Severity.ERROR,
+            "เกิดข้อผิดพลาาด",
+            ""
+          );
+        },
+        () => {
+          // console.log("success");
+          this.manageOfficerForm = new OfficerForm();
+          this.validateForm();
+          this.layoutService.setMsgDisplay(
+            Severity.SUCCESS,
+            "บันทึกข้อมูลสำเร็จ",
+            ""
+          );
+        }
         );
     } else {
       this.manageOfficerForm.acOfficer.province = this.manageOfficerForm.rftProvince.province_ref;
@@ -332,20 +348,29 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(
         this.flag
       );
-      this.officerService.doUpdate(this.manageOfficerForm.acOfficer);
+      this.officerService.doUpdate(this.manageOfficerForm.acOfficer).subscribe(res => {
+        // console.log(res)
+      }, error => {
+        console.log(error)
+        this.layoutService.setMsgDisplay(Severity.ERROR, 'เกิดข้อผิดพลาาด', error)
+      }, () => {
+        // console.log('update success')
+        this.utilsService.goToPage('search-officer')
+        this.layoutService.setMsgDisplay(Severity.SUCCESS, 'แก้ไขข้อมูลสำเร็จ', '')
+      })
     }
   }
 
   onResetClick() {
     if (this.btnLabel == "เพิ่มข้อมูล") {
-      console.log("reset insert");
+      // console.log("reset insert");
       this.manageOfficerForm = new OfficerForm();
       this.manageOfficerForm.acOfficer.profile_image =
         "../../../../assets/images/empty_profile.png";
       this.manageOfficerForm.acOfficer.profile_name = "";
       this.manageOfficerForm.acOfficer.profile_type = "";
     } else {
-      console.log("resetupdate");
+      // console.log("resetupdate");
       window.location.reload();
     }
   }
