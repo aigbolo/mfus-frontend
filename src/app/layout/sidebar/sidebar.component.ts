@@ -1,5 +1,8 @@
+import { AcUser } from './../../models/ac-user';
+import { AcOfficer } from './../../models/ac-officer';
 import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AuthenticationService } from '../../services/general/authentication.service';
 
 @Component({
   selector: 'sidebar',
@@ -10,6 +13,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class SidebarComponent implements OnInit {
 
   items: MenuItem[];
+  user: AcUser = new AcUser()
+  officer: AcOfficer = this.authService.getAccount()
 
   private officerMenu = [
     {
@@ -39,7 +44,7 @@ export class SidebarComponent implements OnInit {
     {
       label: 'จัดการผู้ใช้',
       items: [
-        { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer'] }
+        { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer/' + this.officer.officer_ref] }
       ]
     },
     {
@@ -76,7 +81,7 @@ export class SidebarComponent implements OnInit {
     {
       label: 'สมัครทุนการศึกษา',
       items: [
-        { label: 'สมัครทุน', routerLink: ['/sponsors'] },
+        { label: 'สมัครทุน', routerLink: ['/manage-application'] },
         { label: 'ตรวจสอบสถานะการขอทุน', routerLink: ['/scholarships'] },
         { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-request'] }
       ]
@@ -89,11 +94,13 @@ export class SidebarComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.items = this.officerMenu;
+    if(this.authService.getUser().user_role == '1'){
+      this.items = this.studentMenu
+    }else{
+    this.items = this.officerMenu
   }
-
-
+}
 }

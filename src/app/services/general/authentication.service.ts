@@ -58,7 +58,6 @@ export class AuthenticationService {
 
   setAccountInfo(user: AcUser){
     console.log('setAccountInfo')
-
     if(user.user_role == '1'){
       const param = { student_ref: user.account_ref};
       this.config.requestMethodPOST('students-update',param).subscribe(

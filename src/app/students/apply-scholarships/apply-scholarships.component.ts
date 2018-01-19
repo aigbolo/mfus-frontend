@@ -1,3 +1,7 @@
+import { AcOfficer } from './../../models/ac-officer';
+import { AcStudent } from './../../models/ac-student';
+import { AcUser } from './../../models/ac-user';
+import { AuthenticationService } from './../../services/general/authentication.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LayoutService } from "./../../services/utils/layout.service";
 import { UtilsService } from "./../../services/utils/utils.service";
@@ -18,29 +22,40 @@ export class ApplyScholarshipsComponent implements OnInit {
   applyApplicationForm: ApplyScholarshipForm = new ApplyScholarshipForm();
   applicationFormGroup: FormGroup
   page_header: string;
-  user_ref: string = "pAVhtdlBQA9KN6MB1rw6hLd5a55fd0c84d08"
-  account_ref: string = "Vg518d4wKwGFh19dDiMSkKE5a55fd0c6d816"
+  user_ref: string = ""
+  account_ref: string = ""
+  user: AcUser = new AcUser;
+  student: AcStudent = new AcStudent;
+  officer: AcOfficer = new AcOfficer;
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,
     private utilsService: UtilsService,
     private referenceService: ReferenceService,
-    private ngProgress: NgProgress
+    private ngProgress: NgProgress,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
+
     this.ngProgress.start()
+    this.login()
     this.utilsService.getApplicationStep();
     this.getApplicationData();
   }
 
+  login(){
+    this.student = this.authService.getAccount();
+    this.user = this.authService.getUser();
+    this.user_ref = this.user.user_ref
+    this.account_ref = this.student.student_ref
+  }
 
   getApplicationData() {
     this.applyScholarshipService
       .getApplySchcolarshipData(this.account_ref)
       .subscribe(data => {
         this.applyApplicationForm.acStudent = data;
-
         this.applyApplicationForm.student_name = data.student_name
         this.applyApplicationForm.school_name_t = data.school_name_t
         this.applyApplicationForm.major_name_t = data.major_name_t

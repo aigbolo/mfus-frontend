@@ -49,7 +49,7 @@ const appRoutes: Routes = [
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
   { path: "manage-scholarship/:id",component: M030102ManageScholarshipComponent},
   { path: "search-scholarship", component: S030102SearchScolarshipComponent },
-  { path: "manage-student", component: M010101ManageStudentComponent },
+  { path: "register", component: M010101ManageStudentComponent },
   { path: "manage-sponsors",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
   { path: "manage-sponsors/:id",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
   { path: "search-sponsors",component: M030101SearchSponsorsComponent,canActivate: [EnsureIsAuth]},

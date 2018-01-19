@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../../services/general/authentication.service';
+import { AcStudent } from './../../../models/ac-student';
 import { Severity } from "./../../../enum";
 import { OfficerForm } from "./../../../forms/officer-form";
 import { NgProgress } from "ngx-progressbar";
@@ -15,6 +17,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { RftProvince } from "../../../models/rft-province";
 import { UtilsService } from "../../../services/utils/utils.service";
 import { SelectItem } from "primeng/primeng";
+import { AcUser } from "../../../models/ac-user";
 
 @Component({
   selector: "app-manage-officer",
@@ -23,10 +26,13 @@ import { SelectItem } from "primeng/primeng";
 })
 export class M010102ManageOfficerComponent implements OnInit {
   pageRender = false;
-  user = localStorage.getItem("username");
+  // user = localStorage.getItem("username");
   manageOfficerForm: OfficerForm;
   manageOfficerForm2: OfficerForm;
   officerFormGroup: FormGroup;
+
+  user: AcUser = new AcUser()
+  officer: AcOfficer = new AcOfficer()
 
   // Autocomplete Province
   provinceList: RftProvince[] = [];
@@ -47,13 +53,16 @@ export class M010102ManageOfficerComponent implements OnInit {
   flag: boolean;
   btnLabel: string;
 
+  user_ref:string;
+
   constructor(
     private utilsService: UtilsService,
     private referenceService: ReferenceService,
     private officerService: M010102OfficerService,
     private layoutService: LayoutService,
     private route: ActivatedRoute,
-    public ngProgress: NgProgress
+    public ngProgress: NgProgress,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -61,6 +70,7 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.manageOfficerForm = new OfficerForm();
     this.btnLabel = "เพิ่มข้อมูล";
     this.layoutService.setPageHeader("บันทึกข้อมูลเจ้าหน้าที่");
+    this.login()
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
     this.titleList = this.utilsService.getTitleList();
@@ -79,6 +89,13 @@ export class M010102ManageOfficerComponent implements OnInit {
     }
   }
 
+  login(){
+    this.user = this.authService.getUser();
+    this.officer = this.authService.getAccount();
+    this.user_ref = this.officer.officer_ref
+    console.log('user: ', this.user)
+    console.log('officer: ', this.officer)
+  }
   validateForm() {
     this.officerFormGroup = new FormGroup({
       officer_code: new FormControl(
@@ -300,7 +317,7 @@ export class M010102ManageOfficerComponent implements OnInit {
         this.flag
       );
       this.officerService
-        .doInsert(this.manageOfficerForm.acOfficer, this.user)
+        .doInsert(this.manageOfficerForm.acOfficer, this.user_ref)
         .subscribe(
         res => {
           // console.log(res);

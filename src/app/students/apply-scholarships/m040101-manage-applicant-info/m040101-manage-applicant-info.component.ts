@@ -49,8 +49,7 @@ export class M040101ManageApplicantInfoComponent implements OnInit {
       this.utilsService.findInvalidControls(this.applicantFormGroup);
       return;
     }
-    this.applyApplication.applyApplicationForm.acStudent.create_user = this.applyApplication.account_ref
-    this.applyApplication.applyApplicationForm.acStudent.update_user = this.applyApplication.account_ref
+    this.applyApplication.applyApplicationForm.acStudent.update_user = this.applyApplication.user_ref
     this.referenceService.nextIndex(1)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }

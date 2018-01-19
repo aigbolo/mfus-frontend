@@ -1,3 +1,5 @@
+import { AcOfficer } from './../../models/ac-officer';
+import { AcUser } from './../../models/ac-user';
 import { SelectItem } from "primeng/primeng";
 import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
 import { Severity } from "./../../enum";
@@ -12,6 +14,7 @@ import { SmSponsors } from "../../models/sm-sponsors";
 import { ReferenceService } from "../../services/general/reference.service";
 import { ActivatedRoute } from "@angular/router";
 import { LayoutService } from "../../services/utils/layout.service";
+import { AuthenticationService } from '../../services/general/authentication.service';
 
 @Component({
   selector: "app-m030102-manage-scholarship",
@@ -20,7 +23,7 @@ import { LayoutService } from "../../services/utils/layout.service";
   styleUrls: ["./m030102-manage-scholarship.component.css"]
 })
 export class M030102ManageScholarshipComponent implements OnInit {
-  user = localStorage.getItem("username");
+  // user = localStorage.getItem("username");
   scholarshipFormGroup: FormGroup;
   pageRender: boolean = false;
   manageScholarship: ScholarshipForm = new ScholarshipForm();
@@ -30,6 +33,9 @@ export class M030102ManageScholarshipComponent implements OnInit {
   sctype_type: RftScholarshipType[];
   scholarship_type: RftScholarshipType;
 
+  user: AcUser = new AcUser()
+  account: AcOfficer = new AcOfficer()
+
   constructor(
     private utilsService: UtilsService,
     private referenceService: ReferenceService,
@@ -37,13 +43,15 @@ export class M030102ManageScholarshipComponent implements OnInit {
     private route: ActivatedRoute,
     private layoutService: LayoutService,
     private sponsorsService: M030101SponsorsService,
-    public ngProgress: NgProgress
+    public ngProgress: NgProgress,
+    private authService:AuthenticationService
   ) {}
 
   ngOnInit() {
     this.ngProgress.start();
     this.getScholarshipType();
     this.referenceService.initialSponsors();
+    this.login()
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
     this.manageScholarship.smScholarship.scholarship_ref = this.route.snapshot.params[
@@ -59,6 +67,11 @@ export class M030102ManageScholarshipComponent implements OnInit {
       this.pageRender = true;
       this.ngProgress.done();
     }
+  }
+
+  login(){
+    this.user = this.authService.getUser();
+    this.authService = this.authService.getAccount()
   }
 
   getScholarshipType() {
