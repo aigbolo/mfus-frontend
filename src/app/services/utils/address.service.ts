@@ -121,4 +121,15 @@ export class AddressService {
     });
     return data;
   }
+
+  getProvinceByRef(provinceRef: string){
+    return this.configuration.requestMethodGET('get-province/'+provinceRef);
+  }
+
+  getDistrictByRef(districtRef: string){
+    return this.configuration.requestMethodGET('get-district/'+districtRef);
+  }
+  getSubDistrictByRef(subDistrictRef: string){
+    return this.configuration.requestMethodGET('get-sub-district/'+subDistrictRef);
+  }
 }

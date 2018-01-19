@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs/Subscription';
 import { AcStudent } from './../../models/ac-student';
 import { Severity } from './../../enum';
 import { AuthenticationService } from './../../services/general/authentication.service';
@@ -15,6 +16,7 @@ import { FamilyAndAddressForm } from './../../forms/family-and-address-form';
 import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { M020103FamilyAndAddressService } from '../../services/students/m020103-family-and-address.service';
+import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-m020103-manage-family-and-address',
@@ -22,10 +24,10 @@ import { M020103FamilyAndAddressService } from '../../services/students/m020103-
   styleUrls: ['./m020103-manage-family-and-address.component.css']
 })
 export class M020103ManageFamilyAndAddressComponent implements OnInit {
-
+  insertMode = true;
   manageForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   sibling: AcSibling = new AcSibling();
-  onLoaded = false;
+  renderPage = false;
 
   user: AcUser = new AcUser;
   student: AcStudent = new AcStudent;
@@ -47,13 +49,85 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private ngProgress: NgProgress) {}
 
   ngOnInit() {
+    this.ngProgress.start();
     this.user = this.authService.getUser();
     this.student = this.authService.getAccount();
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
-    this.initialSetup();
     this.getEducationDropDown();
+    this.initialProvince();
+
+
+
+    this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
+      data=>{
+        if(data.parent_ref){
+          setTimeout(()=>{
+            this.manageForm.acParent = data;
+            this.insertMode = false;
+          },500);
+        setTimeout(()=>{
+          this.getParentProvince();
+          this.getParentDistrict();
+          this.getParentSubDistrict();
+
+          this.convertDateBackToFront();
+          this.initialParentAddress();
+          this.renderPage = true;
+          this.ngProgress.done();
+          },1000);
+        }else{
+          this.initialSetup();
+        }
+      },err=>{
+        console.log(err)
+      },
+      ()=>{
+        console.log(this.manageForm.acParent);
+
+      }
+    );
+    setTimeout(()=>{
+      this.familyAndAddressService.doGetSiblings(this.student.student_ref).subscribe(
+        data=>{
+          console.log(data)
+          if(data)
+          this.manageForm.siblingList = data;
+        },err=>{
+          console.log(err)
+        }
+      )
+      this.familyAndAddressService.doGetAddress(this.student.student_ref).subscribe(
+        data=>{
+          if(data.address_ref)
+          this.manageForm.acAddress = data;
+
+        },err=>{
+          console.log(err)
+        },
+        ()=>{
+          this.initialLivingAddress();
+          this.getLivingProvince();
+          this.getLivingDistrict();
+          this.getLivingSubDistrict();
+        }
+      )
+    },1000)
+
+
+  }
+
+  convertDateBackToFront(){
+    if(this.manageForm.acParent.father_birth_date != null)
+    this.manageForm.acParent.father_birth_date = new Date(this.manageForm.acParent.father_birth_date);
+    if(this.manageForm.acParent.mother_birth_date != null)
+    this.manageForm.acParent.mother_birth_date = new Date(this.manageForm.acParent.mother_birth_date);
+    if(this.manageForm.acParent.patrol_birth_date != null)
+    this.manageForm.acParent.patrol_birth_date = new Date(this.manageForm.acParent.patrol_birth_date);
+  }
+
+  initialProvince(){
     this.fatherAddressService.initialProvince();
     this.motherAddressService.initialProvince();
     this.patrolAddressService.initialProvince();
@@ -61,15 +135,202 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.currentAddressService.initialProvince();
 
 
-    this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
-      data=>{
-        console.log(data);
-        this.manageForm.acParent = data;
-      },err=>{
-        console.log(err)
-      }
-    )
   }
+  initialParentAddress(){
+    if(this.manageForm.acParent.parent_ref != undefined && this.manageForm.acParent.parent_flag == '1'){
+      this.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
+      this.motherAddressService.initialDistrict(this.manageForm.momProvince.province_ref);
+      this.fatherAddressService.initialSubDistrict(this.manageForm.dadDistrict.district_ref);
+      this.motherAddressService.initialSubDistrict(this.manageForm.momDistrict.district_ref);
+    }
+    if(this.manageForm.acParent.parent_ref != undefined && this.manageForm.acParent.parent_flag == '2'){
+      this.patrolAddressService.initialDistrict(this.manageForm.patrolProvince.province_ref);
+      this.patrolAddressService.initialSubDistrict(this.manageForm.patrolDistrict.district_ref);
+    }
+
+  }
+
+  initialLivingAddress(){
+    if(this.manageForm.acAddress.address_ref != undefined){
+      this.homeAddressService.initialDistrict(this.manageForm.homeProvince.province_ref);
+      this.currentAddressService.initialDistrict(this.manageForm.currentProvince.province_ref);
+      this.homeAddressService.initialSubDistrict(this.manageForm.homeDistrict.district_ref);
+      this.currentAddressService.initialSubDistrict(this.manageForm.currentDistrict.district_ref);
+    }
+
+  }
+
+  getParentProvince(){
+    if(this.manageForm.acParent.father_province != null || this.manageForm.acParent.father_province != undefined){
+      this.fatherAddressService.getProvinceByRef(this.manageForm.acParent.father_province).subscribe(
+        data=>{
+          this.manageForm.dadProvince = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acParent.mother_province != null || this.manageForm.acParent.mother_province != undefined){
+      this.fatherAddressService.getProvinceByRef(this.manageForm.acParent.mother_province).subscribe(
+        data=>{
+          this.manageForm.momProvince = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acParent.patrol_province != null || this.manageForm.acParent.patrol_province != undefined){
+      this.fatherAddressService.getProvinceByRef(this.manageForm.acParent.patrol_province).subscribe(
+        data=>{
+          this.manageForm.patrolProvince = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+  }
+  getLivingProvince(){
+    if(this.manageForm.acAddress.home_province != null || this.manageForm.acAddress.home_province != undefined){
+      this.fatherAddressService.getProvinceByRef(this.manageForm.acAddress.home_province).subscribe(
+        data=>{
+          this.manageForm.homeProvince = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acAddress.current_province != null || this.manageForm.acAddress.current_province != undefined){
+      this.fatherAddressService.getProvinceByRef(this.manageForm.acAddress.current_province).subscribe(
+        data=>{
+          this.manageForm.currentProvince = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+
+  }
+
+  getParentDistrict(){
+    if(this.manageForm.acParent.father_district != null || this.manageForm.acParent.father_district != undefined){
+      this.fatherAddressService.getDistrictByRef(this.manageForm.acParent.father_district).subscribe(
+        data=>{
+          console.log(data);
+          this.manageForm.dadDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acParent.mother_district != null || this.manageForm.acParent.father_district != undefined){
+      this.fatherAddressService.getDistrictByRef(this.manageForm.acParent.mother_district).subscribe(
+        data=>{
+          this.manageForm.momDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acParent.patrol_district != null || this.manageForm.acParent.father_district != undefined){
+      this.fatherAddressService.getDistrictByRef(this.manageForm.acParent.patrol_district).subscribe(
+        data=>{
+          this.manageForm.patrolDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  getLivingDistrict(){
+    if(this.manageForm.acAddress.home_district != null || this.manageForm.acParent.father_district != undefined){
+      this.fatherAddressService.getDistrictByRef(this.manageForm.acAddress.home_district).subscribe(
+        data=>{
+          this.manageForm.homeDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acAddress.current_district != null || this.manageForm.acParent.father_district != undefined){
+      this.fatherAddressService.getDistrictByRef(this.manageForm.acAddress.current_district).subscribe(
+        data=>{
+          this.manageForm.currentDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  getParentSubDistrict(){
+    if(this.manageForm.acParent.father_sub_district != null || this.manageForm.acParent.father_sub_district != undefined){
+      this.fatherAddressService.getSubDistrictByRef(this.manageForm.acParent.father_sub_district).subscribe(
+        data=>{
+          console.log(data);
+          this.manageForm.dadSubDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acParent.mother_sub_district != null || this.manageForm.acParent.mother_sub_district != undefined){
+      this.fatherAddressService.getSubDistrictByRef(this.manageForm.acParent.mother_sub_district).subscribe(
+        data=>{
+          this.manageForm.momSubDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acParent.patrol_sub_district != null || this.manageForm.acParent.patrol_sub_district != undefined){
+      this.fatherAddressService.getSubDistrictByRef(this.manageForm.acParent.patrol_sub_district).subscribe(
+        data=>{
+          this.manageForm.patrolSubDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  getLivingSubDistrict(){
+    if(this.manageForm.acAddress.home_sub_district != null || this.manageForm.acAddress.home_sub_district != undefined){
+      this.fatherAddressService.getSubDistrictByRef(this.manageForm.acAddress.home_sub_district).subscribe(
+        data=>{
+          this.manageForm.homeSubDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+    if(this.manageForm.acAddress.current_sub_district != null || this.manageForm.acAddress.current_sub_district != undefined){
+      this.fatherAddressService.getSubDistrictByRef(this.manageForm.acAddress.current_sub_district).subscribe(
+        data=>{
+          this.manageForm.currentSubDistrict = data;
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+    }
+  }
+
+
 
 
   initialSetup(){
@@ -143,41 +404,87 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.manageForm = new FamilyAndAddressForm();
     this.manageForm = form;
 
-    this.familyAndAddressService.doInsertParent(this.manageForm.acParent).subscribe(
-      data=>{
-        console.log('Insert Parent Completed')
-      },
-      err=>{
-        console.log('Insert Parent Error');
-        console.log(err);
-      },
-      ()=>{
-        this.familyAndAddressService.doInsertSibling(this.manageForm.siblingList).subscribe(
+
+
+   // Proceed Functions
+    this.familyAndAddressService.doInsertSibling(this.manageForm.siblingList).subscribe(
+                        data=>{
+                          console.log(data);
+                          this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+                          console.log('Insert Siblings Completed')
+                        },
+                        err=>{
+                          console.log('Insert Siblings Error');
+                          console.log(err);
+                        },
+                        ()=>{
+
+                        });
+
+      if(!this.insertMode){
+        this.familyAndAddressService.doUpdateParent(this.manageForm.acParent).subscribe(
           data=>{
-            console.log('Insert Siblings Completed')
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+            console.log('Update Parent Completed')
           },
           err=>{
-            console.log('Insert Siblings Error');
+            console.log('Update Parent Error');
             console.log(err);
           },
           ()=>{
-            this.familyAndAddressService.doInsertAddress(this.manageForm.acAddress).subscribe(
-              data=>{
-                console.log('Insert Address Completed');
-                this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
-              },
-              err=>{
-                console.log('Insert Address Error');
-                console.log(err);
-              },
-              ()=>{
 
-              }
-            )
+          }
+        );
+      }else{
+        this.familyAndAddressService.doInsertParent(this.manageForm.acParent).subscribe(
+          data=>{
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+            console.log('Insert Parent Completed')
+          },
+          err=>{
+            console.log('Insert Parent Error');
+            console.log(err);
+          },
+          ()=>{
+
+          }
+        );
+      }
+
+      if(!this.insertMode){
+        this.familyAndAddressService.doUpdateAddress(this.manageForm.acAddress).subscribe(
+          data=>{
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+            console.log('Update Address Completed');
+
+          },
+          err=>{
+            console.log('Update Address Error');
+            console.log(err);
+          },
+          ()=>{
+
           }
         )
+      }else{
+        this.familyAndAddressService.doInsertAddress(this.manageForm.acAddress).subscribe(
+          data=>{
+            console.log('Insert Address Completed');
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+          },
+          err=>{
+            console.log('Insert Address Error');
+            console.log(err);
+          },
+          ()=>{
+
+          }
+        );
       }
-    )
+
+
+
+
   }
 
 }

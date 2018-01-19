@@ -21,7 +21,7 @@
       <div class="col-xs-5">
         <label class="normal">จังหวัด *</label>
         <p-autoComplete
-          name="autocompleteProvince"
+          class="autocomplete-province"
           field="province_name_t"
           [(ngModel)]="manageForm.homeProvince"
           [suggestions]="homeProvinceList"
@@ -39,7 +39,7 @@
       <div class="col-xs-7">
         <label class="normal">อำเภอ *</label>
         <p-autoComplete
-          name="autocompleteDistrict"
+          class="autocomplete-district"
           field="district_name_t"
           [(ngModel)]="manageForm.homeDistrict"
           [suggestions]="homeDistrictList"
@@ -62,7 +62,7 @@
       <div class="col-xs-5">
         <label class="normal">ตำบล *</label>
         <p-autoComplete
-          name="sub_district"
+          class="autocomplete-sub-district"
           field="sub_district_name_t"
           [(ngModel)]="manageForm.homeSubDistrict"
           [suggestions]="homeSubDistrictList"
@@ -94,7 +94,7 @@
       <div class="col-xs-12">
         <label class="normal">แนบภาพแสดงเส้นทางไปบ้านนักศึกษา</label>
         <div class="col-xs-12 direction-upload">
-          <img *ngIf="image != null" [src]="image" class="image-direction">
+          <img *ngIf="manageForm.acAddress.direction_image != undefined" [src]="manageForm.acAddress.direction_image" class="image-direction">
       </div>
       <div class="col-xs-12 profile-upload">
           <p-fileUpload
@@ -127,7 +127,8 @@
     <div class="row overide-row">
       <div class="col-xs-5">
         <label class="normal">จังหวัด *</label>
-        <p-autoComplete name="autocompleteProvince"
+        <p-autoComplete
+          class="autocomplete-province"
           field="province_name_t"
           [(ngModel)]="manageForm.currentProvince"
           [suggestions]="currentProvinceList"
@@ -143,7 +144,8 @@
       </div>
       <div class="col-xs-7">
         <label class="normal">อำเภอ *</label>
-        <p-autoComplete name="autocompleteDistrict"
+        <p-autoComplete
+          class="autocomplete-district"
           field="district_name_t"
           [(ngModel)]="manageForm.currentDistrict"
           [suggestions]="currentDistrictList"
@@ -166,7 +168,7 @@
       <div class="col-xs-5">
         <label class="normal">ตำบล *</label>
         <p-autoComplete
-          name="sub_district"
+          class="autocomplete-sub-district"
           field="sub_district_name_t"
           [(ngModel)]="manageForm.currentSubDistrict"
           [suggestions]="currentSubDistrictList"
@@ -197,7 +199,7 @@
     <div class="row overide-row"></div>
     <div class="row overide-row formFooter">
       <div class="col-xs-12" style="text-align:right">
-        <button pButton type="button" label="ย้อนกลับ" (click)="prevButtonOnClick()"></button>
+        <button pButton type="button" label="ย้อนกลับ" class="ui-button-info btn-prev" (click)="prevButtonOnClick()"></button>
         <button pButton type="submit" class="ui-button-success" label="บันทึก"></button>
       </div>
     </div>

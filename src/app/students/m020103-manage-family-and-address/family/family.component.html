@@ -12,24 +12,25 @@
           label="บิดา-มารดา"
           formControlName="parent_flag"
           [(ngModel)]="manageForm.acParent.parent_flag"
-          (onClick)="whenChangeParentFlag(1)">
+          (click)="whenChangeParentFlag(1)">
           </p-radioButton>
           <p-radioButton name="parent"
           inputId="opt2" value="2"
           label="ผู้อุปการะ"
           formControlName="parent_flag"
           [(ngModel)]="manageForm.acParent.parent_flag"
-          (onClick)="whenChangeParentFlag(2)">
+          (click)="whenChangeParentFlag(2)">
           </p-radioButton>
         </div>
       </div>
     </div>
 
-    <div class="row overide-row">
+    <div class="row overide-row" *ngIf="manageForm.acParent.parent_flag == '1'">
       <div class="col-xs-12">
         <label class="normal">สถานภาพครอบครัว</label>
         <div class="col-xs-12">
           <p-radioButton name="relationship"
+          (click)="onRelationshipChange()"
           inputId="opt1"
           value="1"
           label="สมรสและอยู่ด้วยกัน"
@@ -39,6 +40,7 @@
         </div>
         <div class="col-xs-4">
           <p-radioButton name="relationship"
+          (click)="onRelationshipChange()"
           inputId="opt2"
           value="2"
           label="สมรสแต่ไม่ได้อยู่ด้วยกัน"
@@ -59,6 +61,7 @@
         </div>
         <div class="col-xs-12">
           <p-radioButton name="relationship"
+          (click)="onRelationshipChange()"
           inputId="opt3"
           value="3"
           label="หย่าร้าง"
@@ -91,6 +94,7 @@
         <label class="normal">สถานะ</label>
         <p-radioButton
         name="father_status"
+        (click)="onDieStatusChange(0)"
         value="1"
         label="มีชีวิตอยู่"
         formControlName="father_status"
@@ -98,6 +102,7 @@
         </p-radioButton>
         <p-radioButton
         name="father_status"
+        (click)="onDieStatusChange(0)"
         value="2"
         label="เสียชีวิต"
         formControlName="father_status"
@@ -298,6 +303,7 @@
         <label class="normal">ครอบครองที่ดิน</label>
         <div class="col-xs-12">
           <p-radioButton name="father-land-status"
+          (click)="onLandStatusChange(0)"
           value="1"
           label="ไม่มี"
           formControlName="father_land_flag"
@@ -306,6 +312,7 @@
         </div>
         <div class="col-xs-2">
           <p-radioButton name="father-land-status"
+          (click)="onLandStatusChange(0)"
           value="2"
           label="มี"
           formControlName="father_land_flag"
@@ -398,12 +405,14 @@
       <div class="col-xs-6">
         <label class="normal">สถานะ</label>
         <p-radioButton name="mother_status"
+        (click)="onDieStatusChange(1)"
         value="1"
         label="มีชีวิตอยู่"
         formControlName="mother_status"
         [(ngModel)]="manageForm.acParent.mother_status">
         </p-radioButton>
         <p-radioButton name="mother_status"
+        (click)="onDieStatusChange(1)"
         value="2"
         label="เสียชีวิต"
         formControlName="mother_status"
@@ -588,6 +597,7 @@
         <label class="normal">ครอบครองที่ดิน</label>
         <div class="col-xs-12">
           <p-radioButton name="mother-land-status"
+          (click)="onLandStatusChange(1)"
           value="1"
           label="ไม่มี"
           formControlName="mother_land_flag"
@@ -596,6 +606,7 @@
         </div>
         <div class="col-xs-3">
           <p-radioButton name="mother-land-status"
+          (click)="onLandStatusChange(1)"
           value="2"
           label="มี"
           formControlName="mother_land_flag"
@@ -700,12 +711,14 @@
       <div class="col-xs-6">
         <label class="normal">สถานะ</label>
         <p-radioButton name="patrol_status"
+        (click)="onDieStatusChange(2)"
         value="1"
         label="มีชีวิตอยู่"
         formControlName="patrol_status"
         [(ngModel)]="manageForm.acParent.patrol_status">
         </p-radioButton>
         <p-radioButton name="patrol_status"
+        (click)="onDieStatusChange(2)"
         value="2"
         label="เสียชีวิต"
         formControlName="patrol_status"
@@ -887,6 +900,7 @@
         <label class="normal">ครอบครองที่ดิน</label>
         <div class="col-xs-12">
           <p-radioButton name="patrol-land-status"
+          (click)="onLandStatusChange(2)"
           value="1"
           label="ไม่มี"
           formControlName="patrol_land_flag"
@@ -895,6 +909,7 @@
         </div>
         <div class="col-xs-3">
           <p-radioButton name="patrol-land-status"
+          (click)="onLandStatusChange(2)"
           value="2"
           label="มี"
           formControlName="patrol_land_flag"
@@ -974,7 +989,7 @@
     <div class="col-xs-6 btn-panel-left">
     </div>
     <div class="col-xs-6 btn-panel-right">
-      <button pButton type="submit" label="ถัดไป" ></button>
+      <button pButton  class="ui-button-primary btn-prev" type="submit" label="ถัดไป" ></button>
     </div>
   </div>
 
