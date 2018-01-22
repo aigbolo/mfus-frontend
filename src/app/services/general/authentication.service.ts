@@ -15,8 +15,18 @@ export class AuthenticationService {
   constructor(private config: ConfigurationService,
     private layout: LayoutService,) { }
 
-  login(user: AcUser): Promise<any> {
-    return this.config.requestMethodPOST('login', user).toPromise()
+  login(user: AcUser): Observable<any> {
+    return this.config.requestMethodPOST('login', user).map(user => {
+      if(user){
+        const token = user.ac_user.api_token
+        const ac_user = JSON.stringify(user.ac_user);
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', ac_user);
+        this.setAccountInfo(user.ac_user)
+        this.setLoggedinStage(token)
+        return user;
+      }
+    })
   }
 
   logout() {
@@ -70,7 +80,6 @@ export class AuthenticationService {
         },
         ()=>{
           this.layout.setDisplayName(localStorage.getItem('username'));
-          window.location.reload();
         }
       )
     }
@@ -87,12 +96,9 @@ export class AuthenticationService {
         },
         ()=>{
           this.layout.setDisplayName(localStorage.getItem('username'));
-          window.location.reload();
         }
       )
     }
-
-
   }
 
   getUser(){
