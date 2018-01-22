@@ -36,7 +36,8 @@ import {
   CalendarModule,
   SliderModule,
   EditorModule,
-  StepsModule
+  StepsModule,
+  DialogModule
 } from 'primeng/primeng';
 
 // Companent
@@ -159,7 +160,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     EditorModule,
     StepsModule,
     CurrencyMaskModule,
-    DataListModule
+    DataListModule,
+    DialogModule
 
   ],
   providers: [

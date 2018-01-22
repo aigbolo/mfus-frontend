@@ -33,3 +33,10 @@
         <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ" style="float:right;"></button>
     </div>
 </div>
+
+<p-dialog header="Title" [(visible)]="display">
+    test Dialog
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="display=false" label="กลับสู่หน้าหลัก"></button>
+    </p-footer>
+</p-dialog>
