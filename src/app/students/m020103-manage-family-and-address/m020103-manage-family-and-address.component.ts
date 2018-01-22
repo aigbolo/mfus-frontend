@@ -28,8 +28,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   sibling: AcSibling = new AcSibling();
   renderPage = false;
 
-  user: AcUser = new AcUser;
-  student: AcStudent = new AcStudent;
+  user: AcUser =  this.authService.getUser();
 
   educationLevelList: RftEducationLevel[];
   items: MenuItem[];
@@ -49,8 +48,6 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    this.user = this.authService.getUser();
-    this.student = this.authService.getAccount();
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
@@ -59,7 +56,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
 
 
-    this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
+    this.familyAndAddressService.doGetParent(this.user.account_ref).subscribe(
       data=>{
         if(data.parent_ref){
           setTimeout(()=>{
@@ -88,7 +85,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
       }
     );
     setTimeout(()=>{
-      this.familyAndAddressService.doGetSiblings(this.student.student_ref).subscribe(
+      this.familyAndAddressService.doGetSiblings(this.user.account_ref).subscribe(
         data=>{
           console.log(data)
           if(data)
@@ -97,7 +94,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           console.log(err)
         }
       )
-      this.familyAndAddressService.doGetAddress(this.student.student_ref).subscribe(
+      this.familyAndAddressService.doGetAddress(this.user.account_ref).subscribe(
         data=>{
           if(data.address_ref)
           this.manageForm.acAddress = data;
@@ -360,6 +357,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.sibling.create_user = this.user.user_ref;
     this.sibling.update_user = this.user.user_ref;
     this.manageForm.siblingList.push(this.sibling);
+    this.renderPage = true;
+    this.ngProgress.done();
   }
   }
   stepDisplay() {

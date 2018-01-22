@@ -17,7 +17,6 @@ import { CalendarModel } from '../../../models/calendar-model';
   styleUrls: ["./m010101-manage-student.component.css"]
 })
 export class M010101ManageStudentComponent extends CalendarModel implements OnInit {
-  user = localStorage.getItem("username");
 
   pageRender: boolean = false;
   schoolList: RftSchool[];
@@ -191,9 +190,11 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
     this.manageStudentForm.acStudent.major_ref = this.manageStudentForm.rftMajor.major_ref;
     console.log(this.manageStudentForm);
     this.studentService
-      .doInsert(this.manageStudentForm.acStudent, this.user)
+      .doInsert(this.manageStudentForm.acStudent)
       .subscribe(
-        res => {},
+        res => {
+          console.log(res)
+        },
         error => {
           console.log(error);
         },

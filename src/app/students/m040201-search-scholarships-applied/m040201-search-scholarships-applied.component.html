@@ -14,50 +14,25 @@
         </div>
 
         <div class="col-xs-2">
-          <label class="normal">รอบ</label>
+          <label class="normal">เลขที่ใบสมัคร</label>
           <input
           type="text" class="input-round" pInputText
           pattern="\d*"
           max="99"
           maxlength="2"
-          formControlName="round"
-          [(ngModel)]="searchForm.search_criteria.round">
+          formControlName="application_code"
+          [(ngModel)]="searchForm.search_criteria.application_code">
         </div>
 
         <div class="col-xs-6">
-          <label class="normal">เลขเอกสารอ้างอิง</label>
-          <input
-          type="text" pInputText
-          maxlength="50"
-          formControlName="document_ref_no"
-          [(ngModel)]="searchForm.search_criteria.document_ref_no">
+          <label class="normal">สถานะการดำเนินการ</label>
+          <p-dropdown [options]="processStatusList"
+          formControlName="process_status"
+          [(ngModel)]="searchForm.search_criteria.process_status"></p-dropdown>
         </div>
       </div>
     </div>
   </div>
-
-      <div class="row overide-row">
-        <div class="col-xs-12">
-          <label class="normal">ผู้ให้ทุนการศึกษา</label>
-          <p-autoComplete
-          class="autocomplete-sponsors"
-          maxlength="200"
-          [dropdown]="true"
-          field="sponsors_name"
-          [suggestions]="sponsors"
-          forceselection="true"
-          formControlName="sponsors_name"
-          [(ngModel)]="sponsor"
-          (onSelect)="onSelectSponsors()"
-          (onDropdownClick)="handleCompleteClickSponsors()"
-          (completeMethod)="autocompleteSponsors($event)"
-          >
-            </p-autoComplete>
-        </div>
-
-      </div>
-
-
 
       <div class="row overide-row">
         <div class="col-xs-12">
@@ -67,7 +42,7 @@
           maxlength="50"
           [dropdown]="true"
           field="scholarship_name"
-          [suggestions]="scholarships"
+          [suggestions]="scholarshipList"
           forceselection="true"
           formControlName="scholarship_name"
           [(ngModel)]="scholarship"
@@ -98,8 +73,8 @@
       </div>
   </div>
   </form>
-      <p-dataTable [value]="scholarshipAnnouncementList"
-        [(selection)]="scholarshipAnnouncement"
+      <p-dataTable [value]="applySholarshipsList"
+        [(selection)]="application"
         selectionMode="single"
         dataKey="announcement_ref"
         (onRowSelect)="onRowSelect($event)"
