@@ -67,6 +67,10 @@ export class AuthenticationService {
         },
         err=>{
           console.log(err)
+        },
+        ()=>{
+          this.layout.setDisplayName(localStorage.getItem('username'));
+          window.location.reload();
         }
       )
     }
@@ -80,6 +84,10 @@ export class AuthenticationService {
         },
         err=>{
           console.log(err)
+        },
+        ()=>{
+          this.layout.setDisplayName(localStorage.getItem('username'));
+          window.location.reload();
         }
       )
     }

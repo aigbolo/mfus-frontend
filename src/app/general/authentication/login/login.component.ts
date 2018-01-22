@@ -53,10 +53,10 @@ export class LoginComponent implements OnInit {
 
             this.authService.setLoggedinStage(user.ac_user.api_token);
             this.authService.setAccountInfo(user.ac_user);
-            this.layout.setDisplayName(localStorage.getItem('username'));
+
             // this.router.navigateByUrl('/');
             // this.utilsService.goToPage("/");
-            window.location.reload();
+
             return
           }
           this.logedinFalse = true;
