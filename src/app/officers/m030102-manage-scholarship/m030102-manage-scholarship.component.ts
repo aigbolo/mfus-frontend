@@ -192,7 +192,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
     }
 
     this.scholarshipService
-      .insertScholarship(this.manageScholarship, this.user)
+      .insertScholarship(this.manageScholarship, this.user.user_ref)
       .subscribe(
         res => {
           this.layoutService.setMsgDisplay(
