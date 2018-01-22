@@ -33,7 +33,7 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
     private studentService: M010101StudentService,
     private referenceService: ReferenceService,
     private layoutService: LayoutService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
   ) {
     super();
   }
@@ -46,7 +46,7 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
     this.referenceService.initialSchools();
     this.layoutService.setPageHeader("ลงทะเบียนผู้ใช้");
     this.manageStudentForm.acStudent.profile_image =
-      "../../../../assets/images/empty_profile.png";
+      "./assets/images/empty_profile.png";
     this.validateForm();
   }
 
@@ -198,19 +198,15 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
           console.log(error);
         },
         () => {
-          this.onResetClick()
           this.layoutService.setMsgDisplay(
             Severity.SUCCESS,
             "บันทึกข้อมูลสำเร็จ",
             ""
           );
+          this.utilsService.goToPage('login');
         }
       );
   }
 
-  onResetClick(){
-    this.manageStudentForm = new StudentForm();
-    this.manageStudentForm.acStudent.profile_image =
-      "../../../../assets/images/empty_profile.png";
-  }
+
 }

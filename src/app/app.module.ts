@@ -82,6 +82,7 @@ import { SiblingComponent } from './students/m020103-manage-family-and-address/s
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
 import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
+import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -129,6 +130,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AddressComponent,
     M040103ManageFamilyFinancialComponent,
     M040105ManageDocumentUploadComponent,
+    M040201SearchScholarshipsAppliedComponent,
   ],
   imports: [
     // Angular

@@ -39,6 +39,7 @@ export class ApplyScholarshipForm{
   public school_name_t: string
   public major_name_t: string
   public gender: string
+  public search_criteria:SearchCriteria;
 
   constructor(){
     this.acStudent = new AcStudent()
@@ -66,6 +67,23 @@ export class ApplyScholarshipForm{
     this.documentList = []
     this.school_name_t = ""
     this.major_name_t = ""
-    this.gender = ""
+    this.gender = "";
+
+    this.search_criteria = new SearchCriteria();
   }
+
+
+}
+
+class SearchCriteria{
+  public year: number;
+  public application_code: string;
+  public process_status: string;
+  public scholarship_ref: string;
+  constructor(){
+    this.year = null;
+    this.application_code = null;
+    this.process_status = null;
+    this.scholarship_ref = null;
+    }
 }

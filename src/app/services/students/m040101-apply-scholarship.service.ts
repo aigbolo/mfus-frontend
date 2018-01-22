@@ -55,4 +55,8 @@ export class M040101ApplyScholarshipService {
   return this.configurationService.requestMethodPOST('documentupload-insert',documentUpload)
  }
 
+ searchScholarshipsApplied(application: ApplyScholarshipForm){
+  return this.configurationService.requestMethodPOST('documentupload-insert',application.search_criteria);
+ }
+
 }
