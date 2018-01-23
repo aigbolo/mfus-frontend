@@ -7,6 +7,7 @@ import { M040101ApplyScholarshipService } from '../../../services/students/m0401
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ApDocumentUpload } from '../../../models/ap-document-upload';
 import { LayoutService } from '../../../services/utils/layout.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-m040105-manage-document-upload',
@@ -29,9 +30,11 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   constructor(public applyApplication: ApplyScholarshipsComponent,
     private applyScholarshipService: M040101ApplyScholarshipService,
     private utilsService: UtilsService,
-    private layoutService: LayoutService) { }
+    private layoutService: LayoutService,
+    private ngProgress: NgProgress) { }
 
   ngOnInit() {
+    this.ngProgress.start()
     this.initialDocumentList()
   }
 
@@ -43,6 +46,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
         obj.upload_name = this.file_name
         this.applyApplication.applyApplicationForm.documentList.push(obj)
       }
+      this.ngProgress.done()
     })
   }
 
@@ -69,9 +73,6 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
           .subscribe(val => {
             this.uploadDocument.document_image = val;
           });
-
-        // let index = new ApDocumentUpload()
-        // index = documentList.find(i => i.document_ref == ref)
         if (typeof documentList.find(i => i.document_ref == ref).upload_name === "undefined") {
           documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
           documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
@@ -81,8 +82,6 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
           documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
           documentUpload[documentUpload.indexOf(documentUpload.find(i => i.document_ref == ref))] = this.uploadDocument;
         }
-
-        console.log(documentUpload)
       }, 2000);
     }).subscribe()
   }
@@ -99,30 +98,31 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   }
 
   onInsertClick() {
-    console.log('student: ------------------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.acStudent)
-    console.log('application: --------------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.apApplication)
-    console.log('scholarshipHistory: -------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-    console.log('studentLoanFund: ----------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.apStudentLoanFund)
-    console.log('familyFinancial: ----------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.apFamilyFinancial)
-    console.log('familyDebt: ---------------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.apFamiyDebt)
-    console.log('documentUpload: -----------------------------------------')
-    console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
+    this.ngProgress.start()
+    // console.log('student: ------------------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.acStudent)
+    // console.log('application: --------------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.apApplication)
+    // console.log('scholarshipHistory: -------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+    // console.log('studentLoanFund: ----------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+    // console.log('familyFinancial: ----------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.apFamilyFinancial)
+    // console.log('familyDebt: ---------------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.apFamiyDebt)
+    // console.log('documentUpload: -----------------------------------------')
+    // console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
 
     let financialAndDebt = {
       ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
       family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
     }
-
     this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
       .subscribe(res => {
         this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
           .subscribe(res => {
+            this.applyApplication.applyApplicationForm.apApplication = res
             this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
             this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
               .subscribe(res => {
@@ -135,7 +135,6 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
                         }
                         this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
                           .subscribe(res => {
-                            console.log('complete')
                           }, error => {
                             console.log(error)
                             this.layoutService.setMsgDisplay(
@@ -144,7 +143,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
                               ""
                             );
                           }, () => {
-
+                            this.ngProgress.done()
                             this.display = true
                           })
                       })

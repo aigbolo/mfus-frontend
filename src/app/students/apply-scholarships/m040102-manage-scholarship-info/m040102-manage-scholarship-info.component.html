@@ -89,7 +89,7 @@
                           [ngModelOptions]="{standalone: true}"
                           [options]="{ prefix: '', thousands: ',', decimal: '.' }"
                           min="0"
-                          maxlength='10'
+                          maxlength='9'
                           max="999999.99"
                           currencyMask
                           pInputText>
@@ -140,6 +140,7 @@
                           [ngModelOptions]="{standalone: true}"
                           [options]="{ prefix: '', thousands: ',', decimal: '.' }"
                           min="0"
+                          maxlength="9"
                           max="999999.99"
                           currencyMask
                           [(ngModel)]="obj.money_amount"
