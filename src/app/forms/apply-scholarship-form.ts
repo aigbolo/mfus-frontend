@@ -158,7 +158,6 @@ export class ApplyScholarshipForm{
 
 
 }
-
 class SearchCriteria{
   public year: number;
   public application_code: string;
@@ -171,3 +170,4 @@ class SearchCriteria{
     this.scholarship_ref = null;
     }
 }
+

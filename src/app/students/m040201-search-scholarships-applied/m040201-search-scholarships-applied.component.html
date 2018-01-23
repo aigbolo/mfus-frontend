@@ -13,10 +13,10 @@
           [(ngModel)]="searchForm.search_criteria.year">
         </div>
 
-        <div class="col-xs-2">
+        <div class="col-xs-5">
           <label class="normal">เลขที่ใบสมัคร</label>
           <input
-          type="text" class="input-round" pInputText
+          type="text" pInputText
           pattern="\d*"
           max="99"
           maxlength="2"
@@ -24,7 +24,7 @@
           [(ngModel)]="searchForm.search_criteria.application_code">
         </div>
 
-        <div class="col-xs-6">
+        <div class="col-xs-5">
           <label class="normal">สถานะการดำเนินการ</label>
           <p-dropdown [options]="processStatusList"
           formControlName="process_status"

@@ -1,3 +1,4 @@
+import { ScholarshipApplyForm } from './../../forms/scholarship-applied-form';
 import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { ApFamilyFinancial } from './../../models/ap-family-financial';
 import { ApScholarshipHistory } from './../../models/ap-scholarship-history';
@@ -56,7 +57,7 @@ export class M040101ApplyScholarshipService {
  }
 
  doSearch(application: ApplyScholarshipForm){
-  return this.configurationService.requestMethodPOST('documentupload-insert',application.search_criteria);
+  return this.configurationService.requestMethodPOST('stapplication',application.search_criteria);
  }
 
 }
