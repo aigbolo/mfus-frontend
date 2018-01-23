@@ -17,7 +17,6 @@ import { CalendarModel } from '../../../models/calendar-model';
   styleUrls: ["./m010101-manage-student.component.css"]
 })
 export class M010101ManageStudentComponent extends CalendarModel implements OnInit {
-  user = localStorage.getItem("username");
 
   pageRender: boolean = false;
   schoolList: RftSchool[];
@@ -33,7 +32,7 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
     private studentService: M010101StudentService,
     private referenceService: ReferenceService,
     private layoutService: LayoutService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
   ) {
     super();
   }
@@ -191,26 +190,24 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
     this.manageStudentForm.acStudent.major_ref = this.manageStudentForm.rftMajor.major_ref;
     console.log(this.manageStudentForm);
     this.studentService
-      .doInsert(this.manageStudentForm.acStudent, this.user)
+      .doInsert(this.manageStudentForm.acStudent)
       .subscribe(
-        res => {},
+        res => {
+          console.log(res)
+        },
         error => {
           console.log(error);
         },
         () => {
-          this.onResetClick()
           this.layoutService.setMsgDisplay(
             Severity.SUCCESS,
             "บันทึกข้อมูลสำเร็จ",
             ""
           );
+          this.utilsService.goToPage('login');
         }
       );
   }
 
-  onResetClick(){
-    this.manageStudentForm = new StudentForm();
-    this.manageStudentForm.acStudent.profile_image =
-      "../../../../assets/images/empty_profile.png";
-  }
+
 }

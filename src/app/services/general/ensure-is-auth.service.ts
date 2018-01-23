@@ -12,7 +12,7 @@ export class EnsureIsAuth implements CanActivate {
       return true;
     }
     else {
-      this.router.navigateByUrl('/');
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
       return false;
     }
   }
