@@ -37,7 +37,8 @@ import {
   SliderModule,
   EditorModule,
   StepsModule,
-  DialogModule
+  DialogModule,
+  TabViewModule
 } from 'primeng/primeng';
 
 // Companent
@@ -82,6 +83,10 @@ import { SiblingComponent } from './students/m020103-manage-family-and-address/s
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
 import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
+import { M040104ManageFamilyAndAddressComponent } from './students/apply-scholarships/m040104-manage-family-and-address/m040104-manage-family-and-address.component';
+import { AddressViewComponent } from './students/apply-scholarships/m040104-manage-family-and-address/address-view/address-view.component';
+import { SiblingViewComponent } from './students/apply-scholarships/m040104-manage-family-and-address/sibling-view/sibling-view.component';
+import { FamilyViewComponent } from './students/apply-scholarships/m040104-manage-family-and-address/family-view/family-view.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -130,6 +135,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AddressComponent,
     M040103ManageFamilyFinancialComponent,
     M040105ManageDocumentUploadComponent,
+    M040104ManageFamilyAndAddressComponent,
+    AddressViewComponent,
+    SiblingViewComponent,
+    FamilyViewComponent,
     M040201SearchScholarshipsAppliedComponent,
   ],
   imports: [
@@ -163,7 +172,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     StepsModule,
     CurrencyMaskModule,
     DataListModule,
-    DialogModule
+    DialogModule,
+    TabViewModule
 
   ],
   providers: [

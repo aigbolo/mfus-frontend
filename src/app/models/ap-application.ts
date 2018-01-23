@@ -7,7 +7,7 @@ export class ApApplication {
   public gpax: number;
   public advisor_name: string;
   public livelihood: string;
-  public annoucement_ref: string;
+  public announcement_ref: string;
   public money_spend_plan: string;
   public document_screening_flag: string;
   public interview_flag: string;

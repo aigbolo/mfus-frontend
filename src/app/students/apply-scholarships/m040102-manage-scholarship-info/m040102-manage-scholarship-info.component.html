@@ -89,6 +89,7 @@
                           [ngModelOptions]="{standalone: true}"
                           [options]="{ prefix: '', thousands: ',', decimal: '.' }"
                           min="0"
+                          maxlength='10'
                           max="999999.99"
                           currencyMask
                           pInputText>
@@ -166,18 +167,19 @@
         </div>
     </div>
     <div class="row formFooter overide-row">
-        <div class="col-xs-12 text-right">
-            <button class="ui-button-primary"
+        <div class="col-xs-12">
+            <button class="ui-button-warning text-left"
+            type="button"
+            (click)="onPrevious()"
+            label="กลับ"
+            pButton>
+          </button>
+            <button class="ui-button-primary text-right"
               type="submit"
               label="ต่อไป"
               pButton>
             </button>
-            <button class="ui-button-warning"
-              type="button"
-              (click)="onPrevious()"
-              label="กลับ"
-              pButton>
-            </button>
+
         </div>
     </div>
 </form>

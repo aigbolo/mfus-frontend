@@ -52,6 +52,7 @@ export class M040101ManageApplicantInfoComponent implements OnInit {
     this.applyApplication.applyApplicationForm.acStudent.update_user = this.applyApplication.user_ref
     this.referenceService.nextIndex(1)
     this.utilsService.activeIndex = this.referenceService.getIndex()
+    this.applyApplication.pageRender = false
   }
 
 }

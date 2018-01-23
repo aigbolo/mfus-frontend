@@ -66,7 +66,7 @@
                           max="999999.99"
                           maxlength="10"
                           currencyMask
-                          [(ngModel)]="obj.money_amount"
+                          [(ngModel)]="obj.debt_amount"
                           pInputText>
                         <button class="ui-button-warning btn-position"
                           type="button"
@@ -82,17 +82,17 @@
     <div class="space"></div>
     <div class="row formFooter overide-row">
         <div class="col-xs-12  text-right">
-            <button class="ui-button-primary"
-              type="submit"
-              label="ต่อไป"
-              pButton>
-            </button>
-            <button class="ui-button-warning"
-              type="button"
-              (click)="onPrevious()"
-              label="กลับ"
-              pButton>
-            </button>
+            <button class="ui-button-warning text-left"
+            type="button"
+            (click)="onPrevious()"
+            label="กลับ"
+            pButton>
+          </button>
+          <button class="ui-button-primary text-right"
+            type="submit"
+            label="ต่อไป"
+            pButton>
+          </button>
         </div>
     </div>
 </form>
