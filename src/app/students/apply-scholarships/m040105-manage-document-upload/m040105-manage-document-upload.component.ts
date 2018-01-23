@@ -92,7 +92,10 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
     this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).label = "เลือกไฟล์"
     this.applyApplication.applyApplicationForm.apDocumentUpload.splice(this.applyApplication.applyApplicationForm.documentList.indexOf(doc), 1);
     this.applyApplication.applyApplicationForm.apDocumentUpload[this.applyApplication.applyApplicationForm.documentList.indexOf(doc)]
-    console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
+  }
+
+  onPrevious(){
+
   }
 
   onInsertClick() {
@@ -111,42 +114,44 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
     console.log('documentUpload: -----------------------------------------')
     console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
 
-    // let financialAndDebt = {
-    //   ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
-    //   family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
-    // }
-    // this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
-    //   .subscribe(res => {
-    //     this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
-    //       .subscribe(res => {
-    //         console.log(res)
-    //         this.applyApplication.applyApplicationForm.apApplication.application_ref = res
-    //         this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-    //           .subscribe(res => {
-    //             this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
-    //               .subscribe(res => {
-    //                 this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
-    //                   .subscribe(res => {
-    //                     this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
-    //                     this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
-    //                       .subscribe(res => {
-    //                         console.log('complete')
-    //                       }, error => {
-    //                         console.log(error)
-    //                         this.layoutService.setMsgDisplay(
-    //                           Severity.ERROR,
-    //                           "บันทึกข้อมูลผิดพลาด",
-    //                           ""
-    //                         );
-    //                       }, () => {
+    let financialAndDebt = {
+      ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
+      family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
+    }
+
+    this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
+      .subscribe(res => {
+        this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
+          .subscribe(res => {
+            this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
+            this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+              .subscribe(res => {
+                this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+                  .subscribe(res => {
+                    this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+                      .subscribe(res => {
+                        for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
+                          obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+                        }
+                        this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
+                          .subscribe(res => {
+                            console.log('complete')
+                          }, error => {
+                            console.log(error)
+                            this.layoutService.setMsgDisplay(
+                              Severity.ERROR,
+                              "บันทึกข้อมูลผิดพลาด",
+                              ""
+                            );
+                          }, () => {
 
                             this.display = true
-      //                     })
-      //                 })
-      //             })
-      //         })
-      //     })
-      // })
+                          })
+                      })
+                  })
+              })
+          })
+      })
   }
 
 

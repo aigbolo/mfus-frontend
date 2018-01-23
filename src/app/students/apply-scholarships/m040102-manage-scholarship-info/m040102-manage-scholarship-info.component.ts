@@ -7,6 +7,7 @@ import { ApplyScholarshipsComponent } from '../apply-scholarships.component';
 import { ApScholarshipHistory } from '../../../models/ap-scholarship-history';
 import { ApStudentLoanFund } from '../../../models/ap-student-loan-fund';
 import { ReferenceService } from '../../../services/general/reference.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-m040102-manage-scholarship-info',
@@ -24,9 +25,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   constructor(public applyApplication: ApplyScholarshipsComponent,
               private applyScholarshipService: M040101ApplyScholarshipService,
               private referenceService: ReferenceService,
-              private utilsService: UtilsService) { }
+              private utilsService: UtilsService,
+              private ngProgress: NgProgress) { }
 
   ngOnInit() {
+    this.ngProgress.start()
     this.initialScholarshipAnnouncement()
     this.validateForm()
   }
@@ -41,11 +44,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   initialScholarshipAnnouncement() {
-    console.log('initial Data')
     this.applyScholarshipService.initialScholarshipAnnouncement()
       .subscribe(data=> {
         this.initialList.push(...data);
-        console.log('listScholarship' , this.initialList)
+        this.applyApplication.pageRender = true
+        this.ngProgress.done()
       })
   }
 
@@ -70,12 +73,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   selectedData(){
-    console.log(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement)
     this.applyApplication.applyApplicationForm.sponsors_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sponsors_name
     this.applyApplication.applyApplicationForm.sctype_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sctype_name
     this.applyApplication.applyApplicationForm.detail = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.detail
     this.applyApplication.applyApplicationForm.min_gpax = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.min_gpax
-    this.applyApplication.applyApplicationForm.apApplication.annoucement_ref = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref
+    this.applyApplication.applyApplicationForm.apApplication.announcement_ref = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref
   }
 
   addScholarship(){
@@ -103,9 +105,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   onNext(){
-    console.log('next')
     if (this.scholarshipFormGroup.invalid) {
-      console.log('valid')
       this.utilsService.findInvalidControls(this.scholarshipFormGroup);
       return;
     }
@@ -113,5 +113,6 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apApplication.update_user = this.applyApplication.user_ref
     this.referenceService.nextIndex(2)
     this.utilsService.activeIndex = this.referenceService.getIndex()
+    this.applyApplication.pageRender = false
   }
 }

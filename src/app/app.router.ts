@@ -27,6 +27,7 @@ import { FamilyComponent } from './students/m020103-manage-family-and-address/fa
 import { SiblingComponent } from './students/m020103-manage-family-and-address/sibling/sibling.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
 import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
+import { M040104ManageFamilyAndAddressComponent } from './students/apply-scholarships/m040104-manage-family-and-address/m040104-manage-family-and-address.component';
 
 const appRoutes: Routes = [
 
@@ -78,6 +79,10 @@ const appRoutes: Routes = [
       {
         path: "manage-family-financial",
         component: M040103ManageFamilyFinancialComponent
+      },
+      {
+        path: "manage-family-and-address",
+        component: M040104ManageFamilyAndAddressComponent
       },
       {
         path: "manage-document-upload",

@@ -88,7 +88,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ข้อมูลพื้นฐาน',
         items: [
-          { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/fam'] },
+          { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
         ]
       },
       {

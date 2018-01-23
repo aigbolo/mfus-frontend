@@ -1,8 +1,11 @@
+import { UtilsService } from './../../../services/utils/utils.service';
 import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ApplyScholarshipsComponent } from './../apply-scholarships.component';
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { ApFamilyDebt } from '../../../models/ap-family-debt';
+import { NgProgress } from 'ngx-progressbar';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-m040103-manage-family-financial',
@@ -13,9 +16,13 @@ import { ApFamilyDebt } from '../../../models/ap-family-debt';
 export class M040103ManageFamilyFinancialComponent implements OnInit {
 
   familyFinancialFormGroup: FormGroup
-  constructor(public applyApplication: ApplyScholarshipsComponent) { }
+  constructor(public applyApplication: ApplyScholarshipsComponent,
+              private ngprogress: NgProgress,
+              private referenceService: ReferenceService,
+              private utilsService: UtilsService) { }
 
   ngOnInit() {
+    this.ngprogress.start()
     this.validateForm()
   }
 
@@ -24,8 +31,10 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
       income_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly,
         Validators.compose([Validators.required])),
         expense_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly,
-        Validators.compose([Validators.required])),
+        Validators.compose([Validators.required]))
     })
+    this.ngprogress.done()
+    this.applyApplication.pageRender = true
   }
 
   addRow(){
@@ -43,5 +52,8 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apFamilyFinancial.create_user = this.applyApplication.user_ref
     this.applyApplication.applyApplicationForm.apFamilyFinancial.update_user = this.applyApplication.user_ref
     console.log(this.applyApplication.applyApplicationForm)
+    this.referenceService.nextIndex(4)
+    this.utilsService.activeIndex = this.referenceService.getIndex()
+    this.applyApplication.pageRender = false
   }
 }

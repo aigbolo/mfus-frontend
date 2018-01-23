@@ -46,7 +46,7 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
     this.referenceService.initialSchools();
     this.layoutService.setPageHeader("ลงทะเบียนผู้ใช้");
     this.manageStudentForm.acStudent.profile_image =
-      "../../../../assets/images/empty_profile.png";
+      "./assets/images/empty_profile.png";
     this.validateForm();
   }
 
