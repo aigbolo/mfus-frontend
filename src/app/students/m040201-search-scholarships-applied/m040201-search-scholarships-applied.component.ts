@@ -33,7 +33,6 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
     private utilsService: UtilsService,
     private activateRoute: ActivatedRoute,
     private applyScholarshipService: M040101ApplyScholarshipService,
-    private applyScholarship: ApplyScholarshipForm,
     private referenceService: ReferenceService) { }
 
   ngOnInit() {
