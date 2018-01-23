@@ -74,7 +74,6 @@ export class ApplyScholarshipForm{
   public educationLevel: string
 
   constructor(){
-<<<<<<< HEAD
     this.acStudent = new AcStudent()
     this.apApplication = new ApApplication()
     this.smScholarshipAnnouncement = new SmScholarshipAnnouncement
@@ -127,7 +126,6 @@ export class ApplyScholarshipForm{
   this.parentsFlag = ""
   this.educationLevelList = []
   this.educationLevel = ""
-=======
     this.acStudent = new AcStudent();
     this.apApplication = new ApApplication();
     this.smScholarshipAnnouncement = new SmScholarshipAnnouncement;
@@ -156,7 +154,6 @@ export class ApplyScholarshipForm{
     this.gender = "";
 
     this.search_criteria = new SearchCriteria;
->>>>>>> 68089c7dd70851020cd6c840699f6b3c21756faf
   }
 
 

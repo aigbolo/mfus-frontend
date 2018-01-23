@@ -27,7 +27,11 @@ import { FamilyComponent } from './students/m020103-manage-family-and-address/fa
 import { SiblingComponent } from './students/m020103-manage-family-and-address/sibling/sibling.component';
 import { M040103ManageFamilyFinancialComponent } from './students/apply-scholarships/m040103-manage-family-financial/m040103-manage-family-financial.component';
 import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
+<<<<<<< HEAD
 import { M040104ManageFamilyAndAddressComponent } from './students/apply-scholarships/m040104-manage-family-and-address/m040104-manage-family-and-address.component';
+=======
+import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
+>>>>>>> 68089c7dd70851020cd6c840699f6b3c21756faf
 
 const appRoutes: Routes = [
 
@@ -104,6 +108,7 @@ const appRoutes: Routes = [
         component: AddressComponent
     }
   ] },
+  { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent },
 ];
 
 @NgModule({
