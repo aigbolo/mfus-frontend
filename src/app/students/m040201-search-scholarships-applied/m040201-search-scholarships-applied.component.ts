@@ -1,3 +1,4 @@
+import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { SelectItem } from 'primeng/primeng';
 import { ReferenceService } from './../../services/general/reference.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +11,7 @@ import { ApplyScholarshipForm } from '../../forms/apply-scholarship-form';
 import { M040101ApplyScholarshipService } from '../../services/students/m040101-apply-scholarship.service';
 import { ApApplication } from '../../models/ap-application';
 import { M030102ScholarshipService } from '../../services/officers/m030102-scholarship.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-m040201-search-scholarships-applied',
@@ -42,6 +44,7 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
 
   ngOnInit() {
     this.layoutService.setPageHeader('ตรวจสอบสถานะทุนการศึกษาที่สมัคร');
+
     this.searchForm.search_criteria.year = new Date().getFullYear();
     this.validatorForm();
     this.referenceService.initialScholarships(null);
@@ -119,11 +122,14 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
   }
 
   onReset(){
+
     this.searchForm = new ApplyScholarshipForm;
     this.searchForm.search_criteria.year = new Date().getFullYear();
     this.applySholarshipsList = [];
+    this.scholarship = new SmScholarship;
     this.utilsService.goToPage('search-sholarships-applied');
-    this.ngOnInit();
+
+
   }
 
   autocompleteScholarships(event) {
