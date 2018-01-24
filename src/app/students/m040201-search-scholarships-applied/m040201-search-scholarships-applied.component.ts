@@ -1,4 +1,3 @@
-import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { SelectItem } from 'primeng/primeng';
 import { ReferenceService } from './../../services/general/reference.service';
 import { ActivatedRoute } from '@angular/router';
