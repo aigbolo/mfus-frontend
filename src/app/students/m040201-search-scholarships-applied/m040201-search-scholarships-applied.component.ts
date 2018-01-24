@@ -5,13 +5,15 @@ import { UtilsService } from './../../services/utils/utils.service';
 import { LayoutService } from './../../services/utils/layout.service';
 import { SmScholarship } from './../../models/sm-scholarship';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApplyScholarshipForm } from '../../forms/apply-scholarship-form';
 import { M040101ApplyScholarshipService } from '../../services/students/m040101-apply-scholarship.service';
 import { ApApplication } from '../../models/ap-application';
+import { M030102ScholarshipService } from '../../services/officers/m030102-scholarship.service';
 
 @Component({
   selector: 'app-m040201-search-scholarships-applied',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m040201-search-scholarships-applied.component.html',
   styleUrls: ['./m040201-search-scholarships-applied.component.css']
 })
@@ -32,13 +34,38 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
   constructor(private layoutService: LayoutService,
     private utilsService: UtilsService,
     private activateRoute: ActivatedRoute,
+    private scholarshipService: M030102ScholarshipService,
     private applyScholarshipService: M040101ApplyScholarshipService,
-    private referenceService: ReferenceService) { }
+    private referenceService: ReferenceService) {
+
+     }
 
   ngOnInit() {
-    this.layoutService.setPageHeader('ตรวจสอบสถานะทุนการศึกษา');
+    this.layoutService.setPageHeader('ตรวจสอบสถานะทุนการศึกษาที่สมัคร');
     this.searchForm.search_criteria.year = new Date().getFullYear();
-    // this.validatorForm();
+    this.validatorForm();
+    this.referenceService.initialScholarships(null);
+    if(JSON.stringify(this.activateRoute.snapshot.queryParams) != '{}'){
+    this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
+      if(this.searchForm.search_criteria.year != null
+        || this.searchForm.search_criteria.application_code != null
+        || this.searchForm.search_criteria.process_status != null
+        || this.searchForm.search_criteria.scholarship_ref != null){
+        this.doSearch();
+
+        if(this.searchForm.search_criteria.scholarship_ref != null){
+          let scholarship = new SmScholarship;
+          scholarship.scholarship_ref = this.searchForm.search_criteria.scholarship_ref;
+          this.scholarshipService.selectScholarship(scholarship).subscribe(
+            data=>{
+              this.scholarship = data;
+            },err=>{
+              console.log(err);
+            }
+          );
+        }
+      }
+    }
 
     this.processStatusList = [
       {label: 'ไม่ระบุ',value:null},
@@ -73,6 +100,7 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
       this.onLoad = true;
 
       this.applyScholarshipService.doSearch(this.searchForm).subscribe(data=>{
+        console.log(data);
         this.applySholarshipsList = data;
       },
       error =>{
@@ -87,26 +115,25 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
   }
 
   onRowSelect(event){
-    this.utilsService.goToPage('manage-scholarship-announcement/'+this.application.application_ref)
+    this.utilsService.goToPage('manage-application/'+this.application.application_ref)
   }
 
   onReset(){
     this.searchForm = new ApplyScholarshipForm;
+    this.searchForm.search_criteria.year = new Date().getFullYear();
     this.applySholarshipsList = [];
-    this.utilsService.goToPage('search-scholarship-announcement');
+    this.utilsService.goToPage('search-sholarships-applied');
+    this.ngOnInit();
   }
-  onPageInsert(){
-    this.utilsService.goToPage('manage-scholarship-announcement');
-  }
-
-
-
-
 
   autocompleteScholarships(event) {
     console.log("autocompleteSponsors");
     let query = event.query;
+    let e = event.originalEvent;
     this.scholarshipList = [];
+
+    if(e.type == 'input')
+    this.searchForm.search_criteria.scholarship_ref = null;
 
     let objList: SmScholarship[];
     objList = this.referenceService.getScholarships();

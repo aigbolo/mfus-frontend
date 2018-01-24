@@ -207,12 +207,11 @@ export class ReferenceService {
   }
 
   getScholarshipType() {
-    console.log(this.sc_type);
     return this.sc_type;
   }
 
+  // Begin Functions for Scholarships
   initialScholarships(ref:string){
-
     let url = (ref != null?'autocomplete-scholarships/'+ref:'autocomplete-scholarships');
     this.configuration.requestMethodGET(url).subscribe(
       data=>{
@@ -223,10 +222,11 @@ export class ReferenceService {
       }
     )
   }
-
   getScholarships() {
     return this.scholarships;
   }
+
+  //End Functions For Scholarships
 
   getRoundAnnouncement(year: number, scholarshipRef: string) {
     let body = { year: year, scholarship_ref: scholarshipRef };
@@ -253,8 +253,6 @@ export class ReferenceService {
   }
 
   getEducationLevel() {
-    console.log('getEducationLevel');
-
     return this.configuration.requestMethodGET('autocomplete-edlevel');
   }
 }

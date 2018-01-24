@@ -57,6 +57,7 @@ export class M040101ApplyScholarshipService {
  }
 
  doSearch(application: ApplyScholarshipForm){
+   console.log(application.search_criteria);
   return this.configurationService.requestMethodPOST('stapplication',application.search_criteria);
  }
 

@@ -236,7 +236,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  autocompleteProvince(event,seq: number) {
    let e = event.originalEvent;
-console.log('event is: '+e.type);
    let query = event.query;
    if(seq == 0){
      this.fProvinceList = [];

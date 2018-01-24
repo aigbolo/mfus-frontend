@@ -26,16 +26,20 @@ export class M030101SearchSponsorsComponent implements OnInit {
               private utilsService: UtilsService,
               private sponsorsService: M030101SponsorsService,
               private activateRoute: ActivatedRoute) {
-                this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
-                if(this.searchForm.search_criteria.sponsors_name != null || this.searchForm.search_criteria.active_flag != null){
-                  this.doSearch();
-                }
+
             }
 
   ngOnInit() {
     this.layoutService.setPageHeader('ค้นหาข้อมูลผู้ให้ทุนการศึกษา');
     this.activeStatus = this.utilsService.getActiveFlag('S');
-     }
+    if(JSON.stringify(this.activateRoute.snapshot.queryParams) != '{}'){
+      this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
+      if(this.searchForm.search_criteria.sponsors_name != null || this.searchForm.search_criteria.active_flag != null){
+        this.doSearch();
+      }
+    }
+  }
+
 
   onSearch(){
     this.utilsService.goToPageWithQueryParam('search-sponsors',this.searchForm.search_criteria);

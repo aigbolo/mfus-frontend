@@ -1,0 +1,17 @@
+.row-number{
+  width:50px;
+  text-align: center;
+}
+.application_code{
+  width:140px;
+  text-align: center;
+}
+.registration_end_date{
+  width:110px;
+  text-align: center;
+}
+
+.status{
+  width:150px;
+  text-align: center;
+}

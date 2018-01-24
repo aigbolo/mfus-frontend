@@ -1,4 +1,4 @@
-<form  [formGroup]="searchFormGroup" (ngSubmit)="doSearch()" >
+<form  [formGroup]="searchFormGroup" (ngSubmit)="onSearch()" >
   <div class="row overide-row">
     <div class="col-xs-12">
       <div class="row overide-row">
@@ -17,9 +17,7 @@
           <label class="normal">เลขที่ใบสมัคร</label>
           <input
           type="text" pInputText
-          pattern="\d*"
-          max="99"
-          maxlength="2"
+          maxlength="17"
           formControlName="application_code"
           [(ngModel)]="searchForm.search_criteria.application_code">
         </div>
@@ -43,7 +41,7 @@
           [dropdown]="true"
           field="scholarship_name"
           [suggestions]="scholarshipList"
-          forceselection="true"
+          [forceSelection]="true"
           formControlName="scholarship_name"
           [(ngModel)]="scholarship"
           (onSelect)="onSelectScholarship()"
@@ -66,17 +64,13 @@
           (click)="onReset()"
           class="btn-reset ui-button-warning"
           label="เริ่มใหม่"></button>
-        <button pButton
-          (click)="onPageInsert()"
-          class="btn-new ui-button-info"
-          label="เพิ่มข้อมูล"></button>
-      </div>
+    </div>
   </div>
   </form>
       <p-dataTable [value]="applySholarshipsList"
         [(selection)]="application"
         selectionMode="single"
-        dataKey="announcement_ref"
+        dataKey="application_ref"
         (onRowSelect)="onRowSelect($event)"
         [rows]="10" [paginator]="true"
         [pageLinks]="3"
@@ -86,24 +80,14 @@
         <p-column field="" header="ลำดับ" styleClass="row-number">
             <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
         </p-column>
-        <p-column field="" header="ปีการศึกษา/รอบ" styleClass="year-round">
-          <ng-template let-car="rowData" let-ri="rowIndex" pTemplate="body">
-            <span>{{car['year']}}/{{car['round']}}</span>
+        <p-column field="application_code" header="เลขที่ใบสมัคร" styleClass="application_code"></p-column>
+        <p-column header="ทุนการศึกษา" field="scholarship_name"  styleClass="scholarship_name"></p-column>
+        <p-column field="" header="วันที่ปิดรับสมัคร" styleClass="registration_end_date">
+          <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
+            {{data['registration_end_date']|date:'dd/MM/yyyy'}}
         </ng-template>
         </p-column>
-        <p-column field="document_ref_no" header="เลขเอกสารอ้างอิง" styleClass="document_ref"></p-column>
-        <p-column field="" header="ผู้ให้ทุนการศึกษา/ทุนการศึกษา" styleClass="sponsors-scholarship">
-          <ng-template let-car="rowData" let-ri="rowIndex" pTemplate="body">
-            <span class="sponsors_name">{{car['sponsors_name']}}</span>
-            <span class="scholarship_name">{{car['scholarship_name']}}</span>
-        </ng-template>
-        </p-column>
-        <p-column field="unit" header="จำนวน(ทุน)" styleClass="unit"></p-column>
-        <p-column field="" header="ทุนละ(บาท)" styleClass="financial-aid">
-          <ng-template let-car="rowData" let-ri="rowIndex" pTemplate="body">
-            <span>{{car['financial_aid']|currency:" "}}</span>
-        </ng-template>
-        </p-column>
+        <p-column field="status" header="สถานะทุนการศึกษา" styleClass="status"></p-column>
       </p-dataTable>
 
 
