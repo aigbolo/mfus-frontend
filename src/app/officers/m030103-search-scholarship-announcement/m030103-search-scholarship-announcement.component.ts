@@ -1,3 +1,5 @@
+import { M030101SponsorsService } from './../../services/officers/m030101-sponsors.service';
+import { M030102ScholarshipService } from './../../services/officers/m030102-scholarship.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReferenceService } from './../../services/general/reference.service';
 import { SmSponsors } from './../../models/sm-sponsors';
@@ -31,6 +33,8 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   constructor(private layoutService: LayoutService,
     private utilsService: UtilsService,
     private scholarshipAnnouncementService: M030103ScholarshipAnnouncementService,
+    private sponsorsService: M030101SponsorsService,
+    private scholarshipService: M030102ScholarshipService,
     private activateRoute: ActivatedRoute,
     private referenceService: ReferenceService) { }
 
@@ -39,6 +43,42 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
     this.referenceService.initialSponsors();
     this.searchForm.search_criteria.year = new Date().getFullYear();
     this.validatorForm();
+    if(JSON.stringify(this.activateRoute.snapshot.queryParams) != '{}'){
+    this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
+      if(this.searchForm.search_criteria.year != null
+        || this.searchForm.search_criteria.round != null
+        || this.searchForm.search_criteria.document_ref_no != null
+        || this.searchForm.search_criteria.sponsors_ref != null
+        || this.searchForm.search_criteria.scholarship_ref != null){
+        this.doSearch();
+        if(this.searchForm.search_criteria.sponsors_ref != null){
+          let sponser = new SmSponsors;
+          sponser.sponsors_ref = this.searchForm.search_criteria.sponsors_ref;
+          this.sponsorsService.onRowSelect(sponser).subscribe(
+            data=>{
+              this.sponsor = data;
+            },err=>{
+              console.log(err);
+            },
+            ()=>{
+              this.referenceService.initialScholarships(this.sponsor.sponsors_ref);
+            }
+          );
+        }
+
+        if(this.searchForm.search_criteria.scholarship_ref != null){
+          let scholarship = new SmScholarship;
+          scholarship.scholarship_ref = this.searchForm.search_criteria.scholarship_ref;
+          this.scholarshipService.selectScholarship(scholarship).subscribe(
+            data=>{
+              this.scholarship = data;
+            },err=>{
+              console.log(err);
+            }
+          );
+        }
+      }
+    }
   }
 
   validatorForm() {
@@ -86,6 +126,8 @@ export class M030103SearchScholarshipAnnouncementComponent implements OnInit {
   onReset(){
     this.searchForm = new ScholarshipAnnouncementForm;
     this.scholarshipAnnouncementList = [];
+    this.sponsor = new SmSponsors;
+    this.scholarship = new SmScholarship;
     this.utilsService.goToPage('search-scholarship-announcement');
   }
   onPageInsert(){
