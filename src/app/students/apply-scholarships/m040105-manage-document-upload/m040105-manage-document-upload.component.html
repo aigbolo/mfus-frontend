@@ -34,8 +34,9 @@
     </div>
 </div>
 
-<p-dialog header="Title" [(visible)]="display">
-    test Dialog
+<p-dialog header="ลงทะเบียนเสร็จสิ้น" [(visible)]="display">
+   <div>การลงทะเบียนยื่นเจตจำนงค์ขอทุนการศึกษาเสร็จสิ้น</div>
+   <div>เลขที่ลงทะเบียน : {{applyApplication.applyApplicationForm.apApplication.application_code}}</div>
     <p-footer>
         <button type="button" pButton icon="fa-check" (click)="display=false" label="กลับสู่หน้าหลัก"></button>
     </p-footer>
