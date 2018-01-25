@@ -83,7 +83,7 @@ const appRoutes: Routes = [
         component: M040103ManageFamilyFinancialComponent
       },
       {
-        path: "manage-family-and-address",
+        path: "view-family-and-address",
         component: M040104ManageFamilyAndAddressComponent
       },
       {
@@ -92,6 +92,7 @@ const appRoutes: Routes = [
       }
     ]
   },
+  { path: "manage-application/:id",component: ApplyScholarshipsComponent},
   { path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent,children:[
     {
       path: "family",

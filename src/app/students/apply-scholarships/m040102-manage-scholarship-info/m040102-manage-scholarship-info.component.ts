@@ -32,6 +32,8 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.ngProgress.start()
     this.initialScholarshipAnnouncement()
     this.validateForm()
+
+
   }
 
   validateForm(){
@@ -44,9 +46,21 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   initialScholarshipAnnouncement() {
-    this.applyScholarshipService.initialScholarshipAnnouncement()
+    this.applyScholarshipService.initialScholarshipAnnouncementList()
       .subscribe(data=> {
         this.initialList.push(...data);
+        if(this.applyApplication.update_state){
+          for(let obj of this.initialList){
+            if(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref == obj.announcement_ref){
+              console.log(obj)
+              this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement = obj
+              this.applyApplication.applyApplicationForm.sctype_name = obj.sctype_name
+              this.applyApplication.applyApplicationForm.sponsors_name = obj. sponsors_name
+              this.applyApplication.applyApplicationForm.min_gpax = obj.min_gpax
+              this.applyApplication.applyApplicationForm.detail = obj.detail
+            }
+          }
+        }
         this.applyApplication.pageRender = true
         this.ngProgress.done()
       })
@@ -73,6 +87,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   selectedData(){
+    console.log(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement)
     this.applyApplication.applyApplicationForm.sponsors_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sponsors_name
     this.applyApplication.applyApplicationForm.sctype_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sctype_name
     this.applyApplication.applyApplicationForm.detail = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.detail
@@ -114,5 +129,10 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.referenceService.nextIndex(2)
     this.utilsService.activeIndex = this.referenceService.getIndex()
     this.applyApplication.pageRender = false
+  }
+
+  onPrevious(){
+    this.referenceService.nextIndex(0)
+    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 }

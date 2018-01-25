@@ -12,7 +12,6 @@ export class SiblingViewComponent implements OnInit {
   constructor(public applyApplication: ApplyScholarshipsComponent, ) { }
 
   ngOnInit() {
-    console.log(this.applyApplication.applyApplicationForm.educationLevelList)
   }
 
   setEducationLevel(ref: string){

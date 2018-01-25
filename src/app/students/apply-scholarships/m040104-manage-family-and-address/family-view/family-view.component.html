@@ -1,325 +1,319 @@
+<div class="row overide-row">
+    <div class="col-xs-6">
+        <label class="normal">ผู้ปกครอง</label>
+        <label>{{manageFamilyAndAddress.setParentsFlag(applyApplication.applyApplicationForm.acParent.parent_flag)}}</label>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-6">
+        <label class="normal">สถานะความสัมพันธ์</label>
+        <label>{{manageFamilyAndAddress.setRelationShipStatus(applyApplication.applyApplicationForm.acParent.relationship_status)}}</label>
+    </div>
+    <div class="col-xs-6" *ngIf="applyApplication.applyApplicationForm.acParent.relationship_status == '2'">
+        <label class="normal">เหตุผล</label>
+        <label>{{applyApplication.applyApplicationForm.acParent.because}}</label>
+    </div>
+</div>
+<div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.parent_flag == '1'">
+    <h4 class="custom-panel-title">บิดา</h4>
     <div class="row overide-row">
         <div class="col-xs-6">
-            <label class="normal">ผู้ปกครอง</label>
-            <label>{{manageFamilyAndAddress.setParentsFlag(applyApplication.applyApplicationForm.acParent.parent_flag)}}</label>
+            <label class="normal">เลขประจำตัวประชาชน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_pid}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">สถานะ</label>
+            <label>{{manageFamilyAndAddress.setStatusFlag(applyApplication.applyApplicationForm.acParent.father_status)}}</label>
         </div>
     </div>
     <div class="row overide-row">
         <div class="col-xs-6">
-            <label class="normal">สถานะความสัมพันธ์</label>
-            <label>{{manageFamilyAndAddress.setRelationShipStatus(applyApplication.applyApplicationForm.acParent.relationship_status)}}</label>
+            <label class="normal">ชื่อ - สกุล</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_name}}</label>
         </div>
-        <div class="col-xs-6" *ngIf="applyApplication.applyApplicationForm.acParent.relationship_status == '2'">
-            <label class="normal">เหตุผล</label>
-            <label>{{applyApplication.applyApplicationForm.acParent.because}}</label>
-        </div>
-    </div>
-    <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.parent_flag == '1'">
-            <h4 class="custom-panel-title">บิดา</h4>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เลขประจำตัวประชาชน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_pid}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">สถานะ</label>
-                <label>{{manageFamilyAndAddress.setStatusFlag(applyApplication.applyApplicationForm.acParent.father_status)}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">ชื่อ - สกุล</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_name}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">วันเกิด</label>
-                <label>{{manageFamilyAndAddress.utilsService.getBirthDay(this.applyApplication.applyApplicationForm.acParent.father_birth_date)}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">ที่อยู่</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_address}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">จังหวัด</label>
-                <label>{{applyApplication.applyApplicationForm.dadProvince.province_name_t}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">อำเภอ</label>
-                <label>{{applyApplication.applyApplicationForm.dadDistrict.district_name_t}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">ตำบล</label>
-                <label>{{applyApplication.applyApplicationForm.dadSubDistrict.sub_district_name_t}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">รหัสไปรษณีย์</label>
-                <label>{{applyApplication.applyApplicationForm.dadSubDistrict.postcode}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เบอร์โทรศัพท์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_phone}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">อีเมลล์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_email}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">อาชีพ</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_occupation}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">ตำแหน่ง</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_position}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">สถานที่ทำงาน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_work_address}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_work_phone}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">แฟกต์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_work_fax}}</label>
-            </div>
-        </div>
-        <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.father_land_flag =='2'">
-            <label class="normal">ที่ดิน</label>
-            <div class="col-xs-3">
-              <label>ทั้งหมด : {{applyApplication.applyApplicationForm.acParent.father_land_all}} ไร่</label>
-            </div>
-            <div class="col-xs-3">
-              <label>เป็นเจ้าของ :  {{applyApplication.applyApplicationForm.acParent.father_land_own}} ไร่</label>
-            </div>
-            <div class="col-xs-3">
-              <label> เช่า : {{applyApplication.applyApplicationForm.acParent.father_land_rent}} ไร่</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.father_income_monthly}} บาท</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <h4 class="custom-panel-title">มารดา</h4>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เลขประจำตัวประชาชน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_pid}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">สถานะ</label>
-                <label>{{manageFamilyAndAddress.setStatusFlag(applyApplication.applyApplicationForm.acParent.mother_status)}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">ชื่อ - สกุล</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_name}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">วันเกิด</label>
-                <label>{{manageFamilyAndAddress.utilsService.getBirthDay(this.applyApplication.applyApplicationForm.acParent.mother_birth_date)}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">ที่อยู่</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_address}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">จังหวัด</label>
-                <label>{{applyApplication.applyApplicationForm.momProvince.province_name_t}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">อำเภอ</label>
-                <label>{{applyApplication.applyApplicationForm.momDistrict.district_name_t}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">ตำบล</label>
-                <label>{{applyApplication.applyApplicationForm.momSubDistrict.sub_district_name_t}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">รหัสไปรษณีย์</label>
-                <label>{{applyApplication.applyApplicationForm.momSubDistrict.postcode}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เบอร์โทรศัพท์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_phone}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">อีเมลล์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_email}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">อาชีพ</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_occupation}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">ตำแหน่ง</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_position}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">สถานที่ทำงาน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_work_address}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_work_phone}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">แฟกต์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_work_fax}}</label>
-            </div>
-        </div>
-        <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.mother_land_flag =='2'">
-            <label class="normal">ที่ดิน</label>
-            <div class="col-xs-3">
-              <label>ทั้งหมด : {{applyApplication.applyApplicationForm.acParent.mother_land_all}} ไร่</label>
-            </div>
-            <div class="col-xs-3">
-              <label>เป็นเจ้าของ :  {{applyApplication.applyApplicationForm.acParent.mother_land_own}} ไร่</label>
-            </div>
-            <div class="col-xs-3">
-              <label> เช่า : {{applyApplication.applyApplicationForm.acParent.mother_land_rent}} ไร่</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.mother_income_monthly}} บาท</label>
-            </div>
+        <div class="col-xs-6">
+            <label class="normal">วันเกิด</label>
+            <label>{{manageFamilyAndAddress.utilsService.getBirthDay(this.applyApplication.applyApplicationForm.acParent.father_birth_date)}}</label>
         </div>
     </div>
-    <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.parent_flag != '1'">
-        <h4 class="custom-panel-title">ผู้ปกครอง</h4>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เลขประจำตัวประชาชน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_pid}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">สถานะ</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_status}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">ชื่อ - สกุล</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_name}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">วันเกิด</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_birth_date}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">ที่อยู่</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_address}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">จังหวัด</label>
-                <label>{{applyApplication.applyApplicationForm.patrolProvince.province_name_t}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">อำเภอ</label>
-                <label>{{applyApplication.applyApplicationForm.patrolDistrict.district_name_t}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">ตำบล</label>
-                <label>{{applyApplication.applyApplicationForm.patrolSubDistrict.sub_district_name_t}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">รหัสไปรษณีย์</label>
-                <label>{{applyApplication.applyApplicationForm.patrolSubDistrict.postcode}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เบอร์โทรศัพท์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_phone}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">อีเมลล์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_email}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">อาชีพ</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_occupation}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">ตำแหน่ง</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_position}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">สถานที่ทำงาน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_work_address}}</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-6">
-                <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_work_phone}}</label>
-            </div>
-            <div class="col-xs-6">
-                <label class="normal">แฟกต์</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_work_fax}}</label>
-            </div>
-        </div>
-        <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.patrol_land_flag =='2'">
-            <label class="normal">ที่ดิน</label>
-            <div class="col-xs-3">
-              <label>ทั้งหมด : {{applyApplication.applyApplicationForm.acParent.patrol_land_all}} ไร่</label>
-            </div>
-            <div class="col-xs-3">
-              <label>เป็นเจ้าของ :  {{applyApplication.applyApplicationForm.acParent.patrol_land_own}} ไร่</label>
-            </div>
-            <div class="col-xs-3">
-              <label> เช่า : {{applyApplication.applyApplicationForm.acParent.patrol_land_rent}} ไร่</label>
-            </div>
-        </div>
-        <div class="row overide-row">
-            <div class="col-xs-12">
-                <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
-                <label>{{applyApplication.applyApplicationForm.acParent.patrol_income_monthly}} บาท</label>
-            </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">ที่อยู่</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_address}}</label>
         </div>
     </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">จังหวัด</label>
+            <label>{{applyApplication.applyApplicationForm.dadProvince.province_name_t}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">อำเภอ</label>
+            <label>{{applyApplication.applyApplicationForm.dadDistrict.district_name_t}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">ตำบล</label>
+            <label>{{applyApplication.applyApplicationForm.dadSubDistrict.sub_district_name_t}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">รหัสไปรษณีย์</label>
+            <label>{{applyApplication.applyApplicationForm.dadSubDistrict.postcode}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เบอร์โทรศัพท์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_phone}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">อีเมลล์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_email}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">อาชีพ</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_occupation}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">ตำแหน่ง</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_position}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">สถานที่ทำงาน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_work_address}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_work_phone}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">แฟกต์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.father_work_fax}}</label>
+        </div>
+    </div>
+    <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.father_land_flag =='2'">
+        <label class="normal">ที่ดิน</label>
+        <div class="col-xs-3">
+            <label>ทั้งหมด : {{applyApplication.applyApplicationForm.acParent.father_land_all}} ไร่</label>
+        </div>
+        <div class="col-xs-3">
+            <label>เป็นเจ้าของ :  {{applyApplication.applyApplicationForm.acParent.father_land_own}} ไร่</label>
+        </div>
+        <div class="col-xs-3">
+            <label> เช่า : {{applyApplication.applyApplicationForm.acParent.father_land_rent}} ไร่</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
+        <label>{{applyApplication.applyApplicationForm.acParent.father_income_monthly}} บาท</label>
+    </div>
+    <div class="row overide-row">
+        <h4 class="custom-panel-title">มารดา</h4>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เลขประจำตัวประชาชน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_pid}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">สถานะ</label>
+            <label>{{manageFamilyAndAddress.setStatusFlag(applyApplication.applyApplicationForm.acParent.mother_status)}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">ชื่อ - สกุล</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_name}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">วันเกิด</label>
+            <label>{{manageFamilyAndAddress.utilsService.getBirthDay(this.applyApplication.applyApplicationForm.acParent.mother_birth_date)}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">ที่อยู่</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_address}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">จังหวัด</label>
+            <label>{{applyApplication.applyApplicationForm.momProvince.province_name_t}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">อำเภอ</label>
+            <label>{{applyApplication.applyApplicationForm.momDistrict.district_name_t}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">ตำบล</label>
+            <label>{{applyApplication.applyApplicationForm.momSubDistrict.sub_district_name_t}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">รหัสไปรษณีย์</label>
+            <label>{{applyApplication.applyApplicationForm.momSubDistrict.postcode}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เบอร์โทรศัพท์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_phone}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">อีเมลล์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_email}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">อาชีพ</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_occupation}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">ตำแหน่ง</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_position}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">สถานที่ทำงาน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_work_address}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_work_phone}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">แฟกต์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.mother_work_fax}}</label>
+        </div>
+    </div>
+    <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.mother_land_flag =='2'">
+        <label class="normal">ที่ดิน</label>
+        <div class="col-xs-3">
+            <label>ทั้งหมด : {{applyApplication.applyApplicationForm.acParent.mother_land_all}} ไร่</label>
+        </div>
+        <div class="col-xs-3">
+            <label>เป็นเจ้าของ :  {{applyApplication.applyApplicationForm.acParent.mother_land_own}} ไร่</label>
+        </div>
+        <div class="col-xs-3">
+            <label> เช่า : {{applyApplication.applyApplicationForm.acParent.mother_land_rent}} ไร่</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
+        <label>{{applyApplication.applyApplicationForm.acParent.mother_income_monthly}} บาท</label>
+    </div>
+</div>
+<div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.parent_flag != '1'">
+    <h4 class="custom-panel-title">ผู้ปกครอง</h4>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เลขประจำตัวประชาชน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_pid}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">สถานะ</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_status}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">ชื่อ - สกุล</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_name}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">วันเกิด</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_birth_date}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">ที่อยู่</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_address}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">จังหวัด</label>
+            <label>{{applyApplication.applyApplicationForm.patrolProvince.province_name_t}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">อำเภอ</label>
+            <label>{{applyApplication.applyApplicationForm.patrolDistrict.district_name_t}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">ตำบล</label>
+            <label>{{applyApplication.applyApplicationForm.patrolSubDistrict.sub_district_name_t}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">รหัสไปรษณีย์</label>
+            <label>{{applyApplication.applyApplicationForm.patrolSubDistrict.postcode}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เบอร์โทรศัพท์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_phone}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">อีเมลล์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_email}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">อาชีพ</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_occupation}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">ตำแหน่ง</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_position}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <label class="normal">สถานที่ทำงาน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_work_address}}</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <div class="col-xs-6">
+            <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_work_phone}}</label>
+        </div>
+        <div class="col-xs-6">
+            <label class="normal">แฟกต์</label>
+            <label>{{applyApplication.applyApplicationForm.acParent.patrol_work_fax}}</label>
+        </div>
+    </div>
+    <div class="row overide-row" *ngIf="applyApplication.applyApplicationForm.acParent.patrol_land_flag =='2'">
+        <label class="normal">ที่ดิน</label>
+        <div class="col-xs-3">
+            <label>ทั้งหมด : {{applyApplication.applyApplicationForm.acParent.patrol_land_all}} ไร่</label>
+        </div>
+        <div class="col-xs-3">
+            <label>เป็นเจ้าของ :  {{applyApplication.applyApplicationForm.acParent.patrol_land_own}} ไร่</label>
+        </div>
+        <div class="col-xs-3">
+            <label> เช่า : {{applyApplication.applyApplicationForm.acParent.patrol_land_rent}} ไร่</label>
+        </div>
+    </div>
+    <div class="row overide-row">
+        <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
+        <label>{{applyApplication.applyApplicationForm.acParent.patrol_income_monthly}} บาท</label>
+    </div>
+</div>

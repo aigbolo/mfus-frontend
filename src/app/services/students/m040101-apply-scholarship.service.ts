@@ -23,11 +23,11 @@ export class M040101ApplyScholarshipService {
     return this.configurationService.requestMethodPOST('students-view', json)
   }
 
-  initialScholarshipAnnouncement(){
+  initialScholarshipAnnouncementList(){
     return this.configurationService.requestMethodPOST('autocomplete-scannouncedate','')
   }
 
-  initialDocumentUpload(){
+  initialApplicationDocument(){
     return this.configurationService.requestMethodPOST('appdoc','')
   }
 
@@ -60,4 +60,33 @@ export class M040101ApplyScholarshipService {
   return this.configurationService.requestMethodPOST('stapplication',application.search_criteria);
  }
 
+ initialApApplication(ref: string){
+   let json = { application_ref: ref }
+   return this.configurationService.requestMethodPOST('application-update', json)
+ }
+
+ initialScholarshipAnnouncement(ref: string){
+  let json = { announcement_ref: ref}
+  return this.configurationService.requestMethodPOST('scholarships-announcement-update', json)
+ }
+
+ initialScholarshipHistory(ref: string){
+   let json = { student_ref: ref }
+   return this.configurationService.requestMethodPOST('scholarshiphistory', json)
+ }
+
+ initialStudentLoanFund(ref: string){
+  let json = { student_ref: ref}
+  return this.configurationService.requestMethodPOST('studentloanfund', json)
+ }
+
+ initialFamilyFinancial(ref: string){
+  let json = { student_ref: ref }
+  return this.configurationService.requestMethodPOST('familyfinancial', json)
+ }
+
+ initialDocumentUpload(ref: string){
+  let json = { application_ref: ref }
+  return this.configurationService.requestMethodPOST('documentupload', json)
+ }
 }

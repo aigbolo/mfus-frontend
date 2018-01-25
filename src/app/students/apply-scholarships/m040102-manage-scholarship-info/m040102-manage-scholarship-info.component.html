@@ -11,6 +11,7 @@
               [(ngModel)]="applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement"
               (onSelect)="selectedData()"
               [dropdown]="true"
+              [disabled]="applyApplication.applyApplicationForm.apApplication.application_ref"
               (completeMethod)="autocompleteScholarship($event)"
               (onDropdownClick)="handleCompleteClickautocompleteScholarship($event)"
               field="name" size="85"

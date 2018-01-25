@@ -8,10 +8,10 @@ import { UtilsService } from '../../../services/utils/utils.service';
 import { ApDocumentUpload } from '../../../models/ap-document-upload';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { NgProgress } from 'ngx-progressbar';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-m040105-manage-document-upload',
-  encapsulation: ViewEncapsulation.None,
   templateUrl: './m040105-manage-document-upload.component.html',
   styleUrls: ['./../apply-scholarships.component.css', './m040105-manage-document-upload.component.css']
 })
@@ -26,28 +26,46 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   label: string;
   display: boolean
   uploadDocument: ApDocumentUpload
+  btnlabel: string
 
   constructor(public applyApplication: ApplyScholarshipsComponent,
     private applyScholarshipService: M040101ApplyScholarshipService,
     private utilsService: UtilsService,
     private layoutService: LayoutService,
-    private ngProgress: NgProgress) { }
+    private ngProgress: NgProgress,
+    private referenceService: ReferenceService) { }
 
   ngOnInit() {
     this.ngProgress.start()
     this.initialDocumentList()
+
   }
 
   initialDocumentList() {
+    this.btnlabel = 'บันทึกข้อมูล'
     this.applyApplication.applyApplicationForm.documentList = []
-    this.applyScholarshipService.initialDocumentUpload().subscribe(data => {
+    this.applyScholarshipService.initialApplicationDocument().subscribe(data => {
       for (let obj of data) {
         obj.label = 'เลือกไฟล์'
         obj.upload_name = this.file_name
         this.applyApplication.applyApplicationForm.documentList.push(obj)
       }
+      if(this.applyApplication.update_state == true){
+        this.onPageUpdate()
+      }
       this.ngProgress.done()
     })
+  }
+
+  onPageUpdate(){
+    this.btnlabel = 'แก้ไขข้อมูล'
+    for(let rftdoc of this.applyApplication.applyApplicationForm.documentList){
+      for(let apdoc of this.applyApplication.applyApplicationForm.apDocumentUpload){
+        if(rftdoc.document_ref == apdoc.document_ref){
+          rftdoc.upload_name = apdoc.document_name
+        }
+      }
+    }
   }
 
   onUpload(event, ref: string) {
@@ -94,7 +112,8 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   }
 
   onPrevious(){
-
+    this.referenceService.nextIndex(3)
+    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 
   onInsertClick() {
@@ -143,6 +162,11 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
                               ""
                             );
                           }, () => {
+                            this.layoutService.setMsgDisplay(
+                              Severity.SUCCESS,
+                              "บันทึกข้อมูลสำเร็จ",
+                              ""
+                            );
                             this.ngProgress.done()
                             this.display = true
                           })

@@ -52,8 +52,13 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apFamilyFinancial.create_user = this.applyApplication.user_ref
     this.applyApplication.applyApplicationForm.apFamilyFinancial.update_user = this.applyApplication.user_ref
     console.log(this.applyApplication.applyApplicationForm)
-    this.referenceService.nextIndex(4)
+    this.referenceService.nextIndex(3)
     this.utilsService.activeIndex = this.referenceService.getIndex()
     this.applyApplication.pageRender = false
+  }
+
+  onPrevious(){
+    this.referenceService.nextIndex(1)
+    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 }

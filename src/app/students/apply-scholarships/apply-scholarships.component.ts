@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { RftEducationLevel } from './../../models/rft-education-level';
 import { AddressService } from './../../services/utils/address.service';
 import { AcOfficer } from './../../models/ac-officer';
@@ -30,6 +31,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   user: AcUser = new AcUser;
   student: AcStudent = new AcStudent;
   officer: AcOfficer = new AcOfficer;
+  update_state: boolean  =false
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,
@@ -43,15 +45,44 @@ export class ApplyScholarshipsComponent implements OnInit {
     private patrolAddressService: AddressService,
     private homeAddressService: AddressService,
     private currentAddressService: AddressService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.ngProgress.start()
-    this.login()
     this.utilsService.getApplicationStep();
+    if(!this.route.snapshot.params['id']){
+      this.insertPage();
+    }else{
+      this.updatePage();
+    }
+  }
+
+  insertPage(){
+    this.login();
     this.getApplicationData();
     this.initialFamilyAndAddress()
     this.getEducationLevel()
+  }
+
+  updatePage(){
+    this.update_state = true
+    this.student = this.authService.getAccount();
+    this.user = this.authService.getUser();
+    this.user_ref = this.user.user_ref;
+    this.account_ref = this.student.student_ref;
+    this.applyApplicationForm.acStudent.update_user = this.user_ref;
+    this.applyApplicationForm.apApplication.update_user = this.user_ref
+    this.applyApplicationForm.apFamilyFinancial.update_user = this.user_ref;
+    this.applyApplicationForm.apApplication.student_ref = this.account_ref;
+    this.getApplicationData();
+    this.initialFamilyAndAddress();
+    this.getEducationLevel();
+    this.initialApApplication();
+    this.initialScholarshipHistory();
+    this.initialStudentLoanFund();
+    this.initialFamilyFinancial();
+    this.initialDocumentUpload();
   }
 
   login() {
@@ -65,7 +96,6 @@ export class ApplyScholarshipsComponent implements OnInit {
     this.applyApplicationForm.apFamilyFinancial.create_user = this.user_ref
     this.applyApplicationForm.apFamilyFinancial.update_user = this.user_ref
     this.applyApplicationForm.apApplication.student_ref = this.account_ref
-
   }
 
   getApplicationData() {
@@ -85,13 +115,61 @@ export class ApplyScholarshipsComponent implements OnInit {
         this.applyApplicationForm.age = this.utilsService.getAge(
           data.birth_date
         );
-        this.pageRender = true;
-        this.ngProgress.done()
+
       }, error => {
         console.log(error)
       }, () => {
+        this.pageRender = true;
+        this.ngProgress.done()
       });
   }
+
+  // initialFamilyAndAddress() {
+  //   this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
+  //     data => {
+  //       setTimeout(() => {
+  //         this.applyApplicationForm.acParent = data;
+  //       }, 1000);
+  //       setTimeout(() => {
+  //         this.getParentProvince();
+  //         this.getParentDistrict();
+  //         this.getParentSubDistrict();
+  //         this.convertDateBackToFront();
+  //         this.initialParentAddress();
+  //       }, 2000);
+  //     }, err => {
+  //       console.log(err)
+  //     },
+  //     () => {
+  //     }
+  //   );
+  //   setTimeout(() => {
+  //     this.familyAndAddressService.doGetSiblings(this.student.student_ref).subscribe(
+  //       data => {
+  //         if (data)
+  //           this.applyApplicationForm.siblingList = data;
+  //       }, err => {
+  //         console.log(err)
+  //       },()=>{
+  //       }
+  //     )
+  //     this.familyAndAddressService.doGetAddress(this.student.student_ref).subscribe(
+  //       data => {
+  //         if (data.address_ref)
+  //           this.applyApplicationForm.acAddress = data;
+
+  //       }, err => {
+  //         console.log(err)
+  //       },
+  //       () => {
+  //         this.initialLivingAddress();
+  //         this.getLivingProvince();
+  //         this.getLivingDistrict();
+  //         this.getLivingSubDistrict();
+  //       }
+  //     )
+  //   }, 1000)
+  // }
 
   initialFamilyAndAddress() {
     this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
@@ -115,7 +193,6 @@ export class ApplyScholarshipsComponent implements OnInit {
     setTimeout(() => {
       this.familyAndAddressService.doGetSiblings(this.student.student_ref).subscribe(
         data => {
-          console.log(data)
           if (data)
             this.applyApplicationForm.siblingList = data;
         }, err => {
@@ -178,7 +255,6 @@ export class ApplyScholarshipsComponent implements OnInit {
     if (this.applyApplicationForm.acParent.father_district != null || this.applyApplicationForm.acParent.father_district != undefined) {
       this.fatherAddressService.getDistrictByRef(this.applyApplicationForm.acParent.father_district).subscribe(
         data => {
-          console.log(data);
           this.applyApplicationForm.dadDistrict = data;
         },
         err => {
@@ -212,7 +288,6 @@ export class ApplyScholarshipsComponent implements OnInit {
     if (this.applyApplicationForm.acParent.father_sub_district != null || this.applyApplicationForm.acParent.father_sub_district != undefined) {
       this.fatherAddressService.getSubDistrictByRef(this.applyApplicationForm.acParent.father_sub_district).subscribe(
         data => {
-          console.log(data);
           this.applyApplicationForm.dadSubDistrict = data;
         },
         err => {
@@ -350,5 +425,60 @@ export class ApplyScholarshipsComponent implements OnInit {
       });
   }
 
+  initialApApplication(){
+    this.applyScholarshipService.initialApApplication(this.route.snapshot.params['id']).subscribe(data=>{
+      this.applyApplicationForm.apApplication = data
+      this.initialScholarshipAnnouncement();
+    })
+  }
 
+  initialScholarshipAnnouncement(){
+    this.applyScholarshipService.initialScholarshipAnnouncement(this.applyApplicationForm.apApplication.announcement_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.autocompleteScholarshipAnnouncement = data
+      },error=>{
+        console.log(error)
+      }
+    )
+  }
+
+  initialScholarshipHistory(){
+    this.applyScholarshipService.initialScholarshipHistory(this.account_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apScholarshipHistory = data
+      }, error=>{
+        console.log(error)
+      }
+    )
+  }
+
+  initialStudentLoanFund(){
+    this.applyScholarshipService.initialStudentLoanFund(this.account_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apStudentLoanFund = data
+      },error=>{
+        console.log(error)
+      }
+    )
+  }
+
+  initialFamilyFinancial(){
+    this.applyScholarshipService.initialFamilyFinancial(this.account_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apFamilyFinancial = data.ap_family_financial
+        this.applyApplicationForm.apFamiyDebt = data.ap_family_debt
+      },error=>{
+        console.log(error)
+      }
+    )
+  }
+
+  initialDocumentUpload(){
+    this.applyScholarshipService.initialDocumentUpload(this.route.snapshot.params['id']).subscribe(
+      data=>{
+        console.log(data)
+        this.applyApplicationForm.apDocumentUpload = data
+      }
+    )
+  }
 }

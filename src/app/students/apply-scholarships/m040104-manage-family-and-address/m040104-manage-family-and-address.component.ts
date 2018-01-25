@@ -2,6 +2,7 @@ import { UtilsService } from './../../../services/utils/utils.service';
 import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit } from '@angular/core';
 import { ApplyScholarshipsComponent } from '../apply-scholarships.component';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-m040104-manage-family-and-address',
@@ -13,7 +14,8 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
   items: MenuItem[];
   activeIndex: number = 0;
   constructor(public applyApplication: ApplyScholarshipsComponent,
-              public utilsService: UtilsService) { }
+              public utilsService: UtilsService,
+              private referenceService: ReferenceService) { }
 
   ngOnInit() {
     this.stepDisplay()
@@ -67,4 +69,18 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
       }
     }
 
+    onPrevious(){
+      this.referenceService.nextIndex(2)
+      this.utilsService.activeIndex = this.referenceService.getIndex()
+    }
+
+    onNext(){
+      this.referenceService.nextIndex(4)
+      this.utilsService.activeIndex = this.referenceService.getIndex()
+      this.applyApplication.pageRender = false
+    }
+
+    goToManageParent(){
+      this.utilsService.goToPage('manage-family-and-address')
+    }
 }
