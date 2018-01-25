@@ -155,8 +155,16 @@ export class M030101ManageSponsorsComponent implements OnInit {
   autocompleteProvince(event) {
     console.log("autocompleteProvince");
     let query = event.query;
+    let e = event.originalEvent;
     this.provinceList = [];
 
+    if(e.type == 'input'){
+      this.manageForm.sponsors.province = null;
+      this.manageForm.sponsors.district = null;
+      this.district = null;
+      this.manageForm.sponsors.sub_district = null;
+      this.subDistrict = null;
+    }
     let objList: RftProvince[];
     objList = this.referenceService.getProvinces();
     for (let obj of objList) {
@@ -177,13 +185,25 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
   seletedProvince() {
     this.referenceService.initialDistrict(this.province.province_ref);
+    this.manageForm.sponsors.province = this.province.province_ref;
+
+    this.manageForm.sponsors.district = null;
+    this.district = null;
+    this.manageForm.sponsors.sub_district = null;
+    this.subDistrict = null;
   }
 
   autocompleteDistrict(event) {
     console.log("autocompleteProvince");
     let query = event.query;
+    let e = event.originalEvent;
     this.districtList = [];
 
+    if(e.type == 'input'){
+      this.manageForm.sponsors.district = null;
+      this.manageForm.sponsors.sub_district = null;
+      this.subDistrict = null;
+    }
     let objList: RftDistrict[];
     objList = this.referenceService.getDistricts();
     for (let obj of objList) {
@@ -204,13 +224,20 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
   seletedDistrict() {
     this.referenceService.initialSubDistrict(this.district.district_ref);
+    this.manageForm.sponsors.district = this.district.district_ref;
+    this.manageForm.sponsors.sub_district = null;
+    this.subDistrict = null;
   }
 
   autocompleteSubDistrict(event) {
     console.log("autocompleteProvince");
     let query = event.query;
+    let e = event.originalEvent;
     this.subDistrictList = [];
 
+    if(e.type == 'input'){
+      this.manageForm.sponsors.sub_district = null;
+    }
     let objList: RftSubDistrict[];
     objList = this.referenceService.getSubDistricts();
     for (let obj of objList) {
@@ -232,6 +259,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
   }
 
   seletedSubDistrict() {
+    this.manageForm.sponsors.sub_district = this.subDistrict.sub_district_ref;
     this.manageForm.sponsors.postcode = this.subDistrict.postcode;
   }
 
@@ -268,9 +296,6 @@ export class M030101ManageSponsorsComponent implements OnInit {
     if (this.manageFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.manageFormGroup);
     } else {
-      this.manageForm.sponsors.province = this.province.province_ref;
-      this.manageForm.sponsors.district = this.district.district_ref;
-      this.manageForm.sponsors.sub_district = this.subDistrict.sub_district_ref;
 
       if (this.manageForm.sponsors.sponsors_ref == null) {
         this.sponsorsService.doInsert(this.manageForm).subscribe(
