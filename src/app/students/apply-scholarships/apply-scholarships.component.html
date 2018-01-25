@@ -1,40 +1,17 @@
 <div class="row">
     <div class="col-xs-12">
-        <p-steps [model]="utilsService.items" [(activeIndex)]="utilsService.activeIndex" [readonly]="false" styleClass="steps-custom" class="five-step">
+        <p-steps [model]="utilsService.items" [(activeIndex)]="utilsService.activeIndex" [readonly]="true" styleClass="steps-custom" class="five-step">
         </p-steps>
     </div>
 </div>
 <div class="row overide-row">
-    <div class="col-xs-12">
-        <div *ngIf="utilsService.activeIndex == 0">
-            <div class="content-header-blue-normal">
-                <div class="underline-blue"></div>
-            </div>
-            <app-m040101-manage-applicant-info></app-m040101-manage-applicant-info>
-        </div>
-        <div class="col-xs-12">
-            <div *ngIf="utilsService.activeIndex == 1">
-                <div class="content-header-blue-normal">
-                    <div class="underline-blue"></div>
-                </div>
-                <app-m040102-manage-scholarship-info></app-m040102-manage-scholarship-info>
-            </div>
-            <div *ngIf="utilsService.activeIndex == 2">
-                <div class="content-header-blue-normal">
-                    <div class="underline-blue"></div>
-                </div>
-                <app-m040103-manage-family-financial></app-m040103-manage-family-financial>
-            </div>
-            <div *ngIf="utilsService.activeIndex == 3">
-                <div class="content-header-blue-normal">
-                    <div class="underline-blue"></div>
-                </div>
-                <app-m040104-manage-family-and-address></app-m040104-manage-family-and-address>
-            </div>
-            <div *ngIf="utilsService.activeIndex == 4">
-                <div class="content-header-blue-normal">
-                    <div class="underline-blue"></div>
-                </div>
-                <app-m040105-manage-document-upload></app-m040105-manage-document-upload>
-            </div>
-        </div>
+    <app-m040101-manage-applicant-info *ngIf="utilsService.activeIndex == 0"></app-m040101-manage-applicant-info>
+
+    <app-m040102-manage-scholarship-info *ngIf="utilsService.activeIndex == 1"></app-m040102-manage-scholarship-info>
+
+    <app-m040103-manage-family-financial *ngIf="utilsService.activeIndex == 2"></app-m040103-manage-family-financial>
+
+    <app-m040104-manage-family-and-address *ngIf="utilsService.activeIndex == 3"></app-m040104-manage-family-and-address>
+
+    <app-m040105-manage-document-upload *ngIf="utilsService.activeIndex == 4"></app-m040105-manage-document-upload>
+</div>

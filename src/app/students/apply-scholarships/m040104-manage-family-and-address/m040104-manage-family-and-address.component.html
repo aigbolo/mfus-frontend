@@ -1,12 +1,38 @@
-
-      <p-tabView>
-          <p-tabPanel header="ข้อมูลครอบครัว" [selected]="true">
-              <app-family-view></app-family-view>
-          </p-tabPanel>
-           <p-tabPanel header="ข้อมูลญาติพี่น้อง">
-              <app-sibling-view></app-sibling-view>
-          </p-tabPanel>
-          <p-tabPanel header="ข้อมูลที่อยู่">
-              <app-address-view></app-address-view>
-          </p-tabPanel>
-      </p-tabView>
+<div *ngIf="applyApplication.applyApplicationForm.acParent.parent_ref">
+    <div class="row overide-row" >
+        <div class="col-xs-12">
+            <p-tabView>
+                <p-tabPanel header="ข้อมูลครอบครัว" [selected]="true">
+                    <app-family-view></app-family-view>
+                </p-tabPanel>
+                <p-tabPanel header="ข้อมูลญาติพี่น้อง">
+                    <app-sibling-view></app-sibling-view>
+                </p-tabPanel>
+                <p-tabPanel header="ข้อมูลที่อยู่">
+                    <app-address-view></app-address-view>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+    <div class="row formFooter overide-row">
+        <div class="col-xs-12  text-right">
+            <button class="ui-button-warning text-left" type="button" (click)="onPrevious()" label="กลับ" pButton>
+    </button>
+            <button class="ui-button-primary text-right" type="submit" (click)="onNext()" label="ต่อไป" pButton>
+    </button>
+        </div>
+    </div>
+</div>
+<div *ngIf="!applyApplication.applyApplicationForm.acParent.parent_ref">
+<div class="row overide-row center">
+  <div class="col-xs-12">
+    <img src="./assets/images/family-1.jpg" alt="">
+  </div>
+  <div class="col-xs-12">
+    <label>ท่านยังไม่ได้กรอกข้อมูลครอบครัวและที่อยู่ กรุณากดปุ่ม "เพิ่มข้อมูลครอบครัว" เพื่อเพิ่มข้อมูลครอบครัวและที่อยู่</label>
+  </div>
+</div>
+  <div class="row formFooter overide-row center">
+    <button type="submit" class="ui-button-primary" (click)="goToManageParent()" label="เพิ่มข้อมูลครอบครัว" icon="fa-plus" pButton></button>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-.ui-datalist .ui-datalist-content> ul> li {
+.sibling-list .ui-datalist-content> ul> li {
   padding: 20px;
   background: rgba(0, 0, 0, 0.1);
   margin-top:5px;
