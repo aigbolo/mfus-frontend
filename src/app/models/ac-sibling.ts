@@ -1,15 +1,15 @@
 export class AcSibling {
-  public sibling_ref: string;
-  public student_ref: string;
-  public seq: number;
-  public sibling_name: string;
-  public born_year: string;
-  public education_level: string;
-  public occupation: string;
-  public income_monthly: number;
-  public create_user: string;
-  public create_datetime: Date;
-  public update_user: string;
-  public update_datetime: Date;
+  public sibling_ref: string = null;
+  public student_ref: string = null;
+  public seq: number = null;
+  public sibling_name: string = null;
+  public born_year: string = null;
+  public education_level: string = null;
+  public occupation: string = null;
+  public income_monthly: number = null;
+  public create_user: string = null;
+  public create_datetime: Date = null;
+  public update_user: string = null;
+  public update_datetime: Date = null;
 
 }
