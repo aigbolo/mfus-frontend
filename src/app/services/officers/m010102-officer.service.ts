@@ -23,7 +23,7 @@ export class M010102OfficerService {
   }
 
   searchOfficer(form: OfficerForm) {
-    this.router.navigate(['/search-officer'], { queryParams: form.searchCriteria})
+    this.router.navigate(['/search-officer'], { queryParams: form.searchCriteria })
     return this.configurationService.requestMethodPOST('officers', form.searchCriteria)
   }
 

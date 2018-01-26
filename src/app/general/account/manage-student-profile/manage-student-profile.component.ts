@@ -1,3 +1,4 @@
+import { NgProgress } from 'ngx-progressbar';
 import { LayoutService } from './../../../services/utils/layout.service';
 import { Severity } from './../../../enum';
 import { M010101StudentService } from './../../../services/students/m010101-student.service';
@@ -30,13 +31,14 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
     private referenceService: ReferenceService,
     private authService: AuthenticationService,
     private m010101ManageStudentService: M010101StudentService,
-    private layoutService: LayoutService) {
+    private layoutService: LayoutService,
+    private ngprogress: NgProgress) {
     super();
 
   }
 
   ngOnInit() {
-    this.pageRender = true
+    this.ngprogress.start()
     this.gettitleList()
     this.initialData()
     this.referenceService.initialSchools();
@@ -44,24 +46,29 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   }
 
   initialData() {
-    this.manageStudentForm.acStudent = this.authService.getAccount()
-    this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date)
-    this.referenceService.getSchoolByRef(this.manageStudentForm.acStudent.school_ref).subscribe(
-      data => {
-        this.manageStudentForm.rftSchool = data
-      }, error => {
-      }, () => {
-        this.referenceService.getMajorByRef(this.manageStudentForm.acStudent.major_ref).subscribe(
-          data => {
-            this.manageStudentForm.rftMajor = data
-          }, error => {
-          }
-        )
-      })
-
+    this.manageStudentForm.acStudent.student_ref = this.authService.getUser().account_ref
+    this.m010101ManageStudentService.doSelect(this.manageStudentForm.acStudent).subscribe(data => {
+      this.manageStudentForm.acStudent = data
+      this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date)
+      this.referenceService.getSchoolByRef(this.manageStudentForm.acStudent.school_ref).subscribe(
+        data => {
+          this.manageStudentForm.rftSchool = data
+        }, error => {
+        }, () => {
+          this.referenceService.getMajorByRef(this.manageStudentForm.acStudent.major_ref).subscribe(
+            data => {
+              this.manageStudentForm.rftMajor = data
+            }, error => {
+            }, () => {
+              this.ngprogress.done();
+              this.pageRender = true
+            }
+          )
+        })
+    })
   }
 
-  gettitleList(){
+  gettitleList() {
     this.titleList = this.utilsService.getTitleList()
   }
 
@@ -199,11 +206,11 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
 
   onSubmit() {
     this.manageStudentForm.acStudent.update_user = this.authService.getUser().user_ref
-    this.m010101ManageStudentService.doUpdate(this.manageStudentForm.acStudent).subscribe(data=>{
-     console.log('complete')
-    },error=>{
+    this.m010101ManageStudentService.doUpdate(this.manageStudentForm.acStudent).subscribe(data => {
+      console.log('complete')
+    }, error => {
       console.log(error)
-    },()=>{
+    }, () => {
       this.layoutService.setMsgDisplay(
         Severity.SUCCESS,
         "บันทึกข้อมูลสำเร็จ",

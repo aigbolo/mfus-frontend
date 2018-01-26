@@ -1,3 +1,6 @@
+import { Severity } from './../../../enum';
+import { LayoutService } from './../../../services/utils/layout.service';
+import { NgProgress } from 'ngx-progressbar';
 import { RftSubDistrict } from './../../../models/rft-sub-district';
 import { RftDistrict } from './../../../models/rft-district';
 import { RftProvince } from './../../../models/rft-province';
@@ -24,27 +27,29 @@ export class ManageOfficerProfileComponent implements OnInit {
   titleList: SelectItem[]
   activeFlag: SelectItem[]
 
-    // Autocomplete Province
-    provinceList: RftProvince[] = [];
-    provinceObject: RftProvince = new RftProvince();
-    // Autocomplete District
-    districtList: RftDistrict[] = [];
-    districtObject: RftDistrict = new RftDistrict();
-    district_ref: string;
+  // Autocomplete Province
+  provinceList: RftProvince[] = [];
+  provinceObject: RftProvince = new RftProvince();
+  // Autocomplete District
+  districtList: RftDistrict[] = [];
+  districtObject: RftDistrict = new RftDistrict();
+  district_ref: string;
 
-    // Autocomplete SubDistrict
-    subDistrictList: RftSubDistrict[] = [];
-    subDistrictObject: RftSubDistrict = new RftSubDistrict();
+  // Autocomplete SubDistrict
+  subDistrictList: RftSubDistrict[] = [];
+  subDistrictObject: RftSubDistrict = new RftSubDistrict();
 
-    uploadedFiles: any[] = [];
+  uploadedFiles: any[] = [];
 
   constructor(private authService: AuthenticationService,
     private officerService: M010102OfficerService,
     private utilsService: UtilsService,
-    private referenceService: ReferenceService) { }
+    private referenceService: ReferenceService,
+    private ngProgress: NgProgress,
+    private layoutService: LayoutService) { }
 
   ngOnInit() {
-    this.pageRender = true
+    this.ngProgress.start()
     this.validateForm()
     this.initialOfficerData()
     this.referenceService.initialProvince();
@@ -52,7 +57,38 @@ export class ManageOfficerProfileComponent implements OnInit {
   }
 
   initialOfficerData() {
-    this.manageOfficerForm.acOfficer = this.authService.getAccount()
+    this.manageOfficerForm.acOfficer.officer_ref = this.authService.getUser().account_ref
+    this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(
+      data => {
+        this.manageOfficerForm.acOfficer = data
+      }, error => {
+
+      }, () => {
+        setTimeout(() => {
+          let result: Array<any> = [];
+          this.referenceService
+            .getReferencesAddress(
+            this.manageOfficerForm.acOfficer.province,
+            this.manageOfficerForm.acOfficer.district,
+            this.manageOfficerForm.acOfficer.sub_district
+            )
+            .subscribe(
+            data => {
+              result.push(data);
+              this.manageOfficerForm.rftProvince = result[0];
+              this.manageOfficerForm.rftDistrict = result[1];
+              this.manageOfficerForm.rftSubDistrict = result[2];
+            },
+            error => {
+              console.log("error", error);
+            },
+            () => {
+              this.pageRender = true;
+              this.ngProgress.done();
+            }
+            );
+        }, 3000);
+      })
   }
 
   validateForm() {
@@ -197,6 +233,9 @@ export class ManageOfficerProfileComponent implements OnInit {
 
   selectSubDistrict() {
     this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
+    this.manageOfficerForm.acOfficer.province = this.manageOfficerForm.rftProvince.province_ref;
+    this.manageOfficerForm.acOfficer.district = this.manageOfficerForm.rftDistrict.district_ref
+    this.manageOfficerForm.acOfficer.sub_district = this.manageOfficerForm.rftSubDistrict.sub_district_ref
   }
 
   onUpload(event) {
@@ -214,5 +253,14 @@ export class ManageOfficerProfileComponent implements OnInit {
       .subscribe(val => {
         this.manageOfficerForm.acOfficer.profile_image = val;
       });
+  }
+
+  onSubmit() {
+    this.officerService.doUpdate(this.manageOfficerForm.acOfficer).subscribe(res => {
+    }, error => {
+
+    }, () => {
+      this.layoutService.setMsgDisplay(Severity.SUCCESS, "แก้ไขข้อมูลสำเร็จ", "")
+    })
   }
 }

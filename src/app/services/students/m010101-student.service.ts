@@ -17,4 +17,8 @@ export class M010101StudentService {
   doUpdate(form: AcStudent) {
     return this.configurationService.requestMethodPUT('students', form)
   }
+
+  doSelect(ref: AcStudent){
+    return this.configurationService.requestMethodPOST('students-update', ref)
+  }
 }
