@@ -62,7 +62,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           setTimeout(()=>{
             this.manageForm.acParent = data;
             this.insertMode = false;
-          },500);
+          },1000);
         setTimeout(()=>{
           this.getParentProvince();
           this.getParentDistrict();
@@ -72,7 +72,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           this.initialParentAddress();
           this.renderPage = true;
           this.ngProgress.done();
-          },1000);
+          },2000);
         }else{
           this.initialSetup();
         }
