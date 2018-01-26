@@ -38,7 +38,6 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   ngOnInit() {
     this.ngProgress.start()
     this.initialDocumentList()
-
   }
 
   initialDocumentList() {

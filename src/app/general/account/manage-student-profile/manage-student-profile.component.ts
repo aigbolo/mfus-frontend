@@ -1,57 +1,65 @@
-import { SelectItem } from "primeng/primeng";
-import { Severity } from "./../../../enum";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { M010101StudentService } from "./../../../services/students/m010101-student.service";
-import { UtilsService } from "./../../../services/utils/utils.service";
-import { LayoutService } from "./../../../services/utils/layout.service";
-import { Component, OnInit } from "@angular/core";
-import { RftSchool } from "../../../models/rft-school";
-import { ReferenceService } from "../../../services/general/reference.service";
-import { StudentForm } from "../../../forms/student-form";
-import { RftMajor } from "../../../models/rft-major";
-import { CalendarModel } from '../../../models/calendar-model';
-import { ActivatedRoute } from '@angular/router';
+import { M010101StudentService } from './../../../services/students/m010101-student.service';
+import { SelectItem } from 'primeng/primeng';
+import { CalendarModel } from './../../../models/calendar-model';
+import { AuthenticationService } from './../../../services/general/authentication.service';
+import { RftMajor } from './../../../models/rft-major';
+import { ReferenceService } from './../../../services/general/reference.service';
+import { RftSchool } from './../../../models/rft-school';
+import { StudentForm } from './../../../forms/student-form';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { UtilsService } from '../../../services/utils/utils.service';
 
 @Component({
-  selector: "app-m010101-manage-student",
-  templateUrl: "./m010101-manage-student.component.html",
-  styleUrls: ["./m010101-manage-student.component.css"]
+  selector: 'app-manage-student-profile',
+  templateUrl: './manage-student-profile.component.html',
+  styleUrls: ['./manage-student-profile.component.css']
 })
-export class M010101ManageStudentComponent extends CalendarModel implements OnInit {
+export class ManageStudentProfileComponent extends CalendarModel implements OnInit {
 
-  pageRender: boolean = false;
-  schoolList: RftSchool[];
-  majorsList: RftMajor[];
+  majorsList: RftMajor[]
+  schoolList: RftSchool[]
+  pageRender: boolean = false
   studentFormGroup: FormGroup;
   manageStudentForm: StudentForm = new StudentForm();
-  minyear: string;
   uploadedFiles: any[] = [];
-  btnLabel: string;
-  titleList: SelectItem[];
-
-  constructor(
-    private studentService: M010101StudentService,
+  titleList: SelectItem[]
+  constructor(public utilsService: UtilsService,
     private referenceService: ReferenceService,
-    private layoutService: LayoutService,
-    private utilsService: UtilsService,
-    private route: ActivatedRoute
-  ) {
+    private authService: AuthenticationService,
+    private m010101ManageStudentService: M010101StudentService) {
     super();
+
   }
 
   ngOnInit() {
-    this.getYearRange();
-    this.titleList = this.utilsService.getTitleList();
-    this.pageRender = true;
-    this.btnLabel = "บันทึก";
+    this.pageRender = true
+    this.gettitleList()
+    this.initialData()
     this.referenceService.initialSchools();
-    this.layoutService.setPageHeader("ลงทะเบียนผู้ใช้");
-    this.manageStudentForm.acStudent.profile_image =
-      "./assets/images/empty_profile.png";
-    this.validateForm();
-    this.manageStudentForm.acStudent.student_ref = this.route.snapshot.params[
-      "id"
-    ];
+    this.validateForm()
+  }
+
+  initialData() {
+    this.manageStudentForm.acStudent = this.authService.getAccount()
+    this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date)
+    this.referenceService.getSchoolByRef(this.manageStudentForm.acStudent.school_ref).subscribe(
+      data => {
+        this.manageStudentForm.rftSchool = data
+      }, error => {
+      }, () => {
+        this.referenceService.getMajorByRef(this.manageStudentForm.acStudent.major_ref).subscribe(
+          data => {
+            this.manageStudentForm.rftMajor = data
+          }, error => {
+          }
+        )
+      })
+
+  }
+
+  gettitleList(){
+    this.titleList = this.utilsService.getTitleList()
   }
 
   validateForm() {
@@ -70,7 +78,7 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
           Validators.pattern(/^[0-9]+$/)
         ])
       ),
-      gender: new FormControl((this.manageStudentForm.acStudent.gender = "M")),
+      gender: new FormControl((this.manageStudentForm.acStudent.gender)),
       first_name_t: new FormControl(
         this.manageStudentForm.acStudent.first_name_t,
         Validators.compose([Validators.required])
@@ -80,7 +88,7 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
         Validators.compose([Validators.required])
       ),
       title_ref: new FormControl(
-        (this.manageStudentForm.acStudent.title_ref = "Mr")
+        (this.manageStudentForm.acStudent.title_ref)
       ),
       last_name_t: new FormControl(
         this.manageStudentForm.acStudent.last_name_t,
@@ -187,32 +195,12 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
   }
 
   onSubmit() {
-    console.log(this.manageStudentForm.acStudent.birth_date)
-    if (this.studentFormGroup.invalid) {
-      this.utilsService.findInvalidControls(this.studentFormGroup);
-      return;
-    }
-    this.manageStudentForm.acStudent.school_ref = this.manageStudentForm.rftSchool.school_ref;
-    this.manageStudentForm.acStudent.major_ref = this.manageStudentForm.rftMajor.major_ref;
-    console.log(this.manageStudentForm);
-    this.studentService
-      .doInsert(this.manageStudentForm.acStudent)
-      .subscribe(
-        res => {
-          console.log(res)
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          this.layoutService.setMsgDisplay(
-            Severity.SUCCESS,
-            "บันทึกข้อมูลสำเร็จ",
-            ""
-          );
-          this.utilsService.goToPage('login');
-        }
-      );
+    this.manageStudentForm.acStudent.update_user = this.authService.getUser().user_ref
+    this.m010101ManageStudentService.doUpdate(this.manageStudentForm.acStudent).subscribe(data=>{
+     console.log('complete')
+    },error=>{
+      console.log(error)
+    })
   }
 
 

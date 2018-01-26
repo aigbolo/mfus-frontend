@@ -3,6 +3,7 @@ import { AcOfficer } from './../../models/ac-officer';
 import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthenticationService } from '../../services/general/authentication.service';
+import { AcStudent } from '../../models/ac-student';
 
 @Component({
   selector: 'sidebar',
@@ -14,7 +15,8 @@ export class SidebarComponent implements OnInit {
 
   items: MenuItem[];
   user: AcUser = new AcUser()
-  officer: AcOfficer = this.authService.getAccount()
+  // officer: AcOfficer = this.authService.getAccount()
+  // student: AcStudent = this.authService.getAccount()
 
   constructor(private authService: AuthenticationService) { }
 
@@ -55,7 +57,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'จัดการผู้ใช้',
         items: [
-          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer/' + this.officer.officer_ref] }
+          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer'] }
         ]
       },
       {
@@ -88,6 +90,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ข้อมูลพื้นฐาน',
         items: [
+          { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student'] },
           { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
         ]
       },

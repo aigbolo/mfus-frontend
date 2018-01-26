@@ -45,6 +45,7 @@ export class UtilsService {
   }
 
   getTitleList():SelectItem[] {
+    console.log('gettitleList')
     let titleList = [
       { label: 'นาย', value: 'Mr' },
       { label: 'นาง', value: 'Miss' },
