@@ -13,4 +13,8 @@ export class M010101StudentService {
   doInsert(form: AcStudent) {
     return this.configurationService.requestMethodPOST('students-insert', form)
   }
+
+  doUpdate(form: AcStudent) {
+    return this.configurationService.requestMethodPUT('students', form)
+  }
 }

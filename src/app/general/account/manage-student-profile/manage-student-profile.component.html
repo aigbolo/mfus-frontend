@@ -1,0 +1,216 @@
+<form *ngIf="pageRender"
+  [formGroup]="studentFormGroup"
+  (ngSubmit)="onSubmit()">
+    <div class="row overide-row">
+        <div class="col-xs-9">
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">เลขประจำตัวประชาชน *</label>
+                    <input type="text"
+                    [(ngModel)]="manageStudentForm.acStudent.personal_id"
+                    name="personal_id"
+                    [disabled]="true"
+                    formControlName="personal_id"
+                    maxlength="13"
+                    minlength="13"
+                    pInputText>
+                </div>
+                <div class="col-xs-6">
+                    <label class="normal">เลขประจำตัวนักศึกษา *</label>
+                    <input type="text"
+                    [(ngModel)]="manageStudentForm.acStudent.student_id"
+                    name="student_id"
+                    formControlName="student_id"
+                    maxlength="10"
+                    pInputText>
+                </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">เพศ</label>
+                    <p-radioButton name="gender"
+                      [(ngModel)]="manageStudentForm.acStudent.gender"
+                      value="M"
+                      label="ชาย"
+                      formControlName="gender"
+                      inputId="opt1">
+                    </p-radioButton>
+                    <p-radioButton name="gender"
+                      [(ngModel)]="manageStudentForm.acStudent.gender"
+                      value="F"
+                      label="หญิง"
+                      formControlName="gender"
+                      inputId="opt2">
+                    </p-radioButton>
+                </div>
+                <div class="col-xs-6">
+                  <label class="normal">วันเกิด</label>
+                  <p-calendar
+                    [(ngModel)]="manageStudentForm.acStudent.birth_date"
+                    formControlName="birth_date"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    [locale]="th"
+                    [utc]="true"
+                    [yearRange]="getYearRange()"
+                    [showIcon]="true"
+                    dateFormat="dd/mm/yy">
+                  </p-calendar>
+                </div>
+            </div>
+            <div class="row overide-row">
+              <div class="col-xs-12">
+                <label class="normal">คำนำหน้าชื่อ</label>
+                <p-dropdown
+                  [options]="titleList"
+                  [(ngModel)]="manageStudentForm.acStudent.title_ref"
+                  formControlName="title_ref">
+                </p-dropdown>
+              </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">ชื่อ (ภาษาไทย) *</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.first_name_t"
+                      name="first_name_t"
+                      formControlName="first_name_t"
+                      maxlength="50"
+                      pInputText>
+                </div>
+                <div class="col-xs-6">
+                    <label class="normal">นามสกุล (ภาษาไทย) *</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.last_name_t"
+                      name="last_name_t"
+                      formControlName="last_name_t"
+                      maxlength="50"
+                      pInputText>
+                </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">ชื่อ (ภาษาอังกฤษ)</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.first_name_e"
+                      name="first_name_e"
+                      formControlName="first_name_e"
+                      maxlength="50"
+                      pInputText>
+                </div>
+                <div class="col-xs-6">
+                    <label class="normal">นามสกุล (ภาษาอังกฤษ)</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.last_name_e"
+                      name="last_name_e"
+                      formControlName="last_name_e"
+                      maxlength="50"
+                      pInputText>
+                </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">สำนักวิชา *</label>
+                    <p-autoComplete class="autocomplete-province"
+                      field="school_name_t"
+                      [(ngModel)]="manageStudentForm.rftSchool"
+                      [suggestions]="schoolList" (onSelect)="selectSchool()"
+                      forceselection="true"
+                      [dropdown]="true"
+                      name="school"
+                      formControlName="school"
+                      (onDropdownClick)="handleCompleteClickSchools()"
+                      (completeMethod)="autoCompleteSchools($event)">
+                    </p-autoComplete>
+                </div>
+                <div class="col-xs-6">
+                    <label class="normal">สาขาวิชา *</label>
+                    <p-autoComplete class="autocomplete-province"
+                      field="major_name_t"
+                      [(ngModel)]="manageStudentForm.rftMajor"
+                      [suggestions]="majorsList"
+                      forceselection="true"
+                      name="major"
+                      formControlName="major"
+                      [disabled]="!manageStudentForm.rftSchool.school_ref"
+                      [dropdown]="true"
+                      (onDropdownClick)="handleCompleteClickMajor()"
+                      (completeMethod)="autoCompleteMajor($event)">
+                    </p-autoComplete>
+                </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">สัญชาติ</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.nationality"
+                      name="nationality"
+                      formControlName="nationality"
+                      maxlength="50"
+                      pInputText>
+                </div>
+                <div class="col-xs-6">
+                    <label class="normal">เชื้อชาติ</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.race"
+                      name="race"
+                      formControlName="race"
+                      maxlength="50"
+                      pInputText>
+                </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">ศาสนา</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.religion"
+                      name="religion"
+                      formControlName="religion"
+                      maxlength="50"
+                      pInputText>
+                </div>
+            </div>
+            <div class="row overide-row">
+                <div class="col-xs-6">
+                    <label class="normal">เบอร์โทรศัพท์ *</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.phone_no"
+                      name="phone_no"
+                      formControlName="phone_no"
+                      minlength="10"
+                      maxlength="10"
+                      pInputText>
+                </div>
+                <div class="col-xs-6">
+                    <label class="normal">อีเมลล์ *</label>
+                    <input type="text"
+                      [(ngModel)]="manageStudentForm.acStudent.email"
+                      name="email"
+                      formControlName="email"
+                      maxlength="50"
+                      pInputText>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="col-xs-12 profile-upload">
+                <img class="image-profile" [src]="manageStudentForm.acStudent.profile_image">
+            </div>
+            <div class="col-xs-12 profile-upload">
+                <p-fileUpload customUpload="true" auto="true" accept="image/*" (uploadHandler)="onUpload($event)" chooseLabel="เลือกไฟล์">
+                </p-fileUpload>
+            </div>
+        </div>
+    </div>
+    <div class="row overide-row btn-row">
+      <div class="col-xs-6 btn-panel-left">
+        <button class="btn-signup ui-button-success"
+          type="submit"
+          label="แก้ไขข้อมูล"
+          icon="fa fa-user-plus"
+          iconPos="left"
+          pButton>
+        </button>
+      </div>
+    </div>
+</form>

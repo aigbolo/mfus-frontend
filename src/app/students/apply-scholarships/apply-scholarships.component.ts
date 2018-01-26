@@ -31,7 +31,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   user: AcUser = new AcUser;
   student: AcStudent = new AcStudent;
   officer: AcOfficer = new AcOfficer;
-  update_state: boolean  =false
+  update_state: boolean = false
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,
@@ -51,21 +51,21 @@ export class ApplyScholarshipsComponent implements OnInit {
   ngOnInit() {
     this.ngProgress.start()
     this.utilsService.getApplicationStep();
-    if(!this.route.snapshot.params['id']){
+    if (!this.route.snapshot.params['id']) {
       this.insertPage();
-    }else{
+    } else {
       this.updatePage();
     }
   }
 
-  insertPage(){
+  insertPage() {
     this.login();
     this.getApplicationData();
     this.initialFamilyAndAddress()
     this.getEducationLevel()
   }
 
-  updatePage(){
+  updatePage() {
     this.update_state = true
     this.student = this.authService.getAccount();
     this.user = this.authService.getUser();
@@ -119,6 +119,7 @@ export class ApplyScholarshipsComponent implements OnInit {
       }, error => {
         console.log(error)
       }, () => {
+        this.initialFamilyAndAddress()
         this.pageRender = true;
         this.ngProgress.done()
       });
@@ -172,50 +173,44 @@ export class ApplyScholarshipsComponent implements OnInit {
   // }
 
   initialFamilyAndAddress() {
-    this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
+    this.familyAndAddressService.doGetParent(this.account_ref).subscribe(
       data => {
-        setTimeout(() => {
-          this.applyApplicationForm.acParent = data;
-        }, 1000);
-        setTimeout(() => {
-          this.getParentProvince();
-          this.getParentDistrict();
-          this.getParentSubDistrict();
-          this.convertDateBackToFront();
-          this.initialParentAddress();
-        }, 2000);
+        this.applyApplicationForm.acParent = data;
+        this.getParentProvince();
+        this.getParentDistrict();
+        this.getParentSubDistrict();
+        this.convertDateBackToFront();
+        this.initialParentAddress();
       }, err => {
         console.log(err)
       },
       () => {
+        this.familyAndAddressService.doGetSiblings(this.account_ref).subscribe(
+          data => {
+            if (data)
+              this.applyApplicationForm.siblingList = data;
+          }, err => {
+            console.log(err)
+          }, () => {
+            this.familyAndAddressService.doGetAddress(this.account_ref).subscribe(
+              data => {
+                if (data.address_ref)
+                  this.applyApplicationForm.acAddress = data;
+
+              }, err => {
+                console.log(err)
+              },
+              () => {
+                this.initialLivingAddress();
+                this.getLivingProvince();
+                this.getLivingDistrict();
+                this.getLivingSubDistrict();
+              }
+            )
+          }
+        )
       }
     );
-    setTimeout(() => {
-      this.familyAndAddressService.doGetSiblings(this.student.student_ref).subscribe(
-        data => {
-          if (data)
-            this.applyApplicationForm.siblingList = data;
-        }, err => {
-          console.log(err)
-        },()=>{
-        }
-      )
-      this.familyAndAddressService.doGetAddress(this.student.student_ref).subscribe(
-        data => {
-          if (data.address_ref)
-            this.applyApplicationForm.acAddress = data;
-
-        }, err => {
-          console.log(err)
-        },
-        () => {
-          this.initialLivingAddress();
-          this.getLivingProvince();
-          this.getLivingDistrict();
-          this.getLivingSubDistrict();
-        }
-      )
-    }, 1000)
   }
 
   getParentProvince() {
@@ -425,57 +420,57 @@ export class ApplyScholarshipsComponent implements OnInit {
       });
   }
 
-  initialApApplication(){
-    this.applyScholarshipService.initialApApplication(this.route.snapshot.params['id']).subscribe(data=>{
+  initialApApplication() {
+    this.applyScholarshipService.initialApApplication(this.route.snapshot.params['id']).subscribe(data => {
       this.applyApplicationForm.apApplication = data
       this.initialScholarshipAnnouncement();
     })
   }
 
-  initialScholarshipAnnouncement(){
+  initialScholarshipAnnouncement() {
     this.applyScholarshipService.initialScholarshipAnnouncement(this.applyApplicationForm.apApplication.announcement_ref).subscribe(
-      data=>{
+      data => {
         this.applyApplicationForm.autocompleteScholarshipAnnouncement = data
-      },error=>{
+      }, error => {
         console.log(error)
       }
     )
   }
 
-  initialScholarshipHistory(){
+  initialScholarshipHistory() {
     this.applyScholarshipService.initialScholarshipHistory(this.account_ref).subscribe(
-      data=>{
+      data => {
         this.applyApplicationForm.apScholarshipHistory = data
-      }, error=>{
+      }, error => {
         console.log(error)
       }
     )
   }
 
-  initialStudentLoanFund(){
+  initialStudentLoanFund() {
     this.applyScholarshipService.initialStudentLoanFund(this.account_ref).subscribe(
-      data=>{
+      data => {
         this.applyApplicationForm.apStudentLoanFund = data
-      },error=>{
+      }, error => {
         console.log(error)
       }
     )
   }
 
-  initialFamilyFinancial(){
+  initialFamilyFinancial() {
     this.applyScholarshipService.initialFamilyFinancial(this.account_ref).subscribe(
-      data=>{
+      data => {
         this.applyApplicationForm.apFamilyFinancial = data.ap_family_financial
         this.applyApplicationForm.apFamiyDebt = data.ap_family_debt
-      },error=>{
+      }, error => {
         console.log(error)
       }
     )
   }
 
-  initialDocumentUpload(){
+  initialDocumentUpload() {
     this.applyScholarshipService.initialDocumentUpload(this.route.snapshot.params['id']).subscribe(
-      data=>{
+      data => {
         console.log(data)
         this.applyApplicationForm.apDocumentUpload = data
       }
