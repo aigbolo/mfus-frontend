@@ -65,6 +65,7 @@ export class SiblingComponent implements OnInit {
       this.sibling.student_ref = this.familyAndAddress.user.account_ref;
       this.sibling.create_user = this.familyAndAddress.user.user_ref;
       this.sibling.update_user = this.familyAndAddress.user.user_ref;
+      console.log(this.sibling);
       this.manageForm.siblingList.push(this.sibling);
     }
 

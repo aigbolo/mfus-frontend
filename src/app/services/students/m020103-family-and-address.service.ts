@@ -17,6 +17,7 @@ export class M020103FamilyAndAddressService {
   }
 
   doInsertSibling(siblings:AcSibling[]){
+    console.log(siblings)
     return this.config.requestMethodPUT('siblings',siblings)
   }
 
