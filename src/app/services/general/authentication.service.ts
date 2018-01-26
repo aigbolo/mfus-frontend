@@ -16,17 +16,18 @@ export class AuthenticationService {
     private layout: LayoutService,) { }
 
   login(user: AcUser): Observable<any> {
-    return this.config.requestMethodPOST('login', user).map(user => {
-      if(user){
-        const token = user.ac_user.api_token
-        const ac_user = JSON.stringify(user.ac_user);
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', ac_user);
-        this.setAccountInfo(user.ac_user)
-        this.setLoggedinStage(token)
-        return user;
-      }
-    })
+    return this.config.requestMethodPOST('login', user)
+    // return this.config.requestMethodPOST('login', user).map(user => {
+    //   if(user){
+    //     // const token = user.ac_user.api_token
+    //     // const ac_user = JSON.stringify(user.ac_user);
+    //     // localStorage.setItem('token', token);
+    //     // localStorage.setItem('user', ac_user);
+    //     // this.setAccountInfo(user.ac_user)
+    //     // this.setLoggedinStage(token)
+    //     return user;
+    //   }
+    // })
   }
 
   logout() {
@@ -87,15 +88,13 @@ export class AuthenticationService {
       const param = { officer_ref: user.account_ref};
       this.config.requestMethodPOST('officers-update',param).subscribe(
         data=>{
-          localStorage.setItem('user.account', JSON.stringify(data));
-          localStorage.setItem('username',data.first_name+' '+data.last_name)
 
         },
         err=>{
           console.log(err)
         },
         ()=>{
-          this.layout.setDisplayName(localStorage.getItem('username'));
+
         }
       )
     }

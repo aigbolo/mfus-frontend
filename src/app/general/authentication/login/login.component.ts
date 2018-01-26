@@ -51,6 +51,12 @@ export class LoginComponent implements OnInit {
           this.ngProgress.done();
           if (user) {
             this.logedinFalse = false;
+            const token = user.api_token
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('username',user.user_name);
+            this.layout.setDisplayName(localStorage.getItem('username'));
+            this.authService.setLoggedinStage(token)
             this.router.navigateByUrl(this.returnUrl);
             return
           }
