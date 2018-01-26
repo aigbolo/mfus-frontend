@@ -1,3 +1,4 @@
+import { M010101StudentService } from './../../services/students/m010101-student.service';
 import { ActivatedRoute } from '@angular/router';
 import { RftEducationLevel } from './../../models/rft-education-level';
 import { AddressService } from './../../services/utils/address.service';
@@ -45,12 +46,14 @@ export class ApplyScholarshipsComponent implements OnInit {
     private patrolAddressService: AddressService,
     private homeAddressService: AddressService,
     private currentAddressService: AddressService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private m010101ManageStudentService: M010101StudentService
   ) { }
 
   ngOnInit() {
     this.ngProgress.start()
     this.utilsService.getApplicationStep();
+    this.initialData();
     if (!this.route.snapshot.params['id']) {
       this.insertPage();
     } else {
@@ -60,36 +63,35 @@ export class ApplyScholarshipsComponent implements OnInit {
 
   insertPage() {
     this.login();
-    this.getApplicationData();
+    // this.getApplicationData();
     this.initialFamilyAndAddress()
     this.getEducationLevel()
   }
 
   updatePage() {
+    console.log(this.applyApplicationForm)
     this.update_state = true
-    this.student = this.authService.getAccount();
     this.user = this.authService.getUser();
     this.user_ref = this.user.user_ref;
-    this.account_ref = this.student.student_ref;
+    this.account_ref = this.authService.getUser().account_ref
     this.applyApplicationForm.acStudent.update_user = this.user_ref;
     this.applyApplicationForm.apApplication.update_user = this.user_ref
     this.applyApplicationForm.apFamilyFinancial.update_user = this.user_ref;
     this.applyApplicationForm.apApplication.student_ref = this.account_ref;
-    this.getApplicationData();
     this.initialFamilyAndAddress();
     this.getEducationLevel();
     this.initialApApplication();
     this.initialScholarshipHistory();
     this.initialStudentLoanFund();
     this.initialFamilyFinancial();
-    this.initialDocumentUpload();
+    this.initialDocumentUpload()
   }
 
   login() {
     this.student = this.authService.getAccount();
-    this.user = this.authService.getUser();
+    this.user = this.authService.getUser()
     this.user_ref = this.user.user_ref
-    this.account_ref = this.student.student_ref
+    this.account_ref = this.authService.getUser().account_ref
     this.applyApplicationForm.acStudent.update_user = this.user_ref
     this.applyApplicationForm.apApplication.create_user = this.user_ref
     this.applyApplicationForm.apApplication.update_user = this.user_ref
@@ -98,81 +100,38 @@ export class ApplyScholarshipsComponent implements OnInit {
     this.applyApplicationForm.apApplication.student_ref = this.account_ref
   }
 
-  getApplicationData() {
-    this.applyScholarshipService
-      .getApplySchcolarshipData(this.account_ref)
-      .subscribe(data => {
-        this.applyApplicationForm.acStudent = data;
-        this.applyApplicationForm.student_name = data.student_name
-        this.applyApplicationForm.school_name_t = data.school_name_t
-        this.applyApplicationForm.major_name_t = data.major_name_t
-        this.applyApplicationForm.birth_day = this.utilsService.getBirthDay(
-          data.birth_date
-        );
-        this.applyApplicationForm.gender = this.utilsService.getGender(
-          data.gender
-        );
-        this.applyApplicationForm.age = this.utilsService.getAge(
-          data.birth_date
-        );
-
-      }, error => {
-        console.log(error)
-      }, () => {
-        this.initialFamilyAndAddress()
-        this.pageRender = true;
-        this.ngProgress.done()
-      });
+  initialData() {
+    console.log('initialdata')
+    this.applyApplicationForm.acStudent.student_ref = this.authService.getUser().account_ref
+    this.m010101ManageStudentService.doSelect(this.applyApplicationForm.acStudent).subscribe(data => {
+      this.applyApplicationForm.acStudent = data
+      this.applyApplicationForm.student_name = data.first_name_t + ' ' + data.last_name_t
+      this.applyApplicationForm.gender = this.utilsService.getGender(data.gender)
+      this.applyApplicationForm.birth_day = this.utilsService.getBirthDay(data.birth_date)
+      this.applyApplicationForm.age = this.utilsService.getAge(data.birth_date);
+      this.applyApplicationForm.acStudent.birth_date = new Date(this.applyApplicationForm.acStudent.birth_date)
+      this.referenceService.getSchoolByRef(this.applyApplicationForm.acStudent.school_ref).subscribe(
+        data => {
+          this.applyApplicationForm.school_name_t = data.school_name_t
+        }, error => {
+        }, () => {
+          this.referenceService.getMajorByRef(this.applyApplicationForm.acStudent.major_ref).subscribe(
+            data => {
+              this.applyApplicationForm.major_name_t = data.major_name_t
+            }, error => {
+            }, () => {
+              console.log('initialComplete')
+              this.initialFamilyAndAddress()
+              this.ngProgress.done();
+              this.pageRender = true
+            }
+          )
+        })
+    })
   }
 
-  // initialFamilyAndAddress() {
-  //   this.familyAndAddressService.doGetParent(this.student.student_ref).subscribe(
-  //     data => {
-  //       setTimeout(() => {
-  //         this.applyApplicationForm.acParent = data;
-  //       }, 1000);
-  //       setTimeout(() => {
-  //         this.getParentProvince();
-  //         this.getParentDistrict();
-  //         this.getParentSubDistrict();
-  //         this.convertDateBackToFront();
-  //         this.initialParentAddress();
-  //       }, 2000);
-  //     }, err => {
-  //       console.log(err)
-  //     },
-  //     () => {
-  //     }
-  //   );
-  //   setTimeout(() => {
-  //     this.familyAndAddressService.doGetSiblings(this.student.student_ref).subscribe(
-  //       data => {
-  //         if (data)
-  //           this.applyApplicationForm.siblingList = data;
-  //       }, err => {
-  //         console.log(err)
-  //       },()=>{
-  //       }
-  //     )
-  //     this.familyAndAddressService.doGetAddress(this.student.student_ref).subscribe(
-  //       data => {
-  //         if (data.address_ref)
-  //           this.applyApplicationForm.acAddress = data;
-
-  //       }, err => {
-  //         console.log(err)
-  //       },
-  //       () => {
-  //         this.initialLivingAddress();
-  //         this.getLivingProvince();
-  //         this.getLivingDistrict();
-  //         this.getLivingSubDistrict();
-  //       }
-  //     )
-  //   }, 1000)
-  // }
-
   initialFamilyAndAddress() {
+    console.log('initialFamily')
     this.familyAndAddressService.doGetParent(this.account_ref).subscribe(
       data => {
         this.applyApplicationForm.acParent = data;

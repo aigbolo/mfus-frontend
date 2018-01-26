@@ -48,6 +48,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   initialScholarshipAnnouncement() {
     this.applyScholarshipService.initialScholarshipAnnouncementList()
       .subscribe(data=> {
+        console.log(data)
         this.initialList.push(...data);
         if(this.applyApplication.update_state){
           for(let obj of this.initialList){

@@ -39,6 +39,11 @@ export class M040101ApplyScholarshipService {
   return this.configurationService.requestMethodPOST('application-insert',application)
  }
 
+ updateApplication(application: ApApplication){
+  return this.configurationService.requestMethodPUT('application',application)
+  // return this.configurationService.requestMethodPOST()
+ }
+
  insertScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]){
   return this.configurationService.requestMethodPOST('scholarshiphistory-insert', scholarshipHistory)
  }

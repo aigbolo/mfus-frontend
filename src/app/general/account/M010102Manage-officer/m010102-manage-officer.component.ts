@@ -79,6 +79,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       "id"
     ];
     if (this.manageOfficerForm.acOfficer.officer_ref != null) {
+      console.log('onrow')
       this.btnLabel = "แก้ไขข้อมูล";
       this.layoutService.setPageHeader("แก้ไขข้อมูลเจ้าหน้าที่");
       this.officerFormGroup.controls["officer_code"].disable();
@@ -91,10 +92,9 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   login(){
     this.user = this.authService.getUser();
-    this.officer = this.authService.getAccount();
+    // this.officer = this.officerService.selectOfficer('officers-update', this.user_ref.account_ref)
     this.user_ref = this.officer.officer_ref
-    console.log('user: ', this.user)
-    console.log('officer: ', this.officer)
+
   }
   validateForm() {
     this.officerFormGroup = new FormGroup({
@@ -259,6 +259,7 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   onRowSelected() {
+    console.log(this.manageOfficerForm.acOfficer)
     this.officerService
       .selectOfficer(this.manageOfficerForm.acOfficer)
       .subscribe(
