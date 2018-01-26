@@ -1,8 +1,14 @@
+import { RftSubDistrict } from './../../../models/rft-sub-district';
+import { RftDistrict } from './../../../models/rft-district';
+import { RftProvince } from './../../../models/rft-province';
+import { SelectItem } from 'primeng/primeng';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { OfficerForm } from './../../../forms/officer-form';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/general/authentication.service';
 import { M010102OfficerService } from '../../../services/officers/m010102-officer.service';
+import { UtilsService } from '../../../services/utils/utils.service';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-manage-officer-profile',
@@ -11,19 +17,42 @@ import { M010102OfficerService } from '../../../services/officers/m010102-office
 })
 export class ManageOfficerProfileComponent implements OnInit {
 
-  manageOfficerForm: OfficerForm
+  pageRender: boolean = false
+  manageOfficerForm: OfficerForm = new OfficerForm
   officerFormGroup: FormGroup
   flag: boolean = false
+  titleList: SelectItem[]
+  activeFlag: SelectItem[]
+
+    // Autocomplete Province
+    provinceList: RftProvince[] = [];
+    provinceObject: RftProvince = new RftProvince();
+    // Autocomplete District
+    districtList: RftDistrict[] = [];
+    districtObject: RftDistrict = new RftDistrict();
+    district_ref: string;
+
+    // Autocomplete SubDistrict
+    subDistrictList: RftSubDistrict[] = [];
+    subDistrictObject: RftSubDistrict = new RftSubDistrict();
+
+    uploadedFiles: any[] = [];
+
   constructor(private authService: AuthenticationService,
-              private officerService: M010102OfficerService) { }
+    private officerService: M010102OfficerService,
+    private utilsService: UtilsService,
+    private referenceService: ReferenceService) { }
 
   ngOnInit() {
+    this.pageRender = true
+    this.validateForm()
     this.initialOfficerData()
+    this.referenceService.initialProvince();
+    this.titleList = this.utilsService.getTitleList()
   }
 
-  initialOfficerData(){
+  initialOfficerData() {
     this.manageOfficerForm.acOfficer = this.authService.getAccount()
-    console.log(this.manageOfficerForm.acOfficer)
   }
 
   validateForm() {
@@ -33,14 +62,14 @@ export class ManageOfficerProfileComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
       active_flag: new FormControl(
-        (this.manageOfficerForm.acOfficer.active_flag = "Y")
+        (this.manageOfficerForm.acOfficer.active_flag)
       ),
       gender: new FormControl(
-        (this.manageOfficerForm.acOfficer.gender = "M"),
+        (this.manageOfficerForm.acOfficer.gender),
         Validators.compose([Validators.required])
       ),
       title_ref: new FormControl(
-        (this.manageOfficerForm.acOfficer.title_ref = "Mr"),
+        (this.manageOfficerForm.acOfficer.title_ref),
         Validators.compose([Validators.required])
       ),
       personal_id: new FormControl(
@@ -84,12 +113,106 @@ export class ManageOfficerProfileComponent implements OnInit {
       sub_district: new FormControl(this.manageOfficerForm.rftSubDistrict),
       manage_officer_flag: new FormControl((this.flag = false)),
       image: new FormControl(
-        (this.manageOfficerForm.acOfficer.profile_image =
-          "../../../../assets/images/empty_profile.png"),
+        (this.manageOfficerForm.acOfficer.profile_image),
         Validators.compose([Validators.required])
       )
     });
   }
 
+  autocompleteProvince(event) {
+    let query = event.query;
+    this.provinceList = [];
+    let objList: RftProvince[];
+    objList = this.referenceService.getProvinces();
+    for (let obj of objList) {
+      if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.provinceList.push(obj);
+      }
+    }
+  }
 
+  handleCompleteClickProvince() {
+    setTimeout(() => {
+      this.provinceList = this.referenceService.getProvinces();
+    }, 100);
+  }
+
+  selectProvince() {
+    this.referenceService.initialDistrict(
+      this.manageOfficerForm.rftProvince.province_ref
+    );
+    setTimeout(() => {
+      this.manageOfficerForm.rftDistrict = new RftDistrict();
+      this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
+    }, 100);
+  }
+
+  autocompleteDistrict(event) {
+    let query = event.query;
+    this.districtList = [];
+    let objList: RftDistrict[];
+    objList = this.referenceService.getDistricts();
+    for (let obj of objList) {
+      if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.districtList.push(obj);
+      }
+    }
+  }
+
+  handleCompleteClickDistrict() {
+    setTimeout(() => {
+      this.districtList = this.referenceService.getDistricts();
+    }, 100);
+  }
+
+  selectDistrict() {
+    this.referenceService.initialSubDistrict(
+      this.manageOfficerForm.rftDistrict.district_ref
+    );
+    setTimeout(() => {
+      this.manageOfficerForm.rftSubDistrict = new RftSubDistrict();
+      this.manageOfficerForm.acOfficer.postcode = "";
+    }, 100);
+  }
+
+  autocompleteSubDistrict(event) {
+    let query = event.query;
+    this.subDistrictList = [];
+    let objList: RftSubDistrict[];
+    objList = this.referenceService.getSubDistricts();
+    for (let obj of objList) {
+      if (
+        obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
+      ) {
+        this.subDistrictList.push(obj);
+      }
+    }
+  }
+
+  handleCompleteClickSubDistrict() {
+    setTimeout(() => {
+      this.subDistrictList = this.referenceService.getSubDistricts();
+    }, 100);
+  }
+
+  selectSubDistrict() {
+    this.manageOfficerForm.acOfficer.postcode = this.manageOfficerForm.rftSubDistrict.postcode;
+  }
+
+  onUpload(event) {
+    if (event.files != null) this.uploadedFiles = [];
+
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+    this.manageOfficerForm.acOfficer.profile_image = this.uploadedFiles[0].objectURL;
+    this.manageOfficerForm.acOfficer.profile_name = this.uploadedFiles[0].name;
+    this.manageOfficerForm.acOfficer.profile_type = this.uploadedFiles[0].type;
+
+    this.utilsService
+      .convertBlobToString(this.manageOfficerForm.acOfficer.profile_image)
+      .subscribe(val => {
+        this.manageOfficerForm.acOfficer.profile_image = val;
+      });
+  }
 }

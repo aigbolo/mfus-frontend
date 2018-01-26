@@ -1,3 +1,5 @@
+import { LayoutService } from './../../../services/utils/layout.service';
+import { Severity } from './../../../enum';
 import { M010101StudentService } from './../../../services/students/m010101-student.service';
 import { SelectItem } from 'primeng/primeng';
 import { CalendarModel } from './../../../models/calendar-model';
@@ -27,7 +29,8 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   constructor(public utilsService: UtilsService,
     private referenceService: ReferenceService,
     private authService: AuthenticationService,
-    private m010101ManageStudentService: M010101StudentService) {
+    private m010101ManageStudentService: M010101StudentService,
+    private layoutService: LayoutService) {
     super();
 
   }
@@ -200,6 +203,12 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
      console.log('complete')
     },error=>{
       console.log(error)
+    },()=>{
+      this.layoutService.setMsgDisplay(
+        Severity.SUCCESS,
+        "บันทึกข้อมูลสำเร็จ",
+        ""
+      );
     })
   }
 

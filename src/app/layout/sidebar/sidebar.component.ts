@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
 
   items: MenuItem[];
   user: AcUser = new AcUser()
-  // officer: AcOfficer = this.authService.getAccount()
+   officer: AcOfficer = this.authService.getAccount()
   // student: AcStudent = this.authService.getAccount()
 
   constructor(private authService: AuthenticationService) { }
@@ -25,11 +25,22 @@ export class SidebarComponent implements OnInit {
       this.items = this.initialStudentMenu()
     } else {
       this.items = this.initialOfficerMenu()
+      console.log(this.authService.getUser().manage_officer_flag)
+      if(this.authService.getUser().manage_officer_flag == 1){
+        this.items[0].items.push({label: 'จัดการข้อมูลเจ้าหน้าที่', routerLink: ['/search-officer']})
+      }
     }
   }
 
   initialOfficerMenu(): MenuItem[] {
     return [
+      {
+        label: 'จัดการผู้ใช้',
+        items: [
+          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer-profile'] }
+
+        ]
+      },
       {
         label: 'จัดการทุนการศึกษา',
         items: [
@@ -52,12 +63,6 @@ export class SidebarComponent implements OnInit {
           { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/sesarch-scholarship'] },
           { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/interviewees'] },
           { label: 'ผู้ได้รับทุนการศึกษา', routerLink: ['/earning-scholarship'] },
-        ]
-      },
-      {
-        label: 'จัดการผู้ใช้',
-        items: [
-          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer-profile'] }
         ]
       },
       {

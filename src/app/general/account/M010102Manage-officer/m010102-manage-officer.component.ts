@@ -93,8 +93,6 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.user = this.authService.getUser();
     this.officer = this.authService.getAccount();
     this.user_ref = this.officer.officer_ref
-    console.log('user: ', this.user)
-    console.log('officer: ', this.officer)
   }
   validateForm() {
     this.officerFormGroup = new FormGroup({
