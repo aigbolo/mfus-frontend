@@ -13,7 +13,7 @@ export class ManageOfficerProfileComponent implements OnInit {
 
   manageOfficerForm: OfficerForm
   officerFormGroup: FormGroup
-
+  flag: boolean = false
   constructor(private authService: AuthenticationService,
               private officerService: M010102OfficerService) { }
 
