@@ -1,5 +1,6 @@
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
+import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M020103ManageFamilyAndAddressComponent } from './students/m020103-manage-family-and-address/m020103-manage-family-and-address.component';
 import { M040102ManageScholarshipInfoComponent } from "./students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component";
@@ -109,7 +110,8 @@ const appRoutes: Routes = [
     }
   ] },
   { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent },
-  { path: "manage-student", component: ManageStudentProfileComponent },
+  { path: "manage-student-profile", component: ManageStudentProfileComponent },
+  { path: "manage-officer-profile", component: ManageOfficerProfileComponent },
 ];
 
 @NgModule({

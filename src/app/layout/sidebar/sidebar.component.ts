@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'จัดการผู้ใช้',
         items: [
-          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer'] }
+          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer-profile'] }
         ]
       },
       {
@@ -90,7 +90,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ข้อมูลพื้นฐาน',
         items: [
-          { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student'] },
+          { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student-profile'] },
           { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
         ]
       },

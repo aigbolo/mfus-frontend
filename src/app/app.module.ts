@@ -89,6 +89,7 @@ import { SiblingViewComponent } from './students/apply-scholarships/m040104-mana
 import { FamilyViewComponent } from './students/apply-scholarships/m040104-manage-family-and-address/family-view/family-view.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
+import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -142,6 +143,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FamilyViewComponent,
     M040201SearchScholarshipsAppliedComponent,
     ManageStudentProfileComponent,
+    ManageOfficerProfileComponent,
   ],
   imports: [
     // Angular
