@@ -37,6 +37,7 @@ const appRoutes: Routes = [
 
   // General Paths
   { path: "", component: IndexComponent },
+  { path: "register", component: M010101ManageStudentComponent },
 
   // Authorization Paths
   { path: "forgot", component: ForgotPasswordComponent },
@@ -48,13 +49,13 @@ const appRoutes: Routes = [
   },
 
   // Officers Paths
-  { path: "manage-officer", component: M010102ManageOfficerComponent },
-  { path: "search-officer", component: S010102SearchOfficerComponent },
-  { path: "manage-officer/:id", component: M010102ManageOfficerComponent },
+  { path: "manage-officer", component: M010102ManageOfficerComponent,canActivate: [EnsureIsAuth] },
+  { path: "search-officer", component: S010102SearchOfficerComponent,canActivate: [EnsureIsAuth] },
+  { path: "manage-officer/:id", component: M010102ManageOfficerComponent,canActivate: [EnsureIsAuth] },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
   { path: "manage-scholarship/:id",component: M030102ManageScholarshipComponent},
   { path: "search-scholarship", component: S030102SearchScolarshipComponent },
-  { path: "register", component: M010101ManageStudentComponent },
+  { path: "manage-officer-profile", component: ManageOfficerProfileComponent,canActivate: [EnsureIsAuth] },
   { path: "manage-sponsors",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
   { path: "manage-sponsors/:id",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
   { path: "search-sponsors",component: M030101SearchSponsorsComponent,canActivate: [EnsureIsAuth]},
@@ -111,7 +112,7 @@ const appRoutes: Routes = [
   ] },
   { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent },
   { path: "manage-student-profile", component: ManageStudentProfileComponent },
-  { path: "manage-officer-profile", component: ManageOfficerProfileComponent },
+
 ];
 
 @NgModule({
