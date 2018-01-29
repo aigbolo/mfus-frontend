@@ -13,7 +13,6 @@ export class FamilyViewComponent implements OnInit {
               public manageFamilyAndAddress: M040104ManageFamilyAndAddressComponent) { }
 
   ngOnInit() {
-    console.log(this.applyApplication.applyApplicationForm.acParent)
   }
 
 }

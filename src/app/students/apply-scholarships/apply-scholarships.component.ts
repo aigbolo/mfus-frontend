@@ -63,13 +63,11 @@ export class ApplyScholarshipsComponent implements OnInit {
 
   insertPage() {
     this.login();
-    // this.getApplicationData();
     this.initialFamilyAndAddress()
     this.getEducationLevel()
   }
 
   updatePage() {
-    console.log(this.applyApplicationForm)
     this.update_state = true
     this.user = this.authService.getUser();
     this.user_ref = this.user.user_ref;

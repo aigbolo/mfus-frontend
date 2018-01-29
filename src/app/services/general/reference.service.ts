@@ -158,6 +158,7 @@ export class ReferenceService {
     this.configuration
       .requestMethodGET("autocomplete-major/" + schoolRef)
       .subscribe(data => {
+        console.log(data)
         this.rftMajors = data;
       });
   }

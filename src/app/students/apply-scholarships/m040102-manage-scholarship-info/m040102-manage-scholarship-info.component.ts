@@ -46,9 +46,15 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   initialScholarshipAnnouncement() {
+    console.log('initialScholarshipAnnouncement')
     this.applyScholarshipService.initialScholarshipAnnouncementList()
       .subscribe(data=> {
         console.log(data)
+        // for(let obj of data){
+        //   if(this.applyApplication.applyApplicationForm.apApplication.gpax >= obj.){
+
+        //   }
+        // }
         this.initialList.push(...data);
         if(this.applyApplication.update_state){
           for(let obj of this.initialList){
@@ -64,6 +70,8 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
         }
         this.applyApplication.pageRender = true
         this.ngProgress.done()
+      }, error=>{
+        console.log(error)
       })
   }
 
