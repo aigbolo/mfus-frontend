@@ -1,61 +1,53 @@
 <div class="row overide-row">
-    <div class="col-xs-9">
-        <label class="normal">ผู้สนับสนุน</label>
-        <p-autoComplete class="autocomplete-sub-district"
-                    [(ngModel)]="searchForm.smSponsors"
-                    [suggestions]="sponsorsList"
-                    [dropdown]="true"
-                    (completeMethod)="autocompleteSponsors($event)"
-                    (onDropdownClick)="handleCompleteClickSponsosrs()"
-                    field="sponsors_name"
-                    forceSelection="true"
-                    name="autocompleteSponsors">
-                  </p-autoComplete>
-    </div>
-    <div class="col-xs-3">
-        <label for="" class="normal">สถานะ</label>
-        <p-dropdown [options]="activeFlag" [(ngModel)]="searchForm.searchCriteria.active_flag">
-        </p-dropdown>
-    </div>
-</div>
-<div class="row overide-row">
-    <div class="col-xs-3">
-        <label class="normal">ประเภททุนการศึกษา</label>
-        <p-dropdown
-              [(ngModel)]="searchForm.rftScholarshipType"
-              name="sctype_type"
-              optionLabel="sctype_name"
-              [options]="sctype_type">
+    <h4 class="custom-panel-title">ค้นหาผู้ให้ทุนการศึกษา</h4>
+    <div class="row overide-row">
+        <div class="col-xs-9">
+            <label class="normal">ผู้สนับสนุน</label>
+            <p-autoComplete class="autocomplete-sub-district" [(ngModel)]="searchForm.smSponsors" [suggestions]="sponsorsList" [dropdown]="true" (completeMethod)="autocompleteSponsors($event)" (onDropdownClick)="handleCompleteClickSponsosrs()" field="sponsors_name"
+                forceSelection="true" name="autocompleteSponsors">
+            </p-autoComplete>
+        </div>
+        <div class="col-xs-3">
+            <label class="normal">สถานะ</label>
+            <p-dropdown [options]="activeFlag" [(ngModel)]="searchForm.searchCriteria.active_flag">
             </p-dropdown>
+        </div>
     </div>
-    <div class="col-xs-9">
-        <label for="" class="normal">ชื่อทุนการศึกษา</label>
-        <input type="text" name="scholarship_name" [(ngModel)]="searchForm.searchCriteria.scholarship_name" pInputText>
+    <div class="row overide-row">
+        <div class="col-xs-3">
+            <label class="normal">ประเภททุนการศึกษา</label>
+            <p-dropdown [(ngModel)]="searchForm.rftScholarshipType" name="sctype_type" optionLabel="sctype_name" [options]="sctype_type">
+            </p-dropdown>
+        </div>
+        <div class="col-xs-9">
+            <label for="" class="normal">ชื่อทุนการศึกษา</label>
+            <input type="text" name="scholarship_name" [(ngModel)]="searchForm.searchCriteria.scholarship_name" pInputText>
+        </div>
     </div>
-</div>
-<div class="row overide-row btn-row">
-    <div class="col-xs-6 btn-panel-left">
-        <button pButton type="submit" class="btn-search primary" label="ค้นหา" (click)="onSearchClick()">
+    <div class="row overide-row btn-row">
+        <div class="col-xs-6 btn-panel-left">
+            <button pButton type="submit" class="btn-search primary" label="ค้นหา" (click)="onSearchClick()">
 </button>
-    </div>
-    <div class="col-xs-6 btn-panel-right">
-        <button pButton type="button" class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
+        </div>
+        <div class="col-xs-6 btn-panel-right">
+            <button pButton type="button" class="btn-reset ui-button-warning" label="เริ่มใหม่" (click)="onResetClick()">
 </button>
-        <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPage()">
+            <button pButton type="button" class="btn-new ui-button-info" label="เพิ่มข้อมูล" (click)="onInsertPage()">
 </button>
+        </div>
     </div>
-</div>
 
-<div class="row overide-row">
-    <p-dataTable [value]="scholarshipFormList" selectionMode="single" (onRowSelect)="onRowSelect($event)">
-        <p-column field="index" header="ลำดับ">
-            <ng-template let-col let-obj="rowIndex" pTemplate="body">
-                {{obj+1}}
-            </ng-template>
-        </p-column>
-        <p-column header="ชื่อผู้สนับสนุน" field="sponsors_name"></p-column>
-        <p-column header="ประเภททุนการศึกษา" field="sctype_name"></p-column>
-        <p-column header="ชื่อทุนการศึกษา" field="scholarship_name"></p-column>
-        <p-column header="สถานะ" field="active_flag"></p-column>
-    </p-dataTable>
+    <div class="row overide-row">
+        <p-dataTable [value]="scholarshipFormList" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+            <p-column field="index" header="ลำดับ">
+                <ng-template let-col let-obj="rowIndex" pTemplate="body">
+                    {{obj+1}}
+                </ng-template>
+            </p-column>
+            <p-column header="ชื่อผู้สนับสนุน" field="sponsors_name"></p-column>
+            <p-column header="ประเภททุนการศึกษา" field="sctype_name"></p-column>
+            <p-column header="ชื่อทุนการศึกษา" field="scholarship_name"></p-column>
+            <p-column header="สถานะ" field="active_flag"></p-column>
+        </p-dataTable>
+    </div>
 </div>

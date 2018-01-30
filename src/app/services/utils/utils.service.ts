@@ -40,12 +40,10 @@ export class UtilsService {
     }else{
       flag = '2'
     }
-    console.log(flag)
     return flag
   }
 
   getTitleList():SelectItem[] {
-    console.log('gettitleList')
     let titleList = [
       { label: 'นาย', value: 'Mr' },
       { label: 'นาง', value: 'Miss' },
@@ -106,7 +104,6 @@ export class UtilsService {
     for (const name in controls) {
       if (!controls[name].valid) {
         controls[name].markAsDirty();
-        console.log(name)
       }
     }
   }

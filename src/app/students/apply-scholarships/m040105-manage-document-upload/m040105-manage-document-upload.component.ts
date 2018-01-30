@@ -49,19 +49,20 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
         obj.upload_name = this.file_name
         this.applyApplication.applyApplicationForm.documentList.push(obj)
       }
-      if(this.applyApplication.update_state == true){
+      if (this.applyApplication.update_state == true) {
         this.onPageUpdate()
       }
       this.ngProgress.done()
     })
   }
 
-  onPageUpdate(){
+  onPageUpdate() {
     this.btnlabel = 'แก้ไขข้อมูล'
-    for(let rftdoc of this.applyApplication.applyApplicationForm.documentList){
-      for(let apdoc of this.applyApplication.applyApplicationForm.apDocumentUpload){
-        if(rftdoc.document_ref == apdoc.document_ref){
+    for (let rftdoc of this.applyApplication.applyApplicationForm.documentList) {
+      for (let apdoc of this.applyApplication.applyApplicationForm.apDocumentUpload) {
+        if (rftdoc.document_ref == apdoc.document_ref) {
           rftdoc.upload_name = apdoc.document_name
+          rftdoc.label = 'แก้ไข'
         }
       }
     }
@@ -110,117 +111,105 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apDocumentUpload[this.applyApplication.applyApplicationForm.documentList.indexOf(doc)]
   }
 
-  onPrevious(){
+  onPrevious() {
     this.referenceService.nextIndex(3)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 
   onInsertClick() {
     this.ngProgress.start()
-    // console.log('student: ------------------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.acStudent)
-    // console.log('application: --------------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.apApplication)
-    // console.log('scholarshipHistory: -------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-    // console.log('studentLoanFund: ----------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.apStudentLoanFund)
-    // console.log('familyFinancial: ----------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.apFamilyFinancial)
-    // console.log('familyDebt: ---------------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.apFamiyDebt)
-    // console.log('documentUpload: -----------------------------------------')
-    // console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
-
-    let financialAndDebt = {
-      ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
-      family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
-    }
     this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
       .subscribe(res => {
-        console.log(this.applyApplication.applyApplicationForm.apApplication.application_ref)
-        if(!this.applyApplication.applyApplicationForm.apApplication.application_ref){
+        let financialAndDebt = {
+          ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
+          family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
+        }
+        if (!this.applyApplication.applyApplicationForm.apApplication.application_ref) {
+          this.applyApplication.applyApplicationForm.apApplication.earn_flag = '1'
+          this.applyApplication.applyApplicationForm.apApplication.document_screening_flag = '1'
+          this.applyApplication.applyApplicationForm.apApplication.interview_flag = '1'
           this.insertApplication(financialAndDebt);
-        }else{
+        } else {
           this.updateApplication(financialAndDebt)
         }
       })
   }
 
-  insertApplication(financialAndDebt){
+  insertApplication(financialAndDebt) {
     this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
+      .subscribe(res => {
+        this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
           .subscribe(res => {
-            this.applyApplication.applyApplicationForm.apApplication = res
-            this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
-            this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+            this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
               .subscribe(res => {
-                this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+                this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
                   .subscribe(res => {
-                    this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+                    for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
+                      obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+                    }
+                    this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
                       .subscribe(res => {
-                        for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
-                          obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
-                        }
-                        this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
-                          .subscribe(res => {
-                          }, error => {
-                            console.log(error)
-                            this.layoutService.setMsgDisplay(
-                              Severity.ERROR,
-                              "บันทึกข้อมูลผิดพลาด",
-                              ""
-                            );
-                          }, () => {
-                            this.layoutService.setMsgDisplay(
-                              Severity.SUCCESS,
-                              "บันทึกข้อมูลสำเร็จ",
-                              ""
-                            );
-                            this.ngProgress.done()
-                            this.display = true
-                          })
+                      }, error => {
+                        console.log(error)
+                        this.layoutService.setMsgDisplay(
+                          Severity.ERROR,
+                          "บันทึกข้อมูลผิดพลาด",
+                          ""
+                        );
+                      }, () => {
+                        this.layoutService.setMsgDisplay(
+                          Severity.SUCCESS,
+                          "บันทึกข้อมูลสำเร็จ",
+                          ""
+                        );
+                        this.ngProgress.done()
+                        this.display = true
                       })
                   })
               })
           })
+      })
   }
 
-  updateApplication(financialAndDebt){
+
+  updateApplication(financialAndDebt) {
     this.applyScholarshipService.updateApplication(this.applyApplication.applyApplicationForm.apApplication)
+      .subscribe(res => {
+        this.applyApplication.applyApplicationForm.apApplication = res
+        this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
+        this.applyScholarshipService.updateScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
           .subscribe(res => {
-            this.applyApplication.applyApplicationForm.apApplication = res
-            this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
-            this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+            this.applyScholarshipService.updateStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
               .subscribe(res => {
-                this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+                this.applyScholarshipService.updateFamilyFinancialAndFamilyDebt(financialAndDebt)
                   .subscribe(res => {
-                    this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+                    for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
+                      obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+                    }
+                    this.applyScholarshipService.updateDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
                       .subscribe(res => {
-                        for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
-                          obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
-                        }
-                        this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
-                          .subscribe(res => {
-                          }, error => {
-                            console.log(error)
-                            this.layoutService.setMsgDisplay(
-                              Severity.ERROR,
-                              "แก้ไขข้อมูลผิดพลาด",
-                              ""
-                            );
-                          }, () => {
-                            this.layoutService.setMsgDisplay(
-                              Severity.SUCCESS,
-                              "แก้ไขข้อมูลสำเร็จ",
-                              ""
-                            );
-                            this.ngProgress.done()
-                            this.display = true
-                          })
+                      }, error => {
+                        console.log(error)
+                        this.layoutService.setMsgDisplay(
+                          Severity.ERROR,
+                          "แก้ไขข้อมูลผิดพลาด",
+                          ""
+                        );
+                      }, () => {
+                        this.layoutService.setMsgDisplay(
+                          Severity.SUCCESS,
+                          "แก้ไขข้อมูลสำเร็จ",
+                          ""
+                        );
+                        this.ngProgress.done()
+                        this.display = true
+                        this.utilsService.goToPage('search-sholarships-applied')
                       })
                   })
               })
           })
+      })
   }
+
 
 }

@@ -14,85 +14,108 @@ import { ApFamilyDebt } from '../../models/ap-family-debt';
 @Injectable()
 export class M040101ApplyScholarshipService {
 
+
   constructor(
     private configurationService: ConfigurationService
   ) { }
 
-  getApplySchcolarshipData(ref:string){
-    let json = {student_ref: ref}
+  getApplySchcolarshipData(ref: string) {
+    let json = { student_ref: ref }
     return this.configurationService.requestMethodPOST('students-view', json)
   }
 
-  initialScholarshipAnnouncementList(){
-    return this.configurationService.requestMethodPOST('autocomplete-scannouncedate','')
+  initialScholarshipAnnouncementList() {
+    return this.configurationService.requestMethodPOST('autocomplete-scannouncedate', '')
   }
 
-  initialApplicationDocument(){
-    return this.configurationService.requestMethodPOST('appdoc','')
+  setScholarshipAnnouncement(ref: string) {
+    return this.configurationService.requestMethodPOST('autocomplete-scannouncedate', ref)
   }
 
- upDateStudent(student: AcStudent){
-   return this.configurationService.requestMethodPUT('students', student)
- }
+  initialApplicationDocument() {
+    return this.configurationService.requestMethodPOST('appdoc', '')
+  }
 
- insertApplication(application: ApApplication){
-  return this.configurationService.requestMethodPOST('application-insert',application)
- }
+  upDateStudent(student: AcStudent) {
+    return this.configurationService.requestMethodPUT('students', student)
+  }
 
- updateApplication(application: ApApplication){
-  return this.configurationService.requestMethodPUT('application',application)
-  // return this.configurationService.requestMethodPOST()
- }
+  insertApplication(application: ApApplication) {
+    return this.configurationService.requestMethodPOST('application-insert', application)
+  }
 
- insertScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]){
-  return this.configurationService.requestMethodPOST('scholarshiphistory-insert', scholarshipHistory)
- }
+  updateApplication(application: ApApplication) {
+    return this.configurationService.requestMethodPUT('application', application)
+  }
 
- insertStudentLoanFund(stdLoanFund: ApStudentLoanFund[]){
-   return this.configurationService.requestMethodPOST('studentloanfund-insert',stdLoanFund)
- }
+  insertScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]) {
+    return this.configurationService.requestMethodPOST('scholarshiphistory-insert', scholarshipHistory)
+  }
 
- insertFamilyFinancialAndFamilyDebt(data: any){
-  return this.configurationService.requestMethodPOST('familyfinancial-insert', data)
- }
+  updateScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]) {
+    return this.configurationService.requestMethodPUT('scholarshiphistory', scholarshipHistory)
+  }
 
+  insertStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
+    return this.configurationService.requestMethodPOST('studentloanfund-insert', stdLoanFund)
+  }
 
- insertDocumentUpload(documentUpload: ApDocumentUpload[]){
-  return this.configurationService.requestMethodPOST('documentupload-insert',documentUpload)
- }
+  updateStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
+    return this.configurationService.requestMethodPUT('studentloanfund', stdLoanFund)
+  }
 
- doSearch(application: ApplyScholarshipForm){
-   console.log(application.search_criteria);
-  return this.configurationService.requestMethodPOST('stapplication',application.search_criteria);
- }
+  insertFamilyFinancialAndFamilyDebt(data: any) {
+    return this.configurationService.requestMethodPOST('familyfinancial-insert', data)
+  }
 
- initialApApplication(ref: string){
-   let json = { application_ref: ref }
-   return this.configurationService.requestMethodPOST('application-update', json)
- }
+  updateFamilyFinancialAndFamilyDebt(data: any) {
+    return this.configurationService.requestMethodPUT('familyfinancial', data)
+  }
 
- initialScholarshipAnnouncement(ref: string){
-  let json = { announcement_ref: ref}
-  return this.configurationService.requestMethodPOST('scholarships-announcement-update', json)
- }
+  insertDocumentUpload(documentUpload: ApDocumentUpload[]) {
+    return this.configurationService.requestMethodPOST('documentupload-insert', documentUpload)
+  }
 
- initialScholarshipHistory(ref: string){
-   let json = { student_ref: ref }
-   return this.configurationService.requestMethodPOST('scholarshiphistory', json)
- }
+  updateDocumentUpload(documentUpload: ApDocumentUpload[]){
+    return this.configurationService.requestMethodPUT('documentupload', documentUpload)
+  }
 
- initialStudentLoanFund(ref: string){
-  let json = { student_ref: ref}
-  return this.configurationService.requestMethodPOST('studentloanfund', json)
- }
+  doSearch(application: ApplyScholarshipForm) {
+    console.log(application.search_criteria);
+    return this.configurationService.requestMethodPOST('stapplication', application.search_criteria);
+  }
 
- initialFamilyFinancial(ref: string){
-  let json = { student_ref: ref }
-  return this.configurationService.requestMethodPOST('familyfinancial', json)
- }
+  initialApApplication(ref: string) {
+    let json = { application_ref: ref }
+    return this.configurationService.requestMethodPOST('application-update', json)
+  }
 
- initialDocumentUpload(ref: string){
-  let json = { application_ref: ref }
-  return this.configurationService.requestMethodPOST('documentupload', json)
- }
+  initialScholarshipAnnouncement(ref: string) {
+    let json = { announcement_ref: ref }
+    return this.configurationService.requestMethodPOST('scholarships-announcement-update', json)
+  }
+
+  initialScholarshipHistory(ref: string) {
+    let json = { student_ref: ref }
+    return this.configurationService.requestMethodPOST('scholarshiphistory', json)
+  }
+
+  initialStudentLoanFund(ref: string) {
+    let json = { student_ref: ref }
+    return this.configurationService.requestMethodPOST('studentloanfund', json)
+  }
+
+  initialFamilyFinancial(ref: string) {
+    let json = { student_ref: ref }
+    return this.configurationService.requestMethodPOST('familyfinancial', json)
+  }
+
+  initialDocumentUpload(ref: string) {
+    let json = { application_ref: ref }
+    return this.configurationService.requestMethodPOST('documentupload', json)
+  }
+
+  initialDistrict(provinceRef: string) {
+    return this.configurationService.requestMethodGET("autocomplete-district/" + provinceRef)
+  }
 }

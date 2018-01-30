@@ -13,11 +13,11 @@ import { CalendarModel } from '../../../models/calendar-model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-m010101-manage-student",
-  templateUrl: "./m010101-manage-student.component.html",
-  styleUrls: ["./m010101-manage-student.component.css"]
+  selector: "register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.css"]
 })
-export class M010101ManageStudentComponent extends CalendarModel implements OnInit {
+export class RegisterComponent extends CalendarModel implements OnInit {
 
   pageRender: boolean = false;
   schoolList: RftSchool[];
@@ -187,7 +187,6 @@ export class M010101ManageStudentComponent extends CalendarModel implements OnIn
   }
 
   onSubmit() {
-    console.log(this.manageStudentForm.acStudent.birth_date)
     if (this.studentFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.studentFormGroup);
       return;

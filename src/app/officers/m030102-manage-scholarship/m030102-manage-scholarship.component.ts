@@ -59,10 +59,8 @@ export class M030102ManageScholarshipComponent implements OnInit {
     ];
     if (this.manageScholarship.smScholarship.scholarship_ref != null) {
       this.btnLabel = "แก้ไขข้อมูล";
-      this.layoutService.setPageHeader("แก้ไขข้อมูลทุนการศึกษา");
       this.onRowSelected();
     } else {
-      this.layoutService.setPageHeader("บันทึกข้อมูลทุนการศึกษา");
       this.btnLabel = "เพิ่มข้อมูล";
       this.pageRender = true;
       this.ngProgress.done();

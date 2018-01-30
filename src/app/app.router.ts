@@ -5,7 +5,7 @@ import { AddressComponent } from './students/m020103-manage-family-and-address/a
 import { M020103ManageFamilyAndAddressComponent } from './students/m020103-manage-family-and-address/m020103-manage-family-and-address.component';
 import { M040102ManageScholarshipInfoComponent } from "./students/apply-scholarships/m040102-manage-scholarship-info/m040102-manage-scholarship-info.component";
 import { ApplyScholarshipsComponent } from "./students/apply-scholarships/apply-scholarships.component";
-import { M010101ManageStudentComponent } from "./general/account/m010101-manage-student/m010101-manage-student.component";
+import { RegisterComponent } from "./general/account/register/register.component";
 import { S030102SearchScolarshipComponent } from "./officers/s030102-search-scolarship/s030102-search-scolarship.component";
 import { M030103ManageSholarshipAnnouncementComponent } from "./officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component";
 import { M030101SearchSponsorsComponent } from "./officers/m030101-search-sponsors/m030101-search-sponsors.component";
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
 
   // General Paths
   { path: "", component: IndexComponent },
-  { path: "register", component: M010101ManageStudentComponent },
+  { path: "register", component: RegisterComponent },
 
   // Authorization Paths
   { path: "forgot", component: ForgotPasswordComponent },
@@ -50,31 +50,32 @@ const appRoutes: Routes = [
   },
 
   // Officers Paths
-  { path: "manage-officer", component: M010102ManageOfficerComponent },
-  { path: "search-officer", component: S010102SearchOfficerComponent },
-  { path: "manage-officer/:id", component: M010102ManageOfficerComponent },
+  { path: "manage-officer", component: M010102ManageOfficerComponent, canActivate: [EnsureIsAuth] },
+  { path: "search-officer", component: S010102SearchOfficerComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-officer/:id", component: M010102ManageOfficerComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent },
-  { path: "manage-scholarship/:id",component: M030102ManageScholarshipComponent},
+  { path: "manage-scholarship/:id", component: M030102ManageScholarshipComponent },
   { path: "search-scholarship", component: S030102SearchScolarshipComponent },
-
-  { path: "manage-sponsors",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-sponsors/:id",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
-  { path: "search-sponsors",component: M030101SearchSponsorsComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-scholarship-announcement",component: M030103ManageSholarshipAnnouncementComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-scholarship-announcement/:id",component: M030103ManageSholarshipAnnouncementComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-sponsors",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-sponsors/:id",component: M030101ManageSponsorsComponent,canActivate: [EnsureIsAuth]},
-  { path: "search-sponsors",component: M030101SearchSponsorsComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-scholarship-announcement",component: M030103ManageSholarshipAnnouncementComponent,canActivate: [EnsureIsAuth]},
-  { path: "manage-scholarship-announcement/:id",component: M030103ManageSholarshipAnnouncementComponent,canActivate: [EnsureIsAuth]},
-  { path: "search-scholarship-announcement",component: M030103SearchScholarshipAnnouncementComponent,canActivate: [EnsureIsAuth]},
+  { path: "manage-officer-profile", component: ManageOfficerProfileComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-sponsors/:id", component: M030101ManageSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-scholarship-announcement", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-scholarship-announcement/:id", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-sponsors", component: M030101ManageSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-sponsors/:id", component: M030101ManageSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "search-sponsors", component: M030101SearchSponsorsComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-scholarship-announcement", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
+  { path: "manage-scholarship-announcement/:id", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
+  { path: "search-scholarship-announcement", component: M030103SearchScholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
   { path: "search-scholarship-screening",component: M050101SearchScholarshipsScreeningComponent,canActivate: [EnsureIsAuth]},
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
 
   // Students Paths
-  { path: "manage-application",component: ApplyScholarshipsComponent,canActivate: [EnsureIsAuth],children: [
+  {
+    path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth], children: [
       {
         path: "manage-applicant-info",
         component: M040101ManageApplicantInfoComponent
@@ -97,28 +98,30 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: "manage-application/:id",component: ApplyScholarshipsComponent},
-  { path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent,children:[
-    {
-      path: "family",
+  { path: "manage-application/:id", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth] },
+  {
+    path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent, children: [
+      {
+        path: "family",
         component: FamilyComponent
-    },
-    {
-      path: "sibling",
+      },
+      {
+        path: "sibling",
         component: SiblingComponent
-    },
-    {
-      path: "address",
+      },
+      {
+        path: "address",
         component: AddressComponent
-    }
-  ] },
+      }
+    ]
+  },
   { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent },
   { path: "manage-student-profile", component: ManageStudentProfileComponent },
-  { path: "manage-officer-profile", component: ManageOfficerProfileComponent },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class RoutersModule {}
+export class RoutersModule { }
