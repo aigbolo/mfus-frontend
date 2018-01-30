@@ -1304,6 +1304,7 @@ body .ui-datatable .ui-datatable-data > tr > td {
     padding: .3em;
     border-left: none;
     border-right: none;
+    vertical-align: top;
 }
 body .ui-datatable .ui-datatable-data tr td.ui-editable-column input {
     width: 100%;

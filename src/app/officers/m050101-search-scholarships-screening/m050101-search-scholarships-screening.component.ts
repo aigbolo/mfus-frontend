@@ -105,9 +105,9 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
   setDocumentScreeningFlag(){
     this.documentScreeningFlag = [
       {value:null,label:'ไม่ระบุ'},
-      {value:'1',label:'รอตรวจสอบ'},
+      {value:'1',label:'รอดำเนินการ'},
       {value:'2',label:'รอเอกสาร'},
-      {value:'3',label:'ผ่าน'},
+      {value:'3',label:'เอกสารผ่าน'},
     ]
   }
 
@@ -152,7 +152,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
   }
 
   onRowSelect(event){
-    this.utilsService.goToPage('manage-scholarship-announcement/'+this.scholarshipAnnouncement.announcement_ref)
+    this.utilsService.goToPage('manage-scholarship-screening/'+this.scholarshipScreening.application_ref);
   }
 
   onReset(){
