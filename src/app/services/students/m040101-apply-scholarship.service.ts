@@ -28,6 +28,10 @@ export class M040101ApplyScholarshipService {
     return this.configurationService.requestMethodPOST('autocomplete-scannouncedate', '')
   }
 
+  setScholarshipAnnouncement(ref: string) {
+    return this.configurationService.requestMethodPOST('autocomplete-scannouncedate', ref)
+  }
+
   initialApplicationDocument() {
     return this.configurationService.requestMethodPOST('appdoc', '')
   }
@@ -48,17 +52,32 @@ export class M040101ApplyScholarshipService {
     return this.configurationService.requestMethodPOST('scholarshiphistory-insert', scholarshipHistory)
   }
 
+  updateScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]) {
+    return this.configurationService.requestMethodPUT('scholarshiphistory', scholarshipHistory)
+  }
+
   insertStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
     return this.configurationService.requestMethodPOST('studentloanfund-insert', stdLoanFund)
+  }
+
+  updateStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
+    return this.configurationService.requestMethodPUT('studentloanfund', stdLoanFund)
   }
 
   insertFamilyFinancialAndFamilyDebt(data: any) {
     return this.configurationService.requestMethodPOST('familyfinancial-insert', data)
   }
 
+  updateFamilyFinancialAndFamilyDebt(data: any) {
+    return this.configurationService.requestMethodPUT('familyfinancial', data)
+  }
 
   insertDocumentUpload(documentUpload: ApDocumentUpload[]) {
     return this.configurationService.requestMethodPOST('documentupload-insert', documentUpload)
+  }
+
+  updateDocumentUpload(documentUpload: ApDocumentUpload[]){
+    return this.configurationService.requestMethodPUT('documentupload', documentUpload)
   }
 
   doSearch(application: ApplyScholarshipForm) {

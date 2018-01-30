@@ -62,6 +62,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       for (let apdoc of this.applyApplication.applyApplicationForm.apDocumentUpload) {
         if (rftdoc.document_ref == apdoc.document_ref) {
           rftdoc.upload_name = apdoc.document_name
+          rftdoc.label = 'แก้ไข'
         }
       }
     }
@@ -117,69 +118,93 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
 
   onInsertClick() {
     this.ngProgress.start()
-    let financialAndDebt = {
-      ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
-      family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
-    }
-
     this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
       .subscribe(res => {
-        console.log(this.applyApplication.applyApplicationForm.apApplication.application_ref)
+        let financialAndDebt = {
+          ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
+          family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
+        }
         if (!this.applyApplication.applyApplicationForm.apApplication.application_ref) {
-          this.insertApplication();
+          this.applyApplication.applyApplicationForm.apApplication.earn_flag = '1'
+          this.applyApplication.applyApplicationForm.apApplication.document_screening_flag = '1'
+          this.applyApplication.applyApplicationForm.apApplication.interview_flag = '1'
+          this.insertApplication(financialAndDebt);
         } else {
-          this.updateApplication()
+          this.updateApplication(financialAndDebt)
         }
       })
   }
 
-  insertApplication() {
+  insertApplication(financialAndDebt) {
     this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
       .subscribe(res => {
-        this.check(res)
+        this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
+          .subscribe(res => {
+            this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+              .subscribe(res => {
+                this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+                  .subscribe(res => {
+                    for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
+                      obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+                    }
+                    this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
+                      .subscribe(res => {
+                      }, error => {
+                        console.log(error)
+                        this.layoutService.setMsgDisplay(
+                          Severity.ERROR,
+                          "บันทึกข้อมูลผิดพลาด",
+                          ""
+                        );
+                      }, () => {
+                        this.layoutService.setMsgDisplay(
+                          Severity.SUCCESS,
+                          "บันทึกข้อมูลสำเร็จ",
+                          ""
+                        );
+                        this.ngProgress.done()
+                        this.display = true
+                      })
+                  })
+              })
+          })
       })
   }
 
-  updateApplication() {
+
+  updateApplication(financialAndDebt) {
     this.applyScholarshipService.updateApplication(this.applyApplication.applyApplicationForm.apApplication)
       .subscribe(res => {
-        this.check(res)
-      })
-  }
-
-  check(data) {
-    let financialAndDebt = {
-      ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
-      family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
-    }
-    this.applyApplication.applyApplicationForm.apApplication = data
-    this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = data.application_ref
-    this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-      .subscribe(res => {
-        this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
+        this.applyApplication.applyApplicationForm.apApplication = res
+        this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
+        this.applyScholarshipService.updateScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
           .subscribe(res => {
-            this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
+            this.applyScholarshipService.updateStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
               .subscribe(res => {
-                for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
-                  obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
-                }
-                this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
+                this.applyScholarshipService.updateFamilyFinancialAndFamilyDebt(financialAndDebt)
                   .subscribe(res => {
-                  }, error => {
-                    console.log(error)
-                    this.layoutService.setMsgDisplay(
-                      Severity.ERROR,
-                      "บันทึกข้อมูลผิดพลาด",
-                      ""
-                    );
-                  }, () => {
-                    this.layoutService.setMsgDisplay(
-                      Severity.SUCCESS,
-                      "บันทึกข้อมูลสำเร็จ",
-                      ""
-                    );
-                    this.ngProgress.done()
-                    this.display = true
+                    for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
+                      obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref
+                    }
+                    this.applyScholarshipService.updateDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
+                      .subscribe(res => {
+                      }, error => {
+                        console.log(error)
+                        this.layoutService.setMsgDisplay(
+                          Severity.ERROR,
+                          "แก้ไขข้อมูลผิดพลาด",
+                          ""
+                        );
+                      }, () => {
+                        this.layoutService.setMsgDisplay(
+                          Severity.SUCCESS,
+                          "แก้ไขข้อมูลสำเร็จ",
+                          ""
+                        );
+                        this.ngProgress.done()
+                        this.display = true
+                        this.utilsService.goToPage('search-sholarships-applied')
+                      })
                   })
               })
           })

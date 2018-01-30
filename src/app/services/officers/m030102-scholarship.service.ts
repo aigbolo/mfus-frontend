@@ -45,4 +45,7 @@ export class M030102ScholarshipService {
   updateScholarship(form: SmScholarship){
     return this.configurationService.requestMethodPUT('scholarships', form)
   }
+  autoCompleteScholarship(){
+    return this.configurationService.requestMethodGET('autocomplete-scholarships')
+  }
 }

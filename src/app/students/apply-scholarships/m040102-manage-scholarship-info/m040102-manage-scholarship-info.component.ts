@@ -19,24 +19,23 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
 
   scholarshipFormGroup: FormGroup
   autocompleteScholarshipAnnouncementList: any[] = []
-  apScholarshipHistory:ApScholarshipHistory = new ApScholarshipHistory
+  apScholarshipHistory: ApScholarshipHistory = new ApScholarshipHistory
   apStudentLoanFund: ApStudentLoanFund = new ApStudentLoanFund
   initialList: any[] = []
   constructor(public applyApplication: ApplyScholarshipsComponent,
-              private applyScholarshipService: M040101ApplyScholarshipService,
-              private referenceService: ReferenceService,
-              private utilsService: UtilsService,
-              private ngProgress: NgProgress) { }
+    private applyScholarshipService: M040101ApplyScholarshipService,
+    private referenceService: ReferenceService,
+    private utilsService: UtilsService,
+    private ngProgress: NgProgress) { }
 
   ngOnInit() {
     this.ngProgress.start()
     this.initialScholarshipAnnouncement()
+    console.log(this.applyApplication.applyApplicationForm)
     this.validateForm()
-
-
   }
 
-  validateForm(){
+  validateForm() {
     this.scholarshipFormGroup = new FormGroup({
       scholarshipAnnouncementName: new FormControl(this.applyApplication.applyApplicationForm.smScholarshipAnnouncement,
         Validators.compose([Validators.required])),
@@ -47,34 +46,35 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
 
   initialScholarshipAnnouncement() {
     console.log('initialScholarshipAnnouncement')
+    console.log('update_state: ' + this.applyApplication.update_state)
     this.applyScholarshipService.initialScholarshipAnnouncementList()
-      .subscribe(data=> {
-        console.log(data)
-        // for(let obj of data){
-        //   if(this.applyApplication.applyApplicationForm.apApplication.gpax >= obj.){
-
-        //   }
-        // }
-        this.initialList.push(...data);
-        if(this.applyApplication.update_state){
-          for(let obj of this.initialList){
-            if(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref == obj.announcement_ref){
-              console.log(obj)
-              this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement = obj
-              this.applyApplication.applyApplicationForm.sctype_name = obj.sctype_name
-              this.applyApplication.applyApplicationForm.sponsors_name = obj. sponsors_name
-              this.applyApplication.applyApplicationForm.min_gpax = obj.min_gpax
-              this.applyApplication.applyApplicationForm.detail = obj.detail
-            }
+      .subscribe(data => {
+        for (let obj of data) {
+          if (this.applyApplication.applyApplicationForm.apApplication.gpax >= obj.min_gpax) {
+            this.initialList.push(...data);
           }
         }
+        // if (this.applyApplication.update_state == true) {
+        //   console.log('setdata')
+        //   for (let obj of this.initialList) {
+        //     console.log(obj)
+        //     console.log(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement)
+        //     if (this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref == obj.announcement_ref) {
+        //       console.log(obj)
+        //       this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement = obj
+        //       this.applyApplication.applyApplicationForm.sctype_name = obj.sctype_name
+        //       this.applyApplication.applyApplicationForm.sponsors_name = obj.sponsors_name
+        //       this.applyApplication.applyApplicationForm.min_gpax = obj.min_gpax
+        //       this.applyApplication.applyApplicationForm.detail = obj.detail
+        //     }
+        //   }
+        // }
         this.applyApplication.pageRender = true
         this.ngProgress.done()
-      }, error=>{
+      }, error => {
         console.log(error)
       })
   }
-
 
   autocompleteScholarship(event) {
     let query = event.query;
@@ -95,7 +95,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     }, 100)
   }
 
-  selectedData(){
+  selectedData() {
     console.log(this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement)
     this.applyApplication.applyApplicationForm.sponsors_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sponsors_name
     this.applyApplication.applyApplicationForm.sctype_name = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.sctype_name
@@ -104,7 +104,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apApplication.announcement_ref = this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.announcement_ref
   }
 
-  addScholarship(){
+  addScholarship() {
     let scholarshipHistory = new ApScholarshipHistory()
     scholarshipHistory.create_user = this.applyApplication.user_ref
     scholarshipHistory.update_user = this.applyApplication.user_ref
@@ -112,11 +112,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apScholarshipHistory.push(scholarshipHistory)
   }
 
-  deleteScholarship(obj: ApScholarshipHistory){
+  deleteScholarship(obj: ApScholarshipHistory) {
     this.applyApplication.applyApplicationForm.apScholarshipHistory.splice(this.applyApplication.applyApplicationForm.apScholarshipHistory.indexOf(obj), 1);
   }
 
-  addStdLoan(){
+  addStdLoan() {
     let studentLoanFund = new ApStudentLoanFund()
     studentLoanFund.create_user = this.applyApplication.user_ref
     studentLoanFund.update_user = this.applyApplication.user_ref
@@ -124,11 +124,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.applyApplication.applyApplicationForm.apStudentLoanFund.push(studentLoanFund)
   }
 
-  deleteStdLoan(obj: ApStudentLoanFund){
+  deleteStdLoan(obj: ApStudentLoanFund) {
     this.applyApplication.applyApplicationForm.apStudentLoanFund.splice(this.applyApplication.applyApplicationForm.apStudentLoanFund.indexOf(obj), 1)
   }
 
-  onNext(){
+  onNext() {
     if (this.scholarshipFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.scholarshipFormGroup);
       return;
@@ -140,7 +140,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.applyApplication.pageRender = false
   }
 
-  onPrevious(){
+  onPrevious() {
     this.referenceService.nextIndex(0)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }

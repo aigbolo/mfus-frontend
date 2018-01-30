@@ -30,7 +30,6 @@ export class AddressService {
 
   //Set RftDistrict
   initialDistrict(provinceRef: string) {
-    console.log("initialDistrict");
     this.configuration
       .requestMethodGET("autocomplete-district/" + provinceRef)
       .subscribe(
@@ -62,7 +61,6 @@ export class AddressService {
   }
 
   getSubDistricts(): RftSubDistrict[] {
-    console.log("service.getSubDistricts");
     return this.rftSubDistricts;
   }
 
@@ -71,7 +69,6 @@ export class AddressService {
     districtRef: string,
     subDistrictRef: string
   ): Observable<any> {
-    console.log("getReferencesAddress");
     let province: RftProvince = new RftProvince();
     let district: RftDistrict = new RftDistrict();
     let subDistrict: RftSubDistrict = new RftSubDistrict();

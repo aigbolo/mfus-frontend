@@ -35,7 +35,6 @@ export class S030102SearchScolarshipComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.layoutService.setPageHeader("ค้นหาข้อมูลทุนการศึกษา");
     this.getScholarshipType();
     this.activeFlag = this.utilsService.getActiveFlag("S");
     this.referenceService.initialSponsors();

@@ -1,7 +1,7 @@
 <form *ngIf="pageRender" [formGroup]="scholarshipFormGroup" (ngSubmit)="onSubmit()">
     <div class="row overide-row">
         <div class="col-xs-9">
-            <label class="normal">ผู้ให้ทุนการศึกษา</label>
+            <h4 class="custom-panel-title">ผู้ให้ทุนการศึกษา</h4>
             <p-autoComplete
               class="autocomplete-sub-district"
               [(ngModel)]="manageScholarship.smSponsors"

@@ -48,6 +48,7 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   initialData() {
     this.manageStudentForm.acStudent.student_ref = this.authService.getUser().account_ref
     this.m010101ManageStudentService.doSelect(this.manageStudentForm.acStudent).subscribe(data => {
+      console.log(data)
       this.manageStudentForm.acStudent = data
       this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date)
       this.referenceService.getSchoolByRef(this.manageStudentForm.acStudent.school_ref).subscribe(
@@ -65,7 +66,10 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
             }
           )
         })
-    })
+    },error=>{
+      console.log(error)
+    }
+  )
   }
 
   gettitleList() {

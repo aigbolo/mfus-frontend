@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'จัดการคัดเลือกทุนการศึกษา',
         items: [
-          { label: 'คัดกรองเอกสาร', routerLink: ['/document-screening'] },
+          { label: 'คัดกรองเอกสาร', routerLink: ['/search-document-screen'] },
           { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/interview-selecting'] },
           { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] }
         ]
@@ -96,6 +96,7 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student-profile'] },
           { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
+          { label: 'เปลี่ยนรหัสผ่าน', routerLink: ['/change-password'] },
         ]
       },
       {
@@ -103,7 +104,7 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'สมัครทุน', routerLink: ['/manage-application'] },
           { label: 'ตรวจสอบสถานะทุนการศึกษาที่สมัคร', routerLink: ['/search-sholarships-applied'] },
-          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-request'] }
+          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/search-document-request'] }
         ]
       },
       {
