@@ -157,7 +157,15 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
 
   onReset(){
     this.searchForm = new ScholarshipScreeningForm;
+    this.scholarshipScreeningList = [];
+    this.scholarshipScreening = null;
     this.scholarshipAnnouncementList = [];
+    this.scholarshipAnnouncement = null;
+    this.schoolList = [];
+    this.majorsList = [];
+    this.rftSchool =null;
+    this.rftMajor = null;
+
     this.utilsService.goToPage('search-scholarship-screening');
   }
 

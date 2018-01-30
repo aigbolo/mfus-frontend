@@ -55,7 +55,8 @@
               [disabled]="!searchForm.search_criteria.school_ref"
               [dropdown]="true"
               (onDropdownClick)="handleCompleteClickMajor()"
-              (completeMethod)="autoCompleteMajor($event)">
+              (completeMethod)="autoCompleteMajor($event)"
+              (onSelect)="selectMajor()">
             </p-autoComplete>
         </div>
         <div class="col-xs-4">

@@ -236,13 +236,11 @@ export class ReferenceService {
   }
 
   getSchoolByRef(ref: string) {
-    let json = { school_ref: ref };
-    return this.configuration.requestMethodPOST("schools-update", json)
+    return this.configuration.requestMethodGET("get-school/"+ ref)
   }
 
   getMajorByRef(ref: string) {
-    let json = { major_ref: ref };
-    return this.configuration.requestMethodPOST("majors-update", json)
+    return this.configuration.requestMethodGET("get-major/"+ref)
   }
 
   nextIndex(index) {
