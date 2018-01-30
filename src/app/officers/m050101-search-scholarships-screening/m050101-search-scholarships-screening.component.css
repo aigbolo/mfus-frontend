@@ -1,0 +1,22 @@
+.row-number{
+  width:50px;
+  text-align: center;
+}
+.application-name, .application-code{
+  float:left;
+  clear: both;
+}
+.application-name{
+  font-weight: 500;
+}
+.school, .major{
+  width:200px;
+}
+.collage-year{
+  width:50px;
+  text-align: center;
+}
+.screening-status{
+  width:150px;
+  text-align: center;
+}

@@ -1,3 +1,4 @@
+import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
 import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
 import {DataListModule} from 'primeng/primeng';
 import { AddressService } from './services/utils/address.service';
@@ -90,6 +91,7 @@ import { FamilyViewComponent } from './students/apply-scholarships/m040104-manag
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
+import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -144,6 +146,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040201SearchScholarshipsAppliedComponent,
     ManageStudentProfileComponent,
     ManageOfficerProfileComponent,
+    M050101SearchScholarshipsScreeningComponent,
   ],
   imports: [
     // Angular
@@ -204,7 +207,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M030103ScholarshipAnnouncementService,
     M060101NewsService,
     M040101ApplyScholarshipService,
-    M020103FamilyAndAddressService
+    M020103FamilyAndAddressService,
+    M050101ScholarshipsScreeningService
   ],
   bootstrap: [AppComponent]
 })
