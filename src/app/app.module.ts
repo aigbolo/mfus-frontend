@@ -8,6 +8,9 @@ import { M010101StudentService } from './services/students/m010101-student.servi
 import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
 import { M010102OfficerService } from './services/officers/m010102-officer.service';
 import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
+import { M050102OfficerInterviewSelectingService } from './services/officers/m050102-officer-interview-selecting.service';
+
+
 import { S010102SearchOfficerComponent } from './general/account/s010102-search-officer/s010102-search-officer.component';
 
 // @Angular
@@ -92,6 +95,7 @@ import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-se
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
 import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
+import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -147,7 +151,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ManageStudentProfileComponent,
     ManageOfficerProfileComponent,
     RegisterComponent,
-    M050101SearchScholarshipsScreeningComponent
+    M050101SearchScholarshipsScreeningComponent,
+    M050102SearchOfficerInterviewSelectingComponent
   ],
   imports: [
     // Angular
@@ -209,6 +214,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040101ApplyScholarshipService,
     M020103FamilyAndAddressService,
     M050101ScholarshipsScreeningService,
+    M050102OfficerInterviewSelectingService,
   ],
   bootstrap: [AppComponent]
 })
