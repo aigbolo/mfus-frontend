@@ -45,7 +45,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
     public ngProgress: NgProgress) { }
 
   ngOnInit() {
-
+    this.layoutService.setPageHeader("บันทึกคัดกรองเอกสาร");
     this.ngProgress.start();
     this.validatorForm();
     this.referenceService.initialSchools();
@@ -112,7 +112,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
   }
 
   validatorForm() {
-    this.layoutService.setPageHeader("บันทึกคัดกรองเอกสาร");
+
     this.searchFormGroup = new FormGroup({
 
       year: new FormControl(this.searchForm.search_criteria.year, Validators.compose([Validators.required])),

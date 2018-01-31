@@ -1,3 +1,4 @@
+import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
@@ -69,6 +70,8 @@ const appRoutes: Routes = [
   { path: "manage-scholarship-announcement/:id", component: M030103ManageSholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
   { path: "search-scholarship-announcement", component: M030103SearchScholarshipAnnouncementComponent, canActivate: [EnsureIsAuth] },
   { path: "search-scholarship-screening",component: M050101SearchScholarshipsScreeningComponent,canActivate: [EnsureIsAuth]},
+  { path: "manage-scholarship-screening",component: M050101ManageScholarshipsScreeningComponent,canActivate: [EnsureIsAuth]},
+  { path: "manage-scholarship-screening/:id",component: M050101ManageScholarshipsScreeningComponent,canActivate: [EnsureIsAuth]},
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
