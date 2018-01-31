@@ -5,13 +5,13 @@
               <div class="col-xs-6">
                   <label class="normal">เลขประจำตัวประชาชน</label>
                   <div class="info">
-                      <p>{{applyApplication.applyApplicationForm.acStudent.personal_id}}</p>
+                      <p> personal_id</p>
                   </div>
               </div>
               <div class="col-xs-6">
                   <label class="normal">รหัสนักศึกษา</label>
                   <div>
-                      <p>{{applyApplication.applyApplicationForm.acStudent.student_id}}</p>
+                      <p>student_id</p>
                   </div>
               </div>
           </div>
@@ -20,7 +20,7 @@
                   <label class="normal">ชื่อ-สกุล</label>
                   <div>
                       <label>
-                        <p>{{applyApplication.applyApplicationForm.student_name}}</p>
+                        <p>name + lastname</p>
                       </label>
                   </div>
               </div>
@@ -28,7 +28,7 @@
                   <label class="normal">เพศ</label>
                   <div>
                       <label>
-                        {{applyApplication.applyApplicationForm.gender}}
+                        gender
                       </label>
                   </div>
               </div>
@@ -36,18 +36,14 @@
               <div class="col-xs-3">
                   <label class="normal">วันเกิด</label>
                   <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.birth_day}}
-                      </label>
+                      birth_day
                   </div>
               </div>
 
               <div class="col-xs-3">
                   <label class="normal">อายุ</label>
                   <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.age}} ปี
-                      </label>
+                      <p>age </p>
                   </div>
               </div>
           </div>
@@ -55,112 +51,52 @@
               <div class="col-xs-3">
                   <label class="normal">สัญชาติ</label>
                   <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.acStudent.nationality}}
-                      </label>
+                      <p>nationality</p>
                   </div>
               </div>
 
               <div class="col-xs-3">
                   <label class="normal">เชื้อชาติ</label>
-                  <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.acStudent.race}}
-                      </label>
-                  </div>
+                      <p>race</p>
               </div>
 
               <div class="col-xs-6">
                   <label class="normal">ศาสนา</label>
-                  <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.acStudent.religion}}
-                      </label>
-                  </div>
+                      <p>religion</p>
               </div>
           </div>
           <div class="row overide-row">
               <div class="col-xs-6">
                   <label class="normal">สำนักวิชา</label>
-                  <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.school_name_t}}
-                      </label>
-                  </div>
+                 <p>school_name_t</p>
               </div>
               <div class="col-xs-6">
                   <label class="normal">สาขาวิชา</label>
-                  <div>
-                      <label>
-                        {{applyApplication.applyApplicationForm.major_name_t}}
-                      </label>
-                  </div>
+                 <p>major_name_t</p>
               </div>
           </div>
           <div class="row overide-row ">
               <div class="col-xs-4 ">
                   <label class="normal ">เบอร์โทรศัพท์</label>
-                  <div>
-                      <input class="normal"
-                        name="phone_no"
-                        type="tel"
-                        [(ngModel)]="applyApplication.applyApplicationForm.acStudent.phone_no"
-                        maxlength="10"
-                        minlength="10"
-                        formControlName="phone_no"
-                        pInputText>
-                  </div>
+                 <p>phone_no</p>
               </div>
               <div class="col-xs-8">
                   <label class="normal">Email</label>
-                  <div>
-                      <input class="fullWidth"
-                        name="email"
-                        type="email"
-                        [(ngModel)]="applyApplication.applyApplicationForm.acStudent.email"
-                        maxlength="50"
-                        formControlName="email"
-                        pInputText>
-                  </div>
+                  <p>email</p>
               </div>
           </div>
           <div class="row overide-row">
               <div class="col-xs-4">
                   <label class="normal">ชั้นปีการศึกษา</label>
-                  <div>
-                      <p-dropdown
-                        [options]="collageYears"
-                        [(ngModel)]="applyApplication.applyApplicationForm.apApplication.collage_year"
-                        formControlName="collage_year"
-                        name="collage_year">
-                      </p-dropdown>
-                  </div>
+                  <p>collage_year</p>
               </div>
               <div class="col-xs-2">
                   <label class="normal">GPAX</label>
-                  <div>
-                      <input class="normal gpax"
-                        currencyMask
-                        type="text"
-                        [(ngModel)]="applyApplication.applyApplicationForm.apApplication.gpax"
-                        maxlength="4"
-                        max="4.00"
-                        formControlName="gpax"
-                        name="gpax"
-                        pInputText>
-                  </div>
+                  <p>gpax</p>
               </div>
               <div class="col-xs-6 ">
                   <label class="normal ">อาจารย์ที่ปรึกษา</label>
-                  <div>
-                      <input class="fullWidth"
-                      type="text"
-                      name="advisor_name "
-                      [(ngModel)]="applyApplication.applyApplicationForm.apApplication.advisor_name"
-                      maxlength="50"
-                      formControlName="advisor_name"
-                      pInputText>
-                  </div>
+                  <p>advisor_name</p>
               </div>
           </div>
       </div>
@@ -175,12 +111,7 @@
   <div class="row overide-row">
       <div class="col-xs-12 txt-area-center">
           <label class="normal ">กรุณาเขียนบรรยายความเป็นอยู่ของนักศึกษา</label>
-          <textarea  class="fullWidth"
-            name="livelihood"
-            [(ngModel)]="applyApplication.applyApplicationForm.apApplication.livelihood"
-            formControlName="livelihood"
-            pInputTextarea>
-          </textarea>
+          <p>livelihood</p>
       </div>
   </div>
   <div class="col-xs-12 btn-panel-right">

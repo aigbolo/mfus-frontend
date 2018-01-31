@@ -1,3 +1,4 @@
+import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
+  { path: "application/:id", component: ViewApplicantComponent },
 
   // Students Paths
   {
