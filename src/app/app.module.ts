@@ -92,6 +92,7 @@ import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-se
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
 import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
+import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -147,7 +148,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ManageStudentProfileComponent,
     ManageOfficerProfileComponent,
     RegisterComponent,
-    M050101SearchScholarshipsScreeningComponent
+    M050101SearchScholarshipsScreeningComponent,
+    M050101ManageScholarshipsScreeningComponent
   ],
   imports: [
     // Angular
