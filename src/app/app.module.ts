@@ -90,6 +90,12 @@ import { FamilyViewComponent } from './students/apply-scholarships/m040104-manag
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
+import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
+import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
+import { ViewSchoarshipInfoComponent } from './officers/view-student-application/view-schoarship-info/view-schoarship-info.component';
+import { ViewFamilyFinancialComponent } from './officers/view-student-application/view-family-financial/view-family-financial.component';
+import { ViewFamilyAndAddressComponent } from './officers/view-student-application/view-family-and-address/view-family-and-address.component';
+import { ViewDocumentUploadComponent } from './officers/view-student-application/view-document-upload/view-document-upload.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -144,7 +150,13 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040201SearchScholarshipsAppliedComponent,
     ManageStudentProfileComponent,
     ManageOfficerProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    ViewStudentApplicationComponent,
+    ViewApplicantComponent,
+    ViewSchoarshipInfoComponent,
+    ViewFamilyFinancialComponent,
+    ViewFamilyAndAddressComponent,
+    ViewDocumentUploadComponent
   ],
   imports: [
     // Angular

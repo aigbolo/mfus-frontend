@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-xs-12">
+      <p-steps [model]="utilsService.items" [(activeIndex)]="utilsService.activeIndex" [readonly]="true" styleClass="steps-custom" class="five-step">
+      </p-steps>
+  </div>
+</div>
+<div class="row overide-row">
+  <app-m040101-manage-applicant-info *ngIf="utilsService.activeIndex == 0"></app-m040101-manage-applicant-info>
+
+  <app-m040102-manage-scholarship-info *ngIf="utilsService.activeIndex == 1"></app-m040102-manage-scholarship-info>
+
+  <app-m040103-manage-family-financial *ngIf="utilsService.activeIndex == 2"></app-m040103-manage-family-financial>
+
+  <app-m040104-manage-family-and-address *ngIf="utilsService.activeIndex == 3"></app-m040104-manage-family-and-address>
+
+  <app-m040105-manage-document-upload *ngIf="utilsService.activeIndex == 4"></app-m040105-manage-document-upload>
+</div>
