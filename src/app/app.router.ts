@@ -34,6 +34,7 @@ import { M040103ManageFamilyFinancialComponent } from './students/apply-scholars
 import { M040105ManageDocumentUploadComponent } from './students/apply-scholarships/m040105-manage-document-upload/m040105-manage-document-upload.component';
 import { M040104ManageFamilyAndAddressComponent } from './students/apply-scholarships/m040104-manage-family-and-address/m040104-manage-family-and-address.component';
 import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
+import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 // import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 const appRoutes: Routes = [
@@ -76,7 +77,12 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
+<<<<<<< HEAD
   { path: "application/:id", component: ViewApplicantComponent },
+=======
+  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
+
+>>>>>>> 3b31a9a2b51d146e23d7d9a77ceb8a6020d23305
 
   // Students Paths
   {

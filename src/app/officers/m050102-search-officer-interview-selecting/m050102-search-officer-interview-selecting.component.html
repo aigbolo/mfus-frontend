@@ -1,0 +1,45 @@
+<div class="row overide-row">
+  <div class="col-xs-12">
+    <div class="row overide-row">
+      <div class="col-xs-6">
+        <label class="normal">บันทึกผู้มีgitสิทธิ์สัมภาษณ์</label>
+        <input type="text" class="input-company-name" pInputText maxlength="200" [(ngModel)]="searchForm.search_criteria.year">
+      </div>
+
+      <div class="col-xs-3">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Action buttons here -->
+<div class="row overide-row btn-row">
+  <div class="col-xs-6 btn-panel-left">
+    <button pButton class="btn-search primary" label="ค้นหาข้อมูล" (click)="onSearch()"></button>
+  </div>
+  <div class="col-xs-6 btn-panel-right">
+    <button pButton (click)="onReset()" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
+  </div>
+</div>
+
+<p-dataTable  [value]="announceList" 
+              [(selection)]="announce" 
+              selectionMode="single" 
+              dataKey="sponsors_ref" 
+              (onRowSelect)="onRowSelect($event)"
+              [rows]="10" 
+              [paginator]="true" 
+              [pageLinks]="3" 
+              [rowsPerPageOptions]="[5,10,20]" 
+              emptyMessage="ไม่พบข้อมูล" 
+              [loading]="onLoad">
+
+  <!--<p-column field="" header="ลำดับ" styleClass="row-number">
+    <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
+  </p-column>-->
+  <p-column field="scholarship_name" header="ชื่อทุนการศึกษา" styleClass="scholarship_name"></p-column>
+  <p-column field="round" header="รอบที่" styleClass="round"></p-column>
+  <p-column field="interview_date" header="วันที่สัมภาษณ์" styleClass="interview_date"></p-column>
+  <p-column field="applicant" header="ผู้สมัคร" styleClass="applicant"></p-column>
+  <p-column field="interviewee" header="ผู้มีสิทธิ์สัมภาษณ์" styleClass="applicant"></p-column>
+</p-dataTable>

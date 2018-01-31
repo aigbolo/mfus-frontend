@@ -14,6 +14,7 @@ import { SmSponsors } from '../../models/sm-sponsors';
   templateUrl: './m030101-search-sponsors.component.html',
   styleUrls: ['./m030101-search-sponsors.component.css']
 })
+
 export class M030101SearchSponsorsComponent implements OnInit {
   searchForm:SponsorsForm = new SponsorsForm();
   sponsorsList: SmSponsors[] = [];

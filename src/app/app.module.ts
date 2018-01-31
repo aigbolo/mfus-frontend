@@ -8,6 +8,7 @@ import { M010101StudentService } from './services/students/m010101-student.servi
 import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
 import { M010102OfficerService } from './services/officers/m010102-officer.service';
 import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
+import { M050102OfficerInterviewSelectingService } from './services/officers/m050102-officer-interview-selecting.service';
 import { S010102SearchOfficerComponent } from './general/account/s010102-search-officer/s010102-search-officer.component';
 
 // @Angular
@@ -91,6 +92,7 @@ import { FamilyViewComponent } from './students/apply-scholarships/m040104-manag
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
+<<<<<<< HEAD
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
 import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
 import { ViewSchoarshipInfoComponent } from './officers/view-student-application/view-schoarship-info/view-schoarship-info.component';
@@ -236,3 +238,5 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 export class AppModule { }
 
 
+=======
+>>>>>>> 3b31a9a2b51d146e23d7d9a77ceb8a6020d23305
