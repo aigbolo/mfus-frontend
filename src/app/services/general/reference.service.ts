@@ -1,3 +1,4 @@
+import { SmScholarshipAnnouncement } from './../../models/sm-scholarship-announcement';
 import { RftScholarshipType } from "./../../models/rft-schoalrship_type";
 import { SmSponsors } from "./../../models/sm-sponsors";
 import { RftMajor } from "./../../models/rft-major";
@@ -21,6 +22,7 @@ export class ReferenceService {
   private sc_type: RftScholarshipType[] = [];
   private sponsors: SmSponsors[] = [];
   private scholarships: SmScholarship[] = [];
+  private scholarshipAnnouncementSearch: any[] = [];
 
   activeIndex: number = 0
   constructor(private configuration: ConfigurationService) {}
@@ -168,8 +170,7 @@ export class ReferenceService {
   }
 
   getMajorBySchoolRef(schoolRef: string) {
-    return this.configuration.requestMethodGET(
-      "autocomplete-major/" + schoolRef
+    return this.configuration.requestMethodGET("autocomplete-major/" + schoolRef
     );
   }
 
@@ -235,13 +236,11 @@ export class ReferenceService {
   }
 
   getSchoolByRef(ref: string) {
-    let json = { school_ref: ref };
-    return this.configuration.requestMethodPOST("schools-update", json)
+    return this.configuration.requestMethodGET("get-school/"+ ref)
   }
 
   getMajorByRef(ref: string) {
-    let json = { major_ref: ref };
-    return this.configuration.requestMethodPOST("majors-update", json)
+    return this.configuration.requestMethodGET("get-major/"+ref)
   }
 
   nextIndex(index) {
@@ -255,5 +254,29 @@ export class ReferenceService {
 
   getEducationLevel() {
     return this.configuration.requestMethodGET('autocomplete-edlevel');
+  }
+
+  initialScholarshipAnnouncementForSearch(parameters:any){
+    this.configuration.requestMethodPOST("autocomplete-scannounce", parameters).subscribe(
+      data=>{
+        console.log(data);
+        this.scholarshipAnnouncementSearch = data;
+      },
+      err=>{
+        console.log(err);
+      }
+    )
+  }
+  getScholarshipAnnouncementsForSearch(){
+    return this.scholarshipAnnouncementSearch;
+  }
+  getOneScholarshipAnnouncementForSearch(announcement_ref:string){
+    let data = null;
+    for (let obj of this.scholarshipAnnouncementSearch){
+      if(announcement_ref == obj.announcement_ref){
+        data = obj;
+      }
+    }
+    return data;
   }
 }

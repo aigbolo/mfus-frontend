@@ -1,3 +1,4 @@
+import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
 import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
 import {DataListModule} from 'primeng/primeng';
 import { AddressService } from './services/utils/address.service';
@@ -90,12 +91,17 @@ import { FamilyViewComponent } from './students/apply-scholarships/m040104-manag
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
+<<<<<<< HEAD
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
 import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
 import { ViewSchoarshipInfoComponent } from './officers/view-student-application/view-schoarship-info/view-schoarship-info.component';
 import { ViewFamilyFinancialComponent } from './officers/view-student-application/view-family-financial/view-family-financial.component';
 import { ViewFamilyAndAddressComponent } from './officers/view-student-application/view-family-and-address/view-family-and-address.component';
 import { ViewDocumentUploadComponent } from './officers/view-student-application/view-document-upload/view-document-upload.component';
+=======
+import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
+import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
+>>>>>>> 04644b1fc1a4039e36d37dc34f521bea795006f4
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -151,12 +157,17 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ManageStudentProfileComponent,
     ManageOfficerProfileComponent,
     RegisterComponent,
+<<<<<<< HEAD
     ViewStudentApplicationComponent,
     ViewApplicantComponent,
     ViewSchoarshipInfoComponent,
     ViewFamilyFinancialComponent,
     ViewFamilyAndAddressComponent,
     ViewDocumentUploadComponent
+=======
+    M050101SearchScholarshipsScreeningComponent,
+    M050101ManageScholarshipsScreeningComponent
+>>>>>>> 04644b1fc1a4039e36d37dc34f521bea795006f4
   ],
   imports: [
     // Angular
@@ -217,6 +228,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M060101NewsService,
     M040101ApplyScholarshipService,
     M020103FamilyAndAddressService,
+    M050101ScholarshipsScreeningService,
   ],
   bootstrap: [AppComponent]
 })

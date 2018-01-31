@@ -1,0 +1,115 @@
+<form *ngIf="pageRender"  [formGroup]="searchFormGroup" (ngSubmit)="onSearch()" >
+      <div class="row overide-row">
+        <div class="col-xs-2">
+          <label class="normal">ปีการศึกษา *</label>
+          <input
+          type="text" class="input-year" pInputText
+          pattern="\d*"
+          maxlength="4"
+          minlength="4"
+          formControlName="year"
+          [(ngModel)]="searchForm.search_criteria.year">
+        </div>
+
+        <div class="col-xs-10">
+          <label class="normal">ทุนการศึกษา *</label>
+          <p-autoComplete
+          class="autocomplete-scholarships"
+          maxlength="50"
+          [dropdown]="true"
+          field="name"
+          [suggestions]="scholarshipAnnouncementList"
+          [forceSelection]="true"
+          formControlName="announcement_ref"
+          [(ngModel)]="scholarshipAnnouncement"
+          (onSelect)="onSelectScholarshipAnnouncement()"
+          (onDropdownClick)="handleCompleteClickScholarshipAnnouncement()"
+          (completeMethod)="autocompleteScholarshipAnnouncement($event)">
+          </p-autoComplete>
+        </div>
+      </div>
+
+      <div class="row overide-row">
+        <div class="col-xs-4">
+            <label class="normal">สำนักวิชา</label>
+            <p-autoComplete class="autocomplete-province"
+              field="school_name_t"
+              [(ngModel)]="rftSchool"
+              [suggestions]="schoolList"
+              [forceSelection]="true"
+              [dropdown]="true"
+              formControlName="school_ref"
+              (onDropdownClick)="handleCompleteClickSchools()"
+              (completeMethod)="autoCompleteSchools($event)"
+              (onSelect)="selectSchool()">
+            </p-autoComplete>
+        </div>
+        <div class="col-xs-4">
+            <label class="normal">สาขาวิชา</label>
+            <p-autoComplete class="autocomplete-province"
+              field="major_name_t"
+              [(ngModel)]="rftMajor"
+              [suggestions]="majorsList"
+              [forceSelection]="true"
+              formControlName="major_ref"
+              [disabled]="!searchForm.search_criteria.school_ref"
+              [dropdown]="true"
+              (onDropdownClick)="handleCompleteClickMajor()"
+              (completeMethod)="autoCompleteMajor($event)"
+              (onSelect)="selectMajor()">
+            </p-autoComplete>
+        </div>
+        <div class="col-xs-4">
+            <label class="normal">สถานะการตรวจสอบ</label>
+            <p-dropdown [options]="documentScreeningFlag"
+            formControlName="screening_status"
+            [(ngModel)]="searchForm.search_criteria.document_screening_flag"></p-dropdown>
+        </div>
+      </div>
+
+
+
+
+
+  <!-- Action buttons here -->
+  <div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+      <button pButton
+        class="btn-search primary"
+        label="ค้นหาข้อมูล" type="submit"></button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton type="button"
+          (click)="onReset()"
+          class="btn-reset ui-button-warning"
+          label="เริ่มใหม่"></button>
+      </div>
+  </div>
+  </form>
+      <p-dataTable *ngIf="pageRender" [value]="scholarshipScreeningList"
+        [(selection)]="scholarshipScreening"
+        selectionMode="single"
+        dataKey="announcement_ref"
+        (onRowSelect)="onRowSelect($event)"
+        [rows]="10" [paginator]="true"
+        [pageLinks]="3"
+        [rowsPerPageOptions]="[5,10,20]"
+        emptyMessage="ไม่พบข้อมูล" [loading]="onLoad">
+
+        <p-column field="" header="ลำดับ" styleClass="row-number">
+            <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
+        </p-column>
+        <p-column field="" header="ชื่อนักศึกษา" class="applicant">
+          <ng-template let-app="rowData" let-ri="rowIndex" pTemplate="body">
+            <span class="application-name">{{app['student_name']}}</span>
+            <span class="application-code">{{app['application_code']}}</span>
+        </ng-template>
+        </p-column>
+        <p-column field="school_name_t" header="สำนักวิชา" styleClass="school"></p-column>
+        <p-column field="major_name_t" header="สาขาวิชา" styleClass="major"></p-column>
+        <p-column field="collage_year" header="ชั้นปี" styleClass="collage-year"></p-column>
+        <p-column field="document_screening_flag" header="สถานะการตรวจสอบ" styleClass="screening-status"></p-column>
+      </p-dataTable>
+
+
+
