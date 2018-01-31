@@ -23,7 +23,6 @@ import { AuthenticationService } from '../../services/general/authentication.ser
   styleUrls: ["./m030102-manage-scholarship.component.css"]
 })
 export class M030102ManageScholarshipComponent implements OnInit {
-  // user = localStorage.getItem("username");
   scholarshipFormGroup: FormGroup;
   pageRender: boolean = false;
   manageScholarship: ScholarshipForm = new ScholarshipForm();

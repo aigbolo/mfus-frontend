@@ -138,6 +138,8 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   insertApplication(financialAndDebt) {
     this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
       .subscribe(res => {
+        this.applyApplication.applyApplicationForm.apApplication = res
+        this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref
         this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
           .subscribe(res => {
             this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)

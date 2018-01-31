@@ -34,6 +34,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   student: AcStudent = new AcStudent;
   officer: AcOfficer = new AcOfficer;
   update_state: boolean = false
+
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,
@@ -52,8 +53,8 @@ export class ApplyScholarshipsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.utilsService.activeIndex = 0
     this.applyApplicationForm = new ApplyScholarshipForm
-    console.log(this.authService.getUser())
     this.ngProgress.start()
     this.utilsService.getApplicationStep();
     this.initialData();
@@ -106,6 +107,7 @@ export class ApplyScholarshipsComponent implements OnInit {
     this.applyApplicationForm.acStudent.student_ref = this.authService.getUser().account_ref
     this.m010101ManageStudentService.doSelect(this.applyApplicationForm.acStudent).subscribe(
       data => {
+        console.log('student')
       this.applyApplicationForm.acStudent = data
       this.applyApplicationForm.student_name = data.first_name_t + ' ' + data.last_name_t
       this.applyApplicationForm.gender = this.utilsService.getGender(data.gender)
