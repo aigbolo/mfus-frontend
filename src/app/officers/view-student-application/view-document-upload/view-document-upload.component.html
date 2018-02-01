@@ -1,3 +1,24 @@
-<p>
-  view-document-upload works!
-</p>
+<div class="row overide-row">
+    <h4 class="custom-panel-title">ข้อมูลเอกสารหลักฐาน</h4>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+      <!-- applyApplication.applyApplicationForm.documentList -->
+        <p-dataList [value]="">
+            <ng-template let-doc pTemplate="item">
+              <div class="row overide-row">
+                <div class="col-xs-5">
+                  <label class="normal-inline">
+                    {{doc.document_name}}
+                  </label>
+                </div>
+                <div class="col-xs-4">
+                  <label class="normal-inline">
+                    {{doc.upload_name}}
+                  </label>
+                </div>
+              </div>
+            </ng-template>
+        </p-dataList>
+    </div>
+</div>
