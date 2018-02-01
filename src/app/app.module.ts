@@ -1,3 +1,4 @@
+import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
 import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
 import {DataListModule} from 'primeng/primeng';
@@ -92,7 +93,6 @@ import { FamilyViewComponent } from './students/apply-scholarships/m040104-manag
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
-<<<<<<< HEAD
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
 import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
 import { ViewSchoarshipInfoComponent } from './officers/view-student-application/view-schoarship-info/view-schoarship-info.component';
@@ -167,6 +167,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ViewDocumentUploadComponent,
     M050101SearchScholarshipsScreeningComponent,
     M050101ManageScholarshipsScreeningComponent,
+    M050102SearchOfficerInterviewSelectingComponent,
     ViewApplicantComponent,
     ViewParentComponent,
     ViewAddressComponent,
@@ -238,5 +239,3 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 export class AppModule { }
 
 
-=======
->>>>>>> 3b31a9a2b51d146e23d7d9a77ceb8a6020d23305
