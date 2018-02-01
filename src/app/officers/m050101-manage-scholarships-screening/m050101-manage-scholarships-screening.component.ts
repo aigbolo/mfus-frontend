@@ -18,7 +18,9 @@ export class M050101ManageScholarshipsScreeningComponent implements OnInit {
     private route: ActivatedRoute,
     private referenceService: ReferenceService,
     private scholarshipScreeningService: M050101ScholarshipsScreeningService,
-    public ngProgress: NgProgress) { }
+    public ngProgress: NgProgress) {
+      this.route.params.subscribe( params => console.log(params) );
+     }
 
   ngOnInit() {
     this.layoutService.setPageHeader("บันทึกคัดกรองเอกสาร");
