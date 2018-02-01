@@ -3,6 +3,7 @@ import { ReferenceService } from '../../../services/general/reference.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ViewStudentApplicationComponent } from '../view-student-application.component';
 import { ApplicationService } from '../../../services/students/application.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-view-schoarship-info',
@@ -14,7 +15,8 @@ export class ViewSchoarshipInfoComponent implements OnInit {
   constructor(private referenceService: ReferenceService,
               private utilsService: UtilsService,
               public applicationView: ViewStudentApplicationComponent,
-              private applicationService: ApplicationService) { }
+              private applicationService: ApplicationService,
+              private ngProgress: NgProgress) { }
 
   ngOnInit() {
     this.initialScholarshipAnnouncement()
@@ -36,6 +38,7 @@ export class ViewSchoarshipInfoComponent implements OnInit {
       },error=>{
 
       },()=>{
+        this.ngProgress.done()
         this.applicationView.pageRender = true
       }
     )
