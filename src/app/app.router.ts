@@ -74,18 +74,15 @@ const appRoutes: Routes = [
   { path: "search-scholarship-screening", component: M050101SearchScholarshipsScreeningComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-scholarship-screening", component: M050101ManageScholarshipsScreeningComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-scholarship-screening/:id", component: M050101ManageScholarshipsScreeningComponent, canActivate: [EnsureIsAuth] },
-  { path: "manage-news", component: M060101ManageNewsComponent },
-  { path: "manage-news/:id", component: M060101ManageNewsComponent },
-  { path: "search-news", component: S060101SearchNewsComponent },
-  { path: "application/:id", component: ViewApplicantComponent },
-  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
-  { path: "application-view", component: ViewStudentApplicationComponent },
-  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
-
-  {path: "view-student-application", component: ViewStudentApplicationComponent, canActivate: [EnsureIsAuth]},
+  { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
+  { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
+  { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth]},
+  { path: "search-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
 
 
 
+
+  { path: "application-view/:id", component: ViewStudentApplicationComponent },
   // Students Paths
   {
     path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth], children: [
