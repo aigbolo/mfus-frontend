@@ -33,7 +33,7 @@
   <div class="row overide-row">
       <div class="col-xs-12">
           <p-dataTable
-            [value]="applyApplication.applyApplicationForm.apScholarshipHistory"
+            [value]=""
             [immutable]="false">
               <p-column styleClass="datatable-index"  header="ลำดับ"  field="seq">
                   <ng-template
@@ -66,7 +66,7 @@
   </div>
   <div class="row overide-row">
       <div class="col-xs-12 txt-area-center">
-          <p-dataTable [value]="applyApplication.applyApplicationForm.apStudentLoanFund" [immutable]="false">
+          <p-dataTable [value]="" [immutable]="false">
               <p-column styleClass="datatable-index" header="ลำดับ" field="student_loan_seq" >
                   <ng-template let-col let-obj="rowIndex" pTemplate="body">
                       {{obj+1}}
