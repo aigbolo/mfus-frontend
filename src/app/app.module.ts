@@ -238,5 +238,3 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 export class AppModule { }
 
 
-=======
->>>>>>> 3b31a9a2b51d146e23d7d9a77ceb8a6020d23305
