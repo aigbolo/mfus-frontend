@@ -104,7 +104,7 @@ import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-
 import { ViewParentComponent } from './officers/view-student-application/view-family-and-address/view-parent/view-parent.component';
 import { ViewAddressComponent } from './officers/view-student-application/view-family-and-address/view-address/view-address.component';
 import { ViewSiblingComponent } from './officers/view-student-application/view-family-and-address/view-sibling/view-sibling.component';
-
+ 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: false,
