@@ -85,25 +85,10 @@ const appRoutes: Routes = [
   { path: "application/:id", component: ViewApplicantComponent },
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
   { path: "application-view", component: ViewStudentApplicationComponent },
-  {
-    path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth], children: [
-      {
-        path: "view-applicant", component: ViewApplicantComponent
-      },
-      {
-        path: "view-scholarship", component: ViewSchoarshipInfoComponent
-      },
-      {
-        path: "view-family-financial", component: ViewFamilyFinancialComponent
-      },
-      {
-        path: "view-family-and-address", component: ViewFamilyAndAddressComponent
-      },
-      {
-        path: "view-document-upload", component: ViewDocumentUploadComponent
-      },
-    ]
-  },
+  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
+
+  {path: "view-applicant", component: ViewApplicantComponent},
+
 
 
   // Students Paths
