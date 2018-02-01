@@ -82,10 +82,7 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
-<<<<<<< HEAD
-=======
   { path: "application/:id", component: ViewApplicantComponent },
->>>>>>> c9b5dac73a065457ac03f1bb728a81665e0a0b86
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
   { path: "application-view", component: ViewStudentApplicationComponent },
   {
