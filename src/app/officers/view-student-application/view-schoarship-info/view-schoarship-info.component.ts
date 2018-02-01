@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ReferenceService } from '../../../services/general/reference.service';
 import { UtilsService } from '../../../services/utils/utils.service';
+import { ViewStudentApplicationComponent } from '../view-student-application.component';
+import { ApplicationService } from '../../../services/students/application.service';
+import { NgProgress } from 'ngx-progressbar/src/services/progress.service';
 
 @Component({
   selector: 'app-view-schoarship-info',
@@ -10,9 +13,13 @@ import { UtilsService } from '../../../services/utils/utils.service';
 export class ViewSchoarshipInfoComponent implements OnInit {
 
   constructor(private referenceService: ReferenceService,
-              private utilsService: UtilsService) { }
+              private utilsService: UtilsService,
+              public applicationView: ViewStudentApplicationComponent,
+              private applicationService: ApplicationService,
+              private ngProgress: NgProgress) { }
 
   ngOnInit() {
+    this.initialScholarshipAnnouncement()
   }
 
   onPrevious(){
@@ -23,4 +30,18 @@ export class ViewSchoarshipInfoComponent implements OnInit {
     this.referenceService.nextIndex(2)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
+
+  initialScholarshipAnnouncement(){
+    this.applicationService.initialScholarshipAnnouncement(this.applicationView.applyScholarshipForm.apApplication.announcement_ref).subscribe(
+      data=>{
+        this.applicationView.applyScholarshipForm.autocompleteScholarshipAnnouncement = data[0]
+      },error=>{
+
+      },()=>{
+        this.ngProgress.done();
+        this.applicationView.pageRender = true
+      }
+    )
+  }
+
 }

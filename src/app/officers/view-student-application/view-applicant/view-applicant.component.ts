@@ -1,6 +1,8 @@
+import { NgProgress } from 'ngx-progressbar';
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ReferenceService } from '../../../services/general/reference.service';
+import { ViewStudentApplicationComponent } from '../view-student-application.component';
 
 @Component({
   selector: 'app-view-applicant',
@@ -9,14 +11,21 @@ import { ReferenceService } from '../../../services/general/reference.service';
 })
 export class ViewApplicantComponent implements OnInit {
 
-  constructor(private utilsService: UtilsService,
-              private referenceService: ReferenceService) { }
+  constructor(public utilsService: UtilsService,
+    private referenceService: ReferenceService,
+    public applicationView: ViewStudentApplicationComponent,
+    private ngprogress: NgProgress) { }
 
   ngOnInit() {
   }
 
-  onNext(){
+
+  onNext() {
     this.referenceService.nextIndex(1)
     this.utilsService.activeIndex = this.referenceService.getIndex()
+    this.applicationView.pageRender = false
+    this.ngprogress.start()
   }
+
+
 }
