@@ -11,6 +11,7 @@ export class ViewStudentApplicationComponent implements OnInit {
   constructor(public utilsService: UtilsService) { }
 
   ngOnInit() {
+    this.utilsService.getApplicationStep();
   }
 
 }

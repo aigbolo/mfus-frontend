@@ -5,13 +5,9 @@
   </div>
 </div>
 <div class="row overide-row">
-  <app-m040101-manage-applicant-info *ngIf="utilsService.activeIndex == 0"></app-m040101-manage-applicant-info>
-
-  <app-m040102-manage-scholarship-info *ngIf="utilsService.activeIndex == 1"></app-m040102-manage-scholarship-info>
-
-  <app-m040103-manage-family-financial *ngIf="utilsService.activeIndex == 2"></app-m040103-manage-family-financial>
-
-  <app-m040104-manage-family-and-address *ngIf="utilsService.activeIndex == 3"></app-m040104-manage-family-and-address>
-
-  <app-m040105-manage-document-upload *ngIf="utilsService.activeIndex == 4"></app-m040105-manage-document-upload>
+  <app-view-applicant *ngIf="utilsService.activeIndex == 0"></app-view-applicant>
+  <app-view-schoarship-info *ngIf="utilsService.activeIndex == 1"></app-view-schoarship-info>
+  <app-view-family-financial *ngIf="utilsService.activeIndex == 2"></app-view-family-financial>
+  <app-view-family-and-address *ngIf="utilsService.activeIndex == 3"></app-view-family-and-address>
+  <app-view-document-upload *ngIf="utilsService.activeIndex == 4"></app-view-document-upload>
 </div>

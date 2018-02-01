@@ -1,14 +1,6 @@
-import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
-import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
+import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import {DataListModule} from 'primeng/primeng';
 import { AddressService } from './services/utils/address.service';
-import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
-import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
-import { M010101StudentService } from './services/students/m010101-student.service';
-import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
-import { M010102OfficerService } from './services/officers/m010102-officer.service';
-import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
-import { M050102OfficerInterviewSelectingService } from './services/officers/m050102-officer-interview-selecting.service';
 import { S010102SearchOfficerComponent } from './general/account/s010102-search-officer/s010102-search-officer.component';
 
 // @Angular
@@ -58,8 +50,17 @@ import { ChangePasswordComponent } from './general/authentication/change-passwor
 import { IndexComponent } from './general/info/index/index.component';
 
 // Service
+import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
+import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
 import { LayoutService } from './services/utils/layout.service';
 import { AuthenticationService } from './services/general/authentication.service';
+import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
+import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
+import { M010101StudentService } from './services/students/m010101-student.service';
+import { M030102ScholarshipService } from './services/officers/m030102-scholarship.service';
+import { M010102OfficerService } from './services/officers/m010102-officer.service';
+import { M030101SponsorsService } from './services/officers/m030101-sponsors.service';
+import { M050102OfficerInterviewSelectingService } from './services/officers/m050102-officer-interview-selecting.service';
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
@@ -92,7 +93,6 @@ import { FamilyViewComponent } from './students/apply-scholarships/m040104-manag
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
-<<<<<<< HEAD
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
 import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
 import { ViewSchoarshipInfoComponent } from './officers/view-student-application/view-schoarship-info/view-schoarship-info.component';
@@ -167,10 +167,12 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ViewDocumentUploadComponent,
     M050101SearchScholarshipsScreeningComponent,
     M050101ManageScholarshipsScreeningComponent,
+    M050102SearchOfficerInterviewSelectingComponent,
     ViewApplicantComponent,
     ViewParentComponent,
     ViewAddressComponent,
-    ViewSiblingComponent
+    ViewSiblingComponent,
+    M050102SearchOfficerInterviewSelectingComponent
   ],
   imports: [
     // Angular

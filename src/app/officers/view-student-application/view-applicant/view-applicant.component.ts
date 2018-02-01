@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilsService } from '../../../services/utils/utils.service';
+import { ReferenceService } from '../../../services/general/reference.service';
 
 @Component({
   selector: 'app-view-applicant',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewApplicantComponent implements OnInit {
 
-  constructor() { }
+  constructor(private utilsService: UtilsService,
+              private referenceService: ReferenceService) { }
 
   ngOnInit() {
   }
 
+  onNext(){
+    this.referenceService.nextIndex(1)
+    this.utilsService.activeIndex = this.referenceService.getIndex()
+  }
 }
