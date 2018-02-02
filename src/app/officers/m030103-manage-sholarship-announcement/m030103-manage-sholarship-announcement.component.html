@@ -149,7 +149,7 @@
     <div class="col-xs-12">
         <label  class="normal">สำนักวิชา</label>
         <p-checkbox *ngFor="let school of rftSchools"
-        class="schools-checkbox"
+        class="schools-checkbox col-3"
         label="{{school.school_name_t}}"
         value="{{school.school_ref}}"
         formControlName="schools"
@@ -161,7 +161,7 @@
     <div class="col-xs-12">
         <label  class="normal">สาขาวิชา</label>
         <p-checkbox *ngFor="let major of rftMajors"
-        class="majors-checkbox"
+        class="majors-checkbox col-3"
         label="{{major.major_name_t}}"
         value="{{major.major_ref}}"
         formControlName="majors"

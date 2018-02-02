@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../services/general/authentication.service';
+import { AcUser } from './../../models/ac-user';
 import { SelectItem } from 'primeng/primeng';
 import { ReferenceService } from './../../services/general/reference.service';
 import { ActivatedRoute } from '@angular/router';
@@ -31,12 +33,13 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
   processStatusList:SelectItem[] = [];
   onLoad = false;
 
-
+  user: AcUser =  this.authService.getUser();
   constructor(private layoutService: LayoutService,
     private utilsService: UtilsService,
     private activateRoute: ActivatedRoute,
     private scholarshipService: M030102ScholarshipService,
     private applyScholarshipService: M040101ApplyScholarshipService,
+    private authService: AuthenticationService,
     private referenceService: ReferenceService) {
 
      }
@@ -100,7 +103,7 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
       this.utilsService.findInvalidControls(this.searchFormGroup);
     }else{
       this.onLoad = true;
-
+      this.searchForm.search_criteria.student_ref = this.user.account_ref;
       this.applyScholarshipService.doSearch(this.searchForm).subscribe(data=>{
         console.log(data);
         this.applySholarshipsList = data;

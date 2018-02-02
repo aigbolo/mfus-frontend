@@ -155,7 +155,18 @@ label.ui-chkbox-label {
   color: #3a8db7;
   font-size: 15px;
   font-weight: lighter;
+  margin-bottom: 5px;
 }
+p-checkbox.col-3 {
+  display: inline-block;
+  width: 250px;
+  margin-right: 20px;
+}
+p-checkbox.col-3 label.ui-chkbox-label{
+  width: 200px !important;
+  vertical-align: top !important;
+}
+
 /* END CHECKBOX */
 
 /*  BEGIN UPLOAD FILE */
@@ -315,13 +326,12 @@ h4.custom-panel-title {
 }
 
 
-p-checkbox.schools-checkbox,p-checkbox.majors-checkbox {
-  display: inline-block;
-  width: 250px;
-  margin-right: 20px;
-}
-
 p-checkbox.collage-year-checkbox {
   display: inline-block;
   width: 100px;
+}
+
+p-checkbox.document-request-checkbox {
+  display: block;
+  padding: 5px;
 }

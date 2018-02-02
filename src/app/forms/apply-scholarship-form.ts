@@ -163,11 +163,13 @@ class SearchCriteria{
   public application_code: string;
   public process_status: string;
   public scholarship_ref: string;
+  public student_ref: string;
   constructor(){
     this.year = null;
     this.application_code = null;
     this.process_status = null;
     this.scholarship_ref = null;
+    this.student_ref = null;
     }
 }
 
