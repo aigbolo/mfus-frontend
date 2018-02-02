@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UtilsService } from './../../services/utils/utils.service';
 import { ReferenceService } from './../../services/general/reference.service';
 import { LayoutService } from './../../services/utils/layout.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RftSchool } from '../../models/rft-school';
 import { RftMajor } from '../../models/rft-major';
 import { DatePipe } from '@angular/common';
@@ -20,6 +20,7 @@ import { AcUser } from '../../models/ac-user';
 
 @Component({
   selector: 'app-m030103-manage-sholarship-announcement',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m030103-manage-sholarship-announcement.component.html',
   styleUrls: ['./m030103-manage-sholarship-announcement.component.css']
 })

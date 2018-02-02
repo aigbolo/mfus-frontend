@@ -6,6 +6,7 @@ import { SmDocumentRequest } from '../models/sm-document-request';
 export class ScholarshipScreeningForm {
   student:any;
   application: any;
+  scholarshipAnnouncement: any;
   documentRequest: SmDocumentRequest;
   documentRequestDetails: SmDocumentRequestDetail[];
 
@@ -14,6 +15,7 @@ export class ScholarshipScreeningForm {
   constructor(){
     this.student = null;
     this.application = null;
+    this.scholarshipAnnouncement = null;
     this.documentRequest = new SmDocumentRequest;
     this.documentRequestDetails = [];
     this.search_criteria = new SearchCriteria;

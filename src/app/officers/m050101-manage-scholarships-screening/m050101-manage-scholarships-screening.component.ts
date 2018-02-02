@@ -43,6 +43,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
       this.applicationService.initialApApplicationView(application_ref).subscribe(
         data=>{
           console.log(data);
+          if(!data)
           this.manageForm.application = data;
 
         },
@@ -50,20 +51,12 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
           console.log(err);
         },
         ()=>{
-          this.applicationService.initialAcStudentView(this.manageForm.application.student_ref).subscribe(
-            data=>{
-              console.log(data);
-              this.manageForm.student = data;
-
-            },
-            err=>{
-              console.log(err);
-            },
-            ()=>{
-
-            }
-          )
+          if(this.manageForm.application != null){
+            this.getStudentView();
+            this.getScholarshipAnnouncementView();
+          }
         }
+
       )
       // this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["id"];
       // this.onUpdatePageSetup();
@@ -88,5 +81,35 @@ getApplicationDocument(){
   )
 }
 
+getStudentView(){
+  this.applicationService.initialAcStudentView(this.manageForm.application.student_ref).subscribe(
+    data=>{
+      console.log(data);
+      this.manageForm.student = data;
 
+    },
+    err=>{
+      console.log(err);
+    },
+    ()=>{
+
+    }
+  )
+}
+
+getScholarshipAnnouncementView(){
+  this.applicationService.initialScholarshipAnnouncement(this.manageForm.application.announcement_ref).subscribe(
+    data=>{
+      console.log(data);
+      this.manageForm.scholarshipAnnouncement = data;
+
+    },
+    err=>{
+      console.log(err);
+    },
+    ()=>{
+
+    }
+  )
+}
 }
