@@ -53,6 +53,7 @@ export class ViewStudentApplicationComponent implements OnInit {
   initialApplication() {
     this.applicationService.initialApApplicationView(this.application_ref).subscribe(
       data => {
+        console.log(data)
         this.applyScholarshipViewForm.apApplication = data
       }, error => {
       }, () => {

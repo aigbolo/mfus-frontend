@@ -15,7 +15,7 @@ export class ApplicationService {
 
   initialApApplicationView(ref: string){
     let json = { application_ref: ref }
-    return this.configurationService.requestMethodPOST('application-view', json)
+    return this.configurationService.requestMethodPOST('application-update', json)
   }
 
   initialScholarshipAnnouncement(ref: string) {

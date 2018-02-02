@@ -37,6 +37,7 @@ export class ViewSchoarshipInfoComponent implements OnInit {
       data => {
         console.log(data)
         // this.applicationView.applyScholarshipViewForm.autocompleteScholarshipAnnouncement = data
+
       }, error => {
 
       }, () => {
