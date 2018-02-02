@@ -1,7 +1,7 @@
+import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { NgProgress } from 'ngx-progressbar';
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../services/utils/utils.service';
-import { ApplyScholarshipForm } from '../../forms/apply-scholarship-form';
 import { ApplicationService } from '../../services/students/application.service';
 import { AuthenticationService } from '../../services/general/authentication.service';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { ReferenceService } from '../../services/general/reference.service';
 })
 export class ViewStudentApplicationComponent implements OnInit {
 
-  applyScholarshipForm: ApplyScholarshipForm = new ApplyScholarshipForm
+  applyScholarshipViewForm: ApplyScholarshipForm = new ApplyScholarshipForm
   student_ref: string
   application_ref: string
   pageRender: boolean = false
@@ -27,45 +27,37 @@ export class ViewStudentApplicationComponent implements OnInit {
 
   ngOnInit() {
     this.ngprogress.start()
-    this.student_ref = 'Vg518d4wKwGFh19dDiMSkKE5a55fd0c6d816'
-    this.application_ref = 'PbcZa1mhWyFiEBqVmkf983X5a68343de4b6f'
+    this.application_ref = this.route.snapshot.params['id']
     this.utilsService.getApplicationStep();
     this.initialData()
   }
 
   initialData() {
-    this.initialStudent()
+    this.initialApplication();
   }
 
-  initialStudent() {
-    this.applicationService.initialAcStudentView(this.student_ref).subscribe(
+  initialStudent(ref: string) {
+    this.applicationService.initialAcStudentView(ref).subscribe(
       data => {
-        console.log(data)
-        this.applyScholarshipForm.acStudent = data
-        this.applyScholarshipForm.student_name = this.applyScholarshipForm.acStudent.first_name_t + ' ' + this.applyScholarshipForm.acStudent.last_name_t
-        this.referenceService.getSchoolByRef(this.applyScholarshipForm.acStudent.school_ref).subscribe(
-          data => {
-            this.applyScholarshipForm.rftSchool = data
-          })
-        this.referenceService.getMajorByRef(this.applyScholarshipForm.acStudent.major_ref).subscribe(
-          data => {
-            this.applyScholarshipForm.rftMajor = data
-          })
+        this.applyScholarshipViewForm.acStudent = data
+        this.applyScholarshipViewForm.student_name = this.applyScholarshipViewForm.acStudent.first_name_t + ' ' + this.applyScholarshipViewForm.acStudent.last_name_t
+        this.applyScholarshipViewForm.school_name_t = data.school_name_t
+        this.applyScholarshipViewForm.major_name_t = data.major_name_t
       }, error => {
-
       }, () => {
-        setTimeout(() => {
-          this.applicationService.initialApApplicationView(this.application_ref).subscribe(
-            data => {
-              console.log(data)
-              this.applyScholarshipForm.apApplication = data
-            }
-          )
-        }, 100);
-        setTimeout(() => {
-          this.ngprogress.done()
-          this.pageRender = true
-        }, 1000);
+        this.ngprogress.done()
+        this.pageRender = true
       })
+  }
+
+  initialApplication() {
+    this.applicationService.initialApApplicationView(this.application_ref).subscribe(
+      data => {
+        this.applyScholarshipViewForm.apApplication = data
+      }, error => {
+      }, () => {
+        this.initialStudent(this.applyScholarshipViewForm.apApplication.student_ref)
+      }
+    )
   }
 }

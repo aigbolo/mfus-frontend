@@ -13,33 +13,60 @@ import { NgProgress } from 'ngx-progressbar';
 export class ViewSchoarshipInfoComponent implements OnInit {
 
   constructor(private referenceService: ReferenceService,
-              private utilsService: UtilsService,
-              public applicationView: ViewStudentApplicationComponent,
-              private applicationService: ApplicationService,
-              private ngProgress: NgProgress) { }
+    private utilsService: UtilsService,
+    public applicationView: ViewStudentApplicationComponent,
+    private applicationService: ApplicationService,
+    private ngProgress: NgProgress) { }
 
   ngOnInit() {
     this.initialScholarshipAnnouncement()
+    this.initialScholarshiphistory()
   }
 
-  onPrevious(){
+  onPrevious() {
     this.referenceService.nextIndex(1)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
-  onNext(){
+  onNext() {
     this.referenceService.nextIndex(2)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 
-  initialScholarshipAnnouncement(){
-    this.applicationService.initialScholarshipAnnouncement(this.applicationView.applyScholarshipForm.apApplication.announcement_ref).subscribe(
-      data=>{
-        this.applicationView.applyScholarshipForm.autocompleteScholarshipAnnouncement = data[0]
-      },error=>{
+  initialScholarshipAnnouncement() {
+    this.applicationService.initialScholarshipAnnouncement(this.applicationView.applyScholarshipViewForm.apApplication.announcement_ref).subscribe(
+      data => {
+        console.log(data)
+        // this.applicationView.applyScholarshipViewForm.autocompleteScholarshipAnnouncement = data
+      }, error => {
 
-      },()=>{
-        this.ngProgress.done()
-        this.applicationView.pageRender = true
+      }, () => {
+        // this.initialScholarshiphistory()
+      }
+    )
+  }
+
+  initialScholarshiphistory() {
+    this.applicationService.initialScholarshipHistory(this.applicationView.applyScholarshipViewForm.acStudent.student_ref).subscribe(
+      data => {
+        this.applicationView.applyScholarshipViewForm.apScholarshipHistory = data
+      }, error => {
+        console.log(error)
+      }, () => {
+        this.initialStudentLoanFund();
+
+      }
+    )
+  }
+
+  initialStudentLoanFund() {
+    this.applicationService.initialStudentLoanFund(this.applicationView.applyScholarshipViewForm.acStudent.student_ref).subscribe(
+      data => {
+        this.applicationView.applyScholarshipViewForm.apStudentLoanFund = data
+      }, error => {
+        console.log(error)
+      }, () => {
+        this.ngProgress.done();
+        this.applicationView.pageRender = true;
       }
     )
   }

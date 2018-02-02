@@ -133,526 +133,526 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  }
 
-//  whenChangeParentFlag(index: number) {
-//      this.resetValue();
-//      if (index == 1) {
+ whenChangeParentFlag(index: number) {
+     this.resetValue();
+     if (index == 1) {
 
-//          this.manageFormGroup.controls["father_pid"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["father_name"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["father_birth_date"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["father_address"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["father_province"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["father_district"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["father_sub_district"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_pid"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_name"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_birth_date"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_address"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_province"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_district"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["father_sub_district"].setValidators([Validators.required]);
 
-//          this.manageFormGroup.controls["father_pid"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_name"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_birth_date"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_address"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_province"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_district"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_sub_district"].updateValueAndValidity();
-
-
-
-//          this.manageFormGroup.controls["mother_pid"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["mother_name"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["mother_address"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["mother_province"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["mother_district"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["mother_sub_district"].setValidators([Validators.required]);
-
-//          this.manageFormGroup.controls["mother_pid"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_name"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_birth_date"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_address"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_province"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_district"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_sub_district"].updateValueAndValidity();
-
-//          this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_relationship"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_pid"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_name"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_name"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_birth_date"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_address"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_address"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_province"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_province"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_district"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_district"].updateValueAndValidity();
-//          this.manageFormGroup.controls["patrol_sub_district"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
-//        }else{
-
-//         this.manageFormGroup.controls["father_pid"].setValidators([Validators.nullValidator]);
-//         this.manageFormGroup.controls["father_pid"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_name"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["father_name"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_birth_date"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["father_birth_date"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_address"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["father_address"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_province"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["father_province"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_district"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["father_district"].updateValueAndValidity();
-//          this.manageFormGroup.controls["father_sub_district"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["father_sub_district"].updateValueAndValidity();
-
-//          this.manageFormGroup.controls["mother_pid"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_pid"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_name"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_name"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_birth_date"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_address"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_address"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_province"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_province"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_district"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_district"].updateValueAndValidity();
-//          this.manageFormGroup.controls["mother_sub_district"].setValidators([Validators.nullValidator]);
-//          this.manageFormGroup.controls["mother_sub_district"].updateValueAndValidity();
-
-//          this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_name"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_address"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_province"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_district"].setValidators([Validators.required]);
-//          this.manageFormGroup.controls["patrol_sub_district"].setValidators([Validators.required]);
-//      }
-
-
-//  }
+         this.manageFormGroup.controls["father_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_sub_district"].updateValueAndValidity();
 
 
 
-//  autocompleteProvince(event,seq: number) {
-//    let e = event.originalEvent;
-//    let query = event.query;
-//    if(seq == 0){
-//      this.fProvinceList = [];
-//      let objList: RftProvince[];
-//      if(e.type == 'input'){
-//       this.manageForm.dadDistrict = new RftDistrict();
-//       this.manageForm.dadSubDistrict = new RftSubDistrict();
-//       this.manageForm.acParent.father_province = null;
-//       this.manageForm.acParent.father_district = null;
-//       this.manageForm.acParent.father_sub_district = null;
-//       this.manageForm.acParent.father_postcode = null;
-//      }
-//      objList = this.familyAndAddress.fatherAddressService.getProvinces();
-//      for (let obj of objList) {
-//        // Filter By string event
-//        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//          this.fProvinceList.push(obj);
-//        }
-//      }
-//    }
-//    if(seq == 1){
-//      this.mProvinceList = [];
-//      let objList: RftProvince[];
-//      if(e.type == 'input'){
-//       this.manageForm.momDistrict = new RftDistrict();
-//       this.manageForm.momSubDistrict = new RftSubDistrict();
-//       this.manageForm.acParent.mother_province = null;
-//       this.manageForm.acParent.mother_district = null;
-//       this.manageForm.acParent.mother_sub_district = null;
-//       this.manageForm.acParent.mother_postcode = null;
-//      }
-//      objList = this.familyAndAddress.motherAddressService.getProvinces();
-//      for (let obj of objList) {
-//        // Filter By string event
-//        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//          this.mProvinceList.push(obj);
-//        }
-//      }
-//    }
-//    if(seq == 2){
-//      this.pProvinceList = [];
-//      let objList: RftProvince[];
-//      if(e.type == 'input'){
-//       this.manageForm.patrolDistrict = new RftDistrict();
-//       this.manageForm.patrolSubDistrict = new RftSubDistrict();
-//       this.manageForm.acParent.patrol_province = null;
-//       this.manageForm.acParent.patrol_district = null;
-//       this.manageForm.acParent.patrol_sub_district = null;
-//       this.manageForm.acParent.patrol_postcode = null;
-//      }
-//      objList = this.familyAndAddress.patrolAddressService.getProvinces();
-//      for (let obj of objList) {
-//        // Filter By string event
-//        if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//          this.pProvinceList.push(obj);
-//        }
-//      }
-//    }
+         this.manageFormGroup.controls["mother_pid"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_name"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_address"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_province"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_district"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["mother_sub_district"].setValidators([Validators.required]);
 
-//  }
+         this.manageFormGroup.controls["mother_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_sub_district"].updateValueAndValidity();
 
-//  // Autocomplete filter
-//  autocompleteDistrict(event,seq: number) {
-//    console.log("autocompleteDistrict");
-//    let query = event.query;
-//    if(seq == 0){
-//     this.fDistrictList = [];
-//     this.manageForm.dadSubDistrict = new RftSubDistrict();
-//     let objList: RftDistrict[];
-//     objList = this.familyAndAddress.fatherAddressService.getDistricts();
-//     for (let obj of objList) {
-//       // Filter By string event
-//       if (this.manageForm.dadProvince.province_ref === obj.province_ref) {
-//         if (
-//           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
-//         ) {
-//           this.fDistrictList.push(obj);
-//         }
-//       }
-//     }
-//    }
-//    if(seq == 1){
-//     this.fDistrictList = [];
-//     let objList: RftDistrict[];
-//     objList = this.familyAndAddress.motherAddressService.getDistricts();
-//     for (let obj of objList) {
-//       // Filter By string event
-//       if (this.manageForm.momProvince.province_ref === obj.province_ref) {
-//         if (
-//           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
-//         ) {
-//           this.mDistrictList.push(obj);
-//         }
-//       }
-//     }
-//   }
-//   if(seq == 2){
-//     this.fDistrictList = [];
-//     let objList: RftDistrict[];
-//     objList = this.familyAndAddress.patrolAddressService.getDistricts();
-//     for (let obj of objList) {
-//       // Filter By string event
-//       if (this.manageForm.patrolProvince.province_ref === obj.province_ref) {
-//         if (
-//           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
-//         ) {
-//           this.pDistrictList.push(obj);
-//         }
-//       }
-//     }
-//   }
+         this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_relationship"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_name"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_address"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_province"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_district"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["patrol_sub_district"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
+       }else{
 
-//  }
+        this.manageFormGroup.controls["father_pid"].setValidators([Validators.nullValidator]);
+        this.manageFormGroup.controls["father_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_name"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_birth_date"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_address"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_province"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_district"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["father_sub_district"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["father_sub_district"].updateValueAndValidity();
 
-//  autocompleteSubDistrict(event,seq: number) {
-//    console.log("autocompleteSubDistrict: ");
-//    let query = event.query;
-//    if(seq == 0){
-//     this.fSubDistrictList = [];
-//     let objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
-//     for (let obj of objList) {
-//       // Filter By string event
-//           if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//             this.fSubDistrictList.push(obj);
-//           }
-//     }
-//    }
-//    if(seq == 1){
-//     this.mSubDistrictList = [];
-//     let objList = this.familyAndAddress.motherAddressService.getSubDistricts();
-//     for (let obj of objList) {
-//       // Filter By string event
-//           if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//             this.mSubDistrictList.push(obj);
-//           }
-//     }
-//   }
-//   if(seq == 2){
-//     this.pSubDistrictList = [];
-//     let objList = this.familyAndAddress.patrolAddressService.getSubDistricts();
-//     for (let obj of objList) {
-//       // Filter By string event
-//           if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-//             this.pSubDistrictList.push(obj);
-//           }
-//     }
-//   }
+         this.manageFormGroup.controls["mother_pid"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_pid"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_name"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_name"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_birth_date"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_birth_date"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_address"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_address"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_province"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_province"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_district"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_district"].updateValueAndValidity();
+         this.manageFormGroup.controls["mother_sub_district"].setValidators([Validators.nullValidator]);
+         this.manageFormGroup.controls["mother_sub_district"].updateValueAndValidity();
 
-//  }
-
-//  handleCompleteClickProvince(index: number) {
-//    console.log("handleCompleteClickProvince");
-//    if (index == 0) {
-//       setTimeout(()=>{
-//         this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
-//       },100);
-//    }
-//    if (index == 1) {
-//       setTimeout(()=>{
-//         this.mProvinceList = this.familyAndAddress.motherAddressService.getProvinces();
-//       },100);
-//    }
-//    if (index == 2) {
-//      setTimeout(()=>{
-//       this.pProvinceList = this.familyAndAddress.patrolAddressService.getProvinces();
-
-//      },100);
-
-//    }
-//  }
-
-//  handleCompleteClickDistrict(index: number) {
-//    console.log("handleCompleteClickDistrict");
-//    if (index == 0) {
-//       setTimeout(()=>{
-//         this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
-//         this.fSubDistrictList = [];
-//       },100);
+         this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_name"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_address"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_province"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_district"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_sub_district"].setValidators([Validators.required]);
+     }
 
 
-//    }
-//    if (index == 1) {
-//     setTimeout(()=>{
-//       this.mDistrictList = this.familyAndAddress.motherAddressService.getDistricts();
-//       this.mSubDistrictList = [];
-//     },100);
-//    }
-//    if (index == 2) {
-//     setTimeout(()=>{
-//       this.pDistrictList = this.familyAndAddress.patrolAddressService.getDistricts();
-//       this.pSubDistrictList = [];
-//     },100);
-//    }
-//  }
-
-//  handleCompleteClickSubDistrict(index: number) {
-//    console.log("handleCompleteClickSubDistrict");
-
-//    if (index == 0) {
-//       this.fSubDistrictList = [];
-//       this.fSubDistrictList = this.familyAndAddress.fatherAddressService.getSubDistricts();
-//    }
-
-//    if (index == 1) {
-//       this.mSubDistrictList = [];
-//       this.mSubDistrictList = this.familyAndAddress.motherAddressService.getSubDistricts();
-//    }
-
-//    if (index == 2) {
-//       this.pSubDistrictList = [];
-//       this.pSubDistrictList = this.familyAndAddress.patrolAddressService.getSubDistricts();
-//    }
-//  }
-
-//  // Autocomplete Selected
-//  selectProvince(index: number) {
-//   if(index == 0){
-//     this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
-//     this.manageForm.acParent.father_province = this.manageForm.dadProvince.province_ref;
-//     this.manageForm.dadDistrict = null;
-//     this.manageForm.dadSubDistrict = null;
-//     this.manageForm.acParent.father_district = null;
-//     this.manageForm.acParent.father_sub_district = null;
-//     this.manageForm.acParent.father_postcode = null;
-//   }
-//   if(index == 1){
-//     this.familyAndAddress.motherAddressService.initialDistrict(this.manageForm.momProvince.province_ref);
-//     this.manageForm.acParent.mother_province = this.manageForm.momProvince.province_ref;
-//     this.manageForm.momDistrict = null;
-//     this.manageForm.momSubDistrict = null;
-//     this.manageForm.acParent.mother_district = null;
-//     this.manageForm.acParent.mother_sub_district = null;
-//     this.manageForm.acParent.mother_postcode = null;
-//   }
-//   if(index == 2){
-//     this.familyAndAddress.patrolAddressService.initialDistrict(this.manageForm.patrolProvince.province_ref);
-//     this.manageForm.acParent.patrol_province = this.manageForm.patrolProvince.province_ref;
-//     this.manageForm.patrolDistrict = null;
-//     this.manageForm.patrolSubDistrict = null;
-//     this.manageForm.acParent.patrol_district = null;
-//     this.manageForm.acParent.patrol_sub_district = null;
-//     this.manageForm.acParent.patrol_postcode = null;
-//   }
-
-//  }
-
-//  selectDistrict(index: number) {
-//   if(index == 0){
-//     this.familyAndAddress.fatherAddressService.initialSubDistrict(this.manageForm.dadDistrict.district_ref);
-//     this.manageForm.acParent.father_district = this.manageForm.dadDistrict.district_ref;
-//   }
-//   if(index == 1){
-//     this.familyAndAddress.motherAddressService.initialSubDistrict(this.manageForm.momDistrict.district_ref);
-//     this.manageForm.acParent.mother_district = this.manageForm.momDistrict.district_ref;
-//   }
-//   if(index == 2){
-//     this.familyAndAddress.patrolAddressService.initialSubDistrict(this.manageForm.patrolDistrict.district_ref);
-//     this.manageForm.acParent.patrol_district = this.manageForm.patrolDistrict.district_ref;
-//   }
-//  }
+ }
 
 
-//  selectSubDistrict(index: number) {
-//   if(index == 0){
-//     this.manageForm.acParent.father_sub_district = this.manageForm.dadSubDistrict.sub_district_ref;
-//     this.manageForm.acParent.father_postcode = this.manageForm.dadSubDistrict.postcode;
-//   }
-//   if(index == 1){
-//     this.manageForm.acParent.mother_sub_district = this.manageForm.momSubDistrict.sub_district_ref;
-//     this.manageForm.acParent.mother_postcode = this.manageForm.momSubDistrict.postcode;
-//   }
-//   if(index == 2){
-//     this.manageForm.acParent.patrol_sub_district = this.manageForm.patrolSubDistrict.sub_district_ref;
-//     this.manageForm.acParent.patrol_postcode = this.manageForm.patrolSubDistrict.postcode;
-//   }
-//  }
 
-//  resetValue(){
+ autocompleteProvince(event,seq: number) {
+   let e = event.originalEvent;
+   let query = event.query;
+   if(seq == 0){
+     this.fProvinceList = [];
+     let objList: RftProvince[];
+     if(e.type == 'input'){
+      this.manageForm.dadDistrict = new RftDistrict();
+      this.manageForm.dadSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.father_province = null;
+      this.manageForm.acParent.father_district = null;
+      this.manageForm.acParent.father_sub_district = null;
+      this.manageForm.acParent.father_postcode = null;
+     }
+     objList = this.familyAndAddress.fatherAddressService.getProvinces();
+     for (let obj of objList) {
+       // Filter By string event
+       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+         this.fProvinceList.push(obj);
+       }
+     }
+   }
+   if(seq == 1){
+     this.mProvinceList = [];
+     let objList: RftProvince[];
+     if(e.type == 'input'){
+      this.manageForm.momDistrict = new RftDistrict();
+      this.manageForm.momSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.mother_province = null;
+      this.manageForm.acParent.mother_district = null;
+      this.manageForm.acParent.mother_sub_district = null;
+      this.manageForm.acParent.mother_postcode = null;
+     }
+     objList = this.familyAndAddress.motherAddressService.getProvinces();
+     for (let obj of objList) {
+       // Filter By string event
+       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+         this.mProvinceList.push(obj);
+       }
+     }
+   }
+   if(seq == 2){
+     this.pProvinceList = [];
+     let objList: RftProvince[];
+     if(e.type == 'input'){
+      this.manageForm.patrolDistrict = new RftDistrict();
+      this.manageForm.patrolSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.patrol_province = null;
+      this.manageForm.acParent.patrol_district = null;
+      this.manageForm.acParent.patrol_sub_district = null;
+      this.manageForm.acParent.patrol_postcode = null;
+     }
+     objList = this.familyAndAddress.patrolAddressService.getProvinces();
+     for (let obj of objList) {
+       // Filter By string event
+       if (obj.province_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+         this.pProvinceList.push(obj);
+       }
+     }
+   }
 
-//    if(this.manageForm.acParent.parent_flag == '1'){
-//     this.manageForm.acParent.patrol_relationship = null;
-//     this.manageForm.acParent.patrol_pid = null;
-//     this.manageForm.acParent.patrol_died_year = null;
-//     this.manageForm.acParent.patrol_birth_date = null;
-//     this.manageForm.acParent.patrol_name = null;
-//     this.manageForm.acParent.patrol_province = null;
-//     this.manageForm.acParent.patrol_district = null;
-//     this.manageForm.acParent.patrol_sub_district = null;
-//     this.manageForm.acParent.patrol_postcode = null;
-//     this.manageForm.acParent.patrol_phone = null;
-//     this.manageForm.acParent.patrol_email = null;
-//     this.manageForm.acParent.patrol_occupation = null;
-//     this.manageForm.acParent.patrol_position = null;
-//     this.manageForm.acParent.patrol_work_address = null;
-//     this.manageForm.acParent.patrol_work_phone = null;
-//     this.manageForm.acParent.patrol_work_fax = null;
-//     this.manageForm.acParent.patrol_land_flag = null;
-//     this.manageForm.acParent.patrol_income_monthly = null;
-//     this.manageForm.acParent.patrol_land_all = null;
-//     this.manageForm.acParent.patrol_land_own = null;
-//     this.manageForm.acParent.patrol_land_rent = null;
+ }
 
-//     this.manageForm.patrolProvince = null;
-//     this.manageForm.patrolDistrict = null;
-//     this.manageForm.patrolSubDistrict = null;
-//    }else{
-//     this.manageForm.acParent.father_pid = null;
-//     this.manageForm.acParent.father_died_year = null;
-//     this.manageForm.acParent.father_birth_date = null;
-//     this.manageForm.acParent.father_phone = null;
-//     this.manageForm.acParent.father_name = null;
-//     this.manageForm.acParent.father_address = null;
-//     this.manageForm.acParent.father_province = null;
-//     this.manageForm.acParent.father_district = null;
-//     this.manageForm.acParent.father_sub_district = null;
-//     this.manageForm.acParent.father_postcode = null;
-//     this.manageForm.acParent.father_email = null;
-//     this.manageForm.acParent.father_occupation = null;
-//     this.manageForm.acParent.father_position = null;
-//     this.manageForm.acParent.father_work_address = null;
-//     this.manageForm.acParent.father_work_phone = null;
-//     this.manageForm.acParent.father_work_fax = null;
-//     this.manageForm.acParent.father_land_flag = null;
-//     this.manageForm.acParent.father_income_monthly = null;
-//     this.manageForm.acParent.mother_pid = null;
-//     this.manageForm.acParent.mother_died_year = null;
-//     this.manageForm.acParent.mother_birth_date = null;
-//     this.manageForm.acParent.mother_name = null;
-//     this.manageForm.acParent.mother_province = null;
-//     this.manageForm.acParent.mother_district = null;
-//     this.manageForm.acParent.mother_sub_district = null;
-//     this.manageForm.acParent.mother_postcode = null;
-//     this.manageForm.acParent.mother_address = null;
-//     this.manageForm.acParent.mother_phone = null;
-//     this.manageForm.acParent.mother_email = null;
-//     this.manageForm.acParent.mother_occupation = null;
-//     this.manageForm.acParent.mother_position = null;
-//     this.manageForm.acParent.mother_work_address = null;
-//     this.manageForm.acParent.mother_work_phone = null;
-//     this.manageForm.acParent.mother_work_fax = null;
-//     this.manageForm.acParent.mother_land_flag = null;
-//     this.manageForm.acParent.mother_land_all = null;
-//     this.manageForm.acParent.mother_income_monthly = null;
-//     this.manageForm.acParent.father_land_all = null;
-//     this.manageForm.acParent.father_land_own = null;
-//     this.manageForm.acParent.father_land_rent = null;
-//     this.manageForm.acParent.mother_land_all = null;
-//     this.manageForm.acParent.mother_land_own = null;
-//     this.manageForm.acParent.mother_land_rent = null;
+ // Autocomplete filter
+ autocompleteDistrict(event,seq: number) {
+   console.log("autocompleteDistrict");
+   let query = event.query;
+   if(seq == 0){
+    this.fDistrictList = [];
+    this.manageForm.dadSubDistrict = new RftSubDistrict();
+    let objList: RftDistrict[];
+    objList = this.familyAndAddress.fatherAddressService.getDistricts();
+    for (let obj of objList) {
+      // Filter By string event
+      if (this.manageForm.dadProvince.province_ref === obj.province_ref) {
+        if (
+          obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
+        ) {
+          this.fDistrictList.push(obj);
+        }
+      }
+    }
+   }
+   if(seq == 1){
+    this.fDistrictList = [];
+    let objList: RftDistrict[];
+    objList = this.familyAndAddress.motherAddressService.getDistricts();
+    for (let obj of objList) {
+      // Filter By string event
+      if (this.manageForm.momProvince.province_ref === obj.province_ref) {
+        if (
+          obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
+        ) {
+          this.mDistrictList.push(obj);
+        }
+      }
+    }
+  }
+  if(seq == 2){
+    this.fDistrictList = [];
+    let objList: RftDistrict[];
+    objList = this.familyAndAddress.patrolAddressService.getDistricts();
+    for (let obj of objList) {
+      // Filter By string event
+      if (this.manageForm.patrolProvince.province_ref === obj.province_ref) {
+        if (
+          obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
+        ) {
+          this.pDistrictList.push(obj);
+        }
+      }
+    }
+  }
 
-//     this.manageForm.dadProvince = null;
-//     this.manageForm.dadDistrict = null;
-//     this.manageForm.dadSubDistrict = null;
-//     this.manageForm.momProvince = null;
-//     this.manageForm.momDistrict = null;
-//     this.manageForm.momSubDistrict = null;
-//    }
-//  }
+ }
 
-//  onRelationshipChange(){
-//   if(this.manageForm.acParent.relationship_status != '2'){
-//     this.manageForm.acParent.because = null;
-//   }
-//  }
+ autocompleteSubDistrict(event,seq: number) {
+   console.log("autocompleteSubDistrict: ");
+   let query = event.query;
+   if(seq == 0){
+    this.fSubDistrictList = [];
+    let objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
+    for (let obj of objList) {
+      // Filter By string event
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            this.fSubDistrictList.push(obj);
+          }
+    }
+   }
+   if(seq == 1){
+    this.mSubDistrictList = [];
+    let objList = this.familyAndAddress.motherAddressService.getSubDistricts();
+    for (let obj of objList) {
+      // Filter By string event
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            this.mSubDistrictList.push(obj);
+          }
+    }
+  }
+  if(seq == 2){
+    this.pSubDistrictList = [];
+    let objList = this.familyAndAddress.patrolAddressService.getSubDistricts();
+    for (let obj of objList) {
+      // Filter By string event
+          if (obj.sub_district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            this.pSubDistrictList.push(obj);
+          }
+    }
+  }
 
-//  onDieStatusChange(index:number){
-//   if(index == 0){
-//     if(this.manageForm.acParent.father_status == '1'){
-//       this.manageForm.acParent.father_died_year = null;
-//     }
-//   }
-//   if(index == 1){
-//     if(this.manageForm.acParent.mother_status == '1'){
-//       this.manageForm.acParent.mother_died_year = null;
-//     }
-//   }
-//   if(index == 2){
-//     if(this.manageForm.acParent.patrol_status == '1'){
-//       this.manageForm.acParent.patrol_died_year = null;
-//     }
-//   }
-//  }
+ }
 
-//  onLandStatusChange(index:number){
-//   if(index == 0){
-//     if(this.manageForm.acParent.father_land_flag == '1'){
-//       this.manageForm.acParent.father_land_all = null;
-//       this.manageForm.acParent.father_land_own = null;
-//       this.manageForm.acParent.father_land_rent = null;
-//     }
-//   }
-//   if(index == 1){
-//     if(this.manageForm.acParent.mother_land_flag == '1'){
-//       this.manageForm.acParent.mother_land_all = null;
-//       this.manageForm.acParent.mother_land_own = null;
-//       this.manageForm.acParent.mother_land_rent = null;
-//     }
-//   }
-//   if(index == 2){
-//     if(this.manageForm.acParent.patrol_land_flag == '1'){
-//       this.manageForm.acParent.patrol_land_all = null;
-//       this.manageForm.acParent.patrol_land_own = null;
-//       this.manageForm.acParent.patrol_land_rent = null;
-//     }
-//   }
-//  }
+ handleCompleteClickProvince(index: number) {
+   console.log("handleCompleteClickProvince");
+   if (index == 0) {
+      setTimeout(()=>{
+        this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
+      },100);
+   }
+   if (index == 1) {
+      setTimeout(()=>{
+        this.mProvinceList = this.familyAndAddress.motherAddressService.getProvinces();
+      },100);
+   }
+   if (index == 2) {
+     setTimeout(()=>{
+      this.pProvinceList = this.familyAndAddress.patrolAddressService.getProvinces();
 
-// resetButtonOnClick(){
-//   this.ngOnInit();
-// }
-//  nextButtonOnClick() {
-//   if (this.manageFormGroup.invalid) {
-//     this.utilsService.findInvalidControls(this.manageFormGroup);
-//   } else {
-//     this.familyAndAddress.onChangePanel(1,this.manageForm);
-//   }
+     },100);
 
-//  }
+   }
+ }
+
+ handleCompleteClickDistrict(index: number) {
+   console.log("handleCompleteClickDistrict");
+   if (index == 0) {
+      setTimeout(()=>{
+        this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
+        this.fSubDistrictList = [];
+      },100);
+
+
+   }
+   if (index == 1) {
+    setTimeout(()=>{
+      this.mDistrictList = this.familyAndAddress.motherAddressService.getDistricts();
+      this.mSubDistrictList = [];
+    },100);
+   }
+   if (index == 2) {
+    setTimeout(()=>{
+      this.pDistrictList = this.familyAndAddress.patrolAddressService.getDistricts();
+      this.pSubDistrictList = [];
+    },100);
+   }
+ }
+
+ handleCompleteClickSubDistrict(index: number) {
+   console.log("handleCompleteClickSubDistrict");
+
+   if (index == 0) {
+      this.fSubDistrictList = [];
+      this.fSubDistrictList = this.familyAndAddress.fatherAddressService.getSubDistricts();
+   }
+
+   if (index == 1) {
+      this.mSubDistrictList = [];
+      this.mSubDistrictList = this.familyAndAddress.motherAddressService.getSubDistricts();
+   }
+
+   if (index == 2) {
+      this.pSubDistrictList = [];
+      this.pSubDistrictList = this.familyAndAddress.patrolAddressService.getSubDistricts();
+   }
+ }
+
+ // Autocomplete Selected
+ selectProvince(index: number) {
+  if(index == 0){
+    this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
+    this.manageForm.acParent.father_province = this.manageForm.dadProvince.province_ref;
+    this.manageForm.dadDistrict = null;
+    this.manageForm.dadSubDistrict = null;
+    this.manageForm.acParent.father_district = null;
+    this.manageForm.acParent.father_sub_district = null;
+    this.manageForm.acParent.father_postcode = null;
+  }
+  if(index == 1){
+    this.familyAndAddress.motherAddressService.initialDistrict(this.manageForm.momProvince.province_ref);
+    this.manageForm.acParent.mother_province = this.manageForm.momProvince.province_ref;
+    this.manageForm.momDistrict = null;
+    this.manageForm.momSubDistrict = null;
+    this.manageForm.acParent.mother_district = null;
+    this.manageForm.acParent.mother_sub_district = null;
+    this.manageForm.acParent.mother_postcode = null;
+  }
+  if(index == 2){
+    this.familyAndAddress.patrolAddressService.initialDistrict(this.manageForm.patrolProvince.province_ref);
+    this.manageForm.acParent.patrol_province = this.manageForm.patrolProvince.province_ref;
+    this.manageForm.patrolDistrict = null;
+    this.manageForm.patrolSubDistrict = null;
+    this.manageForm.acParent.patrol_district = null;
+    this.manageForm.acParent.patrol_sub_district = null;
+    this.manageForm.acParent.patrol_postcode = null;
+  }
+
+ }
+
+ selectDistrict(index: number) {
+  if(index == 0){
+    this.familyAndAddress.fatherAddressService.initialSubDistrict(this.manageForm.dadDistrict.district_ref);
+    this.manageForm.acParent.father_district = this.manageForm.dadDistrict.district_ref;
+  }
+  if(index == 1){
+    this.familyAndAddress.motherAddressService.initialSubDistrict(this.manageForm.momDistrict.district_ref);
+    this.manageForm.acParent.mother_district = this.manageForm.momDistrict.district_ref;
+  }
+  if(index == 2){
+    this.familyAndAddress.patrolAddressService.initialSubDistrict(this.manageForm.patrolDistrict.district_ref);
+    this.manageForm.acParent.patrol_district = this.manageForm.patrolDistrict.district_ref;
+  }
+ }
+
+
+ selectSubDistrict(index: number) {
+  if(index == 0){
+    this.manageForm.acParent.father_sub_district = this.manageForm.dadSubDistrict.sub_district_ref;
+    this.manageForm.acParent.father_postcode = this.manageForm.dadSubDistrict.postcode;
+  }
+  if(index == 1){
+    this.manageForm.acParent.mother_sub_district = this.manageForm.momSubDistrict.sub_district_ref;
+    this.manageForm.acParent.mother_postcode = this.manageForm.momSubDistrict.postcode;
+  }
+  if(index == 2){
+    this.manageForm.acParent.patrol_sub_district = this.manageForm.patrolSubDistrict.sub_district_ref;
+    this.manageForm.acParent.patrol_postcode = this.manageForm.patrolSubDistrict.postcode;
+  }
+ }
+
+ resetValue(){
+
+   if(this.manageForm.acParent.parent_flag == '1'){
+    this.manageForm.acParent.patrol_relationship = null;
+    this.manageForm.acParent.patrol_pid = null;
+    this.manageForm.acParent.patrol_died_year = null;
+    this.manageForm.acParent.patrol_birth_date = null;
+    this.manageForm.acParent.patrol_name = null;
+    this.manageForm.acParent.patrol_province = null;
+    this.manageForm.acParent.patrol_district = null;
+    this.manageForm.acParent.patrol_sub_district = null;
+    this.manageForm.acParent.patrol_postcode = null;
+    this.manageForm.acParent.patrol_phone = null;
+    this.manageForm.acParent.patrol_email = null;
+    this.manageForm.acParent.patrol_occupation = null;
+    this.manageForm.acParent.patrol_position = null;
+    this.manageForm.acParent.patrol_work_address = null;
+    this.manageForm.acParent.patrol_work_phone = null;
+    this.manageForm.acParent.patrol_work_fax = null;
+    this.manageForm.acParent.patrol_land_flag = null;
+    this.manageForm.acParent.patrol_income_monthly = null;
+    this.manageForm.acParent.patrol_land_all = null;
+    this.manageForm.acParent.patrol_land_own = null;
+    this.manageForm.acParent.patrol_land_rent = null;
+
+    this.manageForm.patrolProvince = null;
+    this.manageForm.patrolDistrict = null;
+    this.manageForm.patrolSubDistrict = null;
+   }else{
+    this.manageForm.acParent.father_pid = null;
+    this.manageForm.acParent.father_died_year = null;
+    this.manageForm.acParent.father_birth_date = null;
+    this.manageForm.acParent.father_phone = null;
+    this.manageForm.acParent.father_name = null;
+    this.manageForm.acParent.father_address = null;
+    this.manageForm.acParent.father_province = null;
+    this.manageForm.acParent.father_district = null;
+    this.manageForm.acParent.father_sub_district = null;
+    this.manageForm.acParent.father_postcode = null;
+    this.manageForm.acParent.father_email = null;
+    this.manageForm.acParent.father_occupation = null;
+    this.manageForm.acParent.father_position = null;
+    this.manageForm.acParent.father_work_address = null;
+    this.manageForm.acParent.father_work_phone = null;
+    this.manageForm.acParent.father_work_fax = null;
+    this.manageForm.acParent.father_land_flag = null;
+    this.manageForm.acParent.father_income_monthly = null;
+    this.manageForm.acParent.mother_pid = null;
+    this.manageForm.acParent.mother_died_year = null;
+    this.manageForm.acParent.mother_birth_date = null;
+    this.manageForm.acParent.mother_name = null;
+    this.manageForm.acParent.mother_province = null;
+    this.manageForm.acParent.mother_district = null;
+    this.manageForm.acParent.mother_sub_district = null;
+    this.manageForm.acParent.mother_postcode = null;
+    this.manageForm.acParent.mother_address = null;
+    this.manageForm.acParent.mother_phone = null;
+    this.manageForm.acParent.mother_email = null;
+    this.manageForm.acParent.mother_occupation = null;
+    this.manageForm.acParent.mother_position = null;
+    this.manageForm.acParent.mother_work_address = null;
+    this.manageForm.acParent.mother_work_phone = null;
+    this.manageForm.acParent.mother_work_fax = null;
+    this.manageForm.acParent.mother_land_flag = null;
+    this.manageForm.acParent.mother_land_all = null;
+    this.manageForm.acParent.mother_income_monthly = null;
+    this.manageForm.acParent.father_land_all = null;
+    this.manageForm.acParent.father_land_own = null;
+    this.manageForm.acParent.father_land_rent = null;
+    this.manageForm.acParent.mother_land_all = null;
+    this.manageForm.acParent.mother_land_own = null;
+    this.manageForm.acParent.mother_land_rent = null;
+
+    this.manageForm.dadProvince = null;
+    this.manageForm.dadDistrict = null;
+    this.manageForm.dadSubDistrict = null;
+    this.manageForm.momProvince = null;
+    this.manageForm.momDistrict = null;
+    this.manageForm.momSubDistrict = null;
+   }
+ }
+
+ onRelationshipChange(){
+  if(this.manageForm.acParent.relationship_status != '2'){
+    this.manageForm.acParent.because = null;
+  }
+ }
+
+ onDieStatusChange(index:number){
+  if(index == 0){
+    if(this.manageForm.acParent.father_status == '1'){
+      this.manageForm.acParent.father_died_year = null;
+    }
+  }
+  if(index == 1){
+    if(this.manageForm.acParent.mother_status == '1'){
+      this.manageForm.acParent.mother_died_year = null;
+    }
+  }
+  if(index == 2){
+    if(this.manageForm.acParent.patrol_status == '1'){
+      this.manageForm.acParent.patrol_died_year = null;
+    }
+  }
+ }
+
+ onLandStatusChange(index:number){
+  if(index == 0){
+    if(this.manageForm.acParent.father_land_flag == '1'){
+      this.manageForm.acParent.father_land_all = null;
+      this.manageForm.acParent.father_land_own = null;
+      this.manageForm.acParent.father_land_rent = null;
+    }
+  }
+  if(index == 1){
+    if(this.manageForm.acParent.mother_land_flag == '1'){
+      this.manageForm.acParent.mother_land_all = null;
+      this.manageForm.acParent.mother_land_own = null;
+      this.manageForm.acParent.mother_land_rent = null;
+    }
+  }
+  if(index == 2){
+    if(this.manageForm.acParent.patrol_land_flag == '1'){
+      this.manageForm.acParent.patrol_land_all = null;
+      this.manageForm.acParent.patrol_land_own = null;
+      this.manageForm.acParent.patrol_land_rent = null;
+    }
+  }
+ }
+
+resetButtonOnClick(){
+  this.ngOnInit();
+}
+ nextButtonOnClick() {
+  if (this.manageFormGroup.invalid) {
+    this.utilsService.findInvalidControls(this.manageFormGroup);
+  } else {
+    this.familyAndAddress.onChangePanel(1,this.manageForm);
+  }
+
+ }
 }
 

@@ -1,3 +1,4 @@
+import { ViewStudentApplicationComponent } from './../../view-student-application.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewSiblingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public applicationView: ViewStudentApplicationComponent
+  ) { }
 
   ngOnInit() {
   }

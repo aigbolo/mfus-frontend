@@ -83,7 +83,7 @@ const appRoutes: Routes = [
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
-  { path: "application-view", component: ViewStudentApplicationComponent },
+  { path: "application-view/:id", component: ViewStudentApplicationComponent },
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
 
   // Students Paths
