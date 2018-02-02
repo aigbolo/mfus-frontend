@@ -264,7 +264,6 @@ export class M010102ManageOfficerComponent implements OnInit {
       .selectOfficer(this.manageOfficerForm.acOfficer)
       .subscribe(
       res => {
-        // console.log(res);
         this.manageOfficerForm.acOfficer = res;
         this.flag = this.utilsService.setManageStatus(
           res.manage_officer_flag
@@ -299,11 +298,9 @@ export class M010102ManageOfficerComponent implements OnInit {
             () => {
               this.pageRender = true;
               this.ngProgress.done();
-              console.log("success");
             }
             );
         }, 3000);
-        console.log("onrow complete");
       }
       );
   }
@@ -321,7 +318,6 @@ export class M010102ManageOfficerComponent implements OnInit {
         .doInsert(this.manageOfficerForm.acOfficer, this.user_ref)
         .subscribe(
         res => {
-          // console.log(res);
         },
         error => {
           console.log(error);
@@ -332,7 +328,6 @@ export class M010102ManageOfficerComponent implements OnInit {
           );
         },
         () => {
-          // console.log("success");
           this.manageOfficerForm = new OfficerForm();
           this.validateForm();
           this.layoutService.setMsgDisplay(
@@ -349,13 +344,12 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(
         this.flag
       );
+      console.log(this.manageOfficerForm.acOfficer)
       this.officerService.doUpdate(this.manageOfficerForm.acOfficer).subscribe(res => {
-        // console.log(res)
       }, error => {
         console.log(error)
         this.layoutService.setMsgDisplay(Severity.ERROR, 'เกิดข้อผิดพลาาด', error)
       }, () => {
-        // console.log('update success')
         this.utilsService.goToPage('search-officer')
         this.layoutService.setMsgDisplay(Severity.SUCCESS, 'แก้ไขข้อมูลสำเร็จ', '')
       })
@@ -364,14 +358,12 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   onResetClick() {
     if (this.btnLabel == "เพิ่มข้อมูล") {
-      // console.log("reset insert");
       this.manageOfficerForm = new OfficerForm();
       this.manageOfficerForm.acOfficer.profile_image =
         "../../../../assets/images/empty_profile.png";
       this.manageOfficerForm.acOfficer.profile_name = "";
       this.manageOfficerForm.acOfficer.profile_type = "";
     } else {
-      // console.log("resetupdate");
       window.location.reload();
     }
   }

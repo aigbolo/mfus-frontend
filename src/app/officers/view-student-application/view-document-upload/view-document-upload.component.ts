@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewStudentApplicationComponent } from '../view-student-application.component';
+import { ApplicationService } from '../../../services/students/application.service';
 
 @Component({
   selector: 'app-view-document-upload',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewDocumentUploadComponent implements OnInit {
 
-  constructor() { }
+  constructor(public applicationView: ViewStudentApplicationComponent,
+              public applicationService: ApplicationService) { }
 
   ngOnInit() {
   }
 
+  // initialDocumentUploadView(){
+  //   this.applicationService.initialDocumentUploadView(this.applicationView.applyScholarshipViewForm.apApplication.application_ref).subscribe(
+  //     data=>{
+  //       console.log(data)
+  //     }
+  //   )
+  // }
 }

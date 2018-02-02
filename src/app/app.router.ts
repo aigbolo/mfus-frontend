@@ -1,6 +1,3 @@
-import { ViewDocumentUploadComponent } from './officers/view-student-application/view-document-upload/view-document-upload.component';
-import { ViewFamilyAndAddressComponent } from './officers/view-student-application/view-family-and-address/view-family-and-address.component';
-import { ViewApplicantComponent } from './officers/view-student-application/view-applicant/view-applicant.component';
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
@@ -38,8 +35,6 @@ import { M040104ManageFamilyAndAddressComponent } from './students/apply-scholar
 import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
 import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
-import { ViewSchoarshipInfoComponent } from './officers/view-student-application/view-schoarship-info/view-schoarship-info.component';
-import { ViewFamilyFinancialComponent } from './officers/view-student-application/view-family-financial/view-family-financial.component';
 // import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 const appRoutes: Routes = [
@@ -82,30 +77,19 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent },
   { path: "manage-news/:id", component: M060101ManageNewsComponent },
   { path: "search-news", component: S060101SearchNewsComponent },
-  { path: "application/:id", component: ViewApplicantComponent },
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
-  { path: "application-view", component: ViewStudentApplicationComponent },
-  {
-    path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth], children: [
-      {
-        path: "view-applicant", component: ViewApplicantComponent
-      },
-      {
-        path: "view-scholarship", component: ViewSchoarshipInfoComponent
-      },
-      {
-        path: "view-family-financial", component: ViewFamilyFinancialComponent
-      },
-      {
-        path: "view-family-and-address", component: ViewFamilyAndAddressComponent
-      },
-      {
-        path: "view-document-upload", component: ViewDocumentUploadComponent
-      },
-    ]
-  },
+  { path: "application-view/:id", component: ViewStudentApplicationComponent },
+  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
+
+  { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
+  { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
+  { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth]},
+  { path: "search-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
 
 
+
+
+  { path: "application-view/:id", component: ViewStudentApplicationComponent },
   // Students Paths
   {
     path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth], children: [

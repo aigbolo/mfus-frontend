@@ -1,29 +1,28 @@
-<p-dataList [value]="applyApplication.applyApplicationForm.siblingList" class="sibling-list">
+<!-- applyApplication.applyApplicationForm.siblingList -->
+<p-dataList [value]="applicationView.applyScholarshipViewForm.siblingList" class="sibling-list">
   <ng-template let-sib pTemplate="item" let-i="index">
       <div class="row overide-row">
           <div class="col-xs-4">
               <label class="normal">ชื่อ - นามสกุล *</label>
-              <p>sibling_name</p>
+              <p>{{sib.sibling_name}}</p>
           </div>
           <div class="col-xs-4">
               <label class="normal">ปีเกิด</label>
-              <p>born_year</p>
+              <p>{{sib.born_year}}</p>
           </div>
       </div>
-
       <div class="row overide-row">
           <div class="col-xs-4">
               <label class="normal">ระดับการศึกษา</label>
-              <!-- setEducationLevel(sib.education_level) -->
-              <p>education_level</p>
+              <p>{{sib.education_name}}</p>
           </div>
           <div class="col-xs-5">
               <label class="normal">อาชีพ</label>
-              <p>occupation</p>
+              <p>{{sib.occupation}}</p>
           </div>
           <div class="col-xs-3">
               <label class="normal">รายได้เฉลี่ย/เดือน</label>
-              <p>income_monthly</p>
+              <p>{{sib.income_monthly}}</p>
           </div>
       </div>
   </ng-template>

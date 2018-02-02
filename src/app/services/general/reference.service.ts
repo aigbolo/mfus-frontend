@@ -279,4 +279,8 @@ export class ReferenceService {
     }
     return data;
   }
+
+  getApplicationDocument() {
+    return this.configuration.requestMethodPOST('appdoc', '');
+  }
 }

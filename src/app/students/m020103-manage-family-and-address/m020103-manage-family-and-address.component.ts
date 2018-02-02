@@ -81,7 +81,6 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
       },
       ()=>{
         console.log(this.manageForm.acParent);
-
       }
     );
     setTimeout(()=>{
@@ -129,9 +128,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.patrolAddressService.initialProvince();
     this.homeAddressService.initialProvince();
     this.currentAddressService.initialProvince();
-
-
   }
+
   initialParentAddress(){
     if(this.manageForm.acParent.parent_ref != undefined && this.manageForm.acParent.parent_flag == '1'){
       this.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
