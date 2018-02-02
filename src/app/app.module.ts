@@ -234,6 +234,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040101ApplyScholarshipService,
     M020103FamilyAndAddressService,
     M050101ScholarshipsScreeningService,
+    M050102OfficerInterviewSelectingService,
   ],
   bootstrap: [AppComponent]
 })
