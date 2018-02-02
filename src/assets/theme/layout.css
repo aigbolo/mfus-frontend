@@ -325,3 +325,8 @@ p-checkbox.collage-year-checkbox {
   display: inline-block;
   width: 100px;
 }
+
+p-checkbox.document-request-checkbox {
+  display: block;
+  padding: 5px;
+}

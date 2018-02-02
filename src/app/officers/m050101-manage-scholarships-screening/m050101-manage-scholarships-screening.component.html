@@ -2,6 +2,7 @@
   <div class="row overide-row">
       <div class="col-xs-2">
         <label class="normal">ปีการศึกษา</label>
+        <p></p>
       </div>
       <div class="col-xs-9">
           <label class="normal">ทุนการศึกษา</label>
@@ -25,3 +26,42 @@
         </div>
       </div>
 
+  <div class="row overide-row">
+      <h4 class="custom-panel-title">ขอเอกสารเพิ่มเติม</h4>
+  </div>
+  <div class="row overide-row">
+    <div class="col-xs-9">
+        <label class="normal">รายการเอกสาร</label>
+      <p-checkbox *ngFor="let appDoc of applicationDocument"
+      name="document-request"
+      class="document-request-checkbox"
+      value="{{appDoc.document_ref}}"
+      label="{{appDoc.document_name}}"></p-checkbox>
+    </div>
+    <div class="col-xs-3">
+      <label class="normal">ตอบกลับภายในวันที่</label>
+      <p-calendar [showIcon]="true"
+      [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
+      ></p-calendar>
+    </div>
+</div>
+<div class="row overide-row">
+    <label class="normal">หมายเหตุ</label>
+    <textarea pInputTextarea [rows]="5" [cols]="100"></textarea>
+</div>
+
+<!-- Action buttons here -->
+<div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton
+        class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton
+        class="btn-pass ui-button-success" label="ผ่านการตรวจสอบ"></button>
+        <button pButton *ngIf="!manageForm.documentRequest.document_request_ref"
+        type="submit" class="btn-save ui-button-warning" label="บันทึกขอเอกสารเพิ่มเติม"></button>
+        <button pButton *ngIf="manageForm.documentRequest.document_request_ref"
+        type="submit" class="btn-save ui-button-warning" label="แก้ไขข้อมูล"></button>
+    </div>
+</div>

@@ -9,18 +9,18 @@ export class ApplicationService {
 
 
   initialAcStudentView(ref: string) {
-    let json = { student_ref: ref }
-    return this.configurationService.requestMethodPOST('students-update', json)
+    let json = { student_ref: ref };
+    return this.configurationService.requestMethodPOST('students-update', json);
   }
 
   initialApApplicationView(ref: string){
-    let json = { application_ref: ref }
-    return this.configurationService.requestMethodPOST('application-update', json)
+    let json = { application_ref: ref };
+    return this.configurationService.requestMethodPOST('application-update', json);
   }
 
   initialScholarshipAnnouncement(ref: string) {
     // let json = { announcement_ref: ref }
     // return this.configurationService.requestMethodPOST('scholarships-announcement-update', json)
-    return this.configurationService.requestMethodPOST('autocomplete-scannouncedate', ref)
+    return this.configurationService.requestMethodPOST('autocomplete-scannouncedate', ref);
   }
 }
