@@ -88,7 +88,7 @@ const appRoutes: Routes = [
 
 
 
-  { path: "application-view/:id", component: ViewStudentApplicationComponent },
+  { path: "application-view/:id", component: ViewStudentApplicationComponent , canActivate: [EnsureIsAuth]},
   // Students Paths
   {
     path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth], children: [
