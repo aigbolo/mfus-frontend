@@ -470,7 +470,7 @@
         <label class="normal">จังหวัด *</label>
         <p-autoComplete class="autocomplete-province"
           field="province_name_t" [(ngModel)]="manageForm.momProvince" [suggestions]="mProvinceList"
-          [size]="25" (onSelect)="selectProvince(1)" [forceSelection]="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
+           (onSelect)="selectProvince(1)" [forceSelection]="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(1)"
           (completeMethod)="autocompleteProvince($event,1)"
           maxlength="30"
           formControlName="mother_province">
@@ -483,7 +483,7 @@
         <label class="normal">อำเภอ *</label>
         <p-autoComplete class="autocomplete-district"
           field="district_name_t" [(ngModel)]="manageForm.momDistrict" [suggestions]="mDistrictList"
-          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
+           [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(1)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(1)"
           [disabled]="!manageForm.acParent.mother_province"
           maxlength="30"
           (completeMethod)="autocompleteDistrict($event,1)"
@@ -500,7 +500,7 @@
         <label class="normal">ตำบล *</label>
         <p-autoComplete class="autocomplete-sub-district"
           field="sub_district_name_t" [(ngModel)]="manageForm.momSubDistrict" [suggestions]="mSubDistrictList"
-          (completeMethod)="autocompleteSubDistrict($event,1)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
+          (completeMethod)="autocompleteSubDistrict($event,1)"  [dropdown]="true" (onSelect)="selectSubDistrict(1)" forceSelection="true"
           [disabled]="!manageForm.acParent.mother_district"
           maxlength="30"
           (onDropdownClick)="handleCompleteClickSubDistrict(1)"
@@ -774,7 +774,7 @@
         <label class="normal">จังหวัด *</label>
         <p-autoComplete class="autocomplete-province"
           field="province_name_t" [(ngModel)]="manageForm.patrolProvince" [suggestions]="pProvinceList"
-          [size]="25" (onSelect)="selectProvince(2)" [forceSelection]="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
+           (onSelect)="selectProvince(2)" [forceSelection]="true" [dropdown]="true" (onDropdownClick)="handleCompleteClickProvince(2)"
           (completeMethod)="autocompleteProvince($event,2)"
           maxlength="30"
           formControlName="patrol_province">
@@ -787,7 +787,7 @@
         <label class="normal">อำเภอ *</label>
         <p-autoComplete class="autocomplete-district"
           field="district_name_t" [(ngModel)]="manageForm.patrolDistrict" [suggestions]="pDistrictList"
-          [size]="25" [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
+           [dropdown]="true" field="district_name_t" (onSelect)="selectDistrict(2)" forceSelection="true" (onDropdownClick)="handleCompleteClickDistrict(2)"
           [disabled]="!manageForm.acParent.patrol_province"
           (completeMethod)="autocompleteDistrict($event,2)"
           maxlength="30"
@@ -804,7 +804,7 @@
         <label class="normal">ตำบล *</label>
         <p-autoComplete class="autocomplete-sub-district"
           field="sub_district_name_t" [(ngModel)]="manageForm.patrolSubDistrict" [suggestions]="pSubDistrictList"
-          (completeMethod)="autocompleteSubDistrict($event,2)" [size]="25" [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
+          (completeMethod)="autocompleteSubDistrict($event,2)"  [dropdown]="true" (onSelect)="selectSubDistrict(2)" forceSelection="true"
           [disabled]="!manageForm.acParent.patrol_district"
           (onDropdownClick)="handleCompleteClickSubDistrict(2)"
           maxlength="30"
