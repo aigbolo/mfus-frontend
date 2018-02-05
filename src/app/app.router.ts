@@ -77,7 +77,6 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth] },
-  { path: "application-view/:id", component: ViewStudentApplicationComponent },
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
 
   { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
@@ -115,24 +114,9 @@ const appRoutes: Routes = [
     ]
   },
   { path: "manage-application/:id", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth] },
-  {
-    path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent, children: [
-      {
-        path: "family",
-        component: FamilyComponent
-      },
-      {
-        path: "sibling",
-        component: SiblingComponent
-      },
-      {
-        path: "address",
-        component: AddressComponent
-      }
-    ]
-  },
-  { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent },
-  { path: "manage-student-profile", component: ManageStudentProfileComponent },
+  { path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent, canActivate: [EnsureIsAuth] },
+  { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent , canActivate: [EnsureIsAuth] },
+  { path: "manage-student-profile", component: ManageStudentProfileComponent , canActivate: [EnsureIsAuth] },
 
 ];
 
