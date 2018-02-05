@@ -49,7 +49,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  ngOnInit() {
-   console.log("FamilyComponent.ngOnInit ");
    this.validatorForm();
    this.manageForm = this.familyAndAddress.getData();
 
@@ -299,7 +298,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  // Autocomplete filter
  autocompleteDistrict(event,seq: number) {
-   console.log("autocompleteDistrict");
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
@@ -368,7 +366,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  autocompleteSubDistrict(event,seq: number) {
-   console.log("autocompleteSubDistrict: ");
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
@@ -417,7 +414,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickProvince(index: number) {
-   console.log("handleCompleteClickProvince");
    if (index == 0) {
       setTimeout(()=>{
         this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
@@ -438,7 +434,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickDistrict(index: number) {
-   console.log("handleCompleteClickDistrict");
    if (index == 0) {
       setTimeout(()=>{
         this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
@@ -462,7 +457,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickSubDistrict(index: number) {
-   console.log("handleCompleteClickSubDistrict");
 
    if (index == 0) {
       this.fSubDistrictList = [];
