@@ -1,23 +1,24 @@
+import { SmScholarshipAnnouncement } from './../models/sm-scholarship-announcement';
 import { SmDocumentRequestDetail } from './../models/sm-document-request-detail';
 import { ApApplication } from './../models/ap-application';
 import { AcStudent } from "../models/ac-student";
 import { SmDocumentRequest } from '../models/sm-document-request';
 
 export class ScholarshipScreeningForm {
-  student:any;
-  application: any;
-  scholarshipAnnouncement: any;
-  documentRequest: SmDocumentRequest;
-  documentRequestDetails: SmDocumentRequestDetail[];
+  student:AcStudent;
+  application: ApApplication;
+  scholarshipAnnouncement: SmScholarshipAnnouncement;
+  sm_document_request: SmDocumentRequest;
+  detail_list: SmDocumentRequestDetail[];
 
   search_criteria:SearchCriteria;
 
   constructor(){
-    this.student = null;
-    this.application = null;
-    this.scholarshipAnnouncement = null;
-    this.documentRequest = new SmDocumentRequest;
-    this.documentRequestDetails = [];
+    this.student = new AcStudent;
+    this.application = new ApApplication;
+    this.scholarshipAnnouncement = new SmScholarshipAnnouncement;
+    this.sm_document_request = new SmDocumentRequest;
+    this.detail_list = [];
     this.search_criteria = new SearchCriteria;
   }
 }

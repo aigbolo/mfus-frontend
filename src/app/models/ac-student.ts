@@ -23,4 +23,8 @@ export class AcStudent {
  public  create_datetime: Date;
  public  update_user: string;
  public  update_datetime: Date;
+
+ // Fields For Display
+ public school_name_t:string;
+ public major_name_t:string;
 }

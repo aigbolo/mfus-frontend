@@ -6,6 +6,8 @@ export class SmDocumentRequestDetail {
  public create_datetime: Date;
  public update_user: string;
  public update_datetime: Date;
+
+// Fields for Display
  public application_ref: string;
  public document_name: string;
  public upload_flag: boolean;

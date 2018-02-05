@@ -49,72 +49,25 @@ export class RegisterComponent extends CalendarModel implements OnInit {
     this.manageStudentForm.acStudent.profile_image =
       "./assets/images/empty_profile.png";
     this.validateForm();
-    this.manageStudentForm.acStudent.student_ref = this.route.snapshot.params[
-      "id"
-    ];
   }
 
   validateForm() {
     this.studentFormGroup = new FormGroup({
-      personal_id: new FormControl(
-        this.manageStudentForm.acStudent.personal_id,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[0-9]+$/)
-        ])
-      ),
-      student_id: new FormControl(
-        this.manageStudentForm.acStudent.student_id,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[0-9]+$/)
-        ])
-      ),
+      personal_id: new FormControl(this.manageStudentForm.acStudent.personal_id, Validators.compose([Validators.required,Validators.pattern(/^[0-9]+$/)])),
+      student_id: new FormControl(this.manageStudentForm.acStudent.student_id, Validators.compose([Validators.required,Validators.pattern(/^[0-9]+$/)])),
       gender: new FormControl((this.manageStudentForm.acStudent.gender = "M")),
-      first_name_t: new FormControl(
-        this.manageStudentForm.acStudent.first_name_t,
-        Validators.compose([Validators.required])
-      ),
-      birth_date: new FormControl(
-        this.manageStudentForm.acStudent.birth_date,
-        Validators.compose([Validators.required])
-      ),
-      title_ref: new FormControl(
-        (this.manageStudentForm.acStudent.title_ref = "Mr")
-      ),
-      last_name_t: new FormControl(
-        this.manageStudentForm.acStudent.last_name_t,
-        Validators.compose([Validators.required])
-      ),
-      first_name_e: new FormControl(
-        this.manageStudentForm.acStudent.first_name_e
-      ),
-      last_name_e: new FormControl(
-        this.manageStudentForm.acStudent.last_name_e
-      ),
-      school: new FormControl(this.manageStudentForm.rftSchool),
-      major: new FormControl(this.manageStudentForm.rftMajor),
-      nationality: new FormControl(
-        this.manageStudentForm.acStudent.nationality
-      ),
+      first_name_t: new FormControl(this.manageStudentForm.acStudent.first_name_t,Validators.compose([Validators.required])),
+      birth_date: new FormControl(this.manageStudentForm.acStudent.birth_date, Validators.compose([Validators.required])),
+      title_ref: new FormControl((this.manageStudentForm.acStudent.title_ref = "Mr")),
+      last_name_t: new FormControl(this.manageStudentForm.acStudent.last_name_t,Validators.compose([Validators.required])),
+      first_name_e: new FormControl(this.manageStudentForm.acStudent.first_name_e),last_name_e: new FormControl(this.manageStudentForm.acStudent.last_name_e),
+      school: new FormControl(this.manageStudentForm.acStudent.school_ref,Validators.compose([Validators.required])),
+      major: new FormControl(this.manageStudentForm.acStudent.major_ref,Validators.compose([Validators.required])),
+      nationality: new FormControl(this.manageStudentForm.acStudent.nationality),
       race: new FormControl(this.manageStudentForm.acStudent.race),
       religion: new FormControl(this.manageStudentForm.acStudent.religion),
-      phone_no: new FormControl(
-        this.manageStudentForm.acStudent.phone_no,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[0-9]+$/)
-        ])
-      ),
-      email: new FormControl(
-        this.manageStudentForm.acStudent.email,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(
-            /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-          )
-        ])
-      )
+      phone_no: new FormControl(this.manageStudentForm.acStudent.phone_no, Validators.compose([Validators.required,Validators.pattern(/^[0-9]+$/)])),
+      email: new FormControl(this.manageStudentForm.acStudent.email,Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)]))
     });
   }
 
@@ -125,7 +78,13 @@ export class RegisterComponent extends CalendarModel implements OnInit {
 
   autoCompleteSchools(event) {
     let query = event.query;
+    let e = event.originalEvent;
     this.schoolList = [];
+    if(e.type=='input'){
+      this.manageStudentForm.acStudent.school_ref = null;
+      this.majorsList =[];
+      this.manageStudentForm.rftMajor = null;
+    }
     let objList: RftSchool[];
     objList = this.referenceService.getSchool();
     for (let obj of objList) {
@@ -142,17 +101,22 @@ export class RegisterComponent extends CalendarModel implements OnInit {
   }
 
   selectSchool() {
-    this.referenceService.initialMajors(
-      this.manageStudentForm.rftSchool.school_ref
-    );
-    setTimeout(() => {
-      this.manageStudentForm.rftMajor = new RftMajor();
-    }, 100);
+    this.referenceService.initialMajors(this.manageStudentForm.rftSchool.school_ref);
+    this.manageStudentForm.acStudent.school_ref = this.manageStudentForm.rftSchool.school_ref;
+    this.majorsList =[];
+      this.manageStudentForm.rftMajor = null;
+
+
   }
 
   autoCompleteMajor(event) {
     let query = event.query;
+    let e = event.originalEvent;
     this.majorsList = [];
+    if(e.type=='input'){
+      this.manageStudentForm.acStudent.major_ref = null;
+
+    }
     let objList: RftMajor[];
     objList = this.referenceService.getMajors();
     console.log(objList);
@@ -194,21 +158,18 @@ export class RegisterComponent extends CalendarModel implements OnInit {
     this.manageStudentForm.acStudent.school_ref = this.manageStudentForm.rftSchool.school_ref;
     this.manageStudentForm.acStudent.major_ref = this.manageStudentForm.rftMajor.major_ref;
     console.log(this.manageStudentForm);
-    this.studentService
-      .doInsert(this.manageStudentForm.acStudent)
-      .subscribe(
+    this.studentService.doInsert(this.manageStudentForm.acStudent).subscribe(
         res => {
           console.log(res)
         },
         error => {
           console.log(error);
+          if(error.status == 409){
+          this.layoutService.setMsgDisplay(Severity.ERROR,"ไม่สามารถสร้างบัญชีผู้ใช้ได้","เนื่องจากมีเลขบัตรประจำตัวประชาชนนี้ในระบบแล้ว");
+          }
         },
         () => {
-          this.layoutService.setMsgDisplay(
-            Severity.SUCCESS,
-            "บันทึกข้อมูลสำเร็จ",
-            ""
-          );
+          this.layoutService.setMsgDisplay(Severity.SUCCESS,"สร้างบัญชีสำเร็จ","");
           this.utilsService.goToPage('login');
         }
       );
