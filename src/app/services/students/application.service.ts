@@ -10,7 +10,7 @@ export class ApplicationService {
 
   initialAcStudentView(ref: string) {
     let json = { student_ref: ref }
-    return this.configurationService.requestMethodPOST('students-view', json)
+    return this.configurationService.requestMethodPOST('students-update', json)
   }
 
   initialApApplicationView(ref: string){
