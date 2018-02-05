@@ -74,10 +74,9 @@ const appRoutes: Routes = [
   { path: "search-scholarship-screening", component: M050101SearchScholarshipsScreeningComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-scholarship-screening", component: M050101ManageScholarshipsScreeningComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-scholarship-screening/:id", component: M050101ManageScholarshipsScreeningComponent, canActivate: [EnsureIsAuth] },
-  { path: "manage-news", component: M060101ManageNewsComponent },
-  { path: "manage-news/:id", component: M060101ManageNewsComponent },
-  { path: "search-news", component: S060101SearchNewsComponent },
-  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent },
+  { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
+  { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
+  { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "application-view/:id", component: ViewStudentApplicationComponent },
   { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
 

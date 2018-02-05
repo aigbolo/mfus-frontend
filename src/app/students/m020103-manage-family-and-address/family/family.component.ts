@@ -309,9 +309,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     for (let obj of objList) {
       // Filter By string event
       if (this.manageForm.dadProvince.province_ref === obj.province_ref) {
-        if (
-          obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
-        ) {
+        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0 ) {
           this.fDistrictList.push(obj);
         }
       }

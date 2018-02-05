@@ -31,7 +31,7 @@
         <div class="col-xs-12">
           <p-radioButton name="relationship"
           (click)="onRelationshipChange()"
-          inputId="opt1"
+          inputId="1"
           value="1"
           label="สมรสและอยู่ด้วยกัน"
           formControlName="relationship_status"
@@ -41,7 +41,7 @@
         <div class="col-xs-4">
           <p-radioButton name="relationship"
           (click)="onRelationshipChange()"
-          inputId="opt2"
+          inputId="2"
           value="2"
           label="สมรสแต่ไม่ได้อยู่ด้วยกัน"
           formControlName="relationship_status"
@@ -62,7 +62,7 @@
         <div class="col-xs-12">
           <p-radioButton name="relationship"
           (click)="onRelationshipChange()"
-          inputId="opt3"
+          inputId="3"
           value="3"
           label="หย่าร้าง"
           formControlName="relationship_status"
@@ -187,7 +187,7 @@
           forceSelection="true"
           (onDropdownClick)="handleCompleteClickDistrict(0)"
           [disabled]="!manageForm.acParent.father_province"
-          (completeMethod)="autocompleteDistrict($event)"
+          (completeMethod)="autocompleteDistrict($event,0)"
           maxlength="30"
           formControlName="father_district">
           <ng-template let-obj pTemplate="obj">
@@ -203,7 +203,7 @@
           field="sub_district_name_t"
           [(ngModel)]="manageForm.dadSubDistrict"
           [suggestions]="fSubDistrictList"
-          (completeMethod)="autocompleteSubDistrict($event)"
+          (completeMethod)="autocompleteSubDistrict($event,0)"
           [dropdown]="true"
           (onSelect)="selectSubDistrict(0)"
           forceSelection="true"
