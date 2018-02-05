@@ -30,6 +30,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
   manageFormGroup: FormGroup;
   applicationDocument: RftApplicationDocument[] = [];
 
+  documentRequestHistoryList:any[] = [];
   selectedDocuments: string[] = [];
   constructor(private layoutService: LayoutService,
     private utilsService: UtilsService,
@@ -46,6 +47,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
   ngOnInit() {
     this.layoutService.setPageHeader("บันทึกคัดกรองเอกสาร");
 
+    this.documentRequestHistoryList = [];
     this.getApplicationDocument();
 
     this.validatorForm();
@@ -57,7 +59,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
           console.log(data);
           if(data){
           this.manageForm.application = data;
-
+          this.getDocumentRequestHistory(data.application_ref);
           this.getStudentView(data.student_ref);
           this.getScholarshipAnnouncementView(data.announcement_ref);
           }
@@ -66,7 +68,6 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
           console.log(err);
         },
         ()=>{
-
 
         }
 
@@ -131,6 +132,18 @@ getScholarshipAnnouncementView(announcementRef:string){
     },
     ()=>{
 
+    }
+  )
+}
+
+getDocumentRequestHistory(application_ref:string){
+  this.applicationService.initialDocumentRequestView(application_ref).subscribe(
+    data=>{
+
+      this.documentRequestHistoryList = data;
+      console.log(this.documentRequestHistoryList);
+    },err=>{
+      console.log(err);
     }
   )
 }

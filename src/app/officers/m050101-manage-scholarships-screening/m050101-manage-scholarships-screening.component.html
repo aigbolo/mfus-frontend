@@ -1,4 +1,19 @@
+<div class="row overide-row">
+  <div class="col-xs-6">
+    <label class="normal">เลขที่ใบสมัคร</label>
+    <p>{{manageForm.application.application_code}}</p>
+  </div>
+  <div class="col-xs-6">
+    <label class="normal"></label>
+    <button pButton
+    type="button"
+    class="btn-application-preview ui-button-primary"
+    icon="fa-file-alt" iconPos="left"
+    label="ดูข้อมูลใบสมัคร"></button>
+  </div>
 
+
+</div>
   <div class="row overide-row">
       <div class="col-xs-2">
         <label class="normal">ปีการศึกษา</label>
@@ -36,12 +51,11 @@
     </div>
     <div class="row overide-row">
       <div class="col-xs-12">
-        <p-dataTable>
-          <p-column field="" header="ครั้งที่" styleClass="send-no"></p-column>
-          <p-column field="" header="เอกสารที่ขอ" styleClass="documents"></p-column>
-          <p-column field="" header="ตอบกลับภายใน" styleClass="due-date"></p-column>
-          <p-column field="" header="สถานะ" styleClass="reply-status"></p-column>
-
+        <p-dataTable [value]="documentRequestHistoryList">
+          <p-column field="seq" header="ครั้งที่" styleClass="send-no"></p-column>
+          <p-column field="document_name" header="เอกสารที่ขอ" styleClass="documents"></p-column>
+          <p-column field="due_date" header="ตอบกลับภายใน" styleClass="due-date"></p-column>
+          <p-column field="reply_flag" header="สถานะ" styleClass="reply-status"></p-column>
       </p-dataTable>
       </div>
     </div>
