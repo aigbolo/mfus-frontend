@@ -456,6 +456,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   initialDocumentUpload() {
     this.applyScholarshipService.initialDocumentUpload(this.route.snapshot.params['id']).subscribe(
       data => {
+        console.log(data)
         this.applyApplicationForm.apDocumentUpload = data
       }
     )

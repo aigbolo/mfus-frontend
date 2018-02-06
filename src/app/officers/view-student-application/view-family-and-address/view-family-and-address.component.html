@@ -1,23 +1,27 @@
-  <div class="row overide-row" >
-      <div class="col-xs-12">
-          <p-tabView>
-              <p-tabPanel header="ข้อมูลครอบครัว" [selected]="true">
-                  <app-view-parent></app-view-parent>
-              </p-tabPanel>
-              <p-tabPanel header="ข้อมูลญาติพี่น้อง">
-                 <app-view-sibling></app-view-sibling>
-              </p-tabPanel>
-              <p-tabPanel header="ข้อมูลที่อยู่">
-                  <app-view-address></app-view-address>
-              </p-tabPanel>
-          </p-tabView>
-      </div>
-  </div>
-  <div class="row formFooter overide-row">
-      <div class="col-xs-12  text-right">
-          <button class="ui-button-warning text-left" type="button" (click)="onPrevious()" label="กลับ" pButton>
-  </button>
-          <button class="ui-button-primary text-right" type="submit" (click)="onNext()" label="ต่อไป" pButton>
-  </button>
-      </div>
-  </div>
+<div *ngIf="pageRender">
+    <div class="row overide-row">
+        <div class="col-xs-12">
+            <p-tabView>
+                <p-tabPanel header="ข้อมูลครอบครัว" [selected]="true">
+                    <app-view-parent></app-view-parent>
+                </p-tabPanel>
+                <p-tabPanel header="ข้อมูลญาติพี่น้อง">
+                    <app-view-sibling></app-view-sibling>
+                </p-tabPanel>
+                <p-tabPanel header="ข้อมูลที่อยู่">
+                    <app-view-address></app-view-address>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+    <div class="row formFooter overide-row">
+        <div class="col-xs-6 btn-panel-left">
+            <button class="ui-button-warning" type="button" (click)="onPrevious()" label="กลับ" pButton>
+        </button>
+        </div>
+        <div class="col-xs-6 btn-panel-right">
+            <button class="ui-button-primary" type="submit" (click)="onNext()" label="ถัดไป" pButton>
+        </button>
+        </div>
+    </div>
+</div>

@@ -245,7 +245,6 @@ export class ReferenceService {
 
   nextIndex(index) {
     this.activeIndex = index;
-    console.log(this.activeIndex);
   }
 
   getIndex() {

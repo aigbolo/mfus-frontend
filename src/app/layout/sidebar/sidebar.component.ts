@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     } else {
       this.items = this.initialOfficerMenu()
       console.log(this.authService.getUser().manage_officer_flag)
-      if(this.authService.getUser().manage_officer_flag == 1){
+      if(this.authService.getUser().manage_officer_flag == 2){
         this.items[0].items[1] = ({label: 'จัดการข้อมูลเจ้าหน้าที่', routerLink: ['/search-officer']})
       }
     }
