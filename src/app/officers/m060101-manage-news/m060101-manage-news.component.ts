@@ -69,7 +69,6 @@ export class M060101ManageNewsComponent extends CalendarModel
 
   login(){
     this.user = this.authService.getUser();
-    this.account = this.authService.getAccount();
   }
 
   vaidateForm() {
@@ -139,8 +138,8 @@ export class M060101ManageNewsComponent extends CalendarModel
   }
 
   doInsert() {
-    this.manageNewsForm.smNews.create_user = this.account.officer_ref;
-    this.manageNewsForm.smNews.update_user = this.account.officer_ref;
+    this.manageNewsForm.smNews.create_user = this.user.account_ref;
+    this.manageNewsForm.smNews.update_user = this.user.account_ref;
     this.newsService.insertNews(this.manageNewsForm.smNews).subscribe(
       res => {},
       error => {
@@ -163,6 +162,7 @@ export class M060101ManageNewsComponent extends CalendarModel
   }
 
   doUpdate() {
+    this.manageNewsForm.smNews.update_user = this.user.account_ref;
     this.newsService.updateNews(this.manageNewsForm.smNews).subscribe(
       res => {},
       error => {

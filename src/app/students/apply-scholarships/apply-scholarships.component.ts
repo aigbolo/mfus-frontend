@@ -35,6 +35,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   officer: AcOfficer = new AcOfficer;
   update_state: boolean = false
 
+  current_year = new Date().getFullYear();
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,

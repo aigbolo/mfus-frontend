@@ -118,10 +118,11 @@
                 </p-column>
                 <p-column header="ปีการศึกษา" field="year">
                     <ng-template let-col let-obj="rowData" pTemplate="body">
-                        <input type="text"
-                          [ngModelOptions]="{standalone: true}"
+                        <input type="number"
                           minlength="4"
                           maxlength="4"
+                          name="scholarshipHistory_year"
+                          formControlName="scholarshipHistory_year"
                           [(ngModel)]="obj.year"
                           pInputText>
                     </ng-template>

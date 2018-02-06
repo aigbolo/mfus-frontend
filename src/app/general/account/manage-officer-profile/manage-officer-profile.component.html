@@ -15,16 +15,6 @@
                   type="text"
                 pInputText>
             </div>
-            <!-- <div class="col-xs-3">
-              <label class="normal"> สถานะ</label>
-                <p-dropdown
-                  [(ngModel)]="manageOfficerForm.acOfficer.active_flag"
-                  formControlName="active_flag"
-                  name="active_flag"
-                  [options]="activeFlag"
-                  [disabled]="!manageOfficerForm.acOfficer.officer_ref">
-                </p-dropdown>
-            </div> -->
           </div>
           <div class="row overide-row">
             <div class="col-xs-12">
@@ -194,27 +184,10 @@
                 chooseLabel="เลือกไฟล์">
               </p-fileUpload>
             </div>
-            <!-- <div class="col-xs-12 profile-upload">
-              <p-checkbox
-                [binary]="true"
-                [(ngModel)]="flag"
-                formControlName="manage_officer_flag"
-                name="manage_officer_flag"
-                label="สามารถจัดการเจ้าหน้าที่">
-              </p-checkbox>
-            </div> -->
           </div>
         </div>
     </div>
 <div class="row overide-row btn-row">
-  <div class="col-xs-6 btn-panel-left">
-    <button class="btn-back ui-button-info"
-      type="button"
-      label="ย้อนกลับ"
-      (click)="onPageSearch()"
-      pButton>
-    </button>
-  </div>
   <div class="col-xs-6 btn-panel-right">
     <button class="bbtn-reset ui-button-warning"
       type="button"
