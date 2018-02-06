@@ -44,7 +44,7 @@ export class AuthenticationService {
   }
 
   changePassword(userId: string, newPassword: string) {
-    console.log("newPassword: " + newPassword);
+    //console.log("newPassword: " + newPassword);
     const param = { user_id: userId, password: newPassword }
     return this.config.requestMethodPOST('reset-password', param)
   }
@@ -69,7 +69,7 @@ export class AuthenticationService {
   // End
 
   setAccountInfo(user: AcUser){
-    console.log('setAccountInfo')
+    //console.log('setAccountInfo')
     if(user.user_role == '1'){
       const param = { student_ref: user.account_ref};
       this.config.requestMethodPOST('students-update',param).subscribe(
