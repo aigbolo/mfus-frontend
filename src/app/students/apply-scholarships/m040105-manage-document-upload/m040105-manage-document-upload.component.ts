@@ -167,12 +167,14 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
                     this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
                       .subscribe(res => {
                       }, error => {
+                        // Error insert document
                         console.log(error);
                         this.layoutService.setMsgDisplay(
                           Severity.ERROR,
                           "บันทึกข้อมูลผิดพลาด",
                           ""
                         );
+                        this.ngProgress.done();
                       }, () => {
                         this.layoutService.setMsgDisplay(
                           Severity.SUCCESS,
@@ -185,18 +187,44 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
                         this.utilsService.activeIndex = this.referenceService.getIndex();
                       })
                   }, error=>{
+                    //Error insert Familyand Financial
                     console.log(error);
+                    this.layoutService.setMsgDisplay(
+                      Severity.ERROR,
+                      "บันทึกข้อมูลผิดพลาด",
+                      error
+                    );
+                    this.ngProgress.done();
                   })
               }, error=>{
+                //Error insert Student Loan Fund
                 console.log(error);
+                this.layoutService.setMsgDisplay(
+                  Severity.ERROR,
+                  "บันทึกข้อมูลผิดพลาด",
+                  error
+                );
+                this.ngProgress.done();
               })
           }, error=>{
+            //Error Scholarship History
             console.log(error);
+            this.layoutService.setMsgDisplay(
+              Severity.ERROR,
+              "บันทึกข้อมูลผิดพลาด",
+              error
+            );
+            this.ngProgress.done();
           })
       }, error=>{
-          this.layoutService.setMsgDisplay(Severity.ERROR, "บันทึกข้อมูลผิดพลาด", "");
-          console.log(error);
-          this.ngProgress.done();
+        //Error insert Apapplication
+        console.log(error);
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,
+          "บันทึกข้อมูลผิดพลาด",
+          error
+        );
+        this.ngProgress.done();
       })
   }
 
@@ -235,21 +263,25 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
                     //error Update Family Financial And Debt
                     console.log(error)
                     this.errorMsg(2, "");
+                    this.ngProgress.done();
                   })
               }, error=>{
                 //error upDate Student Loan Fund
                 console.log(error);
                 this.errorMsg( 1, "");
+                this.ngProgress.done();
               })
           }, error=>{
             //error Update Scholarship History
           console.log(error);
           this.errorMsg( 1, "");
+          this.ngProgress.done();
           })
       }, error=>{
         //error Update Application
         console.log(error);
         this.errorMsg( 0, "");
+        this.ngProgress.done();
       })
   }
 

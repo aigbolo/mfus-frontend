@@ -34,7 +34,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   items: MenuItem[];
   activeIndex: number = 0;
 
-  myDate: Date;
+  myClock: any;
+  myCount:number = 0;
   updateAddress: any;
   constructor(private layoutService: LayoutService,
     private referenceService: ReferenceService,
@@ -60,6 +61,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
 
 
+
     this.familyAndAddressService.doGetParent(this.user.account_ref).subscribe(
       data=>{
         if(data.parent_ref){
@@ -68,15 +70,12 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
             this.manageForm.acParent = data;
           },1000);
           setTimeout(()=>{
+            this.convertDateBackToFront();
             this.getParentProvince();
+          },1500);
+          setTimeout(()=>{
             this.getParentDistrict();
             this.getParentSubDistrict();
-
-          },2000);
-          setTimeout(()=>{
-
-            this.convertDateBackToFront();
-            this.initialParentAddress();
             this.renderPage = true;
             this.ngProgress.done();
           },3000);
@@ -89,11 +88,11 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
       ()=>{
       }
     );
+
+
     setTimeout(()=>{
       this.familyAndAddressService.doGetSiblings(this.user.account_ref).subscribe(
         data=>{
-          console.log('doGetSiblings');
-          console.log(data);
           if(data)
           this.manageForm.siblingList = data;
         },err=>{
@@ -102,17 +101,23 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
       )
       this.familyAndAddressService.doGetAddress(this.user.account_ref).subscribe(
         data=>{
-          if(data.address_ref)
-          this.manageForm.acAddress = data;
+          if(data){
+            this.manageForm.acAddress = data;
+            setTimeout(()=>{
+              this.initialLivingAddress();
+              this.getLivingProvince();
+              this.getLivingDistrict();
+              this.getLivingSubDistrict();
+            },5000)
+
+          }
+
 
         },err=>{
           console.log(err)
         },
         ()=>{
-          this.initialLivingAddress();
-          this.getLivingProvince();
-          this.getLivingDistrict();
-          this.getLivingSubDistrict();
+
         }
       )
     },5000)
@@ -121,6 +126,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.getEducationDropDown();
 
   }
+
 
 
   convertDateBackToFront(){
@@ -140,26 +146,20 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.currentAddressService.initialProvince();
   }
 
-  initialParentAddress(){
-    if(this.manageForm.acParent.parent_ref != undefined && this.manageForm.acParent.parent_flag == '1'){
-      this.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
-      this.motherAddressService.initialDistrict(this.manageForm.momProvince.province_ref);
-      this.fatherAddressService.initialSubDistrict(this.manageForm.dadDistrict.district_ref);
-      this.motherAddressService.initialSubDistrict(this.manageForm.momDistrict.district_ref);
-    }
-    if(this.manageForm.acParent.parent_ref != undefined && this.manageForm.acParent.parent_flag == '2'){
-      this.patrolAddressService.initialDistrict(this.manageForm.patrolProvince.province_ref);
-      this.patrolAddressService.initialSubDistrict(this.manageForm.patrolDistrict.district_ref);
-    }
 
-  }
 
   initialLivingAddress(){
-    if(this.manageForm.acAddress.address_ref != undefined){
-      this.homeAddressService.initialDistrict(this.manageForm.homeProvince.province_ref);
-      this.currentAddressService.initialDistrict(this.manageForm.currentProvince.province_ref);
-      this.homeAddressService.initialSubDistrict(this.manageForm.homeDistrict.district_ref);
-      this.currentAddressService.initialSubDistrict(this.manageForm.currentDistrict.district_ref);
+    if(this.manageForm.acAddress.address_ref != null){
+      setTimeout(
+        ()=>{
+          this.homeAddressService.initialDistrict(this.manageForm.acAddress.home_province);
+          this.currentAddressService.initialSubDistrict(this.manageForm.acAddress.home_district);
+        },500);
+        setTimeout(
+          ()=>{
+            this.homeAddressService.initialDistrict(this.manageForm.acAddress.current_province);
+            this.currentAddressService.initialSubDistrict(this.manageForm.acAddress.current_district);
+          },1000);
     }
 
   }
@@ -224,7 +224,6 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     if(this.manageForm.acParent.father_district != null || this.manageForm.acParent.father_district != undefined){
       this.fatherAddressService.getDistrictByRef(this.manageForm.acParent.father_district).subscribe(
         data=>{
-          console.log(data);
           this.manageForm.dadDistrict = data;
         },
         err=>{
@@ -281,7 +280,6 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     if(this.manageForm.acParent.father_sub_district != null || this.manageForm.acParent.father_sub_district != undefined){
       this.fatherAddressService.getSubDistrictByRef(this.manageForm.acParent.father_sub_district).subscribe(
         data=>{
-          console.log(data);
           this.manageForm.dadSubDistrict = data;
         },
         err=>{

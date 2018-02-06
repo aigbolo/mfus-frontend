@@ -30,8 +30,7 @@ export class AddressService {
 
   //Set RftDistrict
   initialDistrict(provinceRef: string) {
-    this.configuration
-      .requestMethodGET("autocomplete-district/" + provinceRef)
+    this.configuration.requestMethodGET("autocomplete-district/" + provinceRef)
       .subscribe(
         data => {
           this.rftDistricts = data;

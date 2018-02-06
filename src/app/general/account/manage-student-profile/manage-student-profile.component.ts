@@ -48,7 +48,6 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   initialData() {
     this.manageStudentForm.acStudent.student_ref = this.authService.getUser().account_ref
     this.m010101ManageStudentService.doSelect(this.manageStudentForm.acStudent).subscribe(data => {
-      console.log(data)
       this.manageStudentForm.acStudent = data
       this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date)
       this.referenceService.getSchoolByRef(this.manageStudentForm.acStudent.school_ref).subscribe(
@@ -66,10 +65,10 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
             }
           )
         })
-    },error=>{
+    }, error => {
       console.log(error)
     }
-  )
+    )
   }
 
   gettitleList() {
@@ -211,13 +210,17 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   onSubmit() {
     this.manageStudentForm.acStudent.update_user = this.authService.getUser().user_ref
     this.m010101ManageStudentService.doUpdate(this.manageStudentForm.acStudent).subscribe(data => {
-      console.log('complete')
     }, error => {
       console.log(error)
+      this.layoutService.setMsgDisplay(
+        Severity.ERROR,
+        "แก้ไขข้อมูลไม่สำเร็จ",
+        ""
+      );
     }, () => {
       this.layoutService.setMsgDisplay(
         Severity.SUCCESS,
-        "บันทึกข้อมูลสำเร็จ",
+        "แก้ไขข้อมูลสำเร็จ",
         ""
       );
     })
