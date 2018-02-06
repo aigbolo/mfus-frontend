@@ -60,7 +60,6 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
     if (this.activatedRoute.snapshot.params["id"] != null) {
       this.applicationService.initialApApplicationView(application_ref).subscribe(
         data=>{
-          console.log(data);
           if(data){
             this.viewApplicationUrl = '/application-view/'+data.application_ref;
             this.manageForm.application = data;
@@ -110,7 +109,6 @@ getApplicationDocument(){
 getStudentView(studentRef:string){
   this.applicationService.initialAcStudentView(studentRef).subscribe(
     data=>{
-      console.log(data);
       this.manageForm.student = data;
 
     },
@@ -126,7 +124,6 @@ getStudentView(studentRef:string){
 getScholarshipAnnouncementView(announcementRef:string){
   this.applicationService.initialScholarshipAnnouncement(announcementRef).subscribe(
     data=>{
-      console.log(data);
       this.manageForm.scholarshipAnnouncement = data;
 
     },
@@ -155,7 +152,6 @@ getDocumentRequestHistory(application_ref:string){
 getDocumentRequestLatest(application_ref:string){
   this.scholarshipScreeningService.getDocumentRequestLatest(application_ref).subscribe(
     data=>{
-      console.log(data);
       if(data){
         this.manageForm.sm_document_request = data;
         this.manageForm.sm_document_request.due_date = new Date(data.due_date);
@@ -281,7 +277,6 @@ onChecked(){
 onPageSearch() {
 
   const params = JSON.parse(localStorage.getItem('currentSearchParam'));
-  console.log('param: '+params);
   this.utilsService.goToPageWithQueryParam('search-scholarship-screening',params);
   // this.utilsService.goToPage("search-scholarship-screening");
 }
