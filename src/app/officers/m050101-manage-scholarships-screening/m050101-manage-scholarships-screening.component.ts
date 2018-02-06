@@ -59,6 +59,8 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
           console.log(data);
           if(data){
           this.manageForm.application = data;
+          this.getDocumentRequestLatest(data.application_ref);
+          this.getDocumentRequestDetailLatest(data.application_ref);
           this.getDocumentRequestHistory(data.application_ref);
           this.getStudentView(data.student_ref);
           this.getScholarshipAnnouncementView(data.announcement_ref);
@@ -72,11 +74,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
         }
 
       )
-      // this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["id"];
-      // this.onUpdatePageSetup();
-    // } else {
-    //   this.ngProgress.done();
-    //   this.pageRender = true;
+
     }
   }
 
@@ -146,6 +144,33 @@ getDocumentRequestHistory(application_ref:string){
       console.log(err);
     }
   )
+}
+
+
+getDocumentRequestLatest(application_ref:string){
+  this.scholarshipScreeningService.getDocumentRequestLatest(application_ref).subscribe(
+    data=>{
+      console.log(data);
+      if(data)
+        this.manageForm.sm_document_request = data;
+    },err=>{console.log(err)}
+  );
+}
+
+getDocumentRequestDetailLatest(application_ref:string){
+  this.scholarshipScreeningService.getDocumentRequestDetailLatest(application_ref).subscribe(
+    data=>{
+      console.log(data);
+      if(data)
+        this.manageForm.detail_list = data;
+    },err=>{console.log(err)},
+    ()=>{
+      this.selectedDocuments = [];
+      for(let data of this.manageForm.detail_list){
+        this.selectedDocuments.push(data.document_ref);
+      }
+    }
+  );
 }
 
 onSelectDocuments(){

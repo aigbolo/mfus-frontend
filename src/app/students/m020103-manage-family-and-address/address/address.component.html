@@ -50,7 +50,7 @@
           formControlName="homeDistrict"
           (onDropdownClick)="handleCompleteClickDistrict(0)"
           (completeMethod)="autocompleteDistrict($event,0)"
-          [disabled]="!manageForm.homeProvince.province_ref">
+          [disabled]="!manageForm.acAddress.home_province">
           <ng-template let-obj pTemplate="obj">
             {{obj.district_name_t}}
           </ng-template>
@@ -73,7 +73,7 @@
           forceSelection="true"
           formControlName="homeSubDistrict"
           (onDropdownClick)="handleCompleteClickSubDistrict(0)"
-          [disabled]="!manageForm.homeDistrict.district_ref">
+          [disabled]="!manageForm.acAddress.home_district">
           <ng-template let-obj pTemplate="obj">
             {{obj.sub_district_name_t}}
           </ng-template>

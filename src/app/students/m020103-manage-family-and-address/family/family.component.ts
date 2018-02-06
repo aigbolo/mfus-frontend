@@ -234,6 +234,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
 
  autocompleteProvince(event,seq: number) {
+  console.log('autocompleteProvince: '+seq);
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
@@ -298,6 +299,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  // Autocomplete filter
  autocompleteDistrict(event,seq: number) {
+  console.log('autocompleteDistrict: '+seq);
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
@@ -366,6 +368,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  autocompleteSubDistrict(event,seq: number) {
+   console.log('autocompleteSubDistrict: '+seq);
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
@@ -414,6 +417,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickProvince(index: number) {
+  console.log('handleCompleteClickProvince: '+index);
    if (index == 0) {
       setTimeout(()=>{
         this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
@@ -434,6 +438,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickDistrict(index: number) {
+  console.log('handleCompleteClickDistrict: '+index);
    if (index == 0) {
       setTimeout(()=>{
         this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
@@ -457,20 +462,23 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickSubDistrict(index: number) {
-
+  console.log('handleCompleteClickSubDistrict: '+index);
    if (index == 0) {
-      this.fSubDistrictList = [];
+    setTimeout(()=>{
       this.fSubDistrictList = this.familyAndAddress.fatherAddressService.getSubDistricts();
+    },100);
    }
 
    if (index == 1) {
-      this.mSubDistrictList = [];
+    setTimeout(()=>{
       this.mSubDistrictList = this.familyAndAddress.motherAddressService.getSubDistricts();
+    },100);
    }
 
    if (index == 2) {
-      this.pSubDistrictList = [];
+    setTimeout(()=>{
       this.pSubDistrictList = this.familyAndAddress.patrolAddressService.getSubDistricts();
+    },100);
    }
  }
 

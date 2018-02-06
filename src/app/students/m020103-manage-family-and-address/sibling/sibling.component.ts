@@ -31,7 +31,6 @@ export class SiblingComponent implements OnInit {
   }
 
 
-
   getDropDown(){
     console.log('getDropDown');
 
@@ -52,7 +51,6 @@ export class SiblingComponent implements OnInit {
     for(let data of this.manageForm.siblingList){
       if(data.sibling_name == ''|| data.sibling_name == undefined){
         this.newRow = false;
-        // this.thisFormGroup.controls["sibling_name"].markAsDirty();
       }
     }
   }
