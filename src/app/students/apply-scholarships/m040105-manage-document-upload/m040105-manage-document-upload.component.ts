@@ -194,7 +194,9 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
             console.log(error);
           })
       }, error=>{
-        console.log(error);
+          this.layoutService.setMsgDisplay(Severity.ERROR, "บันทึกข้อมูลผิดพลาด", "");
+          console.log(error);
+          this.ngProgress.done();
       })
   }
 

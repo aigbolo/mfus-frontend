@@ -64,22 +64,22 @@ implements OnInit {
     }
   }
 
-  
+
   validatorForm() {
     this.manageFormGroup = new FormGroup({
       year: new FormControl(
         this.manageForm.search_criteria.year,
         Validators.compose([Validators.required])
-      ),    
+      ),
       scholarship_ref: new FormControl(
         this.manageForm.search_criteria.announcement_ref
-      ),  
+      ),
       interview_start_date: new FormControl(
         this.manageForm.search_criteria.interview_start_date
-      ),   
+      ),
       interview_end_date: new FormControl(
         this.manageForm.search_criteria.interview_end_date
-      ),   
+      ),
     });
   }
 
@@ -92,6 +92,7 @@ implements OnInit {
     console.log("begin doSearch.......");
     this.onLoad = true;
     this.searchInterviewService.doSearch(this.searchForm).subscribe(data => {
+      console.log("begin doSearch......." , data);
       this.announceList = data;
     },
       error => {
@@ -137,7 +138,7 @@ implements OnInit {
       }
     }
     console.log(this.scholarshipAnnouncementList.length);
-    
+
   }
 
   handleCompleteClickScholarshipAnnouncement() {
@@ -156,7 +157,7 @@ implements OnInit {
     console.log("onSubmit......");
     if (this.manageFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.manageFormGroup);
-    } 
+    }
     this.doSearch();
   }
 
