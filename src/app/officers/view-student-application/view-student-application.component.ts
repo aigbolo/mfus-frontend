@@ -1,3 +1,4 @@
+import { LayoutService } from './../../services/utils/layout.service';
 import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { NgProgress } from 'ngx-progressbar';
 import { Component, OnInit } from '@angular/core';
@@ -23,9 +24,11 @@ export class ViewStudentApplicationComponent implements OnInit {
     private authService: AuthenticationService,
     private route: ActivatedRoute,
     private referenceService: ReferenceService,
-    private ngprogress: NgProgress) { }
+    private ngprogress: NgProgress,
+    private layoutService: LayoutService) { }
 
   ngOnInit() {
+    this.layoutService.setPageHeader('รายละเอียดข้อมูลการยื่นเจตจำนงขอทุนการศึกษา');
     this.ngprogress.start()
     this.application_ref = this.route.snapshot.params['id']
     this.utilsService.getApplicationStep();
