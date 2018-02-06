@@ -327,7 +327,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
       this.manageForm.acParent.mother_sub_district = null;
       this.manageForm.acParent.mother_postcode = null;
      }
-    this.fDistrictList = [];
+    this.mDistrictList = [];
     let objList: RftDistrict[];
     objList = this.familyAndAddress.motherAddressService.getDistricts();
     for (let obj of objList) {
@@ -348,7 +348,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
       this.manageForm.acParent.patrol_sub_district = null;
       this.manageForm.acParent.patrol_postcode = null;
      }
-    this.fDistrictList = [];
+    this.pDistrictList = [];
     let objList: RftDistrict[];
     objList = this.familyAndAddress.patrolAddressService.getDistricts();
     for (let obj of objList) {
