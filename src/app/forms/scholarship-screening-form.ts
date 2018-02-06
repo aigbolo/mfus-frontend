@@ -37,3 +37,4 @@ class SearchCriteria{
   this.document_screening_flag = null;
   }
 }
+

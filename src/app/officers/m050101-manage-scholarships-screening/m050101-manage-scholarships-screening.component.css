@@ -1,10 +1,20 @@
+.btn-application-preview{
+  float: right;
+}
+
 .send-no{
   width:50px;
+  text-align: center;
+}
+.documents{
+  padding-left:10px;
 }
 
 .due-date{
   width: 100px;
+  text-align: center;
 }
 .reply-status{
   width: 150px;
+  text-align: center;
 }
