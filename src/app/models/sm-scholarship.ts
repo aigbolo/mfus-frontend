@@ -11,4 +11,8 @@ export class SmScholarship {
   public create_datetime: Date;
   public update_user: string;
   public update_datetime: Date;
+
+// Fields For Display
+  public scholarship_type_name: string;
+  public sponsors_name:string;
 }

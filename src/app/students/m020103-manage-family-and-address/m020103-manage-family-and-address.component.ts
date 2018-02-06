@@ -33,6 +33,9 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   educationLevelList: RftEducationLevel[];
   items: MenuItem[];
   activeIndex: number = 0;
+
+  myDate: Date;
+  updateAddress: any;
   constructor(private layoutService: LayoutService,
     private referenceService: ReferenceService,
     private utilsService: UtilsService,
@@ -47,11 +50,12 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     private ngProgress: NgProgress) {}
 
   ngOnInit() {
+
     this.ngProgress.start();
     this.manageForm = new FamilyAndAddressForm();
     this.stepDisplay();
     this.layoutService.setPageHeader("ข้อมูลครอบครัวและที่อยู่");
-    this.getEducationDropDown();
+
     this.initialProvince();
 
 
@@ -59,20 +63,23 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
     this.familyAndAddressService.doGetParent(this.user.account_ref).subscribe(
       data=>{
         if(data.parent_ref){
+          this.insertMode = false;
           setTimeout(()=>{
             this.manageForm.acParent = data;
-            this.insertMode = false;
           },1000);
-        setTimeout(()=>{
-          this.getParentProvince();
-          this.getParentDistrict();
-          this.getParentSubDistrict();
+          setTimeout(()=>{
+            this.getParentProvince();
+            this.getParentDistrict();
+            this.getParentSubDistrict();
 
-          this.convertDateBackToFront();
-          this.initialParentAddress();
-          this.renderPage = true;
-          this.ngProgress.done();
           },2000);
+          setTimeout(()=>{
+
+            this.convertDateBackToFront();
+            this.initialParentAddress();
+            this.renderPage = true;
+            this.ngProgress.done();
+          },3000);
         }else{
           this.initialSetup();
         }
@@ -80,13 +87,13 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
         console.log(err)
       },
       ()=>{
-        console.log(this.manageForm.acParent);
       }
     );
     setTimeout(()=>{
       this.familyAndAddressService.doGetSiblings(this.user.account_ref).subscribe(
         data=>{
-          console.log(data)
+          console.log('doGetSiblings');
+          console.log(data);
           if(data)
           this.manageForm.siblingList = data;
         },err=>{
@@ -108,10 +115,13 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           this.getLivingSubDistrict();
         }
       )
-    },1000)
+    },5000)
 
+
+    this.getEducationDropDown();
 
   }
+
 
   convertDateBackToFront(){
     if(this.manageForm.acParent.father_birth_date != null)
@@ -371,11 +381,8 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   }
 
   getEducationDropDown(){
-    this.referenceService
-    .getEducationLevel()
-    .subscribe((res: RftEducationLevel[]) => {
-      this.educationLevelList = [];
-      this.educationLevelList.push(...res);
+    this.referenceService.getEducationLevel().subscribe(res=> {
+      this.educationLevelList = res;
 
     });
   }

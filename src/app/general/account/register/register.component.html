@@ -43,7 +43,7 @@
                     </p-radioButton>
                 </div>
                 <div class="col-xs-6">
-                  <label class="normal">วันเกิด</label>
+                  <label class="normal">วันเกิด *</label>
                   <p-calendar
                     [(ngModel)]="manageStudentForm.acStudent.birth_date"
                     formControlName="birth_date"
@@ -114,7 +114,7 @@
                       field="school_name_t"
                       [(ngModel)]="manageStudentForm.rftSchool"
                       [suggestions]="schoolList" (onSelect)="selectSchool()"
-                      forceselection="true"
+                      [forceSelection]="true"
                       [dropdown]="true"
                       name="school"
                       formControlName="school"
@@ -128,10 +128,10 @@
                       field="major_name_t"
                       [(ngModel)]="manageStudentForm.rftMajor"
                       [suggestions]="majorsList"
-                      forceselection="true"
+                      [forceSelection]="true"
                       name="major"
                       formControlName="major"
-                      [disabled]="!manageStudentForm.rftSchool.school_ref"
+                      [disabled]="!manageStudentForm.acStudent.school_ref"
                       [dropdown]="true"
                       (onDropdownClick)="handleCompleteClickMajor()"
                       (completeMethod)="autoCompleteMajor($event)">

@@ -1,31 +1,76 @@
+<form [formGroup]="manageFormGroup" (ngSubmit)="onSubmit()" >
+
 <div class="row overide-row">
-  <div class="col-xs-12">
-    <div class="row overide-row">
-      <div class="col-xs-6">
-        <label class="normal">บันทึกผู้มีgitสิทธิ์สัมภาษณ์</label>
-        <input type="text" class="input-company-name" pInputText maxlength="200" [(ngModel)]="searchForm.search_criteria.year">
+      <div class="col-xs-2">
+        <label class="normal">ปี *</label>
+        <input type="text" 
+        class="input-year" 
+        pInputText maxlength="4" 
+        formControlName="year"
+        [(ngModel)]="searchForm.search_criteria.year">
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-xs-10">
+          <label class="normal">ทุนการศึกษา</label>
+          <p-autoComplete
+          class="autocomplete-scholarships"
+          maxlength="50"
+          [dropdown]="true"
+          field="name"
+          [suggestions]="scholarshipAnnouncementList"
+          [forceSelection]="true"
+          formControlName="scholarship_ref"
+          [(ngModel)]="scholarshipAnnouncement"
+          (onSelect)="onSelectScholarshipAnnouncement()"
+          (onDropdownClick)="handleCompleteClickScholarshipAnnouncement()"
+          (completeMethod)="autocompleteScholarshipAnnouncement($event)">
+          </p-autoComplete>
       </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <label class="normal">วันที่สัมภาษณ์</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [locale]="th"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+          [utc]="true"
+          formControlName="interview_start_date"
+          [maxDate]="searchForm.search_criteria.interview_start_date"
+          [(ngModel)]="searchForm.search_criteria.interview_end_date">
+        </p-calendar>
+        <label for="" style="padding-left: 30px; padding-right: 5px;">ถึง</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [locale]="th"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+          formControlName="interview_end_date"
+          [minDate]="searchForm.search_criteria.interview_start_date"
+          [(ngModel)]="searchForm.search_criteria.interview_end_date">
+        </p-calendar>
     </div>
-  </div>
 </div>
 
 <!-- Action buttons here -->
 <div class="row overide-row btn-row">
   <div class="col-xs-6 btn-panel-left">
-    <button pButton class="btn-search primary" label="ค้นหาข้อมูล" (click)="onSearch()"></button>
+      <button pButton
+      class="btn-search primary"
+      label="ค้นหาข้อมูล" type="submit"></button>
   </div>
   <div class="col-xs-6 btn-panel-right">
     <button pButton (click)="onReset()" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
   </div>
 </div>
 
+</form>
+
 <p-dataTable  [value]="announceList" 
               [(selection)]="announce" 
               selectionMode="single" 
-              dataKey="sponsors_ref" 
+              dataKey="announcement_ref" 
               (onRowSelect)="onRowSelect($event)"
               [rows]="10" 
               [paginator]="true" 
@@ -43,3 +88,5 @@
   <p-column field="applicant" header="ผู้สมัคร" styleClass="applicant"></p-column>
   <p-column field="interviewee" header="ผู้มีสิทธิ์สัมภาษณ์" styleClass="applicant"></p-column>
 </p-dataTable>
+
+

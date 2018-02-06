@@ -50,13 +50,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
     private route: ActivatedRoute,
     public ngProgress: NgProgress
   ) {
-    if (this.route.snapshot.params["id"] != null) {
-      this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["id"];
-      this.onUpdatePageSetup();
-    } else {
-      this.ngProgress.done();
-      this.pageRender = true;
-    }
+
   }
 
   ngOnInit() {
@@ -71,7 +65,13 @@ export class M030101ManageSponsorsComponent implements OnInit {
     this.manageForm.sponsors.active_flag = "Y";
     this.manageForm.sponsors.create_user = this.user.user_ref;
     this.manageForm.sponsors.update_user = this.user.user_ref;
-
+    if (this.route.snapshot.params["id"] != null) {
+      this.manageForm.sponsors.sponsors_ref = this.route.snapshot.params["id"];
+      this.onUpdatePageSetup();
+    } else {
+      this.ngProgress.done();
+      this.pageRender = true;
+    }
 
   }
 

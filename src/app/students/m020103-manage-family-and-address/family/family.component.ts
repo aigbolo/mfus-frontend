@@ -49,7 +49,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  ngOnInit() {
-   console.log("FamilyComponent.ngOnInit ");
    this.validatorForm();
    this.manageForm = this.familyAndAddress.getData();
 
@@ -235,6 +234,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
 
  autocompleteProvince(event,seq: number) {
+  console.log('autocompleteProvince: '+seq);
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
@@ -299,9 +299,16 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  // Autocomplete filter
  autocompleteDistrict(event,seq: number) {
-   console.log("autocompleteDistrict");
+  console.log('autocompleteDistrict: '+seq);
+   let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
+    if(e.type == 'input'){
+      this.manageForm.dadSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.father_district = null;
+      this.manageForm.acParent.father_sub_district = null;
+      this.manageForm.acParent.father_postcode = null;
+     }
     this.fDistrictList = [];
     this.manageForm.dadSubDistrict = new RftSubDistrict();
     let objList: RftDistrict[];
@@ -309,16 +316,20 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     for (let obj of objList) {
       // Filter By string event
       if (this.manageForm.dadProvince.province_ref === obj.province_ref) {
-        if (
-          obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
-        ) {
+        if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0 ) {
           this.fDistrictList.push(obj);
         }
       }
     }
    }
    if(seq == 1){
-    this.fDistrictList = [];
+    if(e.type == 'input'){
+      this.manageForm.momSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.mother_district = null;
+      this.manageForm.acParent.mother_sub_district = null;
+      this.manageForm.acParent.mother_postcode = null;
+     }
+    this.mDistrictList = [];
     let objList: RftDistrict[];
     objList = this.familyAndAddress.motherAddressService.getDistricts();
     for (let obj of objList) {
@@ -333,7 +344,13 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     }
   }
   if(seq == 2){
-    this.fDistrictList = [];
+    if(e.type == 'input'){
+      this.manageForm.patrolSubDistrict = new RftSubDistrict();
+      this.manageForm.acParent.patrol_district = null;
+      this.manageForm.acParent.patrol_sub_district = null;
+      this.manageForm.acParent.patrol_postcode = null;
+     }
+    this.pDistrictList = [];
     let objList: RftDistrict[];
     objList = this.familyAndAddress.patrolAddressService.getDistricts();
     for (let obj of objList) {
@@ -351,9 +368,14 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  autocompleteSubDistrict(event,seq: number) {
-   console.log("autocompleteSubDistrict: ");
+   console.log('autocompleteSubDistrict: '+seq);
+   let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
+    if(e.type == 'input'){
+      this.manageForm.acParent.father_sub_district = null;
+      this.manageForm.acParent.father_postcode = null;
+     }
     this.fSubDistrictList = [];
     let objList = this.familyAndAddress.fatherAddressService.getSubDistricts();
     for (let obj of objList) {
@@ -364,6 +386,10 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     }
    }
    if(seq == 1){
+    if(e.type == 'input'){
+      this.manageForm.acParent.mother_sub_district = null;
+      this.manageForm.acParent.mother_postcode = null;
+     }
     this.mSubDistrictList = [];
     let objList = this.familyAndAddress.motherAddressService.getSubDistricts();
     for (let obj of objList) {
@@ -374,6 +400,10 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     }
   }
   if(seq == 2){
+    if(e.type == 'input'){
+      this.manageForm.acParent.patrol_sub_district = null;
+      this.manageForm.acParent.patrol_postcode = null;
+     }
     this.pSubDistrictList = [];
     let objList = this.familyAndAddress.patrolAddressService.getSubDistricts();
     for (let obj of objList) {
@@ -387,7 +417,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickProvince(index: number) {
-   console.log("handleCompleteClickProvince");
+  console.log('handleCompleteClickProvince: '+index);
    if (index == 0) {
       setTimeout(()=>{
         this.fProvinceList = this.familyAndAddress.fatherAddressService.getProvinces();
@@ -408,7 +438,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickDistrict(index: number) {
-   console.log("handleCompleteClickDistrict");
+  console.log('handleCompleteClickDistrict: '+index);
    if (index == 0) {
       setTimeout(()=>{
         this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
@@ -432,21 +462,23 @@ export class FamilyComponent extends CalendarModel implements OnInit {
  }
 
  handleCompleteClickSubDistrict(index: number) {
-   console.log("handleCompleteClickSubDistrict");
-
+  console.log('handleCompleteClickSubDistrict: '+index);
    if (index == 0) {
-      this.fSubDistrictList = [];
+    setTimeout(()=>{
       this.fSubDistrictList = this.familyAndAddress.fatherAddressService.getSubDistricts();
+    },100);
    }
 
    if (index == 1) {
-      this.mSubDistrictList = [];
+    setTimeout(()=>{
       this.mSubDistrictList = this.familyAndAddress.motherAddressService.getSubDistricts();
+    },100);
    }
 
    if (index == 2) {
-      this.pSubDistrictList = [];
+    setTimeout(()=>{
       this.pSubDistrictList = this.familyAndAddress.patrolAddressService.getSubDistricts();
+    },100);
    }
  }
 

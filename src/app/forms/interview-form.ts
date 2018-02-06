@@ -10,8 +10,8 @@ export class InterviewForm{
 }
 
 class SearchCriteria{
-    year:string;
-    scholarship_ref:string;
+    year:number;
+    announcement_ref:string;
     interview_start_date:string;
-    interview_end_date:string;
+    interview_end_date:string
 }

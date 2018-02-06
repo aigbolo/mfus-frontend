@@ -107,7 +107,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
       {value:null,label:'ไม่ระบุ'},
       {value:'1',label:'รอดำเนินการ'},
       {value:'2',label:'รอเอกสาร'},
-      {value:'3',label:'เอกสารผ่าน'},
+      {value:'3',label:'ผ่าน'},
     ]
   }
 

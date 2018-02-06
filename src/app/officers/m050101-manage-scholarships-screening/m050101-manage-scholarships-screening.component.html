@@ -1,31 +1,66 @@
+<div class="row overide-row">
+  <div class="col-xs-6">
+    <label class="normal">เลขที่ใบสมัคร</label>
+    <p>{{manageForm.application.application_code}}</p>
+  </div>
+  <div class="col-xs-6">
+    <label class="normal"></label>
+    <button pButton
+    type="button"
+    class="btn-application-preview ui-button-primary"
+    icon="fa-file-alt" iconPos="left"
+    label="ดูข้อมูลใบสมัคร"></button>
+  </div>
 
+
+</div>
   <div class="row overide-row">
       <div class="col-xs-2">
         <label class="normal">ปีการศึกษา</label>
-        <p>{{manageForm}}</p>
+        <p>{{manageForm.scholarshipAnnouncement.year}}</p>
       </div>
       <div class="col-xs-9">
           <label class="normal">ทุนการศึกษา</label>
+          <p>{{manageForm.scholarshipAnnouncement.scholarship_name}}</p>
       </div>
       <div class="col-xs-1">
           <label class="normal">รอบที่</label>
+          <p>{{manageForm.scholarshipAnnouncement.round}}</p>
       </div>
     </div>
     <div class="row overide-row">
         <div class="col-xs-3">
           <label class="normal">ชื่อ-นามสกุล</label>
+          <p>{{manageForm.student.first_name_t}}   {{manageForm.student.last_name_t}}</p>
         </div>
         <div class="col-xs-4">
             <label class="normal">สำนักวิชา</label>
+            <p>{{manageForm.student.school_name_t}}</p>
         </div>
         <div class="col-xs-4">
             <label class="normal">สาขาวิชา</label>
+            <p>{{manageForm.student.major_name_t}}</p>
         </div>
         <div class="col-xs-1">
             <label class="normal">ชั้นปี</label>
+            <p>{{manageForm.application.collage_year}}</p>
         </div>
       </div>
+      <div class="row overide-row">
+        <h4 class="custom-panel-title">ประวัติการขอเอกสารเพิ่มเติม</h4>
+    </div>
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <p-dataTable [value]="documentRequestHistoryList">
+          <p-column field="seq" header="ครั้งที่" styleClass="send-no"></p-column>
+          <p-column field="document_name" header="เอกสารที่ขอ" styleClass="documents"></p-column>
+          <p-column field="due_date" header="ตอบกลับภายใน" styleClass="due-date"></p-column>
+          <p-column field="reply_flag" header="สถานะ" styleClass="reply-status"></p-column>
+      </p-dataTable>
+      </div>
+    </div>
 
+<form  [formGroup]="manageFormGroup" (ngSubmit)="onSubmit()" >
   <div class="row overide-row">
       <h4 class="custom-panel-title">ขอเอกสารเพิ่มเติม</h4>
   </div>
@@ -36,18 +71,27 @@
       name="document-request"
       class="document-request-checkbox"
       value="{{appDoc.document_ref}}"
-      label="{{appDoc.document_name}}"></p-checkbox>
+      label="{{appDoc.document_name}}"
+      formControlName="document_request"
+      [(ngModel)]="selectedDocuments"
+      (onChange)="onSelectDocuments()"
+      ></p-checkbox>
     </div>
     <div class="col-xs-3">
-      <label class="normal">ตอบกลับภายในวันที่</label>
+      <label class="normal">ตอบกลับภายในวันที่ *</label>
       <p-calendar [showIcon]="true"
       [locale]="th" [utc]="true" dateFormat="dd/mm/yy"
+      formControlName="due_date"
+      [(ngModel)]="manageForm.sm_document_request.due_date"
       ></p-calendar>
     </div>
 </div>
 <div class="row overide-row">
-    <label class="normal">หมายเหตุ</label>
-    <textarea pInputTextarea [rows]="5" [cols]="100"></textarea>
+    <label class="normal">ข้อความ *</label>
+    <textarea pInputTextarea [rows]="5" [cols]="100"
+    formControlName="message"
+    [(ngModel)]="manageForm.sm_document_request.message"
+    ></textarea>
 </div>
 
 <!-- Action buttons here -->
@@ -58,10 +102,11 @@
     </div>
     <div class="col-xs-6 btn-panel-right">
         <button pButton
-        class="btn-pass ui-button-success" label="ผ่านการตรวจสอบ"></button>
-        <button pButton *ngIf="!manageForm.documentRequest.document_request_ref"
-        type="submit" class="btn-save ui-button-warning" label="บันทึกขอเอกสารเพิ่มเติม"></button>
-        <button pButton *ngIf="manageForm.documentRequest.document_request_ref"
+        class="btn-pass ui-button-success" label="ผ่านการตรวจสอบ" (click)="onChecked()"></button>
+        <button pButton *ngIf="!manageForm.sm_document_request.document_request_ref"
+        type="submit" class="btn-save ui-button-warning" label="ขอเอกสารเพิ่มเติม"></button>
+        <button pButton *ngIf="manageForm.sm_document_request.document_request_ref"
         type="submit" class="btn-save ui-button-warning" label="แก้ไขข้อมูล"></button>
     </div>
 </div>
+</form>

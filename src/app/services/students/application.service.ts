@@ -58,4 +58,9 @@ export class ApplicationService {
     return this.configurationService.requestMethodPOST('documentupload-view', json);
   }
 
+  initialDocumentRequestView(ref: string){
+    let json = { application_ref: ref }
+    return this.configurationService.requestMethodPOST('documentrequest-history', json);
+  }
+
 }
