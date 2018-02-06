@@ -105,7 +105,7 @@ implements OnInit {
 
   onRowSelect(event) {
     console.log('onRowSelect..............');
-    //this.utilsService.goToPage('manage-sponsors/'+this.sponsor.sponsors_ref)
+    this.utilsService.goToPage('manage-officer-interview-selecting/'+this.announce.announcement_ref)
   }
 
   onReset() {
