@@ -44,6 +44,7 @@ export class AuthenticationService {
   }
 
   changePassword(userId: string, newPassword: string) {
+    console.log("newPassword: " + newPassword);
     const param = { user_id: userId, password: newPassword }
     return this.config.requestMethodPOST('reset-password', param)
   }
