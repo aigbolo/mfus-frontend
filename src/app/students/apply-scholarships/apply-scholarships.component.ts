@@ -142,8 +142,8 @@ export class ApplyScholarshipsComponent implements OnInit {
         }, 1000);
         setTimeout(() => {
           this.getParentProvince();
-          this.getParentDistrict();
-          this.getParentSubDistrict();
+          // this.getParentDistrict();
+          // this.getParentSubDistrict();
           this.convertDateBackToFront();
           this.initialParentAddress();
         }, 2000);
@@ -206,6 +206,7 @@ export class ApplyScholarshipsComponent implements OnInit {
         this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.patrol_province).subscribe(
           data => {
             this.applyApplicationForm.patrolProvince = data;
+
           },
           err => {
             console.log(err);
@@ -213,6 +214,7 @@ export class ApplyScholarshipsComponent implements OnInit {
         );
       }
     }, 1000);
+    this.getParentDistrict();
   }
 
   getParentDistrict() {
@@ -245,6 +247,7 @@ export class ApplyScholarshipsComponent implements OnInit {
         this.fatherAddressService.getDistrictByRef(this.applyApplicationForm.acParent.patrol_district).subscribe(
           data => {
             this.applyApplicationForm.patrolDistrict = data;
+
           },
           err => {
             console.log(err);
@@ -252,6 +255,7 @@ export class ApplyScholarshipsComponent implements OnInit {
         );
       }
     }, 900);
+    this.getParentSubDistrict();
   }
 
   getParentSubDistrict() {
@@ -456,7 +460,6 @@ export class ApplyScholarshipsComponent implements OnInit {
   initialDocumentUpload() {
     this.applyScholarshipService.initialDocumentUpload(this.route.snapshot.params['id']).subscribe(
       data => {
-        console.log(data)
         this.applyApplicationForm.apDocumentUpload = data
       }
     )
