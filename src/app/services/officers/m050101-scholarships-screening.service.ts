@@ -14,8 +14,12 @@ export class M050101ScholarshipsScreeningService {
         return this.config.requestMethodPOST('document_screening',form.search_criteria);
       }
 
-      doRequestDocument(form:ScholarshipScreeningForm){
+      doCreateRequestDocument(form:ScholarshipScreeningForm){
         return this.config.requestMethodPOST('documentrequest-insert',form);
+      }
+
+      doUpdateRequestDocument(form:ScholarshipScreeningForm){
+        return this.config.requestMethodPUT('documentrequest',form);
       }
 
       getDocumentRequestLatest(applicationRef:string){

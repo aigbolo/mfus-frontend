@@ -64,34 +64,34 @@ export class UtilsService {
     this.router.navigate([path],{ queryParams:queryParam})
   }
 
-  convertBlobToString(objectUrl:any):Observable<any>{
-    var myBlob:any = null;
-    let base64data: string = null;
-    var xhr = new XMLHttpRequest();
-    const reader = new FileReader();
-    let data = new Observable(observer => {
-      setTimeout(() => {
-        xhr.open('GET', objectUrl.changingThisBreaksApplicationSecurity, true);
-        xhr.responseType = 'blob';
-        xhr.onload = function() {
-            myBlob = xhr.response
-        };
-        xhr.send();
+  // convertBlobToString(objectUrl:any):Observable<any>{
+  //   var myBlob:any = null;
+  //   let base64data: string = null;
+  //   var xhr = new XMLHttpRequest();
+  //   const reader = new FileReader();
+  //   let data = new Observable(observer => {
+  //     setTimeout(() => {
+  //       xhr.open('GET', objectUrl.changingThisBreaksApplicationSecurity, true);
+  //       xhr.responseType = 'blob';
+  //       xhr.onload = function() {
+  //           myBlob = xhr.response
+  //       };
+  //       xhr.send();
 
-      }, 50);
-      setTimeout(() => {
-        reader.readAsDataURL(myBlob);
-          reader.onloadend = function() {
-              base64data = reader.result;
-              observer.next(base64data);
-          }
-      }, 100);
-      setTimeout(() => {
-        observer.complete();
-      },150);
-    });
-    return data;
-  }
+  //     }, 50);
+  //     setTimeout(() => {
+  //       reader.readAsDataURL(myBlob);
+  //         reader.onloadend = function() {
+  //             base64data = reader.result;
+  //             observer.next(base64data);
+  //         }
+  //     }, 100);
+  //     setTimeout(() => {
+  //       observer.complete();
+  //     },150);
+  //   });
+  //   return data;
+  // }
 
   castToObject(obj: any, queryParams: any): any {
     const paramString = JSON.stringify(queryParams)
