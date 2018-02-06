@@ -1,3 +1,4 @@
+  <div *ngIf="pageRender">
   <div class="row overide-row">
       <h4 class="custom-panel-title">รายรับ - รายจ่าย</h4>
   </div>
@@ -36,18 +37,21 @@
   </div>
   <div class="space"></div>
   <div class="row formFooter overide-row">
-      <div class="col-xs-12  text-right">
-          <button class="ui-button-warning text-left"
+      <div class="col-xs-6  btn-panel-left">
+          <button class="ui-button-warning"
           type="button"
           (click)="onPrevious()"
           label="กลับ"
           pButton>
         </button>
-        <button class="ui-button-primary text-right"
+        </div>
+        <div class="col-xs-6 btn-panel-right">
+        <button class="ui-button-primary"
           type="submit"
-          label="ต่อไป"
+          label="ถัดไป"
           (click)="onNext()"
           pButton>
         </button>
       </div>
   </div>
+</div>

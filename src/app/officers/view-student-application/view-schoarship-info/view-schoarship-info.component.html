@@ -1,4 +1,4 @@
-<div *ngIf="applicationView.pageRender">
+<div *ngIf="pageRender">
     <div class="row overide-row">
         <h4 class="custom-panel-title">ข้อมูลทุนการศึกษา</h4>
     </div>
@@ -88,10 +88,12 @@
         </div>
     </div>
     <div class="row formFooter overide-row">
-        <div class="col-xs-12">
-            <button class="ui-button-warning text-left" type="button" (click)="onPrevious()" label="กลับ" pButton>
+        <div class="col-xs-6 btn-panel-left">
+            <button class="ui-button-warning" type="button" (click)="onPrevious()" label="กลับ" pButton>
         </button>
-            <button class="ui-button-primary text-right" type="submit" label="ต่อไป" (click)="onNext()" pButton>
+        </div>
+        <div class="col-xs-6 btn-panel-right">
+            <button class="ui-button-primary" type="submit" label="ถัดไป" (click)="onNext()" pButton>
           </button>
         </div>
     </div>

@@ -3,6 +3,7 @@ import { ReferenceService } from '../../../services/general/reference.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ApplicationService } from '../../../services/students/application.service';
 import { ViewStudentApplicationComponent } from '../view-student-application.component';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-view-family-and-address',
@@ -11,15 +12,16 @@ import { ViewStudentApplicationComponent } from '../view-student-application.com
 })
 export class ViewFamilyAndAddressComponent implements OnInit {
 
+  pageRender: boolean = false
   constructor(private referenceService: ReferenceService,
               private utilsService: UtilsService,
               private applicationService: ApplicationService,
-              public applicationView:ViewStudentApplicationComponent) { }
+              public applicationView:ViewStudentApplicationComponent,
+              private ngProgress: NgProgress) { }
 
   ngOnInit() {
-    this.initialFamilyAndAddress()
-    this.initialSiblingView()
-    this.initialParentView()
+    this.ngProgress.start();
+    this.initialFamilyAndAddress();
   }
 
   initialParentView(){
@@ -35,6 +37,10 @@ export class ViewFamilyAndAddressComponent implements OnInit {
         this.applicationView.applyScholarshipViewForm.acParent.patrol_province = data.patrol_province_name
         this.applicationView.applyScholarshipViewForm.acParent.patrol_district = data.patrol_district_name
         this.applicationView.applyScholarshipViewForm.acParent.patrol_sub_district = data.patrol_subdistrict_name
+      }, error=>{
+
+      }, ()=>{
+        this.initialSiblingView()
       }
     )
   }
@@ -42,7 +48,6 @@ export class ViewFamilyAndAddressComponent implements OnInit {
   initialFamilyAndAddress(){
     this.applicationService.initialAddressView(this.applicationView.applyScholarshipViewForm.acStudent.student_ref).subscribe(
       data=>{
-        console.log(data)
         this.applicationView.applyScholarshipViewForm.acAddress = data
         this.applicationView.applyScholarshipViewForm.acAddress.home_province = data.home_province_name
         this.applicationView.applyScholarshipViewForm.acAddress.home_district = data.home_district_name
@@ -52,6 +57,8 @@ export class ViewFamilyAndAddressComponent implements OnInit {
         this.applicationView.applyScholarshipViewForm.acAddress.current_sub_district = data.current_subdistrict_name
       }, error=>{
         console.log(error)
+      }, ()=>{
+        this.initialParentView()
       }
     )
   }
@@ -62,16 +69,21 @@ export class ViewFamilyAndAddressComponent implements OnInit {
         for(let obj of data){
           this.applicationView.applyScholarshipViewForm.siblingList.push(obj)
         }
+      }, error=>{
+
+      }, ()=>{
+        this.pageRender = true
+        this.ngProgress.done();
       }
     )
   }
 
   onPrevious(){
-    this.referenceService.nextIndex(1)
+    this.referenceService.nextIndex(2)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
   onNext(){
-    this.referenceService.nextIndex(2)
+    this.referenceService.nextIndex(4)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 }

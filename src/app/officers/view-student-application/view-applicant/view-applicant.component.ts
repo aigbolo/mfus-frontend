@@ -21,10 +21,8 @@ export class ViewApplicantComponent implements OnInit {
 
 
   onNext() {
-    this.referenceService.nextIndex(1)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
-    this.applicationView.pageRender = false
-    this.ngprogress.start()
+    this.referenceService.nextIndex(1);
+    this.utilsService.activeIndex = this.referenceService.getIndex();
   }
 
 

@@ -77,7 +77,8 @@ export class M040101ApplyScholarshipService {
   }
 
   updateDocumentUpload(documentUpload: ApDocumentUpload[]){
-    return this.configurationService.requestMethodPUT('documentupload', documentUpload)
+    let document_list = { document_list: documentUpload}
+    return this.configurationService.requestMethodPUT('documentupload', document_list)
   }
 
   doSearch(application: ApplyScholarshipForm) {

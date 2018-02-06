@@ -12,6 +12,8 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class ViewSchoarshipInfoComponent implements OnInit {
 
+  pageRender: boolean = false;
+
   constructor(private referenceService: ReferenceService,
     private utilsService: UtilsService,
     public applicationView: ViewStudentApplicationComponent,
@@ -19,12 +21,13 @@ export class ViewSchoarshipInfoComponent implements OnInit {
     private ngProgress: NgProgress) { }
 
   ngOnInit() {
-    this.initialScholarshipAnnouncement()
-    this.initialScholarshiphistory()
+    this.ngProgress.start();
+    this.initialScholarshipAnnouncement();
+    this.initialScholarshiphistory();
   }
 
   onPrevious() {
-    this.referenceService.nextIndex(1)
+    this.referenceService.nextIndex(0)
     this.utilsService.activeIndex = this.referenceService.getIndex()
   }
   onNext() {
@@ -45,7 +48,6 @@ export class ViewSchoarshipInfoComponent implements OnInit {
       }, error => {
 
       }, () => {
-        // this.initialScholarshiphistory()
       }
     )
   }
@@ -71,7 +73,7 @@ export class ViewSchoarshipInfoComponent implements OnInit {
         console.log(error)
       }, () => {
         this.ngProgress.done();
-        this.applicationView.pageRender = true;
+        this.pageRender = true;
       }
     )
   }
