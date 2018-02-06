@@ -52,6 +52,10 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    this.validatorForm();
    this.manageForm = this.familyAndAddress.getData();
 
+   setTimeout(()=>{
+    this.initialParentAddress();
+   },500);
+
  }
 
  validatorForm() {
@@ -231,7 +235,21 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  }
 
+ initialParentAddress(){
+  if(this.manageForm.acParent.parent_ref != null){
+    if(this.manageForm.acParent.parent_flag == '1'){
+      this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.acParent.father_province);
+      this.familyAndAddress.fatherAddressService.initialSubDistrict(this.manageForm.acParent.father_district);
+      this.familyAndAddress.motherAddressService.initialDistrict(this.manageForm.acParent.mother_province);
+      this.familyAndAddress.motherAddressService.initialSubDistrict(this.manageForm.acParent.mother_district);
 
+    }
+    if(this.manageForm.acParent.parent_flag == '2'){
+      this.familyAndAddress.patrolAddressService.initialDistrict(this.manageForm.acParent.patrol_province);
+      this.familyAndAddress.patrolAddressService.initialSubDistrict(this.manageForm.acParent.patrol_district);
+    }
+  }
+}
 
  autocompleteProvince(event,seq: number) {
   console.log('autocompleteProvince: '+seq);
@@ -313,13 +331,13 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     this.manageForm.dadSubDistrict = new RftSubDistrict();
     let objList: RftDistrict[];
     objList = this.familyAndAddress.fatherAddressService.getDistricts();
+
+    console.log('autocompleteDistrict=  '+objList.length);
     for (let obj of objList) {
       // Filter By string event
-      if (this.manageForm.dadProvince.province_ref === obj.province_ref) {
         if (obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0 ) {
           this.fDistrictList.push(obj);
         }
-      }
     }
    }
    if(seq == 1){
@@ -334,13 +352,11 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     objList = this.familyAndAddress.motherAddressService.getDistricts();
     for (let obj of objList) {
       // Filter By string event
-      if (this.manageForm.momProvince.province_ref === obj.province_ref) {
         if (
           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
         ) {
           this.mDistrictList.push(obj);
         }
-      }
     }
   }
   if(seq == 2){
@@ -355,13 +371,11 @@ export class FamilyComponent extends CalendarModel implements OnInit {
     objList = this.familyAndAddress.patrolAddressService.getDistricts();
     for (let obj of objList) {
       // Filter By string event
-      if (this.manageForm.patrolProvince.province_ref === obj.province_ref) {
         if (
           obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
         ) {
           this.pDistrictList.push(obj);
         }
-      }
     }
   }
 
@@ -442,7 +456,8 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    if (index == 0) {
       setTimeout(()=>{
         this.fDistrictList = this.familyAndAddress.fatherAddressService.getDistricts();
-        this.fSubDistrictList = [];
+        console.log(this.fDistrictList);
+        console.log('handleCompleteClickDistrict='+this.fDistrictList.length);
       },100);
 
 
@@ -450,13 +465,12 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    if (index == 1) {
     setTimeout(()=>{
       this.mDistrictList = this.familyAndAddress.motherAddressService.getDistricts();
-      this.mSubDistrictList = [];
+
     },100);
    }
    if (index == 2) {
     setTimeout(()=>{
       this.pDistrictList = this.familyAndAddress.patrolAddressService.getDistricts();
-      this.pSubDistrictList = [];
     },100);
    }
  }

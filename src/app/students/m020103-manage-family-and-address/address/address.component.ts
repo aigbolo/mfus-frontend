@@ -265,6 +265,7 @@ export class AddressComponent implements OnInit {
   // Autocomplete Selected
   selectProvince(index: number) {
     if(index == 0){
+      this.manageForm.acAddress.home_province = this.manageForm.homeProvince.province_ref;
       this.familyAndAddress.homeAddressService.initialDistrict(this.manageForm.homeProvince.province_ref);
     }
     if(index == 1){
@@ -274,20 +275,24 @@ export class AddressComponent implements OnInit {
 
   selectDistrict(index: number) {
     if(index == 0){
+      this.manageForm.acAddress.home_district = this.manageForm.homeDistrict.district_ref;
       this.familyAndAddress.homeAddressService.initialSubDistrict(this.manageForm.homeDistrict.district_ref);
     }
     if(index == 1){
       this.familyAndAddress.currentAddressService.initialSubDistrict(this.manageForm.currentDistrict.district_ref);
+      this.manageForm.acAddress.current_district = this.manageForm.currentDistrict.district_ref;
     }
 
   }
 
   selectSubDistrict(index: number) {
     if(index == 0){
+      this.manageForm.acAddress.home_sub_district = this.manageForm.homeSubDistrict.sub_district_ref;
       this.manageForm.acAddress.home_postcode = this.manageForm.homeSubDistrict.postcode;
     }
     if(index == 1){
       this.manageForm.acAddress.current_postcode = this.manageForm.currentSubDistrict.postcode;
+      this.manageForm.acAddress.current_sub_district = this.manageForm.currentSubDistrict.sub_district_ref;
     }
   }
 
@@ -298,19 +303,9 @@ export class AddressComponent implements OnInit {
     console.log("submitButtonOnClick");
 
     if(this.manageFormGroup.invalid){
-
+      this.utilsService.findInvalidControls(this.manageFormGroup);
     }else{
-         // set home address
-    // set home address
-    this.manageForm.acAddress.home_province = this.manageForm.homeProvince.province_ref;
-    this.manageForm.acAddress.home_district = this.manageForm.homeDistrict.district_ref;
-    this.manageForm.acAddress.home_sub_district = this.manageForm.homeSubDistrict.sub_district_ref;
-
-    // set home address
-    this.manageForm.acAddress.current_province = this.manageForm.currentProvince.province_ref;
-    this.manageForm.acAddress.current_district = this.manageForm.currentDistrict.district_ref;
-    this.manageForm.acAddress.current_sub_district = this.manageForm.currentSubDistrict.sub_district_ref;
-    this.familyAndAddress.onSubmit(this.manageForm);
+      this.familyAndAddress.onSubmit(this.manageForm);
     }
 
   }
