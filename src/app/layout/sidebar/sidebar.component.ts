@@ -37,7 +37,8 @@ export class SidebarComponent implements OnInit {
       {
         label: 'จัดการผู้ใช้',
         items: [
-          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer-profile'] }
+          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer-profile'] },
+           { label: 'เปลี่ยนรหัสผ่าน', routerLink: ['/change-password'] }
         ]
       },
       {
