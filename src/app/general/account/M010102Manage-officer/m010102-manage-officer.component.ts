@@ -306,6 +306,12 @@ export class M010102ManageOfficerComponent implements OnInit {
   }
 
   onSubmit() {
+    this.manageOfficerForm.acOfficer.province = this.manageOfficerForm.rftProvince.province_ref;
+      this.manageOfficerForm.acOfficer.district = this.manageOfficerForm.rftDistrict.district_ref;
+      this.manageOfficerForm.acOfficer.sub_district = this.manageOfficerForm.rftSubDistrict.sub_district_ref;
+      this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(
+        this.flag
+      );
     if (this.officerFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.officerFormGroup);
       return;
@@ -338,12 +344,6 @@ export class M010102ManageOfficerComponent implements OnInit {
         }
         );
     } else {
-      this.manageOfficerForm.acOfficer.province = this.manageOfficerForm.rftProvince.province_ref;
-      this.manageOfficerForm.acOfficer.district = this.manageOfficerForm.rftDistrict.district_ref;
-      this.manageOfficerForm.acOfficer.sub_district = this.manageOfficerForm.rftSubDistrict.sub_district_ref;
-      this.manageOfficerForm.acOfficer.manage_officer_flag = this.utilsService.getManageStatus(
-        this.flag
-      );
       console.log(this.manageOfficerForm.acOfficer)
       this.officerService.doUpdate(this.manageOfficerForm.acOfficer).subscribe(res => {
       }, error => {

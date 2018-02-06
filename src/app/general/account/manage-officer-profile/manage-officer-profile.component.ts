@@ -263,4 +263,7 @@ export class ManageOfficerProfileComponent implements OnInit {
       this.layoutService.setMsgDisplay(Severity.SUCCESS, "แก้ไขข้อมูลสำเร็จ", "")
     })
   }
+  onResetClick(){
+    window.location.reload();
+  }
 }

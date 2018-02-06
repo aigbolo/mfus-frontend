@@ -56,6 +56,7 @@ export class S010102SearchOfficerComponent implements OnInit {
 
   onResetClick() {
     this.searchForm = new OfficerForm();
+    this.listOfficer = [];
   }
 
   onInsertPageClick() {
