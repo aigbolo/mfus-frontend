@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'จัดการคัดเลือกทุนการศึกษา',
         items: [
-          { label: 'คัดกรองเอกสาร', routerLink: ['/search-document-screen'] },
+          { label: 'คัดกรองเอกสาร', routerLink: ['/search-scholarship-screening'] },
           { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/interview-selecting'] },
           { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] }
         ]

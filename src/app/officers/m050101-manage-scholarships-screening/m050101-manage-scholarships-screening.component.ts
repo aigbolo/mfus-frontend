@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { Severity } from './../../enum';
 import { ApApplication } from './../../models/ap-application';
 import { M040101ApplyScholarshipService } from './../../services/students/m040101-apply-scholarship.service';
 import { AcUser } from './../../models/ac-user';
@@ -32,9 +34,11 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
 
   documentRequestHistoryList:any[] = [];
   selectedDocuments: string[] = [];
+  viewApplicationUrl: string = '#';
   constructor(private layoutService: LayoutService,
     private utilsService: UtilsService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private referenceService: ReferenceService,
     private scholarshipScreeningService: M050101ScholarshipsScreeningService,
     private applicationService: ApplicationService,
@@ -52,18 +56,19 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
 
     this.validatorForm();
 
-    let application_ref = this.route.snapshot.params["id"];
-    if (this.route.snapshot.params["id"] != null) {
+    let application_ref = this.activatedRoute.snapshot.params["id"];
+    if (this.activatedRoute.snapshot.params["id"] != null) {
       this.applicationService.initialApApplicationView(application_ref).subscribe(
         data=>{
           console.log(data);
           if(data){
-          this.manageForm.application = data;
-          this.getDocumentRequestLatest(data.application_ref);
-          this.getDocumentRequestDetailLatest(data.application_ref);
-          this.getDocumentRequestHistory(data.application_ref);
-          this.getStudentView(data.student_ref);
-          this.getScholarshipAnnouncementView(data.announcement_ref);
+            this.viewApplicationUrl = '/application-view/'+data.application_ref;
+            this.manageForm.application = data;
+            this.getDocumentRequestLatest(data.application_ref);
+            this.getDocumentRequestDetailLatest(data.application_ref);
+            this.getDocumentRequestHistory(data.application_ref);
+            this.getStudentView(data.student_ref);
+            this.getScholarshipAnnouncementView(data.announcement_ref);
           }
         },
         err=>{
@@ -139,7 +144,7 @@ getDocumentRequestHistory(application_ref:string){
     data=>{
 
       this.documentRequestHistoryList = data;
-      console.log(this.documentRequestHistoryList);
+
     },err=>{
       console.log(err);
     }
@@ -151,8 +156,10 @@ getDocumentRequestLatest(application_ref:string){
   this.scholarshipScreeningService.getDocumentRequestLatest(application_ref).subscribe(
     data=>{
       console.log(data);
-      if(data)
+      if(data){
         this.manageForm.sm_document_request = data;
+        this.manageForm.sm_document_request.due_date = new Date(data.due_date);
+      }
     },err=>{console.log(err)}
   );
 }
@@ -193,29 +200,71 @@ onSubmit(){
   if (this.manageFormGroup.invalid) {
     this.utilsService.findInvalidControls(this.manageFormGroup);
   } else {
-    this.scholarshipScreeningService.doRequestDocument(this.manageForm)
-    .subscribe(
-      data=>{
+    if(this.manageForm.sm_document_request.document_request_ref != null){
 
-      },err=>{
-        console.log(err);
-      },
-      ()=>{
-        let application: ApApplication = new ApApplication;
-        application.document_screening_flag = '2';
-        application.application_ref = this.manageForm.application.application_ref;
-        application.update_user = this.user.account_ref;
-        this.applyScholarshipService.updateApplication(application).subscribe(
-          ()=>{
-
-          },err=>{
-            console.log(err);
+      console.log(this.manageForm);
+      this.scholarshipScreeningService.doUpdateRequestDocument(this.manageForm)
+      .subscribe(
+        data=>{
+          if(data){
+            let application: ApApplication = new ApApplication;
+            application.document_screening_flag = '2';
+            application.application_ref = this.manageForm.application.application_ref;
+            application.update_user = this.user.account_ref;
+            this.applyScholarshipService.updateApplication(application).subscribe(
+              ()=>{
+                this.layoutService.setMsgDisplay(Severity.SUCCESS,"แก้ไขข้อมูลสำเร็จ","");
+              },err=>{
+                this.layoutService.setMsgDisplay(Severity.ERROR,"แก้ไขข้อมูลไม่สำเร็จ","");
+                console.log(err);
+              }
+            )
           }
-        )
-      }
-    );
+
+        },
+        err=>{
+          this.layoutService.setMsgDisplay(Severity.ERROR,"แก้ไขข้อมูลไม่สำเร็จ","");
+          console.log(err);
+        },
+        ()=>{
+          this.onPageSearch();
+
+        }
+      );
+    }else{
+      this.scholarshipScreeningService.doCreateRequestDocument(this.manageForm)
+      .subscribe(
+        data=>{
+          if(data){
+            let application: ApApplication = new ApApplication;
+            application.document_screening_flag = '2';
+            application.application_ref = this.manageForm.application.application_ref;
+            application.update_user = this.user.account_ref;
+            this.applyScholarshipService.updateApplication(application).subscribe(
+              ()=>{
+                this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+              },err=>{
+                this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");
+                console.log(err);
+              }
+            )
+          }
+
+        },
+        err=>{
+          this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");
+          console.log(err);
+        },
+        ()=>{
+          this.onPageSearch();
+
+        }
+      );
+    }
   }
 }
+
+
 onChecked(){
   let application: ApApplication = new ApApplication;
   application.document_screening_flag = '3';
@@ -229,4 +278,12 @@ onChecked(){
     }
   )
 }
+onPageSearch() {
+
+  const params = JSON.parse(localStorage.getItem('currentSearchParam'));
+  console.log('param: '+params);
+  this.utilsService.goToPageWithQueryParam('search-scholarship-screening',params);
+  // this.utilsService.goToPage("search-scholarship-screening");
+}
+
 }

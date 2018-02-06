@@ -126,6 +126,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
   }
 
   onSearch(){
+    localStorage.setItem('currentSearchParam', JSON.stringify(this.searchForm.search_criteria));
     this.utilsService.goToPageWithQueryParam('search-scholarship-screening',this.searchForm.search_criteria);
     this.doSearch();
   }
