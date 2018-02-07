@@ -64,11 +64,11 @@
                           pInputText>
                     </ng-template>
                 </p-column>
-                <p-column header="ปีการศึกษา" field="year" size="20px">
+                <p-column header="ปีการศึกษา (ค.ศ.)" field="year" size="20px">
                     <ng-template let-col let-obj="rowData" pTemplate="body">
                         <input type="text"
                           [(ngModel)]="obj.year"
-                          [ngModelOptions]="{standalone: true}"
+                          formControlName="scholarshipHistory_year"
                           minlength="4"
                           maxlength="4"
                           pInputText>
@@ -116,13 +116,12 @@
                         {{obj+1}}
                     </ng-template>
                 </p-column>
-                <p-column header="ปีการศึกษา" field="year">
+                <p-column header="ปีการศึกษา (ค.ศ.)" field="year">
                     <ng-template let-col let-obj="rowData" pTemplate="body">
-                        <input type="number"
+                        <input type="text"
                           minlength="4"
                           maxlength="4"
-                          name="scholarshipHistory_year"
-                          formControlName="scholarshipHistory_year"
+                          formControlName="studentLoanFund_year"
                           [(ngModel)]="obj.year"
                           pInputText>
                     </ng-template>
@@ -159,7 +158,8 @@
         </div>
     </div>
     <div class="row overide-row">
-        <h4 class="custom-panel-title">แผนการใช้เงิน</h4>
+        <h4 class="custom-panel-title">แผนการใช้เงิน *</h4>
+        <label class="normal ">กรุณาเขียนบรรยายแผนการใช้เงินของนักศึกษา *</label>
         <div class="col-xs-12 txt-area-center">
             <textarea class="fullWidth"
               [(ngModel)]="applyApplication.applyApplicationForm.apApplication.money_spend_plan"

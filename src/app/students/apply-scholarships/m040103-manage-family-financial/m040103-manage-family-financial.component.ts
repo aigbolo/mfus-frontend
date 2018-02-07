@@ -16,6 +16,8 @@ import { ReferenceService } from '../../../services/general/reference.service';
 export class M040103ManageFamilyFinancialComponent implements OnInit {
 
   familyFinancialFormGroup: FormGroup
+  familyDebt:ApFamilyDebt = new ApFamilyDebt()
+
   constructor(public applyApplication: ApplyScholarshipsComponent,
               private ngprogress: NgProgress,
               private referenceService: ReferenceService,
@@ -30,7 +32,7 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     this.familyFinancialFormGroup = new FormGroup({
       income_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly,
         Validators.compose([Validators.required])),
-        expense_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly,
+      expense_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly,
         Validators.compose([Validators.required]))
     })
     this.ngprogress.done()
@@ -49,8 +51,14 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
   }
 
   onNext(){
+    if (this.familyFinancialFormGroup.invalid) {
+      this.utilsService.findInvalidControls(this.familyFinancialFormGroup);
+      return;
+    }
     this.applyApplication.applyApplicationForm.apFamilyFinancial.create_user = this.applyApplication.user_ref
-    this.applyApplication.applyApplicationForm.apFamilyFinancial.update_user = this.applyApplication.user_ref
+    if(this.applyApplication.update_state == true){
+      this.applyApplication.applyApplicationForm.apFamilyFinancial.update_user = this.applyApplication.user_ref
+    }
     console.log(this.applyApplication.applyApplicationForm)
     this.referenceService.nextIndex(3)
     this.utilsService.activeIndex = this.referenceService.getIndex()

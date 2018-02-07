@@ -29,10 +29,9 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     private ngProgress: NgProgress) { }
 
   ngOnInit() {
-    this.ngProgress.start()
-    this.initialScholarshipAnnouncement()
-    console.log(this.applyApplication.applyApplicationForm)
-    this.validateForm()
+    this.ngProgress.start();
+    this.initialScholarshipAnnouncement();
+    this.validateForm();
   }
 
   validateForm() {
@@ -41,25 +40,23 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
         Validators.compose([Validators.required])),
       money_spend_plan: new FormControl(this.applyApplication.applyApplicationForm.apApplication.money_spend_plan,
         Validators.compose([Validators.required])),
-        formControlName:new FormControl(this.apScholarshipHistory.year,
-        Validators.compose([Validators.max(this.applyApplication.current_year)]))
+      scholarshipHistory_year:new FormControl('', Validators.max(this.applyApplication.current_year)),
+      studentLoanFund_year: new FormControl('', Validators.max(this.applyApplication.current_year))
     })
   }
 
   initialScholarshipAnnouncement() {
-    console.log('initialScholarshipAnnouncement')
-    console.log('update_state: ' + this.applyApplication.update_state)
     this.applyScholarshipService.initialScholarshipAnnouncementList()
       .subscribe(data => {
         for (let obj of data) {
           if (this.applyApplication.applyApplicationForm.apApplication.gpax >= obj.min_gpax) {
-            this.initialList.push(...data);
+            this.initialList.push(obj);
           }
         }
-        this.applyApplication.pageRender = true
-        this.ngProgress.done()
+        this.applyApplication.pageRender = true;
+        this.ngProgress.done();
       }, error => {
-        console.log(error)
+        console.log(error);
       })
   }
 

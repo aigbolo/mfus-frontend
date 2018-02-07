@@ -36,6 +36,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   update_state: boolean = false
 
   current_year = new Date().getFullYear();
+
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,

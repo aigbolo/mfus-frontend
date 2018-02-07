@@ -61,7 +61,7 @@ export class ManageOfficerProfileComponent implements OnInit {
     this.manageOfficerForm.acOfficer.officer_ref = this.authService.getUser().account_ref
     this.officerService.selectOfficer(this.manageOfficerForm.acOfficer).subscribe(
       data => {
-        this.manageOfficerForm.acOfficer = data
+        this.manageOfficerForm.acOfficer = data;
       }, error => {
 
       }, () => {

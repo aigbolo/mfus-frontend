@@ -26,7 +26,6 @@ import { AcUser } from "../../../models/ac-user";
 })
 export class M010102ManageOfficerComponent implements OnInit {
   pageRender = false;
-  // user = localStorage.getItem("username");
   manageOfficerForm: OfficerForm;
   manageOfficerForm2: OfficerForm;
   officerFormGroup: FormGroup;
@@ -69,7 +68,7 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.ngProgress.start();
     this.manageOfficerForm = new OfficerForm();
     this.btnLabel = "เพิ่มข้อมูล";
-    this.layoutService.setPageHeader("บันทึกข้อมูลเจ้าหน้าที่");
+    this.layoutService.setPageHeader("เพิ่มข้อมูลเจ้าหน้าที่");
     this.login()
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
