@@ -35,6 +35,7 @@ export class S030102SearchScolarshipComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.layoutService.setPageHeader('ค้นหาข้อมูลทุนการศึกษา');
     this.getScholarshipType();
     this.activeFlag = this.utilsService.getActiveFlag("S");
     this.referenceService.initialSponsors();
@@ -44,13 +45,11 @@ export class S030102SearchScolarshipComponent implements OnInit {
     this.referenceService.initialScholarshipType().subscribe(data => {
       data.unshift(this.defaultobj);
       this.sctype_type = data;
-      console.log(this.sctype_type);
       return this.sctype_type;
     });
   }
 
   autocompleteSponsors(event) {
-    console.log("autocompleteSponsors");
     let query = event.query;
     this.sponsorsList = [];
     let objList: SmSponsors[];
@@ -98,7 +97,6 @@ export class S030102SearchScolarshipComponent implements OnInit {
         console.log("error: " + error);
       },
       () => {
-        console.log(this.scholarshipFormList);
         return this.scholarshipFormList;
       }
     );

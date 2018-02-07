@@ -2,7 +2,6 @@
   [formGroup]="officerFormGroup"
   (ngSubmit)="onSubmit()">
     <div class="row overide-row">
-      <h4 class="custom-panel-title">แก้ไขข้อมูลส่วนตัว</h4>
       <div class="col-xs-9">
           <div class="row overide-row">
             <div class="col-xs-9">
@@ -188,13 +187,15 @@
         </div>
     </div>
 <div class="row overide-row btn-row">
-  <div class="col-xs-6 btn-panel-right">
+  <div class="col-xs-6 btn-panel-left">
     <button class="bbtn-reset ui-button-warning"
       type="button"
       label="เริ่มใหม่"
       (click)="onResetClick()"
-      pButton>
+       pButton>
     </button>
+  </div>
+  <div class="col-xs-6 btn-panel-right">
     <button class="btn-save ui-button-success"
       type="submit"
       label="แก้ไขข้อมูล"

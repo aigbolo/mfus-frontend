@@ -38,18 +38,20 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   }
 
   ngOnInit() {
-    this.ngprogress.start()
-    this.gettitleList()
-    this.initialData()
+    this.layoutService.setPageHeader('แก้ไขข้อมูลส่วนตัว');
+    this.ngprogress.start();
+    this.gettitleList();
+    this.initialData();
     this.referenceService.initialSchools();
-    this.validateForm()
+    this.validateForm();
   }
 
   initialData() {
-    this.manageStudentForm.acStudent.student_ref = this.authService.getUser().account_ref
+    this.manageStudentForm.acStudent.student_ref = this.authService.getUser().account_ref;
+
     this.m010101ManageStudentService.doSelect(this.manageStudentForm.acStudent).subscribe(data => {
-      this.manageStudentForm.acStudent = data
-      this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date)
+      this.manageStudentForm.acStudent = data;
+      this.manageStudentForm.acStudent.birth_date = new Date(this.manageStudentForm.acStudent.birth_date);
       this.referenceService.getSchoolByRef(this.manageStudentForm.acStudent.school_ref).subscribe(
         data => {
           this.manageStudentForm.rftSchool = data
@@ -63,16 +65,16 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
               this.ngprogress.done();
               this.pageRender = true
             }
-          )
-        })
+          );
+        });
     }, error => {
       console.log(error)
     }
-    )
+    );
   }
 
   gettitleList() {
-    this.titleList = this.utilsService.getTitleList()
+    this.titleList = this.utilsService.getTitleList();
   }
 
   validateForm() {
