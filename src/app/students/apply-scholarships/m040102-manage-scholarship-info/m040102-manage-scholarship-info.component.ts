@@ -50,7 +50,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
       .subscribe(data => {
         for (let obj of data) {
           if (this.applyApplication.applyApplicationForm.apApplication.gpax >= obj.min_gpax) {
-            this.initialList.push(obj);
+              this.initialList.push(obj);
           }
         }
         this.applyApplication.pageRender = true;
@@ -100,7 +100,6 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   addStdLoan() {
-    // let studentLoanFund = new ApStudentLoanFund()
     this.apStudentLoanFund.create_user = this.applyApplication.user_ref
     this.apStudentLoanFund.update_user = this.applyApplication.user_ref
     this.apStudentLoanFund.student_ref = this.applyApplication.account_ref

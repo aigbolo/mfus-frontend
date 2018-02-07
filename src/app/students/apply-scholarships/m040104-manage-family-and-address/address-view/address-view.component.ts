@@ -11,7 +11,6 @@ export class AddressViewComponent implements OnInit {
   constructor(public applyApplication: ApplyScholarshipsComponent,) { }
 
   ngOnInit() {
-    console.log(this.applyApplication.applyApplicationForm.acAddress)
   }
 
 }

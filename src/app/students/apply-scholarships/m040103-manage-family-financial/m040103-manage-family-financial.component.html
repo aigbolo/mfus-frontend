@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="row overide-row">
-        <h4 class="custom-panel-title">ภาระหนี้สินครอบครัว</h4>
+        <h4 class="custom-panel-title">ภาระหนี้สินครอบครัว *</h4>
         <div class="col-xs-12">
             <p-dataTable [value]="applyApplication.applyApplicationForm.apFamiyDebt" [immutable]=false>
                 <p-column header="ลำดับ" field="seq" styleClass="datatable-index">
@@ -43,8 +43,9 @@
                 <p-column header="รายละเอียด" field="debt_detail">
                     <ng-template let-col let-obj="rowData" pTemplate="body">
                         <input type="text"
-                          [ngModelOptions]="{standalone: true}"
                           [(ngModel)]="obj.debt_detail"
+                          formControlName="debt_detail"
+                          maxlength="500"
                           pInputText>
                     </ng-template>
                 </p-column>
@@ -60,7 +61,7 @@
                     </ng-template>
                     <ng-template let-col let-obj="rowData" pTemplate="body">
                         <input type="text"
-                          [ngModelOptions]="{standalone: true}"
+                          formControlName="debt_amount"
                           [options]="{ prefix: '', thousands: ',', decimal: '.' }"
                           min="0"
                           max="999999.99"
