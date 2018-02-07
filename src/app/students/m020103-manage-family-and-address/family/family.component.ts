@@ -52,9 +52,6 @@ export class FamilyComponent extends CalendarModel implements OnInit {
    this.validatorForm();
    this.manageForm = this.familyAndAddress.getData();
 
-   setTimeout(()=>{
-    this.initialParentAddress();
-   },500);
 
  }
 
@@ -235,21 +232,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  }
 
- initialParentAddress(){
-  if(this.manageForm.acParent.parent_ref != null){
-    if(this.manageForm.acParent.parent_flag == '1'){
-      this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.acParent.father_province);
-      this.familyAndAddress.fatherAddressService.initialSubDistrict(this.manageForm.acParent.father_district);
-      this.familyAndAddress.motherAddressService.initialDistrict(this.manageForm.acParent.mother_province);
-      this.familyAndAddress.motherAddressService.initialSubDistrict(this.manageForm.acParent.mother_district);
 
-    }
-    if(this.manageForm.acParent.parent_flag == '2'){
-      this.familyAndAddress.patrolAddressService.initialDistrict(this.manageForm.acParent.patrol_province);
-      this.familyAndAddress.patrolAddressService.initialSubDistrict(this.manageForm.acParent.patrol_district);
-    }
-  }
-}
 
  autocompleteProvince(event,seq: number) {
   console.log('autocompleteProvince: '+seq);

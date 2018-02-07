@@ -76,6 +76,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           setTimeout(()=>{
             this.getParentDistrict();
             this.getParentSubDistrict();
+
             this.renderPage = true;
             this.ngProgress.done();
           },3000);
@@ -86,6 +87,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
         console.log(err)
       },
       ()=>{
+        this.initialParentAddress();
       }
     );
 
@@ -162,6 +164,22 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
           },1000);
     }
 
+  }
+
+  initialParentAddress(){
+    if(this.manageForm.acParent.parent_ref != null){
+      if(this.manageForm.acParent.parent_flag == '1'){
+        this.fatherAddressService.initialDistrict(this.manageForm.acParent.father_province);
+        this.fatherAddressService.initialSubDistrict(this.manageForm.acParent.father_district);
+        this.motherAddressService.initialDistrict(this.manageForm.acParent.mother_province);
+        this.motherAddressService.initialSubDistrict(this.manageForm.acParent.mother_district);
+
+      }
+      if(this.manageForm.acParent.parent_flag == '2'){
+        this.patrolAddressService.initialDistrict(this.manageForm.acParent.patrol_province);
+        this.patrolAddressService.initialSubDistrict(this.manageForm.acParent.patrol_district);
+      }
+    }
   }
 
   getParentProvince(){

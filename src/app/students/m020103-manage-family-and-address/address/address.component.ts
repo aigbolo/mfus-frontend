@@ -102,11 +102,19 @@ export class AddressComponent implements OnInit {
 
   autocompleteProvince(event,index:number) {
     console.log("autocompleteProvince");
+    let e = event.originalEvent;
     let query = event.query;
     if(index == 0){
+      if(e.type == 'input'){
+        this.manageForm.homeDistrict = new RftDistrict();
+        this.manageForm.homeSubDistrict = new RftSubDistrict();
+        this.manageForm.acAddress.home_province = null;
+        this.manageForm.acAddress.home_district = null;
+        this.manageForm.acAddress.home_sub_district = null;
+        this.manageForm.acAddress.home_postcode = null;
+      }
       this.homeProvinceList = [];
-      this.manageForm.homeDistrict = new RftDistrict();
-      this.manageForm.homeSubDistrict = new RftSubDistrict();
+
       let objList: RftProvince[];
       objList = this.familyAndAddress.homeAddressService.getProvinces();
       for (let obj of objList) {
@@ -118,8 +126,15 @@ export class AddressComponent implements OnInit {
     }
     if(index == 1){
       this.currentProvinceList = [];
-      this.manageForm.currentDistrict = new RftDistrict();
-      this.manageForm.currentSubDistrict = new RftSubDistrict();
+      if(e.type == 'input'){
+        this.manageForm.currentDistrict = new RftDistrict();
+        this.manageForm.currentSubDistrict = new RftSubDistrict();
+        this.manageForm.acAddress.current_province = null;
+        this.manageForm.acAddress.current_district = null;
+        this.manageForm.acAddress.current_sub_district = null;
+        this.manageForm.acAddress.current_postcode = null;
+      }
+
       let objList: RftProvince[];
       objList = this.familyAndAddress.currentAddressService.getProvinces();
       for (let obj of objList) {
@@ -135,10 +150,16 @@ export class AddressComponent implements OnInit {
   // Autocomplete filter
   autocompleteDistrict(event,index:number) {
     console.log("autocompleteDistrict");
+    let e = event.originalEvent;
     let query = event.query;
     if(index ==0){
       this.homeDistrictList = [];
-      this.manageForm.homeSubDistrict = new RftSubDistrict();
+      if(e.type == 'input'){
+        this.manageForm.homeSubDistrict = new RftSubDistrict();
+        this.manageForm.acAddress.home_district = null;
+        this.manageForm.acAddress.home_sub_district = null;
+        this.manageForm.acAddress.home_postcode = null;
+      }
       let objList: RftDistrict[];
       objList = this.familyAndAddress.homeAddressService.getDistricts();
       for (let obj of objList) {
@@ -154,7 +175,12 @@ export class AddressComponent implements OnInit {
     }
     if(index ==1){
       this.currentDistrictList = [];
-      this.manageForm.currentSubDistrict = new RftSubDistrict();
+      if(e.type == 'input'){
+        this.manageForm.currentSubDistrict = new RftSubDistrict();
+        this.manageForm.acAddress.current_district = null;
+        this.manageForm.acAddress.current_sub_district = null;
+        this.manageForm.acAddress.current_postcode = null;
+      }
       let objList: RftDistrict[];
       objList = this.familyAndAddress.currentAddressService.getDistricts();
       for (let obj of objList) {
@@ -173,9 +199,14 @@ export class AddressComponent implements OnInit {
 
   autocompleteSubDistrict(event,index:number) {
     console.log("autocompleteSubDistrict: " + this.manageForm.homeDistrict.district_ref);
+    let e= event.originalEvent;
     let query = event.query;
     if(index == 0){
       this.homeSubDistrictList = [];
+      if(e.type == 'input'){
+        this.manageForm.acAddress.home_sub_district = null;
+        this.manageForm.acAddress.home_postcode = null;
+      }
       let objList: RftSubDistrict[] = this.familyAndAddress.homeAddressService.getSubDistricts();
       for (let obj of objList) {
         // Filter By string event
@@ -194,6 +225,10 @@ export class AddressComponent implements OnInit {
     }
     if(index == 1){
       this.currentSubDistrictList = [];
+      if(e.type == 'input'){
+        this.manageForm.acAddress.current_sub_district = null;
+        this.manageForm.acAddress.current_postcode = null;
+      }
       let objList: RftSubDistrict[] = this.familyAndAddress.currentAddressService.getSubDistricts();
       for (let obj of objList) {
         // Filter By string event
@@ -218,15 +253,11 @@ export class AddressComponent implements OnInit {
     if (index == 0) {
       setTimeout(() => {
         this.homeProvinceList = this.familyAndAddress.homeAddressService.getProvinces();
-        this.homeDistrictList = [];
-        this.homeSubDistrictList = [];
       }, 100);
     }
     if (index == 1) {
       setTimeout(() => {
         this.currentProvinceList = this.familyAndAddress.currentAddressService.getProvinces();
-        this.currentDistrictList = [];
-        this.currentSubDistrictList = [];
       }, 100);
     }
   }
@@ -236,13 +267,11 @@ export class AddressComponent implements OnInit {
     if (index == 0) {
       setTimeout(() => {
         this.homeDistrictList = this.familyAndAddress.homeAddressService.getDistricts();
-        this.homeSubDistrictList = [];
       }, 100);
     }
     if (index == 1) {
       setTimeout(() => {
         this.currentDistrictList = this.familyAndAddress.currentAddressService.getDistricts();
-        this.currentSubDistrictList = [];
       }, 100);
     }
   }
@@ -252,7 +281,6 @@ export class AddressComponent implements OnInit {
     if (index == 0) {
       setTimeout(() => {
         this.homeSubDistrictList = this.familyAndAddress.homeAddressService.getSubDistricts();
-        console.log("index:0 ==> "+this.homeSubDistrictList.length);
       }, 100);
     }
     if (index == 1) {
@@ -267,9 +295,20 @@ export class AddressComponent implements OnInit {
     if(index == 0){
       this.manageForm.acAddress.home_province = this.manageForm.homeProvince.province_ref;
       this.familyAndAddress.homeAddressService.initialDistrict(this.manageForm.homeProvince.province_ref);
+      this.manageForm.homeDistrict = new RftDistrict();
+      this.manageForm.homeSubDistrict = new RftSubDistrict();
+      this.manageForm.acAddress.home_district = null;
+      this.manageForm.acAddress.home_sub_district = null;
+      this.manageForm.acAddress.home_postcode = null;
     }
     if(index == 1){
+      this.manageForm.acAddress.current_province = this.manageForm.currentProvince.province_ref;
       this.familyAndAddress.currentAddressService.initialDistrict(this.manageForm.currentProvince.province_ref);
+      this.manageForm.currentDistrict = new RftDistrict();
+      this.manageForm.currentSubDistrict = new RftSubDistrict();
+      this.manageForm.acAddress.current_district = null;
+      this.manageForm.acAddress.current_sub_district = null;
+      this.manageForm.acAddress.current_postcode = null;
     }
   }
 
@@ -277,10 +316,16 @@ export class AddressComponent implements OnInit {
     if(index == 0){
       this.manageForm.acAddress.home_district = this.manageForm.homeDistrict.district_ref;
       this.familyAndAddress.homeAddressService.initialSubDistrict(this.manageForm.homeDistrict.district_ref);
+      this.manageForm.homeSubDistrict = new RftSubDistrict();
+      this.manageForm.acAddress.home_sub_district = null;
+      this.manageForm.acAddress.home_postcode = null;
     }
     if(index == 1){
-      this.familyAndAddress.currentAddressService.initialSubDistrict(this.manageForm.currentDistrict.district_ref);
       this.manageForm.acAddress.current_district = this.manageForm.currentDistrict.district_ref;
+      this.familyAndAddress.currentAddressService.initialSubDistrict(this.manageForm.currentDistrict.district_ref);
+      this.manageForm.currentSubDistrict = new RftSubDistrict();
+      this.manageForm.acAddress.current_sub_district = null;
+      this.manageForm.acAddress.current_postcode = null;
     }
 
   }
