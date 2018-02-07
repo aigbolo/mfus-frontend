@@ -54,6 +54,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.layoutService.setPageHeader('ยื่นความจำนงขอทุนการศึกษา');
     this.utilsService.activeIndex = 0
     this.applyApplicationForm = new ApplyScholarshipForm
     this.ngProgress.start()
@@ -72,6 +73,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   }
 
   updatePage() {
+    this.layoutService.setPageHeader('แก้ไขข้อมูลการขอทุนการศึกษา');
     this.update_state = true
     this.user = this.authService.getUser();
     this.user_ref = this.user.user_ref;
@@ -143,8 +145,6 @@ export class ApplyScholarshipsComponent implements OnInit {
         }, 1000);
         setTimeout(() => {
           this.getParentProvince();
-          // this.getParentDistrict();
-          // this.getParentSubDistrict();
           this.convertDateBackToFront();
           this.initialParentAddress();
         }, 2000);
