@@ -222,8 +222,12 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
         this.layoutService.setMsgDisplay(
           Severity.ERROR,
           "บันทึกข้อมูลผิดพลาด",
-          error
+          "คุณได้ทำการยื่นความจำนงขอทุน " +
+            this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.name +
+            " แล้ว กรุณาตรวจสอบข้อมูลอีกครั้ง"
         );
+        this.referenceService.nextIndex(1);
+        this.utilsService.activeIndex = this.referenceService.getIndex();
         this.ngProgress.done();
       })
   }

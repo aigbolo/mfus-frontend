@@ -33,17 +33,19 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
       income_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly,
         Validators.compose([Validators.required])),
       expense_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly,
-        Validators.compose([Validators.required]))
+        Validators.compose([Validators.required])),
+      debt_detail: new FormControl('', Validators.compose([Validators.required])),
+      debt_amount: new FormControl('', Validators.compose([Validators.required]))
+
     })
     this.ngprogress.done()
     this.applyApplication.pageRender = true
   }
 
   addRow(){
-    let familyDebt = new ApFamilyDebt()
-    familyDebt.create_user = this.applyApplication.user_ref
-    familyDebt.update_user = this.applyApplication.user_ref
-    this.applyApplication.applyApplicationForm.apFamiyDebt.push(familyDebt)
+    this.familyDebt.create_user = this.applyApplication.user_ref
+    this.familyDebt.update_user = this.applyApplication.user_ref
+    this.applyApplication.applyApplicationForm.apFamiyDebt.push(this.familyDebt)
   }
 
   deleteRow(obj: ApFamilyDebt){
@@ -53,6 +55,7 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
   onNext(){
     if (this.familyFinancialFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.familyFinancialFormGroup);
+      this.applyApplication.applyApplicationForm.apFamiyDebt.push(this.familyDebt);
       return;
     }
     this.applyApplication.applyApplicationForm.apFamilyFinancial.create_user = this.applyApplication.user_ref
