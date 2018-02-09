@@ -77,7 +77,7 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth] },
-  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
+  { path: "searsh-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
 
   { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
   { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},

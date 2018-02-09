@@ -149,7 +149,7 @@ export class AddressComponent implements OnInit {
 
   // Autocomplete filter
   autocompleteDistrict(event,index:number) {
-    console.log("autocompleteDistrict");
+    console.log("autocompleteDistrict:   "+  event.originalEvent.type);
     let e = event.originalEvent;
     let query = event.query;
     if(index ==0){
@@ -164,14 +164,12 @@ export class AddressComponent implements OnInit {
       objList = this.familyAndAddress.homeAddressService.getDistricts();
       for (let obj of objList) {
         // Filter By string event
-        if (this.manageForm.homeProvince.province_ref === obj.province_ref) {
           if (
             obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
           ) {
             this.homeDistrictList.push(obj);
           }
         }
-      }
     }
     if(index ==1){
       this.currentDistrictList = [];
@@ -185,13 +183,11 @@ export class AddressComponent implements OnInit {
       objList = this.familyAndAddress.currentAddressService.getDistricts();
       for (let obj of objList) {
         // Filter By string event
-        if (this.manageForm.currentProvince.province_ref === obj.province_ref) {
           if (
             obj.district_name_t.toLowerCase().indexOf(query.toLowerCase()) == 0
           ) {
             this.currentDistrictList.push(obj);
           }
-        }
       }
     }
 
@@ -210,8 +206,6 @@ export class AddressComponent implements OnInit {
       let objList: RftSubDistrict[] = this.familyAndAddress.homeAddressService.getSubDistricts();
       for (let obj of objList) {
         // Filter By string event
-        if (obj.province_ref == this.manageForm.homeProvince.province_ref) {
-          if (obj.district_ref == this.manageForm.homeDistrict.district_ref) {
             if (
               obj.sub_district_name_t
                 .toLowerCase()
@@ -219,8 +213,6 @@ export class AddressComponent implements OnInit {
             ) {
               this.homeSubDistrictList.push(obj);
             }
-          }
-        }
       }
     }
     if(index == 1){
@@ -232,8 +224,6 @@ export class AddressComponent implements OnInit {
       let objList: RftSubDistrict[] = this.familyAndAddress.currentAddressService.getSubDistricts();
       for (let obj of objList) {
         // Filter By string event
-        if (obj.province_ref == this.manageForm.currentProvince.province_ref) {
-          if (obj.district_ref == this.manageForm.currentDistrict.district_ref) {
             if (
               obj.sub_district_name_t
                 .toLowerCase()
@@ -242,8 +232,6 @@ export class AddressComponent implements OnInit {
               this.currentSubDistrictList.push(obj);
             }
           }
-        }
-      }
     }
 
   }

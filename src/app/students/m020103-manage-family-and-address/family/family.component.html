@@ -164,18 +164,13 @@
           field="province_name_t"
           [(ngModel)]="manageForm.dadProvince"
           [suggestions]="fProvinceList"
-          (onSelect)="selectProvince(0)"
           [forceSelection]="true"
           [dropdown]="true"
           (onDropdownClick)="handleCompleteClickProvince(0)"
           (completeMethod)="autocompleteProvince($event,0)"
+          (onSelect)="selectProvince(0)"
           maxlength="30"
-          id="father_province"
-          name="father_province"
           formControlName="father_province">
-          <ng-template let-obj pTemplate="obj">
-            {{obj.province_name_t}}
-          </ng-template>
         </p-autoComplete>
       </div>
       <div class="col-xs-7">
@@ -191,8 +186,6 @@
           [disabled]="!manageForm.acParent.father_province"
           (completeMethod)="autocompleteDistrict($event,0)"
           maxlength="30"
-          id="father_district"
-          name="father_district"
           formControlName="father_district">
 
         </p-autoComplete>
@@ -212,12 +205,7 @@
           [disabled]="!manageForm.acParent.father_district"
           (onDropdownClick)="handleCompleteClickSubDistrict(0)"
           maxlength="30"
-          id="father_sub_district"
-          name="father_sub_district"
           formControlName="father_sub_district">
-          <ng-template let-obj pTemplate="obj">
-            {{obj.sub_district_name_t}}
-          </ng-template>
         </p-autoComplete>
       </div>
       <div class="col-xs-7">

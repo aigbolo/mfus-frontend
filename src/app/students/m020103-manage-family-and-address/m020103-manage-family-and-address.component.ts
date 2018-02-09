@@ -62,24 +62,11 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
 
 
-    this.familyAndAddressService.doGetParent(this.user.account_ref).subscribe(
+   var goGetParent = this.familyAndAddressService.doGetParent(this.user.account_ref).subscribe(
       data=>{
         if(data.parent_ref){
           this.insertMode = false;
-          setTimeout(()=>{
-            this.manageForm.acParent = data;
-          },1000);
-          setTimeout(()=>{
-            this.convertDateBackToFront();
-            this.getParentProvince();
-          },1500);
-          setTimeout(()=>{
-            this.getParentDistrict();
-            this.getParentSubDistrict();
-
-            this.renderPage = true;
-            this.ngProgress.done();
-          },3000);
+          this.manageForm.acParent = data;
         }else{
           this.initialSetup();
         }
@@ -88,10 +75,13 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
       },
       ()=>{
         this.initialParentAddress();
+        if(this.manageForm.acParent.parent_ref != null){
+          this.prepaParentsData();
+        }
       }
     );
 
-
+    goGetParent;
     setTimeout(()=>{
       this.familyAndAddressService.doGetSiblings(this.user.account_ref).subscribe(
         data=>{
@@ -110,7 +100,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
               this.getLivingProvince();
               this.getLivingDistrict();
               this.getLivingSubDistrict();
-            },5000)
+            },3000)
 
           }
 
@@ -122,13 +112,22 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
         }
       )
-    },5000)
+    },2000)
 
 
     this.getEducationDropDown();
 
   }
 
+  prepaParentsData(){
+    this.convertDateBackToFront();
+    this.getParentProvince();
+    this.getParentDistrict();
+    this.getParentSubDistrict();
+
+    this.renderPage = true;
+    this.ngProgress.done();
+  }
 
 
   convertDateBackToFront(){
@@ -183,7 +182,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
   }
 
   getParentProvince(){
-    if(this.manageForm.acParent.father_province != null || this.manageForm.acParent.father_province != undefined){
+    if(this.manageForm.acParent.father_province != null){
       this.fatherAddressService.getProvinceByRef(this.manageForm.acParent.father_province).subscribe(
         data=>{
           this.manageForm.dadProvince = data;
@@ -193,7 +192,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
         }
       );
     }
-    if(this.manageForm.acParent.mother_province != null || this.manageForm.acParent.mother_province != undefined){
+    if(this.manageForm.acParent.mother_province != null){
       this.fatherAddressService.getProvinceByRef(this.manageForm.acParent.mother_province).subscribe(
         data=>{
           this.manageForm.momProvince = data;
@@ -203,7 +202,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
         }
       );
     }
-    if(this.manageForm.acParent.patrol_province != null || this.manageForm.acParent.patrol_province != undefined){
+    if(this.manageForm.acParent.patrol_province != null){
       this.fatherAddressService.getProvinceByRef(this.manageForm.acParent.patrol_province).subscribe(
         data=>{
           this.manageForm.patrolProvince = data;
@@ -214,8 +213,11 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
       );
     }
   }
+
+
+
   getLivingProvince(){
-    if(this.manageForm.acAddress.home_province != null || this.manageForm.acAddress.home_province != undefined){
+    if(this.manageForm.acAddress.home_province != null){
       this.fatherAddressService.getProvinceByRef(this.manageForm.acAddress.home_province).subscribe(
         data=>{
           this.manageForm.homeProvince = data;
@@ -225,7 +227,7 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
         }
       );
     }
-    if(this.manageForm.acAddress.current_province != null || this.manageForm.acAddress.current_province != undefined){
+    if(this.manageForm.acAddress.current_province != null){
       this.fatherAddressService.getProvinceByRef(this.manageForm.acAddress.current_province).subscribe(
         data=>{
           this.manageForm.currentProvince = data;
