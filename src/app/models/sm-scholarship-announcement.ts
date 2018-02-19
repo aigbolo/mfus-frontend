@@ -25,7 +25,7 @@ export class SmScholarshipAnnouncement {
   public  update_datetime: Date;
 
   // Fields For Display
-  public scholarship_type: string;
+  public scholarship_type_name: string;
   public scholarship_name: string;
   public detail: string;
 

@@ -104,7 +104,7 @@ implements OnInit {
 
   onRowSelect(event) {
     console.log('onRowSelect..............');
-    this.utilsService.goToPage('search-interview-selecting/'+this.announce.announcement_ref)
+    this.utilsService.goToPage('manage-interview-selecting/'+this.announce.announcement_ref)
   }
 
   onReset() {

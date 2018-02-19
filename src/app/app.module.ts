@@ -108,6 +108,7 @@ import { ViewAddressComponent } from './officers/view-student-application/view-f
 import { ViewSiblingComponent } from './officers/view-student-application/view-family-and-address/view-sibling/view-sibling.component';
 import { ApplicationService } from './services/students/application.service';
 import { M050103SearchScholarshipEarningComponent } from './officers/m050103-search-scholarship-earning/m050103-search-scholarship-earning.component';
+import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -176,7 +177,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ViewParentComponent,
     ViewAddressComponent,
     ViewSiblingComponent,
-    M050103SearchScholarshipEarningComponent
+    M050103SearchScholarshipEarningComponent,
+    M050102ManageOfficerInterviewSelectingComponent
   ],
   imports: [
     // Angular
