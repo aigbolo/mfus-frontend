@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { SmConditionMajor } from "../models/sm-condition-major";
 import { SmScholarship } from "../models/sm-scholarship";
 
@@ -50,3 +51,22 @@ constructor() {
 //         this.scholarship_name = null;
 //         }
 // }
+=======
+
+export class ScholarshipEarningForm{
+
+  search_criteria:SearchCriteria;
+constructor(){
+  this.search_criteria = new SearchCriteria();
+}
+}
+
+class SearchCriteria{
+  year:number;
+  announcement_ref:string;
+  constructor(){
+    this.year = null;
+    this.announcement_ref = null;
+  }
+}
+>>>>>>> eb9f2652a84877f828f3d15f3a39823f04659633
