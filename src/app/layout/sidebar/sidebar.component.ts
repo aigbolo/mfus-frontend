@@ -54,7 +54,11 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'คัดกรองเอกสาร', routerLink: ['/search-scholarship-screening'] },
           { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interview-selecting'] },
+<<<<<<< HEAD
+          { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/search-scholarship-earning'] }
+=======
           { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] }
+>>>>>>> eb9f2652a84877f828f3d15f3a39823f04659633
         ]
       },
       {

@@ -108,7 +108,15 @@ import { ViewAddressComponent } from './officers/view-student-application/view-f
 import { ViewSiblingComponent } from './officers/view-student-application/view-family-and-address/view-sibling/view-sibling.component';
 import { ApplicationService } from './services/students/application.service';
 import { M050103SearchScholarshipEarningComponent } from './officers/m050103-search-scholarship-earning/m050103-search-scholarship-earning.component';
+<<<<<<< HEAD
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
+=======
+<<<<<<< HEAD
+import { M050103ScholarshipEarningService } from './services/officers/m050103-scholarship-earning.service';
+import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
+=======
+>>>>>>> eb9f2652a84877f828f3d15f3a39823f04659633
+>>>>>>> 1864714a9cd0ddccecd78527b89a46ad922ab489
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -177,8 +185,17 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ViewParentComponent,
     ViewAddressComponent,
     ViewSiblingComponent,
+<<<<<<< HEAD
     M050103SearchScholarshipEarningComponent,
     M050102ManageOfficerInterviewSelectingComponent
+=======
+<<<<<<< HEAD
+    M050103SearchScholarshipEarningComponent,
+    M050103ManageScholarshipEarningComponent
+=======
+    M050103SearchScholarshipEarningComponent
+>>>>>>> eb9f2652a84877f828f3d15f3a39823f04659633
+>>>>>>> 1864714a9cd0ddccecd78527b89a46ad922ab489
   ],
   imports: [
     // Angular
