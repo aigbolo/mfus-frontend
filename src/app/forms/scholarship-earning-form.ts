@@ -7,6 +7,7 @@ export class ScholarshipEarningForm{
   application: ApApplication;
   
 constructor(){
+  this.application = new ApApplication;
   this.search_criteria = new SearchCriteria();
   this.scholarshipAnnouncement = new SmScholarshipAnnouncement;
   this.application = new ApApplication;
