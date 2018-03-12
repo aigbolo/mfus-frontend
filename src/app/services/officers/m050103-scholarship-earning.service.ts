@@ -17,7 +17,7 @@ export class M050103ScholarshipEarningService {
 
       doSearchInterviewees(announcementRef){
         const body = {announcement_ref:announcementRef,interview_flag:'2'};
-        return this.config.requestMethodPUT('interviewees',body);
+        return this.config.requestMethodPOST('interviewees',body);
       }
       doInsert(applications:ApApplication[]){
         return this.config.requestMethodPUT('apply-grantee',applications);

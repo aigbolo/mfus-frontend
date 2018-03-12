@@ -39,7 +39,6 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
 
     this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
     setTimeout(()=>{
-      console.log(this.searchForm.search_criteria);
     if(this.searchForm.search_criteria.year != null){
           this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
           if(this.searchForm.search_criteria.announcement_ref != null){

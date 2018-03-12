@@ -54,15 +54,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
 
     let announcement_ref = this.activateRoute.snapshot.params["id"];
   if (this.activateRoute.snapshot.params["id"] != null) {
-  this.scholarshipEarningService.doSearch(announcement_ref).subscribe(
-    data =>{
-      if(data){
-        this.studentEarningList = data;
-      }
-      console.log(data)
-    }
-
-  )
+   this.findInterviewees(announcement_ref);
    this.applicationService.initialScholarshipAnnouncement(announcement_ref).subscribe(
      data => {
       if(data){
@@ -89,6 +81,20 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
       );
   }
   
+  findInterviewees(announcement_ref: string){
+    this.scholarshipEarningService.doSearchInterviewees(announcement_ref)
+    .subscribe(
+      data => {
+        this.studentEarningList = data;
+        console.log(data);
+      },
+      err => {
+        console.log(err);
+      },
+      () => {}
+    );
+  }
+
   onSubmit() {
     console.log("onSubmit");
   }
@@ -101,7 +107,6 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
   }
 
   onInsertComplete() {
-
     this.manageForm = new ScholarshipEarningForm;
     this.ngOnInit();
   }
