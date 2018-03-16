@@ -39,7 +39,6 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
 
     this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
     setTimeout(()=>{
-      console.log(this.searchForm.search_criteria);
     if(this.searchForm.search_criteria.year != null){
           this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
           if(this.searchForm.search_criteria.announcement_ref != null){
@@ -87,9 +86,8 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
     if (this.searchFormGroup.invalid) {
       this.utilsService.findInvalidControls(this.searchFormGroup);
     }else{
-      console.log(this.searchForm.search_criteria);
       this.onLoad = true;
-
+      console.log('search form', this.searchForm)
       this.scholarshipEarningService.doSearch(this.searchForm).subscribe(data=>{
         this.scholarshipEarningList = data;
       },
@@ -114,7 +112,7 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
 
     this.scholarshipAnnouncementList = [];
     this.scholarshipAnnouncement = null;
-    this.searchForm.search_criteria.year = new Date().getFullYear();
+    this.searchForm.search_criteria.year = null;
 
     this.utilsService.goToPage('search-scholarship-earning');
   }
