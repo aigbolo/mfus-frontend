@@ -69,6 +69,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
             this.getStudentView(data.student_ref);
             this.getScholarshipAnnouncementView(data.announcement_ref);
           }
+          console.log(data);
         },
         err=>{
           console.log(err);

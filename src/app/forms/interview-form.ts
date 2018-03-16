@@ -7,11 +7,16 @@ export class InterviewForm {
   student: AcStudent;
   scholarshipAnnouncement: SmScholarshipAnnouncement;
   search_criteria: SearchCriteria;
+  application_ref: ApApplication;
   application: ApApplication;
+  selected_interviewees: ApApplication;
+
 
   constructor() {
     this.student = new AcStudent;
+    this.application_ref = new ApApplication;
     this.application = new ApApplication;
+    this.selected_interviewees = new ApApplication;
     this.scholarshipAnnouncement = new SmScholarshipAnnouncement;
     this.search_criteria = new SearchCriteria();
   }

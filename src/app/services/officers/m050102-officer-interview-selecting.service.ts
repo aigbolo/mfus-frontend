@@ -11,4 +11,7 @@ export class M050102OfficerInterviewSelectingService{
         console.log(form.search_criteria);
         return this.config.requestMethodPOST('applicants',form.search_criteria);
     }
+    doUpdateRequestDocument(form:InterviewForm){
+      return this.config.requestMethodPUT('applicants',form);
+    }
 }
