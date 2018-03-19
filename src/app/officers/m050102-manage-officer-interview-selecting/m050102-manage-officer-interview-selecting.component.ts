@@ -109,19 +109,30 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
         () => {
           this.layoutService.setMsgDisplay(
             Severity.SUCCESS,
-            "แก้ไขข้อมูลสำเร็จ",
+            "บันทึกข้อมูลสำเร็จ",
             ""
           );
         },
         err => {
           this.layoutService.setMsgDisplay(
             Severity.ERROR,
-            "แก้ไขข้อมูลไม่สำเร็จ",
+            "บันทึกข้อมูลไม่สำเร็จ",
             ""
           );
           console.log(err);
+        },
+        () => {
+          this.onPageSearch();
         }
       );
     }
   }
+
+  onPageSearch() {
+
+    const params = JSON.parse(localStorage.getItem('currentSearchParam'));
+    this.utilsService.goToPageWithQueryParam('search-interview-selecting',params);
+    // this.utilsService.goToPage("search-scholarship-screening");
+  }
+
 }
