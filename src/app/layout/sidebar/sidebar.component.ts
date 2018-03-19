@@ -60,8 +60,8 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ตรวจสอบทุนการศึกษา',
         items: [
-          { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/sesarch-scholarship'] },
-          { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interview-selecting'] },
+          { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/search-scholarship'] },
+          { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interviewees'] },
           { label: 'ผู้ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] },
         ]
       },

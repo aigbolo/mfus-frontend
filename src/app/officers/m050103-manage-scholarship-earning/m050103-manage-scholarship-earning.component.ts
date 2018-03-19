@@ -98,47 +98,8 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
 
   onSubmit() {
     console.log("onSubmit");
-  //   if (this.manageForm.application.application_ref == null) {
-  //     this.scholarshipEarningService.doInsert(this.manageForm.application.).subscribe(
-  //       data => {
-  //         this.layoutService.setMsgDisplay(
-  //           Severity.SUCCESS,
-  //           "บันทึกข้อมูลสำเร็จ",
-  //           ""
-  //         );
-  //       },
-  //       err => {
-  //         this.layoutService.setMsgDisplay(
-  //           Severity.ERROR,
-  //           "บันทึกข้อมูลไม่สำเร็จ",
-  //           ""
-  //         );
-  //       },
-  //       () => {
-  //         this.onInsertComplete();
-  //       }
-  //     );
-  //   } else {
-  //     this.scholarshipEarningService.doInsert(this.manageForm.application.document_screening_flag).subscribe(
-  //       data => {
-  //         this.layoutService.setMsgDisplay(
-  //           Severity.SUCCESS,
-  //           "แก้ไขข้อมูลสำเร็จ",
-  //           ""
-  //         );
-  //       },
-  //       err => {
-  //         this.layoutService.setMsgDisplay(
-  //           Severity.ERROR,
-  //           "แก้ไขข้อมูลไม่สำเร็จ",
-  //           ""
-  //         );
-  //       },
-  //       () => {
-  //         this.utilsService.goToPage("");
-  //       }
-  //     );
-  //   }
+    this.manageForm.application.application_ref = this.manageForm.application.application_ref;
+    
   }
 
   
