@@ -34,6 +34,7 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
   studentIntervieweesList: any[] = [];
   studentInterviewees: any;
   selectedInterviewees: any[] = [];
+  interview_flag: boolean = false;
 
   constructor(
     private layoutService: LayoutService,
@@ -62,6 +63,10 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
         .subscribe(data => {
           if (data) {
             this.studentIntervieweesList = data;
+
+            for(let flag of this.studentIntervieweesList){
+              flag.interview_flag = null;
+            }
           }
           console.log(data);
         });
@@ -91,55 +96,61 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.manageForm.selected_interviewees.application_ref = this.manageForm.application.application_ref;
-    this.manageForm.selected_interviewees.interview_flag = "2";
+    //this.selectedInterviewees = this.studentIntervieweesList
+    let applicationList = [];
+    applicationList = applicationList.concat( this.studentIntervieweesList);
 
-    this.manageForm.selected_interviewees.update_user = this.user.account_ref;
-    if (this.manageFormGroup.invalid) {
-      this.utilsService.findInvalidControls(this.manageFormGroup);
-    } else {
-      if (this.manageForm.selected_interviewees.application_ref != null) {
-        console.log(this.manageForm);
-        this.officerInterviewSelectingService
-          .doUpdateRequestDocument(this.manageForm)
-          .subscribe(
-            data => {
-              if (data) {
-                let selected_interviewees: ApApplication = new ApApplication();
-                selected_interviewees.document_screening_flag = "2";
-                selected_interviewees.application_ref = this.manageForm.application.application_ref;
-                selected_interviewees.update_user = this.user.account_ref;
-                this.applyScholarshipService
-                  .updateApplication(selected_interviewees)
-                  .subscribe(
-                    () => {
-                      this.layoutService.setMsgDisplay(
-                        Severity.SUCCESS,
-                        "บันทึกข้อมูลสำเร็จ",
-                        ""
-                      );
-                    },
-                    err => {
-                      this.layoutService.setMsgDisplay(
-                        Severity.ERROR,
-                        "แก้ไขข้อมูลไม่สำเร็จ",
-                        ""
-                      );
-                      console.log(err);
-                    }
-                  );
-              }
-            },
-            err => {
-              this.layoutService.setMsgDisplay(
-                Severity.ERROR,
-                "แก้ไขข้อมูลไม่สำเร็จ",
-                ""
-              );
-              console.log(err);
-            },
-          );
-      }
+    for(let data of applicationList){
+      data.interview_flag = data.interview_flag ? '2': '3';
     }
+    console.log("data: ", applicationList);
+    // this.manageForm.selected_interviewees.interview_flag = "2";
+    // this.manageForm.selected_interviewees.update_user = this.user.account_ref;
+    // if (this.manageFormGroup.invalid) {
+    //   this.utilsService.findInvalidControls(this.manageFormGroup);
+    // } else {
+    //   if (this.manageForm.selected_interviewees.application_ref != null) {
+    //     console.log(this.manageForm);
+    //     this.officerInterviewSelectingService
+    //       .doUpdateRequestDocument(this.manageForm)
+    //       .subscribe(
+    //         data => {
+    //           if (data) {
+    //             let selected_interviewees: ApApplication = new ApApplication();
+    //             selected_interviewees.document_screening_flag = "2";
+    //             selected_interviewees.application_ref = this.manageForm.application.application_ref;
+    //             selected_interviewees.update_user = this.user.account_ref;
+    //             this.applyScholarshipService
+    //               .updateApplication(selected_interviewees)
+    //               .subscribe(
+    //                 () => {
+    //                   this.layoutService.setMsgDisplay(
+    //                     Severity.SUCCESS,
+    //                     "บันทึกข้อมูลสำเร็จ",
+    //                     ""
+    //                   );
+    //                 },
+    //                 err => {
+    //                   this.layoutService.setMsgDisplay(
+    //                     Severity.ERROR,
+    //                     "แก้ไขข้อมูลไม่สำเร็จ",
+    //                     ""
+    //                   );
+    //                   console.log(err);
+    //                 }
+    //               );
+    //           }
+    //         },
+    //         err => {
+    //           this.layoutService.setMsgDisplay(
+    //             Severity.ERROR,
+    //             "แก้ไขข้อมูลไม่สำเร็จ",
+    //             ""
+    //           );
+    //           console.log(err);
+    //         }
+    //       );
+    //   }
+    // }
   }
 }
