@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../services/general/authentication.ser
 import { M030103ScholarshipAnnouncementService } from '../../services/officers/m030103-scholarship-announcement.service';
 import { SmScholarshipAnnouncement } from '../../models/sm-scholarship-announcement';
 import { ApplicationService } from '../../services/students/application.service';
+import { Severity } from '../../enum';
 
 @Component({
   selector: 'app-m050103-manage-scholarship-earning',
@@ -97,11 +98,54 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
 
   onSubmit() {
     console.log("onSubmit");
+  //   if (this.manageForm.application.application_ref == null) {
+  //     this.scholarshipEarningService.doInsert(this.manageForm.application.).subscribe(
+  //       data => {
+  //         this.layoutService.setMsgDisplay(
+  //           Severity.SUCCESS,
+  //           "บันทึกข้อมูลสำเร็จ",
+  //           ""
+  //         );
+  //       },
+  //       err => {
+  //         this.layoutService.setMsgDisplay(
+  //           Severity.ERROR,
+  //           "บันทึกข้อมูลไม่สำเร็จ",
+  //           ""
+  //         );
+  //       },
+  //       () => {
+  //         this.onInsertComplete();
+  //       }
+  //     );
+  //   } else {
+  //     this.scholarshipEarningService.doInsert(this.manageForm.application.document_screening_flag).subscribe(
+  //       data => {
+  //         this.layoutService.setMsgDisplay(
+  //           Severity.SUCCESS,
+  //           "แก้ไขข้อมูลสำเร็จ",
+  //           ""
+  //         );
+  //       },
+  //       err => {
+  //         this.layoutService.setMsgDisplay(
+  //           Severity.ERROR,
+  //           "แก้ไขข้อมูลไม่สำเร็จ",
+  //           ""
+  //         );
+  //       },
+  //       () => {
+  //         this.utilsService.goToPage("");
+  //       }
+  //     );
+  //   }
   }
+
   
   onBack() {
   this.utilsService.goToPage('search-scholarship-earning');
   }
+  
   onReset(){
     window.location.reload();
   }
