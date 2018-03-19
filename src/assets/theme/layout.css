@@ -18,6 +18,7 @@ div.container-fixed {
   width: 1200px !important;
   margin: auto;
   display: flex !important;
+  min-height: 626px;
 }
 
 .col-xs-1,
