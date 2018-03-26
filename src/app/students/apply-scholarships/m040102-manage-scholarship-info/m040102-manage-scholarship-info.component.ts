@@ -17,11 +17,11 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class M040102ManageScholarshipInfoComponent implements OnInit {
 
-  scholarshipFormGroup: FormGroup
-  autocompleteScholarshipAnnouncementList: any[] = []
-  apScholarshipHistory: ApScholarshipHistory = new ApScholarshipHistory
-  apStudentLoanFund: ApStudentLoanFund = new ApStudentLoanFund
-  initialList: any[] = []
+  scholarshipFormGroup: FormGroup;
+  autocompleteScholarshipAnnouncementList: any[] = [];
+  apScholarshipHistory: ApScholarshipHistory;
+  apStudentLoanFund: ApStudentLoanFund;
+  initialList: any[] = [];
   constructor(public applyApplication: ApplyScholarshipsComponent,
     private applyScholarshipService: M040101ApplyScholarshipService,
     private referenceService: ReferenceService,
@@ -29,6 +29,8 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     private ngProgress: NgProgress) { }
 
   ngOnInit() {
+    this.apScholarshipHistory = new ApScholarshipHistory();
+
     this.ngProgress.start();
     this.initialScholarshipAnnouncement();
     this.validateForm();
@@ -40,8 +42,8 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
         Validators.compose([Validators.required])),
       money_spend_plan: new FormControl(this.applyApplication.applyApplicationForm.apApplication.money_spend_plan,
         Validators.compose([Validators.required])),
-      scholarshipHistory_year:new FormControl('', Validators.max(this.applyApplication.current_year)),
-      studentLoanFund_year: new FormControl('', Validators.max(this.applyApplication.current_year))
+      scholarshipHistory_year:new FormControl(this.apScholarshipHistory.year, Validators.compose([Validators.max(this.applyApplication.current_year)])),
+      studentLoanFund_year: new FormControl(this.apStudentLoanFund.year, Validators.compose([Validators.max(this.applyApplication.current_year)]))
     })
   }
 
@@ -100,10 +102,13 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   }
 
   addStdLoan() {
-    this.apStudentLoanFund.create_user = this.applyApplication.user_ref
-    this.apStudentLoanFund.update_user = this.applyApplication.user_ref
-    this.apStudentLoanFund.student_ref = this.applyApplication.account_ref
-    this.applyApplication.applyApplicationForm.apStudentLoanFund.push(this.apStudentLoanFund)
+    console.log(this.apStudentLoanFund);
+    this.apStudentLoanFund = new ApStudentLoanFund();
+    this.apStudentLoanFund.create_user = this.applyApplication.user_ref;
+    this.apStudentLoanFund.update_user = this.applyApplication.user_ref;
+    this.apStudentLoanFund.student_ref = this.applyApplication.account_ref;
+    this.applyApplication.applyApplicationForm.apStudentLoanFund.push(this.apStudentLoanFund);
+    console.log(this.applyApplication.applyApplicationForm.apStudentLoanFund);
   }
 
   deleteStdLoan(obj: ApStudentLoanFund) {

@@ -145,7 +145,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040101ManageApplicantInfoComponent,
     ApplyScholarshipsComponent,
     M040102ManageScholarshipInfoComponent,
-    M040102ManageScholarshipInfoComponent,
     M030103SearchScholarshipAnnouncementComponent,
     M020103ManageFamilyAndAddressComponent,
     FamilyComponent,
@@ -173,7 +172,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ViewApplicantComponent,
     ViewParentComponent,
     ViewAddressComponent,
-    ViewSiblingComponent
+    ViewSiblingComponent,
   ],
   imports: [
     // Angular

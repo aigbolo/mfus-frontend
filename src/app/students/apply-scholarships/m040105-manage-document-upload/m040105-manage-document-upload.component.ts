@@ -1,3 +1,4 @@
+import { M040102ManageScholarshipInfoComponent } from './../m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { Severity } from './../../../enum';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Rx';
@@ -33,7 +34,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
     private utilsService: UtilsService,
     private layoutService: LayoutService,
     private ngProgress: NgProgress,
-    private referenceService: ReferenceService) { }
+    private referenceService: ReferenceService,) { }
 
   ngOnInit() {
     this.ngProgress.start()
@@ -72,7 +73,6 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
 
     let documentList = this.applyApplication.applyApplicationForm.documentList
     let documentUpload = this.applyApplication.applyApplicationForm.apDocumentUpload
-    console.log(documentUpload.length)
 
     new Observable((observer: Observer<boolean>) => {
       setTimeout(() => {
@@ -95,12 +95,10 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
         this.uploadDocument.update_user = this.applyApplication.user_ref
 
         if (typeof documentList.find(i => i.document_ref == ref).upload_name === "undefined") {
-          console.log('undefined')
           documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
           documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
           this.uploadDocument.update_user = this.applyApplication.user_ref
           documentUpload.push(this.uploadDocument)
-          console.log(documentUpload)
         } else {
           documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
           documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
@@ -112,13 +110,8 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   }
 
   onDelete(doc, ref) {
-    console.log(this.applyApplication.applyApplicationForm.apDocumentUpload);
-    console.log(this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref));
-    console.log(this.applyApplication.applyApplicationForm.documentList.indexOf(this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref)));
-
     this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).upload_name = "";
     this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).label = "เลือกไฟล์";
-    // this.applyApplication.applyApplicationForm.apDocumentUpload.splice(this.applyApplication.applyApplicationForm.documentList.indexOf(doc), 1);
     for(let obj of this.applyApplication.applyApplicationForm.apDocumentUpload){
       if(obj.document_ref == ref){
         this.applyApplication.applyApplicationForm.apDocumentUpload.splice(this.applyApplication.applyApplicationForm.apDocumentUpload.indexOf(obj), 1)
@@ -214,6 +207,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
               "บันทึกข้อมูลผิดพลาด",
               error
             );
+            // this.scholarshipInfo.scholarshipFormGroup.controls['scholarshipAnnouncementName'].markAsDirty();
             this.ngProgress.done();
           })
       }, error=>{
@@ -238,6 +232,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       .subscribe(res => {
         this.applyApplication.applyApplicationForm.apApplication = res;
         this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref;
+        console.log(this.applyApplication.applyApplicationForm.apScholarshipHistory)
         this.applyScholarshipService.updateScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
           .subscribe(res => {
             this.applyScholarshipService.updateStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
