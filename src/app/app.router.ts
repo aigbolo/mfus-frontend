@@ -39,6 +39,8 @@ import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
 
 import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
+import { ScholarshipAnnoucementComponent } from './general/info/scholarship-annoucement/scholarship-annoucement.component';
+import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
 // import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 const appRoutes: Routes = [
@@ -46,6 +48,8 @@ const appRoutes: Routes = [
   // General Paths
   { path: "", component: IndexComponent },
   { path: "register", component: RegisterComponent },
+  { path: "scholarship-announcement", component: ScholarshipAnnoucementComponent },
+  { path: "scholarship-announcement-detail/:id", component: ScholarshipAnnoucementDetailComponent },
 
   // Authorization Paths
   { path: "forgot", component: ForgotPasswordComponent },
