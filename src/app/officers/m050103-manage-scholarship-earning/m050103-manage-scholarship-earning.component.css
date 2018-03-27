@@ -1,0 +1,32 @@
+.check-box {
+    width: 50px;
+    text-align: center;
+  }
+  
+  .view {
+    text-align: center;
+  }
+  
+  .school,
+  .major {
+    width: 150px;
+  }
+  
+  .year,
+  .gpa {
+    width: 50px;
+    text-align: center;
+  }
+  
+  .application-name,
+  .application-code {
+    float: left;
+    clear: both;
+  }
+  .application-name {
+    font-weight: 500;
+  }
+  .application-code {
+    font-size: 0.8em;
+  }
+  

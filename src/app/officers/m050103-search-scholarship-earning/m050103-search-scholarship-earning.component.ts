@@ -45,8 +45,6 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
             setTimeout(
               ()=>{
                 this.scholarshipAnnouncement = this.referenceService.getOneScholarshipAnnouncementForSearch(this.searchForm.search_criteria.announcement_ref);
-
-
             },1000);
           }
           setTimeout(
@@ -90,6 +88,7 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
       console.log('search form', this.searchForm)
       this.scholarshipEarningService.doSearch(this.searchForm).subscribe(data=>{
         this.scholarshipEarningList = data;
+        console.log('do search', this.scholarshipEarningList)
       },
       error =>{
         console.log(error);

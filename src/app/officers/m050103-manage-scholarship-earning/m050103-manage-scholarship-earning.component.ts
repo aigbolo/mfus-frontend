@@ -97,14 +97,27 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("onSubmit");
-    this.manageForm.application.application_ref = this.manageForm.application.application_ref;
-    
-  }
+    for(let data of this.studentEarningList){
+      data.earn_flag = data.earn_flag ? '2': '3';
+    }
 
+    this.scholarshipEarningService.doInsert(this.studentEarningList)
+    .subscribe(
+      data=> {
+        this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+      },err=>{
+        this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");
+        console.log(err);
+    },
+    ()=>{
+      this.onPageSearch();
+    }
+  );
+  }
   
-  onBack() {
-  this.utilsService.goToPage('search-scholarship-earning');
+  onPageSearch(){
+    const params = JSON.parse(localStorage.getItem('currentSearchParam'));
+    this.utilsService.goToPageWithQueryParam('search-scholarship-earning',params);
   }
   
   onReset(){
