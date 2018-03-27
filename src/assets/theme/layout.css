@@ -50,9 +50,14 @@ app-root>.container{
   color: #fff;
 }
 
+.navbar-red>.container>.nav>li>a.menu-item:focus, .navbar-red>.container>.nav>li>a.menu-item:hover {
+  text-decoration: none;
+  background-color: #750200 !important;
+  cursor: pointer;
+}
 .navbar-red>.container>.nav>li>a:focus, .navbar-red>.container>.nav>li>a:hover {
   text-decoration: none;
-  background-color: #750200;
+  background-color: #a00;
 }
 
 
