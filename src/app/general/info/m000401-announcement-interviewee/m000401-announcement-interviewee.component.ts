@@ -1,10 +1,11 @@
-import { M030102ScholarshipService } from './../../services/officers/m030102-scholarship.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { LayoutService } from '../../services/utils/layout.service';
-import { SmScholarship } from '../../models/sm-scholarship';
-import { UtilsService } from '../../services/utils/utils.service';
+
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
+import { ViewEncapsulation, OnInit, Component } from '@angular/core';
+import { SmScholarship } from '../../../models/sm-scholarship';
+import { M030102ScholarshipService } from '../../../services/officers/m030102-scholarship.service';
+import { LayoutService } from '../../../services/utils/layout.service';
+import { UtilsService } from '../../../services/utils/utils.service';
 
 @Component({
   selector: 'app-m000401-announcement-interviewee',
