@@ -258,7 +258,6 @@ export class ReferenceService {
   initialScholarshipAnnouncementForSearch(parameters:any){
     this.configuration.requestMethodPOST("autocomplete-scannounce", parameters).subscribe(
       data=>{
-        console.log(data);
         this.scholarshipAnnouncementSearch = data;
       },
       err=>{
@@ -266,6 +265,24 @@ export class ReferenceService {
       }
     )
   }
+
+  autocompleteScholarshipAnnouncementForSearch(parameters:any){
+    let promise = new Promise((resolve, reject) => {
+    this.configuration.requestMethodPOST("autocomplete-scannounce", parameters).subscribe(
+      data=>{
+        this.scholarshipAnnouncementSearch = data;
+        resolve(data);
+      },
+      err=>{
+        reject(err);
+        console.log(err);
+      }
+    )
+    });
+    return promise;
+  }
+
+
   getScholarshipAnnouncementsForSearch(){
     return this.scholarshipAnnouncementSearch;
   }

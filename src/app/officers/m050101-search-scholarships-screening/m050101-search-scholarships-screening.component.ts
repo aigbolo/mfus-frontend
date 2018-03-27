@@ -26,7 +26,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
   scholarshipScreeningList: any[] = [];
   scholarshipScreening: any;
 
-  scholarshipAnnouncementList: any[] = [];
+  scholarshipAnnouncementList: any;
   scholarshipAnnouncement: any;
   schoolList: RftSchool[];
   majorsList: RftMajor[];
@@ -44,63 +44,58 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
     private scholarshipScreeningService: M050101ScholarshipsScreeningService,
     public ngProgress: NgProgress) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.layoutService.setPageHeader("บันทึกคัดกรองเอกสาร");
     this.ngProgress.start();
-    this.validatorForm();
+
     this.referenceService.initialSchools();
     this.setDocumentScreeningFlag();
 
+    this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
 
-      this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
-        if(this.searchForm.search_criteria.year != null && this.searchForm.search_criteria.announcement_ref != null){
-          setTimeout(
-            ()=>{
-            this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
-            if(this.searchForm.search_criteria.school_ref != null){
-              this.referenceService.initialMajors(this.searchForm.search_criteria.school_ref);
-               this.referenceService.getSchoolByRef(this.searchForm.search_criteria.school_ref).subscribe(
-                data=>{
-                  this.rftSchool = data;
-                },
-                err=>{
-                  console.log(err);
-                }
-              );
-            }
-            if(this.searchForm.search_criteria.major_ref != null){
-              this.referenceService.getMajorByRef(this.searchForm.search_criteria.major_ref).subscribe(
-                data=>{
-                  this.rftMajor = data;
-                },
-                err=>{
-                  console.log(err);
-                }
-              )
-            }
-          },500);
-          setTimeout(
-            ()=>{
-              this.scholarshipAnnouncement = this.referenceService.getOneScholarshipAnnouncementForSearch(this.searchForm.search_criteria.announcement_ref);
-              this.ngProgress.done();
-              this.pageRender = true;
+    this.scholarshipAnnouncementList = await this.referenceService.autocompleteScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
 
-          },1000);
-          setTimeout(
-            ()=>{
-              this.doSearch();
-          },1100);
+    var scholarshipAnnouncement = await this.scholarshipAnnouncementList.filter((data)=>{
+      if(data.announcement_ref == this.searchForm.search_criteria.announcement_ref){
+        return data;
+      }
+    })
+    this.scholarshipAnnouncement = (scholarshipAnnouncement.length == 1?scholarshipAnnouncement[0]:null);
 
-        }else{
-          this.searchForm = new ScholarshipScreeningForm;
-          this.searchForm.search_criteria.year = new Date().getFullYear();
-          this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
-          this.utilsService.goToPage('search-scholarship-screening');
-          this.ngProgress.done();
-          this.pageRender = true;
+    if(this.searchForm.search_criteria.school_ref != null){
+      this.referenceService.initialMajors(this.searchForm.search_criteria.school_ref);
+       this.referenceService.getSchoolByRef(this.searchForm.search_criteria.school_ref).subscribe(
+        data=>{
+          this.rftSchool = data;
+        },
+        err=>{
+          console.log(err);
         }
+      );
+    }
+    if(this.searchForm.search_criteria.major_ref != null){
+      this.referenceService.getMajorByRef(this.searchForm.search_criteria.major_ref).subscribe(
+        data=>{
+           this.rftMajor = data;
+        },
+        err=>{
+           console.log(err);
+        }
+      )
+    }
+    this.pageRender = true;
+    this.ngProgress.done();
+    this.validatorForm();
+    console.log(this.searchForm.search_criteria);
+    if(this.searchForm.search_criteria.year!&&this.searchForm.search_criteria.announcement_ref!){
+      this.doSearch();
+    }
+
+
 
   }
+
+
 
   setDocumentScreeningFlag(){
     this.documentScreeningFlag = [
@@ -138,7 +133,6 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
       this.onLoad = true;
 
       this.scholarshipScreeningService.doSearch(this.searchForm).subscribe(data=>{
-        console.log(data)
         this.scholarshipScreeningList = data;
       },
       error =>{

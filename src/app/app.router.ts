@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { M000401AnnouncementIntervieweeComponent } from './officers/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
+=======
+import { M040301ManageDocumentsRequestComponent } from './students/m040301-manage-documents-request/m040301-manage-documents-request.component';
+>>>>>>> b166778c9afe5f966d223f2f62570682c954e30d
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
 import { M050103SearchScholarshipEarningComponent } from './officers/m050103-search-scholarship-earning/m050103-search-scholarship-earning.component';
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
@@ -41,6 +45,9 @@ import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
 
 import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
+import { ScholarshipAnnoucementComponent } from './general/info/scholarship-annoucement/scholarship-annoucement.component';
+import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
+import { M040301ManageDocumentsRequestComponent } from './students/m040301-manage-documents-request/m040301-manage-documents-request.component';
 // import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 const appRoutes: Routes = [
@@ -48,6 +55,8 @@ const appRoutes: Routes = [
   // General Paths
   { path: "", component: IndexComponent },
   { path: "register", component: RegisterComponent },
+  { path: "scholarship-announcement", component: ScholarshipAnnoucementComponent },
+  { path: "scholarship-announcement-detail/:id", component: ScholarshipAnnoucementDetailComponent },
 
   // Authorization Paths
   { path: "forgot", component: ForgotPasswordComponent },
@@ -96,6 +105,9 @@ const appRoutes: Routes = [
 
 
   { path: "application-view/:id", component: ViewStudentApplicationComponent , canActivate: [EnsureIsAuth]},
+
+
+
   // Students Paths
   {
     path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth], children: [
@@ -125,6 +137,7 @@ const appRoutes: Routes = [
   { path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent, canActivate: [EnsureIsAuth] },
   { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent , canActivate: [EnsureIsAuth] },
   { path: "manage-student-profile", component: ManageStudentProfileComponent , canActivate: [EnsureIsAuth] },
+  { path: "document-requested", component: M040301ManageDocumentsRequestComponent, canActivate: [EnsureIsAuth] },
 
 ];
 

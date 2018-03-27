@@ -105,7 +105,7 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'สมัครทุน', routerLink: ['/manage-application'] },
           { label: 'ตรวจสอบสถานะทุนการศึกษาที่สมัคร', routerLink: ['/search-sholarships-applied'] },
-          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/search-document-request'] }
+          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-requested'] }
         ]
       },
       {

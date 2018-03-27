@@ -1,0 +1,26 @@
+<div class="table">
+  <div class="tcontent table-header">
+    <div class="tcell th">
+      ทุนการศึกษา
+    </div>
+    <div class="tcell th table-date">
+      วันที่เปิดรับสมัคร
+    </div>
+  </div>
+  <div class="tcontent table-body"
+       *ngFor="let scholar of scholarships | async; let i = index">
+    <div class="tcell td">
+      <i class="fas fa-circle"
+         style="font-size: 8px; color: cornflowerblue;"></i>
+      <a routerLink='/scholarship-announcement-detail/{{scholar.announcement_ref}}'>
+        {{scholar.scholarship_name}}
+        <i class="fab fa-hotjar"
+           style="color:orangered;"
+           *ngIf="i <= 4"></i>
+      </a>
+    </div>
+    <div class="tcell td table-date date">
+        {{scholar.registration_start_date | date:'dd/MM/yyyy'}} - {{scholar.registration_end_date | date:'dd/MM/yyyy'}}
+    </div>
+  </div>
+</div>
