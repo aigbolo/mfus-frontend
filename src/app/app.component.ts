@@ -3,6 +3,7 @@ import { ReferenceService } from './services/general/reference.service';
 import { AuthenticationService } from './services/general/authentication.service';
 import { Subscription } from 'rxjs/Subscription';
 import { LayoutService } from './services/utils/layout.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,15 @@ export class AppComponent implements OnDestroy {
   private subscription: Subscription;
   private subscriptionMsg: Subscription;
 
-  constructor(private authentication: AuthenticationService, private layout: LayoutService) {
+  constructor(private authentication: AuthenticationService, private layout: LayoutService,private ngProgress: NgProgress) {
     this.subscription = this.authentication.getLoggedinStage().subscribe(stage => { this.status = stage })
     this.subscriptionMsg = this.layout.getMsgDisplay().subscribe(msg => { this.msgs = msg })
   }
 
   ngOnDestroy() {
+    this.ngProgress.done();
     this.subscription.unsubscribe();
     this.subscriptionMsg.unsubscribe();
   }
+
 }

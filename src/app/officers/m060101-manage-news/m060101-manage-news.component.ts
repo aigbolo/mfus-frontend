@@ -197,4 +197,7 @@ export class M060101ManageNewsComponent extends CalendarModel
       previewDate.getFullYear().toString();
     this.preview = !this.preview;
   }
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }

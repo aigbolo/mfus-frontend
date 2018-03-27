@@ -44,7 +44,7 @@ export class M000401AnnouncementIntervieweeComponent implements OnInit {
 
   onSelect(scholarship) {
     this.ngProgress.start();
-    this.utilsService.goToPageWithParam('interviewee-announcement-detail/', scholarship.announcement_ref);
+    this.utilsService.goToPageWithParam('interviewees-announcement-detail/', scholarship.announcement_ref);
   }
 
   convertDateTodisplay(date) {

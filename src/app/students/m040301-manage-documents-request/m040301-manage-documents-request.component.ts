@@ -125,6 +125,8 @@ export class M040301ManageDocumentsRequestComponent implements OnInit {
       )
     }
   }
-
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 
 }

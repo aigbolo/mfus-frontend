@@ -432,5 +432,7 @@ export class M030103ManageSholarshipAnnouncementComponent extends CalendarModel 
   onPageSearch() {
     this.utilsService.goToPage("search-scholarship-announcement");
   }
-
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }

@@ -454,4 +454,7 @@ export class ApplyScholarshipsComponent implements OnInit {
       }
     )
   }
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }

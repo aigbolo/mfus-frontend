@@ -359,4 +359,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
   onPageSearch() {
     this.utilsService.goToPage("search-sponsors");
   }
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }

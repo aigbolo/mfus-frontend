@@ -134,5 +134,7 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
     this.utilsService.goToPageWithQueryParam('search-interview-selecting',params);
     // this.utilsService.goToPage("search-scholarship-screening");
   }
-
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }
