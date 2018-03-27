@@ -1,26 +1,27 @@
 <div class="row overide-row">
-    <div class="col-xs-10">
-        <h3 class="normal header">ทุนการศึกษา</h3>
+  <div class="table">
+    <div class="tcontent table-header">
+        <div class="tcell th">
+            ทุนการศึกษา
+        </div>
+        <div class="tcell th table-date">
+            วันที่ประกาศ
+        </div>
     </div>
-    <div class="col-xs-2">
-        <h3 class="normal">วันที่ประกาศ</h3>
-    </div>
-    <div class="col-xs-12">
-        <p-dataList [value]="scholarshipList" [paginator]="true" [rows]="10">
-            <ng-template let-obj let-i="index" pTemplate="item">
-                <div class="col-xs-10">
-                    <i class="fas fa-circle icon-circle"></i>
-                    <a class="menu_links" (click)="onSelect(obj)">
-              {{obj.scholarship_name}}
-              <img class="icon-announcement-new"
-                   src="./assets/images/new-icon-animated (1).gif"
-                   *ngIf="i < 5" >
-          </a>
-                </div>
-                <div class="col-xs-2">
-                    {{convertDateTodisplay(obj.announce_interview_date)}}
-                </div>
-            </ng-template>
-        </p-dataList>
-    </div>
+        <div class="tcontent table-body"
+             *ngFor="let scholar of scholarshipList ;let i = index">
+            <div class="tcell td">
+                <i class="fas fa-circle" style="font-size: 8px; color: cornflowerblue;"></i>
+                <a (click)="onSelect(scholar)">
+                  {{scholar.scholarship_name}}
+                  <i class="fab fa-hotjar"
+                     style="color:orangered;"
+                     *ngIf="i <= 4"></i>
+                </a>
+            </div>
+            <div class="tcell td table-date date">
+                {{scholar.announce_interview_date | date:'dd/MM/yyyy'}}
+            </div>
+        </div>
+  </div>
 </div>

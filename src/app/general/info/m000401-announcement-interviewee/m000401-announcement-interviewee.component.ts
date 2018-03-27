@@ -2,10 +2,10 @@
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { ViewEncapsulation, OnInit, Component } from '@angular/core';
-import { SmScholarship } from '../../../models/sm-scholarship';
 import { M030102ScholarshipService } from '../../../services/officers/m030102-scholarship.service';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { UtilsService } from '../../../services/utils/utils.service';
+import { SmScholarshipAnnouncement } from '../../../models/sm-scholarship-announcement';
 
 @Component({
   selector: 'app-m000401-announcement-interviewee',
@@ -15,7 +15,7 @@ import { UtilsService } from '../../../services/utils/utils.service';
 })
 export class M000401AnnouncementIntervieweeComponent implements OnInit {
 
-  public scholarshipList: SmScholarship[] = [];
+  public scholarshipList: SmScholarshipAnnouncement[] = [];
 
   constructor(
     private scholarshipService: M030102ScholarshipService,
