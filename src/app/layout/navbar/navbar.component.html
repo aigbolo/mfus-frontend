@@ -2,12 +2,12 @@
     <div class="container">
         <ul class="nav navbar-nav">
           <li>
-            <a routerLinkActive="active"
+            <a routerLinkActive="active" class="menu-item"
                [routerLinkActiveOptions]="{exact: true}"
                routerLink="/">หน้าหลัก</a>
           </li>
           <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ข่าวสาร <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ข่าวสาร <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">ข่าวทั่วไป</a></li>
                 <li><a routerLink="/scholarships-announcement">ประกาศเปิดรับสมัคร</a></li>
@@ -16,31 +16,31 @@
               </ul>
           </li>
           <li>
-            <a>เกี่ยวกับฝ่ายทุนการศึกษา</a>
+            <a class="menu-item">เกี่ยวกับฝ่ายทุนการศึกษา</a>
           </li>
           <li>
-            <a>ติดต่อ</a>
+            <a class="menu-item">ติดต่อ</a>
           </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <li *ngIf="!status">
-            <a routerLinkActive="active"
+            <a routerLinkActive="active" class="menu-item"
                routerLink="/register">
               <span class="glyphicon glyphicon-user"></span> ลงทะเบียนผู้ใช้</a>
           </li>
           <li style="float:right"
               *ngIf="!status">
-            <a routerLinkActive="active"
+            <a routerLinkActive="active" class="menu-item"
                routerLink="/login">
               <span class="glyphicon glyphicon-log-in"></span> เข้าสู่ระบบ</a>
           </li>
-          <li style="float:right;cursor:pointer;"
+          <li style="float:right"
               *ngIf="status">
-            <a (click)="onClickLogout()">
+            <a (click)="onClickLogout()" class="menu-item">
               <span class="glyphicon glyphicon-log-out"></span>
               ออกจากระบบ</a>
           </li>
-          <li style="float:right;cursor:pointer;"
+          <li style="float:right"
               *ngIf="status">
             <a>
               <span class="glyphicon glyphicon-user"></span>

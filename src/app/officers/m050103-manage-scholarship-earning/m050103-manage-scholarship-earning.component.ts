@@ -33,7 +33,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
   updateMode:boolean  = false;
   manageFormGroup: FormGroup;
   manageForm: ScholarshipEarningForm = new ScholarshipEarningForm();
-  
+
   studentEarningList: any[] = [];
   studentEarning: any;
 
@@ -81,7 +81,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
         () => {}
       );
   }
-  
+
   findInterviewees(announcement_ref: string){
     this.scholarshipEarningService.doSearchInterviewees(announcement_ref)
     .subscribe(
@@ -114,12 +114,12 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
     }
   );
   }
-  
+
   onPageSearch(){
     const params = JSON.parse(localStorage.getItem('currentSearchParam'));
     this.utilsService.goToPageWithQueryParam('search-scholarship-earning',params);
   }
-  
+
   onReset(){
     window.location.reload();
   }
@@ -128,5 +128,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
     this.manageForm = new ScholarshipEarningForm;
     this.ngOnInit();
   }
-
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }
