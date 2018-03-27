@@ -10,12 +10,14 @@ export class ScholarshipScreeningForm {
   scholarshipAnnouncement: SmScholarshipAnnouncement;
   sm_document_request: SmDocumentRequest;
   detail_list: SmDocumentRequestDetail[];
+  application_ref: ApApplication;
 
   search_criteria:SearchCriteria;
 
   constructor(){
     this.student = new AcStudent;
     this.application = new ApApplication;
+    this.application_ref = new ApApplication;
     this.scholarshipAnnouncement = new SmScholarshipAnnouncement;
     this.sm_document_request = new SmDocumentRequest;
     this.detail_list = [];

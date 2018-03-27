@@ -1,0 +1,99 @@
+<form>
+
+  <div class="row overide-row">
+    <div class="col-xs-8">
+      <label class="normal">ปีการศึกษา</label>
+      <p>{{manageForm.scholarshipAnnouncement.year}}</p>
+    </div>
+
+    <div class="col-xs-4">
+      <label class="normal">เลขเอกสารอ้างอิง </label>
+      <p>{{manageForm.scholarshipAnnouncement.document_ref_no}}</p>
+    </div>
+  </div>
+
+  <div class="row overide-row">
+    <div class="col-xs-8">
+      <label class="normal">ทุนการศึกษา</label>
+      <p>{{manageForm.scholarshipAnnouncement.scholarship_name}}</p>
+
+    </div>
+
+    <div class="col-xs-2">
+      <label class="normal">ประจำปี</label>
+      <p>{{manageForm.scholarshipAnnouncement.year}}</p>
+    </div>
+
+    <div class="col-xs-2">
+      <label class="normal">รอบที่</label>
+      <p>{{manageForm.scholarshipAnnouncement.round}}</p>
+    </div>
+  </div>
+
+  <div class="row overide-row">
+    <div class="col-xs-6">
+      <label class="normal">ประเภททุนการศึกษา</label>
+      <p>{{manageForm.scholarshipAnnouncement.scholarship_type_name}}</p>
+    </div>
+
+    <div class="col-xs-2">
+      <label class="normal">จำนวนทุนการศึกษา</label>
+      <p>{{manageForm.scholarshipAnnouncement.unit}}</p>
+    </div>
+
+    <div class="col-xs-4">
+      <label class="normal">จำนวนทุนการศึกษา/ทุนการศึกษา(บาท)</label>
+      <p>{{manageForm.scholarshipAnnouncement.financial_aid}}</p>
+    </div>
+  </div>
+
+  <div class="row overide-row">
+    <div class="col-xs-2">
+      <label class="normal">วันที่ประกาศผล</label>
+      <p>{{manageForm.scholarshipAnnouncement.announce_result_date}}</p>
+    </div>
+  </div>
+
+
+
+  <p-dataTable [value]="studentEarningList" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" emptyMessage="ไม่พบข้อมูล"
+    [loading]="onLoad">
+
+    <p-column field="" header="เลือก" styleClass="check-box">
+      <ng-template pTemplate="body" let-data="rowData" let-index="rowIndex" >
+          <p-checkbox name="selectStudentEarning{{index+1}}" [(ngModel)]="data.earn_flag" binary="true" ></p-checkbox>
+      </ng-template>
+    </p-column>
+  
+    <p-column field="" header="ชื่อนักศึกษา" class="applicant">
+      <ng-template let-app="rowData" let-ri="rowIndex" pTemplate="body">
+        <span class="application-name">{{app['name']}}</span>
+        <span class="application-code">{{app['application_code']}}</span>
+      </ng-template></p-column>
+
+      <p-column field="school_name_t" header="สำนักวิชา" styleClass="school"></p-column>
+      <p-column field="major_name_t" header="สาขาวิชา" styleClass="major"></p-column>
+      <p-column field="collage_year" header="ชั้นปี" styleClass="year"></p-column>
+      <p-column field="gpax" header="GPAX" styleClass="gpax"></p-column>
+      <p-column field="application_ref" header="" styleClass="view">
+
+      <ng-template let-obj="rowData" pTemplate="body">
+        <a routerLink="/application-view/{{obj['application_ref']}}" routerLinkActive="active" target="_blank">
+          <button styleClass="view" class="ui-button-info btn-position align-center" type="button" label="ดูข้อมูลใบสมัคร" pButton >
+          </button></a>
+      </ng-template></p-column>
+
+  </p-dataTable>
+
+
+  <!-- Action buttons here -->
+  <div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+      <button pButton (click)="onPageSearch()" class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+      <button pButton (click)="onReset()" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
+      <button pButton (click)="onSubmit()" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
+    </div>
+  </div>
+</form>

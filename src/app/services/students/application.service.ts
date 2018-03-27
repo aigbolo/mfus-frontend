@@ -62,5 +62,8 @@ export class ApplicationService {
     let json = { application_ref: ref }
     return this.configurationService.requestMethodPOST('documentrequest-history', json);
   }
-
+  initialStudentInterview(ref: string){
+    let json = { announcement_ref: ref };
+    return  this.configurationService.requestMethodPOST('interviewees',json);
+  }
 }

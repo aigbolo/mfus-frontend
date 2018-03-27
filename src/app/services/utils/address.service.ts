@@ -14,12 +14,13 @@ export class AddressService {
 
   //Set RftProvince
   initialProvince() {
-    this.configuration.requestMethodGET("autocomplete-province").subscribe(
+    var initProvince = this.configuration.requestMethodGET("autocomplete-province").subscribe(
       data => {
         this.rftProvinces = data;
       },
       err => {
         console.log(err);
+        initProvince;
       }
     );
   }

@@ -53,7 +53,7 @@ implements OnInit {
       },500);
       setTimeout(
         ()=>{
-          this.doSearch();
+          this.onSearch();
       },1100);
 
     }else{
@@ -84,15 +84,13 @@ implements OnInit {
   }
 
   onSearch() {
-    //this.utilsService.goToPageWithQueryParam('search-sponsors',this.searchForm.search_criteria);
-    //this.doSearch();
+    this.utilsService.goToPageWithQueryParam('search-interview-selecting',this.searchForm.search_criteria);
+    this.doSearch();
   }
 
   doSearch() {
-    console.log("begin doSearch.......");
     this.onLoad = true;
     this.searchInterviewService.doSearch(this.searchForm).subscribe(data => {
-      console.log("begin doSearch......." , data);
       this.announceList = data;
     },
       error => {
@@ -106,7 +104,7 @@ implements OnInit {
 
   onRowSelect(event) {
     console.log('onRowSelect..............');
-    this.utilsService.goToPage('manage-officer-interview-selecting/'+this.announce.announcement_ref)
+    this.utilsService.goToPage('manage-interview-selecting/'+this.announce.announcement_ref)
   }
 
   onReset() {
@@ -115,7 +113,7 @@ implements OnInit {
     this.scholarshipAnnouncementList = [];
     this.scholarshipAnnouncement = null;
     this.searchForm.search_criteria.year = new Date().getFullYear();
-    //this.utilsService.goToPage('search-sponsors');
+    this.utilsService.goToPage('search-interview-selecting');
   }
 
   autocompleteScholarshipAnnouncement(event) {
@@ -153,13 +151,6 @@ implements OnInit {
     this.searchForm.search_criteria.announcement_ref = this.scholarshipAnnouncement.announcement_ref;
   }
 
-  onSubmit() {
-    console.log("onSubmit......");
-    if (this.manageFormGroup.invalid) {
-      this.utilsService.findInvalidControls(this.manageFormGroup);
-    }
-    this.doSearch();
-  }
 
 
 }

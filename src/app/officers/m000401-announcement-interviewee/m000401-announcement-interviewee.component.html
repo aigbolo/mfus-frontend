@@ -1,0 +1,26 @@
+<div class="row overide-row">
+    <div class="col-xs-10">
+        <h3 class="normal header">ทุนการศึกษา</h3>
+    </div>
+    <div class="col-xs-2">
+        <h3 class="normal">วันที่ประกาศ</h3>
+    </div>
+    <div class="col-xs-12">
+        <p-dataList [value]="scholarshipList" [paginator]="true" [rows]="10">
+            <ng-template let-obj let-i="index" pTemplate="item">
+                <div class="col-xs-10">
+                    <i class="fas fa-circle icon-circle"></i>
+                    <a class="menu_links" (click)="onSelect(obj)">
+              {{obj.scholarship_name}}
+              <img class="icon-announcement-new"
+                   src="./assets/images/new-icon-animated (1).gif"
+                   *ngIf="i < 5" >
+          </a>
+                </div>
+                <div class="col-xs-2">
+                    {{convertDateTodisplay(obj.announce_interview_date)}}
+                </div>
+            </ng-template>
+        </p-dataList>
+    </div>
+</div>

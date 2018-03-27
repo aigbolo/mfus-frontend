@@ -53,16 +53,16 @@ export class SidebarComponent implements OnInit {
         label: 'จัดการคัดเลือกทุนการศึกษา',
         items: [
           { label: 'คัดกรองเอกสาร', routerLink: ['/search-scholarship-screening'] },
-          { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/interview-selecting'] },
-          { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] }
+          { label: 'บันทึกผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interview-selecting'] },
+          { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/search-scholarship-earning'], }
         ]
       },
       {
         label: 'ตรวจสอบทุนการศึกษา',
         items: [
-          { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/sesarch-scholarship'] },
-          { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interview-selecting'] },
-          { label: 'ผู้ได้รับทุนการศึกษา', routerLink: ['/earning-scholarship'] },
+          { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/search-scholarship'] },
+          { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interviewees'] },
+          { label: 'ผู้ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] },
         ]
       },
       {

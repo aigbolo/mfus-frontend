@@ -235,13 +235,14 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
 
  autocompleteProvince(event,seq: number) {
-  console.log('autocompleteProvince: '+seq);
+  console.log('autocompleteProvince: '+event.originalEvent.type);
    let e = event.originalEvent;
    let query = event.query;
    if(seq == 0){
      this.fProvinceList = [];
      let objList: RftProvince[];
      if(e.type == 'input'){
+       console.log('complied this code');
       this.manageForm.dadDistrict = new RftDistrict();
       this.manageForm.dadSubDistrict = new RftSubDistrict();
       this.manageForm.acParent.father_province = null;
@@ -481,6 +482,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  // Autocomplete Selected
  selectProvince(index: number) {
+  console.log('selectProvince');
   if(index == 0){
     this.familyAndAddress.fatherAddressService.initialDistrict(this.manageForm.dadProvince.province_ref);
     this.manageForm.acParent.father_province = this.manageForm.dadProvince.province_ref;

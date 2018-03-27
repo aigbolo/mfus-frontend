@@ -1,0 +1,8 @@
+.row-number, .round{
+  width:50px;
+  text-align: center;
+}
+.grantee, .interview, .announce_result_date{
+  width:120px;
+  text-align: center;
+}

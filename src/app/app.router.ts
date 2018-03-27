@@ -1,6 +1,10 @@
+import { M000401AnnouncementIntervieweeComponent } from './officers/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
+import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
+import { M050103SearchScholarshipEarningComponent } from './officers/m050103-search-scholarship-earning/m050103-search-scholarship-earning.component';
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
+import { M000402AnnouncementInterwivweeDetailComponent } from './officers/m000402-announcement-interwivwee-detail/m000402-announcement-interwivwee-detail.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M020103ManageFamilyAndAddressComponent } from './students/m020103-manage-family-and-address/m020103-manage-family-and-address.component';
@@ -35,6 +39,8 @@ import { M040104ManageFamilyAndAddressComponent } from './students/apply-scholar
 import { M050101SearchScholarshipsScreeningComponent } from './officers/m050101-search-scholarships-screening/m050101-search-scholarships-screening.component';
 import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import { ViewStudentApplicationComponent } from './officers/view-student-application/view-student-application.component';
+
+import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
 // import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 const appRoutes: Routes = [
@@ -77,14 +83,16 @@ const appRoutes: Routes = [
   { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth] },
   { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth] },
-  { path: "interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
-
+  { path: "search-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
+  { path: "manage-interview-selecting/:id", component: M050102ManageOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
+  { path: "search-scholarship-earning", component: M050103SearchScholarshipEarningComponent, canActivate: [EnsureIsAuth]},
   { path: "manage-news", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
   { path: "manage-news/:id", component: M060101ManageNewsComponent , canActivate: [EnsureIsAuth]},
   { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth]},
   { path: "search-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
-
-
+  { path: "manage-scholarship-earning/:id", component:  M050103ManageScholarshipEarningComponent, canActivate:[EnsureIsAuth]},
+  { path: "interviewee-announcement", component: M000401AnnouncementIntervieweeComponent},
+  { path: "interviewee-announcement-detail/:id", component: M000402AnnouncementInterwivweeDetailComponent},
 
 
   { path: "application-view/:id", component: ViewStudentApplicationComponent , canActivate: [EnsureIsAuth]},

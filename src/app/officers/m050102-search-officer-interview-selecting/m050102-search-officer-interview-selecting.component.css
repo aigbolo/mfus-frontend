@@ -1,19 +1,18 @@
-.scholarship-name {
-    width: 150px;
-  }
-
-  .round {
-    width: 150px;
-  }
-
-  .interview_date {
-    width: 150px;
+.row-number,  .round{
+  width:50px;
+  text-align:center;
+}
+ .interview_date {
+    width: 180px;
+    text-align:center;
   }
 
   .applicant {
-    width: 150px;
+    width: 100px;
+    text-align:center;
   }
 
-  .autocomplete-scholarships{
-
+  .interviewees {
+    width: 120px;
+    text-align:center;
   }
