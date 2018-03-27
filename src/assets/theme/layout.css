@@ -42,6 +42,20 @@ app-root>.container{
   padding-left: 0px !important;
 }
 
+.navbar-red{
+    background-color: #aa0000;
+    border-color: #e7e7e7;
+}
+.navbar-red .container>ul>li>a {
+  color: #fff;
+}
+
+.navbar-red>.container>.nav>li>a:focus, .navbar-red>.container>.nav>li>a:hover {
+  text-decoration: none;
+  background-color: #750200;
+}
+
+
 /* BEGIN PANELMENU */
 div.ui-panelmenu-content.ui-widget-content {
   padding: 0px !important;

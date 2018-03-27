@@ -49,8 +49,8 @@ const appRoutes: Routes = [
   // General Paths
   { path: "", component: IndexComponent },
   { path: "register", component: RegisterComponent },
-  { path: "scholarship-announcement", component: ScholarshipAnnoucementComponent },
-  { path: "scholarship-announcement-detail/:id", component: ScholarshipAnnoucementDetailComponent },
+  { path: "scholarships-announcement", component: ScholarshipAnnoucementComponent },
+  { path: "scholarships-announcement-detail/:id", component: ScholarshipAnnoucementDetailComponent },
 
   // Authorization Paths
   { path: "forgot", component: ForgotPasswordComponent },
