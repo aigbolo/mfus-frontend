@@ -1,0 +1,40 @@
+<div class="row overide-row">
+  <div class="col-xs-12">
+    <p *ngIf="documentRequestList.length == 0">ไม่มีการขอเอกสาร</p>
+    <ul class="documents-requested-list">
+      <li class="document-requested-item" *ngFor="let data of documentRequestList">
+        <div class="row overide-row">
+          <div class="col-xs-10 left-section">
+            <p class="application-code">{{'เลขที่ใบสมัคร: ' +data.application_code}}</p>
+            <h4 class="application-name">{{data.scholarship_name}}</h4>
+            <span class="remark" [innerHTML]="'<strong>หมายเหตุ: </strong>'+data.message">
+
+
+            </span>
+            <div class="request-list">
+              <p><strong>เอกสารที่ต้องการ</strong></p>
+              <ul class="document-list">
+                <li class="document-item" *ngFor="let dr of data.document_requests;let i = index">
+                  <i class="fas" [ngClass]="dr.uploaded==1?'fa-times':'fa-check'"></i>
+                   {{dr.document_title}}
+                  <p-fileUpload
+                  customUpload="true"
+                  auto="true"
+                  accept="image/*" maxFileSize="2000000"
+                  (uploadHandler)="onUpload($event,data.document_request_ref,dr.document_request_detail_ref)"
+                  chooseLabel="เลือกไฟล์"></p-fileUpload>
+                  <small>{{dr.document_name||''}}</small>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-2 right-section">
+            <label class="normal">ส่งภายใน</label>
+            <p class="due-date">{{data.due_date| date:'dd/MM/yyyy'}}</p>
+            <button type="button" class="btn btn-primary btn-block" (click)="onSubmit(data)">ส่ง</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

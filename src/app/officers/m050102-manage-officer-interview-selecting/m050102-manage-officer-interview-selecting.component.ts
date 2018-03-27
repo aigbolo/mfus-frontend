@@ -97,13 +97,18 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
 
   onSubmit() {
     //this.selectedInterviewees = this.studentIntervieweesList
-    let applicationList = [];
-    applicationList = applicationList.concat( this.studentIntervieweesList);
+    var applicationList = [];
+    applicationList.push(this.studentIntervieweesList);
 
-    for(let data of applicationList){
-      data.interview_flag = data.interview_flag ? '2': '3';
+    for(let data of this.studentIntervieweesList){
+      var applicationTemp = new ApApplication();
+      applicationTemp = data;
+      applicationTemp.interview_flag = applicationTemp.interview_flag ? '2': '3';
+
+
     }
     console.log("data: ", applicationList);
+    console.log("datass: ", this.studentIntervieweesList);
     // this.manageForm.selected_interviewees.interview_flag = "2";
     // this.manageForm.selected_interviewees.update_user = this.user.account_ref;
     // if (this.manageFormGroup.invalid) {

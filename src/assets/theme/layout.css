@@ -14,11 +14,15 @@ p {
 h1, h2, h3 {
   font-weight: 600;
 }
-div.container-fixed {
+/* div.container-fixed {
   width: 1200px !important;
   margin: auto;
   display: flex !important;
   min-height: 626px;
+} */
+
+app-root>.container{
+  margin-bottom: 150px;
 }
 
 .col-xs-1,
@@ -345,4 +349,6 @@ p-checkbox.document-request-checkbox {
   background: #a00;
   bottom: 0;
   margin-top: 50px;
+  position: fixed;
+  width: 100%;
 }

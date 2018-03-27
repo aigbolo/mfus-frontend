@@ -27,8 +27,10 @@
         </div>
     </div>
 </div>
-<p-dialog header="{{document_selected.document_name}}" [(visible)]="document_display" closeOnEscap="document_display = false">
-    <img [src]=document_selected.document_image class="center">
+<p-dialog header="{{document_selected.document_name}}" width="1000" positionTop="0"
+  [(visible)]="document_display"
+  closeOnEscap="document_display = false">
+    <img [src]=document_selected.document_image class="center" width="100%">
     <p-footer>
         <button class="center" type="submit" (click)="document_display = false" label="ปิด" pButton></button>
     </p-footer>

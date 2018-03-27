@@ -1,39 +1,52 @@
-<div class="menubar">
-  <ul>
-    <li>
-      <a routerLinkActive="active"
-         [routerLinkActiveOptions]="{exact: true}"
-         routerLink="/">หน้าหลัก</a>
-    </li>
-    <li>
-      <a routerLinkActive="active"
-         [routerLinkActiveOptions]="{exact: true}"
-         routerLink="/news">ข่าวสาร</a>
-    </li>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}"
+               routerLink="/">หน้าหลัก</a>
+          </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ข่าวสาร <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">ข่าวทั่วไป</a></li>
+                <li><a href="#">ประกาศเปิดรับสมัคร</a></li>
+                <li><a href="#">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</a></li>
+                <li><a href="#">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</a></li>
+              </ul>
+          </li>
+          <li>
+            <a>เกี่ยวกับฝ่ายทุนการศึกษา</a>
+          </li>
+          <li>
+            <a>ติดต่อ</a>
+          </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li *ngIf="!status">
+            <a routerLinkActive="active"
+               routerLink="/register">
+              <span class="glyphicon glyphicon-user"></span> ลงทะเบียนผู้ใช้</a>
+          </li>
+          <li style="float:right"
+              *ngIf="!status">
+            <a routerLinkActive="active"
+               routerLink="/login">
+              <span class="glyphicon glyphicon-log-in"></span> เข้าสู่ระบบ</a>
+          </li>
+          <li style="float:right;cursor:pointer;"
+              *ngIf="status">
+            <a (click)="onClickLogout()">
+              <span class="glyphicon glyphicon-log-out"></span>
+              ออกจากระบบ</a>
+          </li>
+          <li style="float:right;cursor:pointer;"
+              *ngIf="status">
+            <a>
+              <span class="glyphicon glyphicon-user"></span>
+              {{displayName}}</a>
+          </li>
+        </ul>
+      </div>
+</nav>
 
-    <li style="float:right"
-        *ngIf="!status">
-      <a routerLinkActive="active"
-         routerLink="/register">
-        <span class="glyphicon glyphicon-user"></span> ลงทะเบียนผู้ใช้</a>
-    </li>
-    <li style="float:right"
-        *ngIf="!status">
-      <a routerLinkActive="active"
-         routerLink="/login">
-        <span class="glyphicon glyphicon-log-in"></span> เข้าสู่ระบบ</a>
-    </li>
-    <li style="float:right;cursor:pointer;"
-        *ngIf="status">
-      <a (click)="onClickLogout()">
-        <span class="glyphicon glyphicon-log-out"></span>
-        ออกจากระบบ</a>
-    </li>
-    <li style="float:right;cursor:pointer;"
-        *ngIf="status">
-      <a>
-        <span class="glyphicon glyphicon-user"></span>
-        {{displayName}}</a>
-    </li>
-  </ul>
-</div>
