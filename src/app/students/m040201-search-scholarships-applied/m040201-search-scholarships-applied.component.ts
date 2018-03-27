@@ -46,7 +46,6 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
 
   ngOnInit() {
     this.layoutService.setPageHeader('ตรวจสอบสถานะทุนการศึกษาที่สมัคร');
-
     this.searchForm.search_criteria.year = new Date().getFullYear();
     this.validatorForm();
     this.referenceService.initialScholarships(null);

@@ -69,8 +69,50 @@ export class ApplyScholarshipsComponent implements OnInit {
     }
   }
 
+  initialData() {
+    this.applyApplicationForm.acStudent.student_ref = this.authService.getUser().account_ref
+    this.m010101ManageStudentService.doSelect(this.applyApplicationForm.acStudent).subscribe(
+      data => {
+        this.applyApplicationForm.acStudent = data
+        this.applyApplicationForm.student_name = data.first_name_t + ' ' + data.last_name_t
+        this.applyApplicationForm.gender = this.utilsService.getGender(data.gender)
+        this.applyApplicationForm.birth_day = this.utilsService.getBirthDay(data.birth_date)
+        this.applyApplicationForm.age = this.utilsService.getAge(data.birth_date);
+        this.applyApplicationForm.acStudent.birth_date = new Date(this.applyApplicationForm.acStudent.birth_date)
+        this.referenceService.getSchoolByRef(this.applyApplicationForm.acStudent.school_ref).subscribe(
+          data => {
+            this.applyApplicationForm.school_name_t = data.school_name_t
+          }, error => {
+          }, () => {
+            this.referenceService.getMajorByRef(this.applyApplicationForm.acStudent.major_ref).subscribe(
+              data => {
+                this.applyApplicationForm.major_name_t = data.major_name_t
+              }, error => {
+              }, () => {
+                this.initialFamilyAndAddress()
+                this.ngProgress.done();
+                this.pageRender = true
+              }
+            )
+          })
+      })
+  }
+
   insertPage() {
     this.login();
+  }
+
+  login() {
+    this.student = this.authService.getAccount();
+    this.user = this.authService.getUser()
+    this.user_ref = this.user.user_ref
+    this.account_ref = this.authService.getUser().account_ref
+    this.applyApplicationForm.acStudent.update_user = this.user_ref
+    this.applyApplicationForm.apApplication.create_user = this.user_ref
+    this.applyApplicationForm.apApplication.update_user = this.user_ref
+    this.applyApplicationForm.apFamilyFinancial.create_user = this.user_ref
+    this.applyApplicationForm.apFamilyFinancial.update_user = this.user_ref
+    this.applyApplicationForm.apApplication.student_ref = this.account_ref
   }
 
   updatePage() {
@@ -94,133 +136,82 @@ export class ApplyScholarshipsComponent implements OnInit {
 
   }
 
-  login() {
-    this.student = this.authService.getAccount();
-    this.user = this.authService.getUser()
-    this.user_ref = this.user.user_ref
-    this.account_ref = this.authService.getUser().account_ref
-    this.applyApplicationForm.acStudent.update_user = this.user_ref
-    this.applyApplicationForm.apApplication.create_user = this.user_ref
-    this.applyApplicationForm.apApplication.update_user = this.user_ref
-    this.applyApplicationForm.apFamilyFinancial.create_user = this.user_ref
-    this.applyApplicationForm.apFamilyFinancial.update_user = this.user_ref
-    this.applyApplicationForm.apApplication.student_ref = this.account_ref
-  }
-
-  initialData() {
-    this.applyApplicationForm.acStudent.student_ref = this.authService.getUser().account_ref
-    this.m010101ManageStudentService.doSelect(this.applyApplicationForm.acStudent).subscribe(
-      data => {
-      this.applyApplicationForm.acStudent = data
-      this.applyApplicationForm.student_name = data.first_name_t + ' ' + data.last_name_t
-      this.applyApplicationForm.gender = this.utilsService.getGender(data.gender)
-      this.applyApplicationForm.birth_day = this.utilsService.getBirthDay(data.birth_date)
-      this.applyApplicationForm.age = this.utilsService.getAge(data.birth_date);
-      this.applyApplicationForm.acStudent.birth_date = new Date(this.applyApplicationForm.acStudent.birth_date)
-      this.referenceService.getSchoolByRef(this.applyApplicationForm.acStudent.school_ref).subscribe(
-        data => {
-          this.applyApplicationForm.school_name_t = data.school_name_t
-        }, error => {
-        }, () => {
-          this.referenceService.getMajorByRef(this.applyApplicationForm.acStudent.major_ref).subscribe(
-            data => {
-              this.applyApplicationForm.major_name_t = data.major_name_t
-            }, error => {
-            }, () => {
-              setTimeout(() => {
-                this.initialFamilyAndAddress()
-              }, 2000);
-              this.ngProgress.done();
-              this.pageRender = true
-            }
-          )
-        })
-    })
-  }
 
   initialFamilyAndAddress() {
     this.familyAndAddressService.doGetParent(this.account_ref).subscribe(
       data => {
-        setTimeout(() => {
-          this.applyApplicationForm.acParent = data;
-        }, 1000);
+        this.applyApplicationForm.acParent = data;
+      }, err => {
+      },
+      () => {
         setTimeout(() => {
           this.getParentProvince();
           this.convertDateBackToFront();
           this.initialParentAddress();
         }, 2000);
-      }, err => {
-        console.log(err)
-      },
-      () => {
       }
     );
-    setTimeout(()=>{
+    setTimeout(() => {
       this.familyAndAddressService.doGetSiblings(this.user.account_ref).subscribe(
-        data=>{
-          if(data)
-          this.applyApplicationForm.siblingList = data;
-        },err=>{
-          console.log(err)
+        data => {
+          if (data)
+            this.applyApplicationForm.siblingList = data;
+        }, err => {
         }
       )
       this.familyAndAddressService.doGetAddress(this.user.account_ref).subscribe(
-        data=>{
-          if(data.address_ref)
-          this.applyApplicationForm.acAddress = data;
+        data => {
+          if (data.address_ref)
+            this.applyApplicationForm.acAddress = data;
 
-        },err=>{
-          console.log(err)
+        }, err => {
         },
-        ()=>{
+        () => {
           this.initialLivingAddress();
           this.getLivingProvince();
           this.getLivingDistrict();
           this.getLivingSubDistrict();
         }
       )
-    },1000)
+    }, 1000)
   }
 
   getParentProvince() {
-    setTimeout(() => {
-      if (this.applyApplicationForm.acParent.father_province != null || this.applyApplicationForm.acParent.father_province != undefined) {
-        this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.father_province).subscribe(
-          data => {
-            this.applyApplicationForm.dadProvince = data;
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      }
-      if (this.applyApplicationForm.acParent.mother_province != null || this.applyApplicationForm.acParent.mother_province != undefined) {
-        this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.mother_province).subscribe(
-          data => {
-            this.applyApplicationForm.momProvince = data;
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      }
-      if (this.applyApplicationForm.acParent.patrol_province != null || this.applyApplicationForm.acParent.patrol_province != undefined) {
-        this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.patrol_province).subscribe(
-          data => {
-            this.applyApplicationForm.patrolProvince = data;
+    if (this.applyApplicationForm.acParent.father_province != null || this.applyApplicationForm.acParent.father_province != undefined) {
+      this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.father_province).subscribe(
+        data => {
+          this.applyApplicationForm.dadProvince = data;
+        },
+        err => {
+        }
+      );
+    }
+    if (this.applyApplicationForm.acParent.mother_province != null || this.applyApplicationForm.acParent.mother_province != undefined) {
+      this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.mother_province).subscribe(
+        data => {
+          this.applyApplicationForm.momProvince = data;
+        },
+        err => {
+        }
+      );
+    }
+    if (this.applyApplicationForm.acParent.patrol_province != null || this.applyApplicationForm.acParent.patrol_province != undefined) {
+      this.fatherAddressService.getProvinceByRef(this.applyApplicationForm.acParent.patrol_province).subscribe(
+        data => {
+          this.applyApplicationForm.patrolProvince = data;
 
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      }
+        },
+        err => {
+        }
+      );
+    }
+
+    setTimeout(() => {
+      this.getParentDistrict();
     }, 1000);
-    this.getParentDistrict();
   }
 
   getParentDistrict() {
-    setTimeout(() => {
       if (this.applyApplicationForm.acParent.father_district != null || this.applyApplicationForm.acParent.father_district != undefined) {
         this.fatherAddressService.getDistrictByRef(this.applyApplicationForm.acParent.father_district).subscribe(
           data => {
@@ -231,8 +222,6 @@ export class ApplyScholarshipsComponent implements OnInit {
           }
         );
       }
-    }, 300);
-    setTimeout(() => {
       if (this.applyApplicationForm.acParent.mother_district != null || this.applyApplicationForm.acParent.father_district != undefined) {
         this.fatherAddressService.getDistrictByRef(this.applyApplicationForm.acParent.mother_district).subscribe(
           data => {
@@ -243,8 +232,6 @@ export class ApplyScholarshipsComponent implements OnInit {
           }
         );
       }
-    }, 600);
-    setTimeout(() => {
       if (this.applyApplicationForm.acParent.patrol_district != null || this.applyApplicationForm.acParent.father_district != undefined) {
         this.fatherAddressService.getDistrictByRef(this.applyApplicationForm.acParent.patrol_district).subscribe(
           data => {
@@ -256,12 +243,13 @@ export class ApplyScholarshipsComponent implements OnInit {
           }
         );
       }
-    }, 900);
-    this.getParentSubDistrict();
+    setTimeout(() => {
+      this.getParentSubDistrict();
+    }, 1000);
+
   }
 
   getParentSubDistrict() {
-    setTimeout(() => {
       if (this.applyApplicationForm.acParent.father_sub_district != null || this.applyApplicationForm.acParent.father_sub_district != undefined) {
         this.fatherAddressService.getSubDistrictByRef(this.applyApplicationForm.acParent.father_sub_district).subscribe(
           data => {
@@ -292,7 +280,6 @@ export class ApplyScholarshipsComponent implements OnInit {
           }
         );
       }
-    }, 1000);
   }
 
   convertDateBackToFront() {
@@ -441,6 +428,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   initialStudentLoanFund() {
     this.applyScholarshipService.initialStudentLoanFund(this.account_ref).subscribe(
       data => {
+        console.log(data)
         this.applyApplicationForm.apStudentLoanFund = data
       }, error => {
         console.log(error)

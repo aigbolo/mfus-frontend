@@ -1,0 +1,16 @@
+a.menu_links {
+  cursor: pointer !important;
+}
+
+.right{
+  float: right;
+}
+
+.icon-announcement-new{
+  width:25px;
+  padding-bottom: 5px;
+}
+
+.icon-circle{
+  color: #3a8db7;
+}

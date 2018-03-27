@@ -1,3 +1,4 @@
+import { M000401AnnouncementIntervieweeComponent } from './officers/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
 import { M050103ScholarshipEarningService } from './services/officers/m050103-scholarship-earning.service';
 import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
@@ -112,6 +113,7 @@ import { M050103SearchScholarshipEarningComponent } from './officers/m050103-sea
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
 
 import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
+import { M000402AnnouncementInterwivweeDetailComponent } from './officers/m000402-announcement-interwivwee-detail/m000402-announcement-interwivwee-detail.component';
 import { ScholarshipAnnoucementComponent } from './general/info/scholarship-annoucement/scholarship-annoucement.component';
 import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
 import { DocumentsRequestedService } from './services/students/m040301-documents-requested.service';
@@ -155,7 +157,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040101ManageApplicantInfoComponent,
     ApplyScholarshipsComponent,
     M040102ManageScholarshipInfoComponent,
-    M040102ManageScholarshipInfoComponent,
     M030103SearchScholarshipAnnouncementComponent,
     M020103ManageFamilyAndAddressComponent,
     FamilyComponent,
@@ -188,6 +189,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050102ManageOfficerInterviewSelectingComponent,
     M050103SearchScholarshipEarningComponent,
     M050103ManageScholarshipEarningComponent,
+    M000401AnnouncementIntervieweeComponent,
+    M000402AnnouncementInterwivweeDetailComponent,
     ScholarshipAnnoucementComponent,
     ScholarshipAnnoucementDetailComponent,
     M040301ManageDocumentsRequestComponent
