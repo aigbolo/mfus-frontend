@@ -2,8 +2,10 @@
     <div class="row overide-row">
         <div class="col-xs-9">
             <label class="normal">ผู้สนับสนุน</label>
-            <p-autoComplete class="autocomplete-sub-district" [(ngModel)]="searchForm.smSponsors" [suggestions]="sponsorsList" [dropdown]="true" (completeMethod)="autocompleteSponsors($event)" (onDropdownClick)="handleCompleteClickSponsosrs()" field="sponsors_name"
-                forceSelection="true" name="autocompleteSponsors">
+            <p-autoComplete class="autocomplete-scholarships" [(ngModel)]="searchForm.smSponsors" [suggestions]="sponsorsList"
+            [dropdown]="true" (completeMethod)="autocompleteSponsors($event)" (onDropdownClick)="handleCompleteClickSponsosrs()"
+            field="sponsors_name"
+            forceSelection="true" name="autocompleteSponsors">
             </p-autoComplete>
         </div>
         <div class="col-xs-3">

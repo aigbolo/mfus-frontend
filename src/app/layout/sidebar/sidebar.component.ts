@@ -57,20 +57,8 @@ export class SidebarComponent implements OnInit {
           { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/search-scholarship-earning'], }
         ]
       },
-      {
-        label: 'ตรวจสอบทุนการศึกษา',
-        items: [
-          { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/search-scholarship'] },
-          { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interviewees'] },
-          { label: 'ผู้ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] },
-        ]
-      },
-      {
-        label: 'การประกาศ',
-        items: [
-          { label: 'ข้อมูลข่าวสาร', routerLink: ['/search-news'] }
-        ]
-      },
+      { label: 'ตรวจสอบนักศึกษาที่ได้รับทุน',routerLink: ['/scholarship-earning'] },
+      { label: 'ข้อมูลข่าวสาร', routerLink: ['/search-news'] },
       {
         label: 'รายงาน',
         items: [
