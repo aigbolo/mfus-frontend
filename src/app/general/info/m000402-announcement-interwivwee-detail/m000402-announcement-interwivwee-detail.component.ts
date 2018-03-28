@@ -1,6 +1,6 @@
 
 import { NgProgress } from 'ngx-progressbar';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmSchoalrshipAnnouncementIntervieweeDetail } from '../../../models/sm-scholarship-announcement-interviewee-detail';
 import { SmScholarshipAnnouncement } from '../../../models/sm-scholarship-announcement';
 import { M030102ScholarshipService } from '../../../services/officers/m030102-scholarship.service';
@@ -9,6 +9,7 @@ import { LayoutService } from '../../../services/utils/layout.service';
 
 @Component({
   selector: 'app-m000402-announcement-interwivwee-detail',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m000402-announcement-interwivwee-detail.component.html',
   styleUrls: ['./m000402-announcement-interwivwee-detail.component.css']
 })
