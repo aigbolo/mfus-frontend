@@ -50,7 +50,7 @@
   <div class="row overide-row">
     <div class="col-xs-2">
       <label class="normal">วันที่ประกาศผล</label>
-      <p>{{manageForm.scholarshipAnnouncement.announce_result_date}}</p>
+      <p>{{manageForm.scholarshipAnnouncement.announce_result_date| date:'dd/MM/yyyy'}}</p>
     </div>
   </div>
 
@@ -89,7 +89,6 @@
   <!-- Action buttons here -->
   <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
-      <button pButton (click)="onPageSearch()" class="btn-back ui-button-info" label="ย้อนกลับ"></button>
     </div>
     <div class="col-xs-6 btn-panel-right">
       <button pButton (click)="onReset()" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>

@@ -65,10 +65,9 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
             this.studentIntervieweesList = data;
 
             for (let flag of this.studentIntervieweesList) {
-              flag.interview_flag = null;
+              flag.interview_flag = flag.interview_flag=='2'?true:false;
             }
           }
-          console.log(data);
         });
       this.applicationService
         .initialScholarshipAnnouncement(announcement_ref)
@@ -76,7 +75,6 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
           if (data) {
             this.getScholarshipAnnouncementView(data.announcement_ref);
           }
-          console.log(data);
         });
     }
   }
@@ -102,7 +100,6 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
     for (let data of applicationList) {
       data.interview_flag = data.interview_flag ? "2" : "3";
     }
-    console.log("data: ", applicationList);
 
     if (this.studentIntervieweesList != null) {
       this.officerInterviewSelectingService.updateInterviewees(this.studentIntervieweesList).subscribe(
@@ -129,10 +126,7 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
   }
 
   onPageSearch() {
-
-    const params = JSON.parse(localStorage.getItem('currentSearchParam'));
-    this.utilsService.goToPageWithQueryParam('search-interview-selecting',params);
-    // this.utilsService.goToPage("search-scholarship-screening");
+    window.history.back();
   }
   ngOnDestroy() {
     this.ngProgress.done();

@@ -19,14 +19,13 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class M050102SearchOfficerInterviewSelectingComponent extends CalendarModel
 implements OnInit {
+  pageRender = false;
   searchForm: InterviewForm = new InterviewForm();
   announceList: SmScholarshipAnnouncement[] = [];
   announce: SmScholarshipAnnouncement = new SmScholarshipAnnouncement();
   onLoad = false;
-  sub: any;
-  page: any;
-  scholarshipAnnouncementList: any[] = [];
-  scholarshipAnnouncement: any;
+  scholarshipList: any;
+  scholarship: any;
 
   //vadidation
   manageForm: InterviewForm = new InterviewForm();
@@ -41,45 +40,37 @@ implements OnInit {
       super();
      }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.layoutService.setPageHeader('บันทึกผู้มีสิทธิ์สัมภาษณ์');
     this.validatorForm();
-    this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
-    if(this.searchForm.search_criteria.year != null){
-      setTimeout(
-        ()=>{
-        this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
-        this.ngProgress.done();
-      },500);
-      setTimeout(
-        ()=>{
-          this.onSearch();
-      },1100);
+    this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
 
-    }else{
-      this.searchForm = new InterviewForm;
-      this.searchForm.search_criteria.year = new Date().getFullYear();
-      this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
-      this.ngProgress.done();
+    this.scholarshipList = await this.referenceService.autocompleteScholarships('');
+    if(this.searchForm.search_criteria.scholarship_ref!){
+      var scholarship = await this.scholarshipList.filter((data)=>{
+        if(data.scholarship_ref == this.searchForm.search_criteria.scholarship_ref){
+          return data;
+        }
+      });
+      this.scholarship = (scholarship.length == 1?scholarship[0]:null);
+    }
+
+    this.searchForm.search_criteria.interview_start_date = (this.searchForm.search_criteria.interview_start_date!?new Date(this.searchForm.search_criteria.interview_start_date):null);
+    this.searchForm.search_criteria.interview_end_date = (this.searchForm.search_criteria.interview_end_date!?new Date(this.searchForm.search_criteria.interview_end_date):null);
+    this.ngProgress.done();
+    this.pageRender = true;
+    if(this.searchForm.search_criteria.year!){
+      this.doSearch();
     }
   }
 
 
   validatorForm() {
     this.manageFormGroup = new FormGroup({
-      year: new FormControl(
-        this.manageForm.search_criteria.year,
-        Validators.compose([Validators.required])
-      ),
-      scholarship_ref: new FormControl(
-        this.manageForm.search_criteria.announcement_ref
-      ),
-      interview_start_date: new FormControl(
-        this.manageForm.search_criteria.interview_start_date
-      ),
-      interview_end_date: new FormControl(
-        this.manageForm.search_criteria.interview_end_date
-      ),
+      year: new FormControl(this.manageForm.search_criteria.year,Validators.compose([Validators.required])),
+      scholarship_ref: new FormControl(this.scholarship),
+      interview_start_date: new FormControl(this.manageForm.search_criteria.interview_start_date),
+      interview_end_date: new FormControl(this.manageForm.search_criteria.interview_end_date),
     });
   }
 
@@ -110,45 +101,45 @@ implements OnInit {
   onReset() {
     this.searchForm = new InterviewForm();
     this.announceList = [];
-    this.scholarshipAnnouncementList = [];
-    this.scholarshipAnnouncement = null;
+    this.scholarshipList = [];
+    this.scholarship = null;
     this.searchForm.search_criteria.year = new Date().getFullYear();
     this.utilsService.goToPage('search-interview-selecting');
   }
 
-  autocompleteScholarshipAnnouncement(event) {
+  autocompleteScholarship(event) {
     console.log("autocompleteScholarshipAnnouncement");
     let e = event.originalEvent;
     let query = event.query;
-    this.scholarshipAnnouncementList = [];
+    this.scholarshipList = [];
 
     if(e.type == 'input'){
-      this.searchForm.search_criteria.announcement_ref = null;
+      this.searchForm.search_criteria.scholarship_ref = null;
     }
     let objList = [];
-    objList = this.referenceService.getScholarshipAnnouncementsForSearch();
+    objList = this.referenceService.getScholarships();
     for (let obj of objList) {
       // Filter By string event
       if (
-        obj.name.toLowerCase().indexOf(query.toLowerCase()) == 0
+        obj.scholarship_name.toLowerCase().indexOf(query.toLowerCase()) == 0
       ) {
-        this.scholarshipAnnouncementList.push(obj);
+        this.scholarshipList.push(obj);
       }
     }
-    console.log(this.scholarshipAnnouncementList.length);
+    console.log(this.scholarshipList.length);
 
   }
 
-  handleCompleteClickScholarshipAnnouncement() {
+  handleCompleteClickScholarship() {
     console.log("handleCompleteClickScholarshipAnnouncement");
 
     setTimeout(() => {
-      this.scholarshipAnnouncementList = this.referenceService.getScholarshipAnnouncementsForSearch();
+      this.scholarshipList = this.referenceService.getScholarships();
     }, 100);
   }
 
-  onSelectScholarshipAnnouncement(){
-    this.searchForm.search_criteria.announcement_ref = this.scholarshipAnnouncement.announcement_ref;
+  onSelectScholarship(){
+    this.searchForm.search_criteria.scholarship_ref = this.scholarship.scholarship_ref;
   }
 
 
