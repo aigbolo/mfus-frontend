@@ -1,23 +1,9 @@
-.check-box {
+.check-box,.gpax,.year {
     width: 50px;
     text-align: center;
   }
-  
-  .view {
-    text-align: center;
-  }
-  
-  .school,
-  .major {
-    width: 150px;
-  }
-  
-  .year,
-  .gpa {
-    width: 50px;
-    text-align: center;
-  }
-  
+
+
   .application-name,
   .application-code {
     float: left;
@@ -29,4 +15,7 @@
   .application-code {
     font-size: 0.8em;
   }
-  
+  .view {
+    width: 100px;
+    text-align: center;
+  }

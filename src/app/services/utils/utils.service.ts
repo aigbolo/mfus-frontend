@@ -96,11 +96,12 @@ export class UtilsService {
   castToObject(obj: any, queryParams: any): any {
     const paramString = JSON.stringify(queryParams)
     obj = JSON.parse(paramString);
-    return new Promise(resolve => {
-      console.log('castToObject')
+
+    const promiseObj = new Promise(resolve => {
       resolve(obj);
     });
-
+    console.log(promiseObj)
+    return promiseObj;
   }
 
   findInvalidControls(formGroup: FormGroup) {

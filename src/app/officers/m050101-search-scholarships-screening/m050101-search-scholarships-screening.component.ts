@@ -86,7 +86,6 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
     this.pageRender = true;
     this.ngProgress.done();
     this.validatorForm();
-    console.log(this.searchForm.search_criteria);
     if(this.searchForm.search_criteria.year!&&this.searchForm.search_criteria.announcement_ref!){
       this.doSearch();
     }
@@ -121,7 +120,6 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
   }
 
   onSearch(){
-    localStorage.setItem('currentSearchParam', JSON.stringify(this.searchForm.search_criteria));
     this.utilsService.goToPageWithQueryParam('search-scholarship-screening',this.searchForm.search_criteria);
     this.doSearch();
   }

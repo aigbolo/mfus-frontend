@@ -1,3 +1,4 @@
+import { ViewEncapsulation } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ReferenceService } from '../../services/general/reference.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +17,7 @@ import { Severity } from '../../enum';
 
 @Component({
   selector: 'app-m050103-manage-scholarship-earning',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m050103-manage-scholarship-earning.component.html',
   styleUrls: ['./m050103-manage-scholarship-earning.component.css']
 })
@@ -23,11 +25,6 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
 
   pageRender = false;
 
-  searchForm: ScholarshipEarningForm = new ScholarshipEarningForm;
-  searchFormGroup: FormGroup;
-
-  scholarshipEarningList: any[] = [];
-  scholarshipEarning: any;
   onLoad:boolean = false;
 
   updateMode:boolean  = false;
@@ -50,21 +47,20 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader("บันทึกผู้ได้รับทุนการศึกษา");
     this.ngProgress.start();
-    // this.validatorForm();
     this.ngProgress.done();
 
     let announcement_ref = this.activateRoute.snapshot.params["id"];
-  if (this.activateRoute.snapshot.params["id"] != null) {
-   this.findInterviewees(announcement_ref);
-   this.applicationService.initialScholarshipAnnouncement(announcement_ref).subscribe(
-     data => {
-      if(data){
-      this.getScholarshipAnnouncementView(data.announcement_ref);
-      }
-       console.log(data)
-     }
-   )
-  }
+    if (this.activateRoute.snapshot.params["id"] != null) {
+      this.findInterviewees(announcement_ref);
+      this.applicationService.initialScholarshipAnnouncement(announcement_ref).subscribe(
+        data => {
+          if(data){
+          this.getScholarshipAnnouncementView(data.announcement_ref);
+          }
+          console.log(data)
+        }
+      )
+    }
 
   }
 
@@ -86,8 +82,12 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
     this.scholarshipEarningService.doSearchInterviewees(announcement_ref)
     .subscribe(
       data => {
-        this.studentEarningList = data;
-        console.log(data);
+        this.studentEarningList = [];
+        for(let student of data){
+          student.earn_flag  = (student.earn_flag == '2'?true:false);
+          this.studentEarningList = this.studentEarningList.concat(student);
+
+        }
       },
       err => {
         console.log(err);
@@ -116,8 +116,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
   }
 
   onPageSearch(){
-    const params = JSON.parse(localStorage.getItem('currentSearchParam'));
-    this.utilsService.goToPageWithQueryParam('search-scholarship-earning',params);
+    window.history.back();
   }
 
   onReset(){
