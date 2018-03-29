@@ -1,3 +1,4 @@
+import { CheckScholarshipEarningComponent } from './officers/check-scholarship-earning/check-scholarship-earning.component';
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
 import { M050103SearchScholarshipEarningComponent } from './officers/m050103-search-scholarship-earning/m050103-search-scholarship-earning.component';
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
@@ -89,6 +90,8 @@ const appRoutes: Routes = [
   { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsAuth]},
   { path: "search-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsAuth]},
   { path: "manage-scholarship-earning/:id", component:  M050103ManageScholarshipEarningComponent, canActivate:[EnsureIsAuth]},
+  { path: "check-scholarship-earning", component:  CheckScholarshipEarningComponent, canActivate:[EnsureIsAuth]},
+
 
 
 
