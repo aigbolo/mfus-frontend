@@ -1,14 +1,103 @@
-<div class="row overide-row">
-  <div class="col-xs-2">
-    <label class="normal">ปีการศึกษา</label>
-    WTF
+  <div *ngIf="rendered">
+
+
+  <div class="row overide-row">
+    <div class="col-xs-8">
+      <label class="normal">ผู้ให้ทุนการศึกษา</label>
+      <p>{{scholarshipAnnouncement.sponsors_name}}</p>
+    </div>
+    <div class="col-xs-3">
+      <label  class="normal">เลขเอกสารอ้างอิง</label>
+      <p>{{scholarshipAnnouncement.announcement_ref}}</p>
+    </div>
   </div>
-  <div class="col-xs-2">
-    <label class="normal">รอบที่</label>
-    WTF
+  <div class="row overide-row">
+    <div class="col-xs-2">
+      <label class="normal">ปีการศึกษา</label>
+      <p>{{scholarshipAnnouncement.year}}</p>
+    </div>
+    <div class="col-xs-8">
+        <label  class="normal">ทุนการศึกษา</label>
+        <p>{{scholarshipAnnouncement.scholarship_name}}</p>
+    </div>
+    <div class="col-xs-2">
+        <label class="normal">รอบที่</label>
+        <p>{{scholarshipAnnouncement.round}}</p>
+    </div>
   </div>
-  <div class="col-xs-8">
-    <label class="normal">ทุนการศึกษา</label>
-    WTF
+  <div class="row overide-row">
+      <div class="col-xs-12">
+        <label  class="normal">ประเภททุนการศึกษา</label>
+        <p>{{scholarshipAnnouncement.sctype_name}}</p>
+      </div>
+  </div>
+  <div class="row overide-row">
+      <div class="col-xs-3">
+        <label  class="normal">จำนวนทุนการศึกษา</label>
+        <p>{{scholarshipAnnouncement.unit}}</p>
+      </div>
+      <div class="col-xs-5">
+          <label  class="normal">จำนวนเงิน/ทุนการศึกษา(บาท)</label>
+          <p>{{scholarshipAnnouncement.financial_aid|currency:' ':'symbol-narrow'}}</p>
+      </div>
+  </div>
+
+  <div class="row overide-row">
+    <h4 class="custom-panel-title">เงื่อนไขการคัดเลือก</h4>
+  </div>
+
+  <div class="row overide-row">
+      <div class="col-xs-3">
+          <label  class="normal">เกรดเฉลี่ยขั้นต่ำ</label>
+          <p>{{scholarshipAnnouncement.min_gpax}}</p>
+      </div>
+      <div class="col-xs-9">
+          <label  class="normal">สำหรับชั้นปี</label>
+          <p>{{scholarshipAnnouncement.collage_year}}</p>
+      </div>
+  </div>
+  <div class="row overide-row">
+      <div class="col-xs-6">
+          <label  class="normal">สำนักวิชา</label>
+          <p *ngFor="let school of scholarshipAnnouncement.condition_schools">{{school.school_name_t}}</p>
+      </div>
+      <div class="col-xs-6">
+          <label  class="normal">สาขาวิชา</label>
+          <p *ngFor="let major of scholarshipAnnouncement.condition_majors">{{major.major_name_t}}</p>
+      </div>
+  </div>
+
+  <div class="row overide-row">
+      <h4 class="custom-panel-title">แผนการดำเนินการ</h4>
+  </div>
+
+  <div class="row overide-row">
+      <div class="col-xs-12">
+          <label  class="normal">รับสมัคร</label>
+          <p>{{scholarshipAnnouncement.registration_start_date|date:'dd/MM/yyyy'}} - {{scholarshipAnnouncement.registration_end_date|date:'dd/MM/yyyy'}}</p>
+      </div>
+
+  </div>
+  <div class="row overide-row">
+      <div class="col-xs-4">
+          <label  class="normal">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</label>
+          <p>{{scholarshipAnnouncement.announce_interview_date|date:'dd/MM/yyyy'}}</p>
+      </div>
+      <div class="col-xs-8">
+          <label  class="normal">สัมภาษณ์</label>
+          <p>{{scholarshipAnnouncement.interview_start_date|date:'dd/MM/yyyy'}} - {{scholarshipAnnouncement.interview_end_date|date:'dd/MM/yyyy'}}</p>
+      </div>
+  </div>
+  <div class="row overide-row">
+      <div class="col-xs-12">
+          <label  class="normal">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</label>
+          <p>{{scholarshipAnnouncement.announce_result_date|date:'dd/MM/yyyy'}}</p>
+      </div>
+  </div>
+
+  <div class="row overide-row" *ngIf="scholarshipAnnouncement.poster_file!">
+    <div class="col-xs-12 profile-upload" style="text-align:center">
+      <img  class="poster-image" [src]="scholarshipAnnouncement.poster_file" style="width:80%">
+    </div>
   </div>
 </div>

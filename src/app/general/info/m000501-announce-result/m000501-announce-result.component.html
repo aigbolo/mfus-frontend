@@ -13,7 +13,7 @@
             <div class="tcell td">
                 <i class="fas fa-circle" style="font-size: 8px; color: cornflowerblue;"></i>
                 <a (click)="onSelect(scholar.announcement_ref)">
-                  {{scholar.scholarship_name}} รอบที่ {{scholar.round}}
+                  {{scholar.scholarship_name}} {{'รอบที่ '+scholar.round}}
                   <i class="fab fa-hotjar"
                      style="color:orangered;"
                      *ngIf="i <= 4"></i>

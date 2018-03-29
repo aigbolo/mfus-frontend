@@ -49,8 +49,8 @@ export class M030102ScholarshipService {
     return this.configurationService.requestMethodGET('autocomplete-scholarships')
   }
 
-  getIntervieweeAnnouncement(){
-    return this.configurationService.requestMethodPOST('scholarship-list','');
+  getAnnouncement(criteria){
+    return this.configurationService.requestMethodPOST('scholarship-list',criteria);
   }
 
   getIntervieweeAnnouncementDetail(ref){

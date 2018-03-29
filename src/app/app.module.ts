@@ -122,6 +122,7 @@ import { DocumentsRequestedService } from './services/students/m040301-documents
 import { M040301ManageDocumentsRequestComponent } from './students/m040301-manage-documents-request/m040301-manage-documents-request.component';
 import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
 import { EarnedHistoryService } from './services/students/m050202-earned-history.service';
+import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -198,7 +199,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ScholarshipAnnoucementComponent,
     ScholarshipAnnoucementDetailComponent,
     M040301ManageDocumentsRequestComponent,
-    M050202SearchEarnedHistoryComponent
+    M050202SearchEarnedHistoryComponent,
+    M000501AnnounceResultComponent
   ],
   imports: [
     // Angular

@@ -35,20 +35,16 @@ export class M000401AnnouncementIntervieweeComponent implements OnInit {
   }
 
   getIntervieweeAnnouncement() {
-    this.scholarshipService.getIntervieweeAnnouncement().subscribe(
+    const criteria = {announce_interview_date:new Date()};
+    this.scholarshipService.getAnnouncement(criteria).subscribe(
       intveeAnc => {
         this.scholarshipList = intveeAnc;
       }
     )
   }
 
-  onSelect(scholarship) {
+  onSelect(announcement_ref) {
     this.ngProgress.start();
-    this.utilsService.goToPageWithParam('interviewees-announcement-detail/', scholarship.announcement_ref);
-  }
-
-  convertDateTodisplay(date) {
-    let annc_date = date.split('-');
-    return (annc_date[2] + '/' + annc_date[1] + '/' + annc_date[0]);
+    this.utilsService.goToPageWithParam('interviewees-announcement-detail/', announcement_ref);
   }
 }
