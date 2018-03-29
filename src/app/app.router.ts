@@ -45,6 +45,7 @@ import { ScholarshipAnnoucementComponent } from './general/info/scholarship-anno
 import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
 import { M040301ManageDocumentsRequestComponent } from './students/m040301-manage-documents-request/m040301-manage-documents-request.component';
 import { M000401AnnouncementIntervieweeComponent } from './general/info/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
+import { EnsureIsOfficer } from './services/general/ensure-is-officer.service';
 // import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
 
 const appRoutes: Routes = [

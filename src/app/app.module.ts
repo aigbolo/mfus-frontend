@@ -66,6 +66,7 @@ import { AuthenticationService } from './services/general/authentication.service
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
+import { EnsureIsOfficer } from './services/general/ensure-is-officer.service';
 import { ReferenceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
@@ -247,7 +248,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     UtilsService,
     M010102OfficerService,
     AddressService,
-    // EnsureIsAuthService,
     EnsureIsAuth,
     EnsureIsNotAuth,
     M030101SponsorsService,
@@ -263,7 +263,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ApplicationService,
     M050103ScholarshipEarningService,
     DocumentsRequestedService,
-    EarnedHistoryService
+    EarnedHistoryService,
+    EnsureIsOfficer
   ],
   bootstrap: [AppComponent]
 })
