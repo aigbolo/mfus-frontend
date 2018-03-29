@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
 
   items: MenuItem[];
   user: AcUser = new AcUser()
-   officer: AcOfficer = this.authService.getAccount()
+  officer: AcOfficer = this.authService.getAccount()
   // student: AcStudent = this.authService.getAccount()
 
   constructor(private authService: AuthenticationService) { }
@@ -99,7 +99,7 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ประวัติทุนการศึกษา',
         items: [
-          { label: 'ประวัติทุนการศึกษา', routerLink: ['/history'] },
+          { label: 'ประวัติทุนการศึกษา', routerLink: ['/earned-history'] },
         ]
       }
     ];

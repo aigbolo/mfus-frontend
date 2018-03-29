@@ -77,9 +77,10 @@ export class S030102SearchScolarshipComponent implements OnInit {
   }
 
   onSearchClick() {
-    if (this.searchForm.rftScholarshipType != undefined) {
+    if (this.searchForm.rftScholarshipType!) {
       this.searchForm.searchCriteria.scholarship_type = this.searchForm.rftScholarshipType.sctype_ref;
     }
+    if(this.searchForm.smSponsors.sponsors_ref!)
     this.searchForm.searchCriteria.sponsors_ref = this.searchForm.smSponsors.sponsors_ref;
     this.utilsService.goToPageWithQueryParam(
       "search-scholarship",

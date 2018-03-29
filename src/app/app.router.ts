@@ -1,3 +1,4 @@
+import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
 import { M050103SearchScholarshipEarningComponent } from './officers/m050103-search-scholarship-earning/m050103-search-scholarship-earning.component';
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
@@ -135,6 +136,7 @@ const appRoutes: Routes = [
   { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent , canActivate: [EnsureIsAuth] },
   { path: "manage-student-profile", component: ManageStudentProfileComponent , canActivate: [EnsureIsAuth] },
   { path: "document-requested", component: M040301ManageDocumentsRequestComponent, canActivate: [EnsureIsAuth] },
+  { path: "earned-history", component: M050202SearchEarnedHistoryComponent, canActivate: [EnsureIsAuth] },
 
 ];
 

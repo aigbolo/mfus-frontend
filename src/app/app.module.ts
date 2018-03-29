@@ -119,6 +119,8 @@ import { ScholarshipAnnoucementComponent } from './general/info/scholarship-anno
 import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
 import { DocumentsRequestedService } from './services/students/m040301-documents-requested.service';
 import { M040301ManageDocumentsRequestComponent } from './students/m040301-manage-documents-request/m040301-manage-documents-request.component';
+import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
+import { EarnedHistoryService } from './services/students/m050202-earned-history.service';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -194,7 +196,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M000402AnnouncementInterwivweeDetailComponent,
     ScholarshipAnnoucementComponent,
     ScholarshipAnnoucementDetailComponent,
-    M040301ManageDocumentsRequestComponent
+    M040301ManageDocumentsRequestComponent,
+    M050202SearchEarnedHistoryComponent
   ],
   imports: [
     // Angular
@@ -259,7 +262,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050102OfficerInterviewSelectingService,
     ApplicationService,
     M050103ScholarshipEarningService,
-    DocumentsRequestedService
+    DocumentsRequestedService,
+    EarnedHistoryService
   ],
   bootstrap: [AppComponent]
 })
