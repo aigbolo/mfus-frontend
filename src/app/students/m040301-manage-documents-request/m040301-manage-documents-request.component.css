@@ -1,0 +1,42 @@
+.application-name{
+  margin-top: 0 !important;
+  margin-bottom: 10 !important;
+}
+
+ul{
+  padding: 0 !important;
+}
+.document-requested-item{
+  background-color: #f1f1f1;
+  padding: 10px !important;
+}
+.document-requested-item, .document-item{
+  list-style: none;
+}
+.left-section{
+  padding-left:20px !important;
+  padding-right:30px !important;
+  border-right: 1px solid #fff;
+}
+.request-list{
+  margin-top:20px;
+}
+
+
+.right-section{
+  text-align:center;
+  padding-left:10px !important;
+}
+
+i.fa-times{ color:red;}
+i.fa-check{color:#00cc08;}
+
+.ui-button {
+  color: #337ab7 !important;
+  background-color:transparent !important;
+}
+
+.ui-fileupload-choose:not(.ui-state-disabled):hover, .ui-fileupload-choose.ui-state-focus{
+  background-color:transparent !important;
+  color: #3c3c3c !important;
+}

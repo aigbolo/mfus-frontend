@@ -50,7 +50,7 @@
   <div class="row overide-row">
     <div class="col-xs-2">
       <label class="normal">วันที่ประกาศผล</label>
-      <p>{{manageForm.scholarshipAnnouncement.announce_result_date}}</p>
+      <p>{{manageForm.scholarshipAnnouncement.announce_result_date| date:'dd/MM/yyyy'}}</p>
     </div>
   </div>
 
@@ -64,7 +64,7 @@
           <p-checkbox name="selectStudentEarning{{index+1}}" [(ngModel)]="data.earn_flag" binary="true" ></p-checkbox>
       </ng-template>
     </p-column>
-  
+
     <p-column field="" header="ชื่อนักศึกษา" class="applicant">
       <ng-template let-app="rowData" let-ri="rowIndex" pTemplate="body">
         <span class="application-name">{{app['name']}}</span>
@@ -79,7 +79,7 @@
 
       <ng-template let-obj="rowData" pTemplate="body">
         <a routerLink="/application-view/{{obj['application_ref']}}" routerLinkActive="active" target="_blank">
-          <button styleClass="view" class="ui-button-info btn-position align-center" type="button" label="ดูข้อมูลใบสมัคร" pButton >
+          <button styleClass="view" class="ui-button-info btn-position align-center" type="button" label="ดูใบสมัคร" pButton >
           </button></a>
       </ng-template></p-column>
 
@@ -89,7 +89,6 @@
   <!-- Action buttons here -->
   <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
-      <button pButton (click)="onPageSearch()" class="btn-back ui-button-info" label="ย้อนกลับ"></button>
     </div>
     <div class="col-xs-6 btn-panel-right">
       <button pButton (click)="onReset()" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>

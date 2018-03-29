@@ -1,4 +1,5 @@
 import { ScholarshipEarnCheckService } from './services/officers/scholship-earn-check.service';
+
 import { M050103ScholarshipEarningService } from './services/officers/m050103-scholarship-earning.service';
 import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
@@ -66,6 +67,7 @@ import { AuthenticationService } from './services/general/authentication.service
 import { ConfigurationService } from './services/utils/configuration.service';
 import { UtilsService } from './services/utils/utils.service';
 import { EnsureIsAuth } from './services/general/ensure-is-auth.service';
+import { EnsureIsOfficer } from './services/general/ensure-is-officer.service';
 import { ReferenceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
@@ -114,6 +116,16 @@ import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050
 
 import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
 import { CheckScholarshipEarningComponent } from './officers/check-scholarship-earning/check-scholarship-earning.component';
+import { M000401AnnouncementIntervieweeComponent } from './general/info/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
+import { M000402AnnouncementIntervieweeDetailComponent } from './general/info/m000402-announcement-interviewee-detail/m000402-announcement-interviewee-detail.component';
+import { ScholarshipAnnoucementComponent } from './general/info/scholarship-annoucement/scholarship-annoucement.component';
+import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
+import { DocumentsRequestedService } from './services/students/m040301-documents-requested.service';
+import { M040301ManageDocumentsRequestComponent } from './students/m040301-manage-documents-request/m040301-manage-documents-request.component';
+import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
+import { EarnedHistoryService } from './services/students/m050202-earned-history.service';
+import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
+import { M000501AnnounceResultDetailComponent } from './general/info/m000501-announce-result-detail/m000501-announce-result-detail.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -153,7 +165,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040101ManageApplicantInfoComponent,
     ApplyScholarshipsComponent,
     M040102ManageScholarshipInfoComponent,
-    M040102ManageScholarshipInfoComponent,
     M030103SearchScholarshipAnnouncementComponent,
     M020103ManageFamilyAndAddressComponent,
     FamilyComponent,
@@ -187,6 +198,14 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050103SearchScholarshipEarningComponent,
     M050103ManageScholarshipEarningComponent,
     CheckScholarshipEarningComponent,
+    M000401AnnouncementIntervieweeComponent,
+    M000402AnnouncementIntervieweeDetailComponent,
+    ScholarshipAnnoucementComponent,
+    ScholarshipAnnoucementDetailComponent,
+    M040301ManageDocumentsRequestComponent,
+    M050202SearchEarnedHistoryComponent,
+    M000501AnnounceResultComponent,
+    M000501AnnounceResultDetailComponent
   ],
   imports: [
     // Angular
@@ -236,7 +255,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     UtilsService,
     M010102OfficerService,
     AddressService,
-    // EnsureIsAuthService,
     EnsureIsAuth,
     EnsureIsNotAuth,
     M030101SponsorsService,
@@ -251,7 +269,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050102OfficerInterviewSelectingService,
     ApplicationService,
     M050103ScholarshipEarningService,
-    ScholarshipEarnCheckService
+    ScholarshipEarnCheckService,
+    DocumentsRequestedService,
+    EarnedHistoryService,
+    EnsureIsOfficer
   ],
   bootstrap: [AppComponent]
 })

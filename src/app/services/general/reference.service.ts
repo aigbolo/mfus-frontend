@@ -224,7 +224,27 @@ export class ReferenceService {
       }
     )
   }
+
+  autocompleteScholarships(criteria){
+    let url = 'autocomplete-scholarships';
+    let promise = new Promise((resolve, reject) => {
+    this.configuration.requestMethodGET(url).subscribe(
+      data=>{
+        console.log(data);
+        this.scholarships = data;
+        resolve(data);
+      },
+      err =>{
+        console.log(err)
+        reject(err);
+      }
+    )
+  });
+  return promise;
+  }
+
   getScholarships() {
+    console.log('getScholarships: ',this.scholarships)
     return this.scholarships;
   }
 
@@ -258,7 +278,6 @@ export class ReferenceService {
   initialScholarshipAnnouncementForSearch(parameters:any){
     this.configuration.requestMethodPOST("autocomplete-scannounce", parameters).subscribe(
       data=>{
-        console.log(data);
         this.scholarshipAnnouncementSearch = data;
       },
       err=>{
@@ -266,6 +285,24 @@ export class ReferenceService {
       }
     )
   }
+
+  autocompleteScholarshipAnnouncementForSearch(parameters:any){
+    let promise = new Promise((resolve, reject) => {
+    this.configuration.requestMethodPOST("autocomplete-scannounce", parameters).subscribe(
+      data=>{
+        this.scholarshipAnnouncementSearch = data;
+        resolve(data);
+      },
+      err=>{
+        reject(err);
+        console.log(err);
+      }
+    )
+    });
+    return promise;
+  }
+
+
   getScholarshipAnnouncementsForSearch(){
     return this.scholarshipAnnouncementSearch;
   }

@@ -23,7 +23,7 @@ export class M050101ScholarshipsScreeningService {
       }
 
       getDocumentRequestLatest(applicationRef:string){
-        let param = {application_ref:applicationRef}
+        let param = {application_ref:applicationRef,reply_flag:'1'}
         return this.config.requestMethodPOST('documentrequest-update',param);
       }
 

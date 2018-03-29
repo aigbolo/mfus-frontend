@@ -1,0 +1,58 @@
+a.menu_links {
+  cursor: pointer !important;
+}
+
+.right{
+  float: right;
+}
+
+.icon-announcement-new{
+  width:25px;
+  padding-bottom: 5px;
+}
+
+.icon-circle{
+  color: #3a8db7;
+}
+
+.table {
+  display: table;
+}
+
+.tcontent {
+  display: table-row;
+}
+
+.tcell {
+  display: table-cell;
+}
+
+.table-header{
+  font-weight:500;
+  color: #b40000;
+  font-size: 18px;
+}
+
+.table-body{
+  font-weight: 300;
+}
+
+.table-date{
+  width: 200px;
+}
+
+.th {
+  padding-top: 20px;
+}
+
+.td {
+  padding-top: 5px;
+}
+
+a {
+  color: inherit;
+}
+
+.date {
+  color: #337ab7;
+}

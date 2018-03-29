@@ -239,4 +239,7 @@ export class M030102ManageScholarshipComponent implements OnInit {
         }
       );
   }
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 }

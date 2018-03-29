@@ -19,7 +19,7 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
   pageRender = false;
   searchForm:ScholarshipEarningForm = new ScholarshipEarningForm;
   searchFormGroup:FormGroup;
-  scholarshipAnnouncementList: any[] = [];
+  scholarshipAnnouncementList: any;
   scholarshipAnnouncement: any;
 
   scholarshipEarningList: any[] = [];
@@ -32,36 +32,23 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
     private scholarshipEarningService: M050103ScholarshipEarningService,
     public ngProgress: NgProgress) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.layoutService.setPageHeader("บันทึกผู้ได้รับทุนการศึกษา");
     this.ngProgress.start();
     this.validatorForm();
 
-    this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
-    setTimeout(()=>{
-    if(this.searchForm.search_criteria.year != null){
-          this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
-          if(this.searchForm.search_criteria.announcement_ref != null){
-            setTimeout(
-              ()=>{
-                this.scholarshipAnnouncement = this.referenceService.getOneScholarshipAnnouncementForSearch(this.searchForm.search_criteria.announcement_ref);
-            },1000);
-          }
-          setTimeout(
-            ()=>{
-              this.ngProgress.done();
-              this.pageRender = true;
-              this.doSearch();
-          },1100);
-
-        }else{
-          this.ngProgress.done();
-          this.pageRender = true;
-          this.searchForm = new ScholarshipEarningForm;
-          this.searchForm.search_criteria.year = new Date().getFullYear();
-          this.referenceService.initialScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
-        }
-      },1100);
+    this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
+    this.scholarshipAnnouncementList = await this.referenceService.autocompleteScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
+    var scholarshipAnnouncement = await this.scholarshipAnnouncementList.filter((data)=>{
+      if(data.announcement_ref == this.searchForm.search_criteria.announcement_ref){
+        return data;
+      }
+    });
+    this.scholarshipAnnouncement = (scholarshipAnnouncement.length == 1?scholarshipAnnouncement[0]:null);
+    this.ngProgress.done();
+    if(this.searchForm.search_criteria.year!){
+      this.doSearch();
+    }
 
   }
 
@@ -74,7 +61,6 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
   }
 
   onSearch(){
-    localStorage.setItem('currentSearchParam', JSON.stringify(this.searchForm.search_criteria));
     this.utilsService.goToPageWithQueryParam('search-scholarship-earning',this.searchForm.search_criteria);
     this.doSearch();
   }
@@ -85,7 +71,6 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
       this.utilsService.findInvalidControls(this.searchFormGroup);
     }else{
       this.onLoad = true;
-      console.log('search form', this.searchForm)
       this.scholarshipEarningService.doSearch(this.searchForm).subscribe(data=>{
         this.scholarshipEarningList = data;
         console.log('do search', this.scholarshipEarningList)

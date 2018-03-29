@@ -37,4 +37,7 @@ export class M030103ScholarshipAnnouncementService {
     return this.config.requestMethodPOST('scholarships-announcement-update',model)
   }
 
+  viewScholarshipAnnouncement(scholarshipAnnouncement){
+    return this.config.requestMethodPOST('scholarships-announcement-view',scholarshipAnnouncement);
+  }
 }

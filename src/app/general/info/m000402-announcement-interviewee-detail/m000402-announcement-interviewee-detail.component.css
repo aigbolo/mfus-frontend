@@ -1,0 +1,13 @@
+.seq{
+  width:50px;
+  text-align: center;
+}
+.student-id{
+  width:120px;
+}
+.name{
+  width: 200px;
+}
+td.student-id,td.name{
+  padding-left: 10px !important;
+}

@@ -55,7 +55,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
     this.getApplicationDocument();
 
     this.validatorForm();
-
+    console.log('route: ',this.router)
     let application_ref = this.activatedRoute.snapshot.params["id"];
     if (this.activatedRoute.snapshot.params["id"] != null) {
       this.applicationService.initialApApplicationView(application_ref).subscribe(
@@ -64,7 +64,7 @@ export class M050101ManageScholarshipsScreeningComponent extends CalendarModel i
             this.viewApplicationUrl = '/application-view/'+data.application_ref;
             this.manageForm.application = data;
             this.getDocumentRequestLatest(data.application_ref);
-            this.getDocumentRequestDetailLatest(data.application_ref);
+
             this.getDocumentRequestHistory(data.application_ref);
             this.getStudentView(data.student_ref);
             this.getScholarshipAnnouncementView(data.announcement_ref);
@@ -153,9 +153,11 @@ getDocumentRequestHistory(application_ref:string){
 getDocumentRequestLatest(application_ref:string){
   this.scholarshipScreeningService.getDocumentRequestLatest(application_ref).subscribe(
     data=>{
-      if(data){
+      console.log(data)
+      if(data.length>0){
         this.manageForm.sm_document_request = data;
         this.manageForm.sm_document_request.due_date = new Date(data.due_date);
+        this.getDocumentRequestDetailLatest(data.application_ref);
       }
     },err=>{console.log(err)}
   );
@@ -276,10 +278,9 @@ onChecked(){
   )
 }
 onPageSearch() {
-
-  const params = JSON.parse(localStorage.getItem('currentSearchParam'));
-  this.utilsService.goToPageWithQueryParam('search-scholarship-screening',params);
-  // this.utilsService.goToPage("search-scholarship-screening");
+  this.utilsService.goToPage("search-scholarship-screening");
 }
-
+ngOnDestroy() {
+  this.ngProgress.done();
+}
 }

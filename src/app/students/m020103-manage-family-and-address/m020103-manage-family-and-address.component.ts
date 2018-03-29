@@ -507,6 +507,9 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
 
   }
+  ngOnDestroy() {
+    this.ngProgress.done();
+  }
 
 }
 

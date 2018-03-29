@@ -20,7 +20,6 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
   ngOnInit() {
     this.stepDisplay()
     this.applyApplication.pageRender = true
-    console.log(this.applyApplication.applyApplicationForm.dadProvince)
   }
 
   stepDisplay() {

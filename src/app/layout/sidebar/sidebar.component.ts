@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
 
   items: MenuItem[];
   user: AcUser = new AcUser()
-   officer: AcOfficer = this.authService.getAccount()
+  officer: AcOfficer = this.authService.getAccount()
   // student: AcStudent = this.authService.getAccount()
 
   constructor(private authService: AuthenticationService) { }
@@ -57,20 +57,8 @@ export class SidebarComponent implements OnInit {
           { label: 'บันทึกข้อมูลผู้ที่ได้รับทุนการศึกษา', routerLink: ['/search-scholarship-earning'], }
         ]
       },
-      {
-        label: 'ตรวจสอบทุนการศึกษา',
-        items: [
-          { label: 'ข้อมูลทุนการศึกษา', routerLink: ['/search-scholarship'] },
-          { label: 'ข้อมูลผู้มีสิทธิ์สัมภาษณ์', routerLink: ['/search-interviewees'] },
-          { label: 'ผู้ได้รับทุนการศึกษา', routerLink: ['/scholarship-earning'] },
-        ]
-      },
-      {
-        label: 'การประกาศ',
-        items: [
-          { label: 'ข้อมูลข่าวสาร', routerLink: ['/search-news'] }
-        ]
-      },
+      { label: 'ตรวจสอบนักศึกษาที่ได้รับทุน',routerLink: ['/scholarship-earning'] },
+      { label: 'ข้อมูลข่าวสาร', routerLink: ['/search-news'] },
       {
         label: 'รายงาน',
         items: [
@@ -105,13 +93,13 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'สมัครทุน', routerLink: ['/manage-application'] },
           { label: 'ตรวจสอบสถานะทุนการศึกษาที่สมัคร', routerLink: ['/search-sholarships-applied'] },
-          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/search-document-request'] }
+          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-requested'] }
         ]
       },
       {
         label: 'ประวัติทุนการศึกษา',
         items: [
-          { label: 'ประวัติทุนการศึกษา', routerLink: ['/history'] },
+          { label: 'ประวัติทุนการศึกษา', routerLink: ['/earned-history'] },
         ]
       }
     ];

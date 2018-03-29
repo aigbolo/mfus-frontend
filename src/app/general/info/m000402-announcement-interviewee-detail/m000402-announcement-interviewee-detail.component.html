@@ -1,0 +1,27 @@
+<div class="row overide-row">
+    <div class="col-xs-2">
+        <label class="normal">ปีการศึกษา</label>
+        <p>{{smScholarshipAnnouncement.year}}</p>
+    </div>
+    <div class="col-xs-2">
+        <label class="normal">รอบที่</label>
+        <p>{{smScholarshipAnnouncement.round}}</p>
+    </div>
+    <div class="col-xs-8">
+        <label class="normal">ทุนการศึกษา</label>
+        <p>{{smScholarshipAnnouncement.scholarship_name}}</p>
+    </div>
+</div>
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <p-dataTable [value]="smSchoalrshipAnnouncementIntervieweeDetail">
+            <p-column header="ลำดับ" field="" styleClass="seq">
+                <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
+            </p-column>
+            <p-column header="รหัสนักศึกษา" field="student_id" styleClass="student-id"></p-column>
+            <p-column header="ชื่อ - สกุล" field="name" styleClass="name"></p-column>
+            <p-column header="สำนักวิชา" field="school_name_t" styleClass="school-name"></p-column>
+            <p-column header="สาขาวิชา" field="major_name_t" styleClass="major-name"></p-column>
+        </p-dataTable>
+    </div>
+</div>

@@ -2,23 +2,27 @@
     <div class="row overide-row">
         <div class="col-xs-9">
             <label class="normal">ผู้สนับสนุน</label>
-            <p-autoComplete class="autocomplete-sub-district" [(ngModel)]="searchForm.smSponsors" [suggestions]="sponsorsList" [dropdown]="true" (completeMethod)="autocompleteSponsors($event)" (onDropdownClick)="handleCompleteClickSponsosrs()" field="sponsors_name"
-                forceSelection="true" name="autocompleteSponsors">
+            <p-autoComplete class="autocomplete-scholarships" [(ngModel)]="searchForm.smSponsors" [suggestions]="sponsorsList"
+            [dropdown]="true" (completeMethod)="autocompleteSponsors($event)" (onDropdownClick)="handleCompleteClickSponsosrs()"
+            field="sponsors_name"
+            forceSelection="true" name="autocompleteSponsors">
             </p-autoComplete>
         </div>
         <div class="col-xs-3">
             <label class="normal">สถานะ</label>
-            <p-dropdown [options]="activeFlag" [(ngModel)]="searchForm.searchCriteria.active_flag">
+            <p-dropdown [options]="activeFlag" [(ngModel)]="searchForm.searchCriteria.active_flag" class="active-flag">
             </p-dropdown>
         </div>
     </div>
     <div class="row overide-row">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             <label class="normal">ประเภททุนการศึกษา</label>
-            <p-dropdown [(ngModel)]="searchForm.rftScholarshipType" name="sctype_type" optionLabel="sctype_name" [options]="sctype_type">
+            <p-dropdown [(ngModel)]="searchForm.rftScholarshipType" name="sctype_type"
+            class="scholarship-type" [style]="{'width':'250px'}"
+            optionLabel="sctype_name" [options]="sctype_type">
             </p-dropdown>
         </div>
-        <div class="col-xs-9">
+        <div class="col-xs-8">
             <label for="" class="normal">ชื่อทุนการศึกษา</label>
             <input type="text" name="scholarship_name" [(ngModel)]="searchForm.searchCriteria.scholarship_name" pInputText>
         </div>
@@ -38,15 +42,15 @@
 
     <div class="row overide-row">
         <p-dataTable [value]="scholarshipFormList" selectionMode="single" (onRowSelect)="onRowSelect($event)">
-            <p-column field="index" header="ลำดับ">
+            <p-column field="index" header="ลำดับ"   [style]="{'width':'50px'}">
                 <ng-template let-col let-obj="rowIndex" pTemplate="body">
                     {{obj+1}}
                 </ng-template>
             </p-column>
             <p-column header="ชื่อผู้สนับสนุน" field="sponsors_name"></p-column>
-            <p-column header="ประเภททุนการศึกษา" field="sctype_name"></p-column>
+            <p-column header="ประเภททุนการศึกษา" field="sctype_name" [style]="{'width':'150px'}"></p-column>
             <p-column header="ชื่อทุนการศึกษา" field="scholarship_name"></p-column>
-            <p-column header="สถานะ" field="active_flag"></p-column>
+            <p-column header="สถานะ" field="active_flag" [style]="{'width':'100px'}"></p-column>
         </p-dataTable>
     </div>
 </div>

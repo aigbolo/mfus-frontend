@@ -1,0 +1,27 @@
+<div class="row overide-row">
+  <div class="table">
+    <div class="tcontent table-header">
+        <div class="tcell th">
+            ทุนการศึกษา
+        </div>
+        <div class="tcell th table-date">
+            วันที่ประกาศ
+        </div>
+    </div>
+        <div class="tcontent table-body"
+             *ngFor="let scholar of scholarshipList ;let i = index">
+            <div class="tcell td">
+                <i class="fas fa-circle" style="font-size: 8px; color: cornflowerblue;"></i>
+                <a (click)="onSelect(scholar.announcement_ref)">
+                  {{scholar.scholarship_name}} {{'รอบที่ '+scholar.round}}
+                  <i class="fab fa-hotjar"
+                     style="color:orangered;"
+                     *ngIf="i <= 4"></i>
+                </a>
+            </div>
+            <div class="tcell td table-date date">
+                {{scholar.announce_interview_date | date:'dd/MM/yyyy'}}
+            </div>
+        </div>
+  </div>
+</div>
