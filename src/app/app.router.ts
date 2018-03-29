@@ -5,7 +5,7 @@ import { M050103SearchScholarshipEarningComponent } from './officers/m050103-sea
 import { M050101ManageScholarshipsScreeningComponent } from './officers/m050101-manage-scholarships-screening/m050101-manage-scholarships-screening.component';
 import { ManageStudentProfileComponent } from './general/account/manage-student-profile/manage-student-profile.component';
 import { M040201SearchScholarshipsAppliedComponent } from './students/m040201-search-scholarships-applied/m040201-search-scholarships-applied.component';
-import { M000402AnnouncementInterwivweeDetailComponent } from './general/info/m000402-announcement-interwivwee-detail/m000402-announcement-interwivwee-detail.component';
+import { M000402AnnouncementIntervieweeDetailComponent } from './general/info/m000402-announcement-interviewee-detail/m000402-announcement-interviewee-detail.component';
 import { ManageOfficerProfileComponent } from './general/account/manage-officer-profile/manage-officer-profile.component';
 import { AddressComponent } from './students/m020103-manage-family-and-address/address/address.component';
 import { M020103ManageFamilyAndAddressComponent } from './students/m020103-manage-family-and-address/m020103-manage-family-and-address.component';
@@ -56,7 +56,7 @@ const appRoutes: Routes = [
   { path: "scholarships-announcement", component: ScholarshipAnnoucementComponent },
   { path: "scholarships-announcement-detail/:id", component: ScholarshipAnnoucementDetailComponent },
   { path: "interviewees-announcement", component: M000401AnnouncementIntervieweeComponent},
-  { path: "interviewees-announcement-detail/:id", component: M000402AnnouncementInterwivweeDetailComponent},
+  { path: "interviewees-announcement-detail/:id", component: M000402AnnouncementIntervieweeDetailComponent},
   { path: "result-announcement", component: M000501AnnounceResultComponent},
 
   // Authorization Paths

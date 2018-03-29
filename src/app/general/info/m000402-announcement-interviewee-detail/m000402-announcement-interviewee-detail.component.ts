@@ -8,12 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../services/utils/layout.service';
 
 @Component({
-  selector: 'app-m000402-announcement-interwivwee-detail',
+  selector: 'app-m000402-announcement-interviewee-detail',
   encapsulation: ViewEncapsulation.None,
-  templateUrl: './m000402-announcement-interwivwee-detail.component.html',
-  styleUrls: ['./m000402-announcement-interwivwee-detail.component.css']
+  templateUrl: './m000402-announcement-interviewee-detail.component.html',
+  styleUrls: ['./m000402-announcement-interviewee-detail.component.css']
 })
-export class M000402AnnouncementInterwivweeDetailComponent implements OnInit {
+export class M000402AnnouncementIntervieweeDetailComponent implements OnInit {
 
   public smSchoalrshipAnnouncementIntervieweeDetail:SmSchoalrshipAnnouncementIntervieweeDetail[] = [];
   public smScholarshipAnnouncement: SmScholarshipAnnouncement = new SmScholarshipAnnouncement();

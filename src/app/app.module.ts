@@ -115,7 +115,7 @@ import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050
 
 import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
 import { M000401AnnouncementIntervieweeComponent } from './general/info/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
-import { M000402AnnouncementInterwivweeDetailComponent } from './general/info/m000402-announcement-interwivwee-detail/m000402-announcement-interwivwee-detail.component';
+import { M000402AnnouncementIntervieweeDetailComponent } from './general/info/m000402-announcement-interviewee-detail/m000402-announcement-interviewee-detail.component';
 import { ScholarshipAnnoucementComponent } from './general/info/scholarship-annoucement/scholarship-annoucement.component';
 import { ScholarshipAnnoucementDetailComponent } from './general/info/scholarship-annoucement-detail/scholarship-annoucement-detail.component';
 import { DocumentsRequestedService } from './services/students/m040301-documents-requested.service';
@@ -123,6 +123,7 @@ import { M040301ManageDocumentsRequestComponent } from './students/m040301-manag
 import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
 import { EarnedHistoryService } from './services/students/m050202-earned-history.service';
 import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
+import { M000501AnnounceResultDetailComponent } from './general/info/m000501-announce-result-detail/m000501-announce-result-detail.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -195,12 +196,13 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050103SearchScholarshipEarningComponent,
     M050103ManageScholarshipEarningComponent,
     M000401AnnouncementIntervieweeComponent,
-    M000402AnnouncementInterwivweeDetailComponent,
+    M000402AnnouncementIntervieweeDetailComponent,
     ScholarshipAnnoucementComponent,
     ScholarshipAnnoucementDetailComponent,
     M040301ManageDocumentsRequestComponent,
     M050202SearchEarnedHistoryComponent,
-    M000501AnnounceResultComponent
+    M000501AnnounceResultComponent,
+    M000501AnnounceResultDetailComponent
   ],
   imports: [
     // Angular

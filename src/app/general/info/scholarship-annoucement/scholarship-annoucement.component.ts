@@ -26,7 +26,6 @@ export class ScholarshipAnnoucementComponent implements OnInit {
     this.scholarshipService.getAnnouncement(criteria).subscribe(
       data=>{
         this.scholarships = data;
-        console.log(data);
       },
       err=>{
         console.log(err)
