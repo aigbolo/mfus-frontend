@@ -42,8 +42,6 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
         Validators.compose([Validators.required])),
       money_spend_plan: new FormControl(this.applyApplication.applyApplicationForm.apApplication.money_spend_plan,
         Validators.compose([Validators.required])),
-      scholarshipHistory_year:new FormControl(this.apScholarshipHistory.year, Validators.compose([Validators.max(this.applyApplication.current_year)])),
-      studentLoanFund_year: new FormControl(this.apStudentLoanFund.year, Validators.compose([Validators.max(this.applyApplication.current_year)]))
     })
   }
 

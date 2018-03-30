@@ -397,9 +397,7 @@ export class ApplyScholarshipsComponent implements OnInit {
   initialApApplication() {
     this.applyScholarshipService.initialApApplication(this.route.snapshot.params['id']).subscribe(data => {
       this.applyApplicationForm.apApplication = data
-      setTimeout(() => {
         this.initialScholarshipAnnouncement();
-      }, 1000);
     })
   }
 

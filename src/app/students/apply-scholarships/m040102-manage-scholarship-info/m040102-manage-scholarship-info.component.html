@@ -69,7 +69,6 @@
                     <ng-template let-col let-obj="rowData" pTemplate="body">
                         <input type="text"
                           [(ngModel)]="obj.year"
-                          formControlName="scholarshipHistory_year"
                           minlength="4"
                           maxlength="4"
                           pInputText>
@@ -122,7 +121,6 @@
                         <input type="text"
                           minlength="4"
                           maxlength="4"
-                          formControlName="studentLoanFund_year"
                           [(ngModel)]="obj.year"
                           pInputText>
                     </ng-template>
@@ -176,7 +174,7 @@
             <button class="ui-button-warning text-left"
             type="button"
             (click)="onPrevious()"
-            label="กลับ"
+            label="ย้อนกลับ"
             pButton>
           </button>
             <button class="ui-button-primary text-right"
