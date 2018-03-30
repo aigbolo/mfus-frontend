@@ -127,10 +127,7 @@ import { EarnedHistoryService } from './services/students/m050202-earned-history
 import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
 import { M000502AnnounceResultDetailComponent } from './general/info/m000502-announce-result-detail/m000502-announce-result-detail.component';
 import { M010202ManageResetPasswordComponent } from './general/account/m010202-manage-reset-password/m010202-manage-reset-password.component';
-<<<<<<< HEAD
-=======
 import { M010202ResetPasswordService } from './services/officers/m010202-reset-password.servicec';
->>>>>>> b12b5df19ca6f954c91a13838047ff224f5ef92e
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
