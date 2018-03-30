@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row overide-row">
     <div class="col-xs-8">
         <label class="normal"> รหัสเจ้าหน้าที่</label>
         <div>
@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row overide-row">
     <div class="col-xs-4">
         <label class="normal"> ชื่อ</label>
         <div>
@@ -33,7 +33,6 @@
         </div>
     </div>
 </div>
-<div class=""></div>
 <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
         <button pButton type="submit" class="btn-search primary" label="ค้นหา" (click)="onSearchClick()">
@@ -46,14 +45,20 @@
 </button>
     </div>
 </div>
-<div class="space"></div>
-<div class="row">
+<div class="row overide-row">
     <p-dataTable [value]="listOfficer" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true" [pageLinks]="3">
-        <p-column [sortable]="true" field="officer_code" header="รหัสเจ้าหน้าที่">
+      <p-column field="" header="ลำดับ" [style]="{'width':'50px'}">
+          <ng-template let-index="rowIndex" pTemplate="body">
+              <span>{{index+1}}</span>
+          </ng-template>
+      </p-column>
+      <p-column field="officer_code" header="รหัสเจ้าหน้าที่" [style]="{'width':'100px'}">
         </p-column>
-        <p-column [sortable]="true" field="first_name" header="ชื่อเจ้าหน้าที่">
+        <p-column field="first_name" header="ชื่อเจ้าหน้าที่">
         </p-column>
-        <p-column [sortable]="true" field="active_flag" header="สถานะ">
+        <p-column field="phone_no" header="เบอร์โทรศัพท์" [style]="{'width':'150px'}"></p-column>
+        <p-column field="email" header="อีเมล" [style]="{'width':'200px'}"></p-column>
+        <p-column field="active_flag" header="สถานะ" [style]="{'width':'70px'}">
         </p-column>
     </p-dataTable>
 </div>
