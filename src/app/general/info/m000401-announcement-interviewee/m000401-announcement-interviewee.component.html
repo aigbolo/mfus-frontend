@@ -12,7 +12,7 @@
              *ngFor="let scholar of scholarshipList ;let i = index">
             <div class="tcell td">
                 <i class="fas fa-circle" style="font-size: 8px; color: cornflowerblue;"></i>
-                <a (click)="onSelect(scholar.announcement_ref)">
+                <a (click)="onSelect(scholar.announcement_ref)" style="cursor:pointer">
                   {{scholar.scholarship_name}} รอบที่ {{scholar.round}}
                   <i class="fab fa-hotjar"
                      style="color:orangered;"

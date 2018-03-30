@@ -53,8 +53,9 @@ export class M030102ScholarshipService {
     return this.configurationService.requestMethodPOST('scholarship-list',criteria);
   }
 
-  getIntervieweeAnnouncementDetail(ref){
-    return this.configurationService.requestMethodPOST('interviewees', ref);
+  getAnnouncementDetail(criteria){
+    console.log(criteria);
+    return this.configurationService.requestMethodPOST('interviewees', criteria);
   }
 
   searchScholarshipAnnouncementById(ref){

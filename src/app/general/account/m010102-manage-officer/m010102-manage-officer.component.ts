@@ -74,9 +74,7 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.activeFlag = this.utilsService.getActiveFlag("M");
     this.titleList = this.utilsService.getTitleList();
     this.referenceService.initialProvince();
-    this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params[
-      "id"
-    ];
+    this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params["id"];
     if (this.manageOfficerForm.acOfficer.officer_ref != null) {
       console.log('onrow')
       this.btnLabel = "แก้ไขข้อมูล";
@@ -84,6 +82,8 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.officerFormGroup.controls["officer_code"].disable();
       this.onRowSelected();
     } else {
+      this.manageOfficerForm.acOfficer.active_flag = "Y";
+      this.manageOfficerForm.acOfficer.gender = "M";
       this.pageRender = true;
       this.ngProgress.done();
     }
@@ -91,7 +91,6 @@ export class M010102ManageOfficerComponent implements OnInit {
 
   login(){
     this.user = this.authService.getUser();
-    // this.officer = this.officerService.selectOfficer('officers-update', this.user_ref.account_ref)
     this.user_ref = this.officer.officer_ref
 
   }
@@ -102,14 +101,14 @@ export class M010102ManageOfficerComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
       active_flag: new FormControl(
-        (this.manageOfficerForm.acOfficer.active_flag = "Y")
+        (this.manageOfficerForm.acOfficer.active_flag)
       ),
       gender: new FormControl(
-        (this.manageOfficerForm.acOfficer.gender = "M"),
+        (this.manageOfficerForm.acOfficer.gender),
         Validators.compose([Validators.required])
       ),
       title_ref: new FormControl(
-        (this.manageOfficerForm.acOfficer.title_ref = "Mr"),
+        (this.manageOfficerForm.acOfficer.title_ref),
         Validators.compose([Validators.required])
       ),
       personal_id: new FormControl(

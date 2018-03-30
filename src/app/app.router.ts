@@ -1,3 +1,5 @@
+import { M010202ManageResetPasswordComponent } from './general/account/m010202-manage-reset-password/m010202-manage-reset-password.component';
+import { M000502AnnounceResultDetailComponent } from './general/info/m000502-announce-result-detail/m000502-announce-result-detail.component';
 import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
 import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
@@ -21,7 +23,7 @@ import { M040101ManageApplicantInfoComponent } from "./students/apply-scholarshi
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./general/authentication/login/login.component";
 import { ChangePasswordComponent } from "./general/authentication/change-password/change-password.component";
-import { M010102ManageOfficerComponent } from "./general/account/M010102Manage-officer/m010102-manage-officer.component";
+import { M010102ManageOfficerComponent } from "./general/account/m010102-manage-officer/m010102-manage-officer.component";
 import { S010102SearchOfficerComponent } from "./general/account/s010102-search-officer/s010102-search-officer.component";
 import { EnsureIsAuth } from "./services/general/ensure-is-auth.service";
 import { EnsureIsNotAuth } from "./services/general/ensure-is-not-auth.service";
@@ -58,6 +60,7 @@ const appRoutes: Routes = [
   { path: "interviewees-announcement", component: M000401AnnouncementIntervieweeComponent},
   { path: "interviewees-announcement-detail/:id", component: M000402AnnouncementIntervieweeDetailComponent},
   { path: "result-announcement", component: M000501AnnounceResultComponent},
+  { path: "result-announcement-detail/:id", component: M000502AnnounceResultDetailComponent},
 
   // Authorization Paths
   { path: "forgot", component: ForgotPasswordComponent },
@@ -71,6 +74,8 @@ const appRoutes: Routes = [
   // Officers Paths
   { path: "manage-officer", component: M010102ManageOfficerComponent, canActivate: [EnsureIsOfficer] },
   { path: "search-officer", component: S010102SearchOfficerComponent, canActivate: [EnsureIsOfficer] },
+  { path: "manage-student-password", component: M010202ManageResetPasswordComponent, canActivate: [EnsureIsOfficer] },
+
   { path: "manage-officer/:id", component: M010102ManageOfficerComponent, canActivate: [EnsureIsOfficer] },
   { path: "manage-scholarship", component: M030102ManageScholarshipComponent, canActivate: [EnsureIsOfficer] },
   { path: "manage-scholarship/:id", component: M030102ManageScholarshipComponent, canActivate: [EnsureIsOfficer] },
@@ -101,9 +106,6 @@ const appRoutes: Routes = [
   { path: "search-news", component: S060101SearchNewsComponent , canActivate: [EnsureIsOfficer]},
   { path: "search-interview-selecting", component: M050102SearchOfficerInterviewSelectingComponent, canActivate: [EnsureIsOfficer]},
   { path: "manage-scholarship-earning/:id", component:  M050103ManageScholarshipEarningComponent, canActivate:[EnsureIsOfficer]},
-
-
-
   { path: "application-view/:id", component: ViewStudentApplicationComponent , canActivate: [EnsureIsOfficer]},
 
 

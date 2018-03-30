@@ -182,7 +182,7 @@
           <div class="row overide-row">
             <div class="col-xs-12 profile-upload">
               <img class="image-profile"
-                [src]="manageOfficerForm.acOfficer.profile_image" >
+                [src]="manageOfficerForm.acOfficer.profile_image||'../../../../assets/images/empty_profile.png'" >
             </div>
             <div class="col-xs-12 profile-upload">
               <p-fileUpload
