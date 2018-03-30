@@ -127,6 +127,7 @@ import { EarnedHistoryService } from './services/students/m050202-earned-history
 import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
 import { M000502AnnounceResultDetailComponent } from './general/info/m000502-announce-result-detail/m000502-announce-result-detail.component';
 import { M010202ManageResetPasswordComponent } from './general/account/m010202-manage-reset-password/m010202-manage-reset-password.component';
+import { M010202ResetPasswordService } from './services/officers/m010202-reset-password.servicec';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -274,6 +275,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ScholarshipEarnCheckService,
     DocumentsRequestedService,
     EarnedHistoryService,
+    M010202ResetPasswordService,
     EnsureIsOfficer
   ],
   bootstrap: [AppComponent]
