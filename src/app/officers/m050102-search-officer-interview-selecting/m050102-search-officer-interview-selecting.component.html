@@ -16,14 +16,14 @@
           class="autocomplete-scholarships"
           maxlength="50"
           [dropdown]="true"
-          field="scholarship_name"
-          [suggestions]="scholarshipList"
-          [forceSelection]="true"
-          formControlName="scholarship_ref"
-          [(ngModel)]="scholarship"
-          (onSelect)="onSelectScholarship()"
-          (onDropdownClick)="handleCompleteClickScholarship()"
-          (completeMethod)="autocompleteScholarship($event)">
+          field="name"
+          [suggestions]="scholarshipAnnouncementList"
+        [forceSelection]="true"
+        [(ngModel)]="scholarshipAnnouncement"
+        (onSelect)="onSelectScholarshipAnnouncement()"
+        formControlName="announcement_ref"
+        (onDropdownClick)="handleCompleteClickScholarshipAnnouncement()"
+        (completeMethod)="autocompleteScholarshipAnnouncement($event)">
           </p-autoComplete>
       </div>
 </div>

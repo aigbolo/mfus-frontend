@@ -24,12 +24,12 @@ export class InterviewForm {
 
 class SearchCriteria {
   year: number;
-  scholarship_ref: string;
+  announcement_ref: string;
   interview_start_date: Date;
   interview_end_date: Date;
   constructor(){
     this.year = null;
-    this.scholarship_ref = null;
+    this.announcement_ref = null;
     this.interview_start_date = null;
     this.interview_end_date = null;
   }

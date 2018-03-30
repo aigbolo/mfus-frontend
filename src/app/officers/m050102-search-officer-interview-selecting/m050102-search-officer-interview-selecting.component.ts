@@ -26,6 +26,9 @@ implements OnInit {
   onLoad = false;
   scholarshipList: any;
   scholarship: any;
+  scholarshipAnnouncementList: any;
+  scholarshipAnnouncement: any;
+
 
   //vadidation
   manageForm: InterviewForm = new InterviewForm();
@@ -45,10 +48,10 @@ implements OnInit {
     this.validatorForm();
     this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
 
-    this.scholarshipList = await this.referenceService.autocompleteScholarships('');
-    if(this.searchForm.search_criteria.scholarship_ref!){
+    this.scholarshipList = await this.referenceService.autocompleteScholarshipAnnouncementForSearch('');
+    if(this.searchForm.search_criteria.announcement_ref!){
       var scholarship = await this.scholarshipList.filter((data)=>{
-        if(data.scholarship_ref == this.searchForm.search_criteria.scholarship_ref){
+        if(data.announcement_ref == this.searchForm.search_criteria.announcement_ref){
           return data;
         }
       });
@@ -68,7 +71,7 @@ implements OnInit {
   validatorForm() {
     this.manageFormGroup = new FormGroup({
       year: new FormControl(this.manageForm.search_criteria.year,Validators.compose([Validators.required])),
-      scholarship_ref: new FormControl(this.scholarship),
+      announcement_ref: new FormControl(this.scholarship),
       interview_start_date: new FormControl(this.manageForm.search_criteria.interview_start_date),
       interview_end_date: new FormControl(this.manageForm.search_criteria.interview_end_date),
     });
@@ -104,44 +107,43 @@ implements OnInit {
     this.scholarshipList = [];
     this.scholarship = null;
     this.searchForm.search_criteria.year = new Date().getFullYear();
+    this.scholarshipAnnouncementList = [];
+    this.scholarshipAnnouncement = null;
     this.utilsService.goToPage('search-interview-selecting');
   }
 
-  autocompleteScholarship(event) {
+
+  autocompleteScholarshipAnnouncement(event) {
     console.log("autocompleteScholarshipAnnouncement");
     let e = event.originalEvent;
     let query = event.query;
-    this.scholarshipList = [];
+    this.scholarshipAnnouncementList = [];
 
     if(e.type == 'input'){
-      this.searchForm.search_criteria.scholarship_ref = null;
+      this.searchForm.search_criteria.announcement_ref = null;
     }
     let objList = [];
-    objList = this.referenceService.getScholarships();
+    objList = this.referenceService.getScholarshipAnnouncementsForSearch();
     for (let obj of objList) {
       // Filter By string event
       if (
-        obj.scholarship_name.toLowerCase().indexOf(query.toLowerCase()) == 0
+        obj.name.toLowerCase().indexOf(query.toLowerCase()) == 0
       ) {
-        this.scholarshipList.push(obj);
+        this.scholarshipAnnouncementList.push(obj);
       }
     }
-    console.log(this.scholarshipList.length);
-
   }
 
-  handleCompleteClickScholarship() {
+  handleCompleteClickScholarshipAnnouncement() {
     console.log("handleCompleteClickScholarshipAnnouncement");
 
     setTimeout(() => {
-      this.scholarshipList = this.referenceService.getScholarships();
+      this.scholarshipAnnouncementList = this.referenceService.getScholarshipAnnouncementsForSearch();
     }, 100);
   }
 
-  onSelectScholarship(){
-    this.searchForm.search_criteria.scholarship_ref = this.scholarship.scholarship_ref;
+  onSelectScholarshipAnnouncement(){
+    this.searchForm.search_criteria.announcement_ref = this.scholarshipAnnouncement.announcement_ref;
   }
-
-
 
 }

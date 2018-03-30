@@ -23,7 +23,6 @@ export class ScholarshipEarnCheckForm {
 
 class SearchCriteria {
   year: number;
-  announcement_ref: string;
   school_ref: string;
   major_ref: string;
   round: number;
@@ -31,7 +30,6 @@ class SearchCriteria {
   scholarship_ref:string
   constructor() {
     this.year = null;
-    this.announcement_ref = null;
     this.round = null;
     this.school_ref = null;
     this.scholarship_ref = null;

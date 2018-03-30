@@ -96,7 +96,7 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
 
     this.scholarshipAnnouncementList = [];
     this.scholarshipAnnouncement = null;
-    this.searchForm.search_criteria.year = null;
+    this.searchForm.search_criteria.year = new Date().getFullYear();
 
     this.utilsService.goToPage('search-scholarship-earning');
   }
