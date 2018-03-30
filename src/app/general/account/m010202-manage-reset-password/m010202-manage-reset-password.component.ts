@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { ActivatedRoute } from '@angular/router';
+import { Severity } from '../../../enum';
 
 @Component({
   selector: 'app-m010202-manage-reset-password',
@@ -45,7 +46,18 @@ export class M010202ManageResetPasswordComponent implements OnInit {
   }
 
   onResetPassword(data){
-
+    this.resetPasswordSerevice.resetPassword(data).subscribe(
+      data=>{
+        console.log(data);
+        this.layoutService.setMsgDisplay(Severity.SUCCESS,"รีเซ็ตสรหัสผ่านสำเร็จ",
+          data.user_id
+        );
+      },
+      err=>{
+        console.log(err);
+        this.layoutService.setMsgDisplay(Severity.ERROR,"เกิดข้อผิดพลาาด","");
+      }
+    );
   }
 
 
