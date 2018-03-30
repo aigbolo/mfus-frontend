@@ -1,3 +1,4 @@
+import { ScholarshipEarnCheckService } from './services/officers/scholship-earn-check.service';
 
 import { M050103ScholarshipEarningService } from './services/officers/m050103-scholarship-earning.service';
 import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
@@ -114,6 +115,7 @@ import { M050103SearchScholarshipEarningComponent } from './officers/m050103-sea
 import { M050102ManageOfficerInterviewSelectingComponent } from './officers/m050102-manage-officer-interview-selecting/m050102-manage-officer-interview-selecting.component';
 
 import { M050103ManageScholarshipEarningComponent } from './officers/m050103-manage-scholarship-earning/m050103-manage-scholarship-earning.component';
+import { CheckScholarshipEarningComponent } from './officers/check-scholarship-earning/check-scholarship-earning.component';
 import { M000401AnnouncementIntervieweeComponent } from './general/info/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
 import { M000402AnnouncementIntervieweeDetailComponent } from './general/info/m000402-announcement-interviewee-detail/m000402-announcement-interviewee-detail.component';
 import { ScholarshipAnnoucementComponent } from './general/info/scholarship-annoucement/scholarship-annoucement.component';
@@ -196,6 +198,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050102ManageOfficerInterviewSelectingComponent,
     M050103SearchScholarshipEarningComponent,
     M050103ManageScholarshipEarningComponent,
+    CheckScholarshipEarningComponent,
     M000401AnnouncementIntervieweeComponent,
     M000402AnnouncementIntervieweeDetailComponent,
     ScholarshipAnnoucementComponent,
@@ -268,6 +271,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050102OfficerInterviewSelectingService,
     ApplicationService,
     M050103ScholarshipEarningService,
+    ScholarshipEarnCheckService,
     DocumentsRequestedService,
     EarnedHistoryService,
     EnsureIsOfficer
