@@ -26,8 +26,8 @@ export class M000501AnnounceResultComponent implements OnInit {
   getResultAnnouncement() {
     const criteria = {announce_result_date:new Date()};
     this.scholarshipService.getAnnouncement(criteria).subscribe(
-      intveeAnc => {
-        this.scholarshipList = intveeAnc;
+      data => {
+        this.scholarshipList = data;
       }
     )
   }

@@ -218,12 +218,14 @@ export class ReferenceService {
     this.configuration.requestMethodGET(url).subscribe(
       data=>{
         this.scholarships = data;
+        console.log(this.scholarships);
       },
       err =>{
         console.log(err)
       }
     )
   }
+
 
   autocompleteScholarships(criteria){
     let url = 'autocomplete-scholarships';

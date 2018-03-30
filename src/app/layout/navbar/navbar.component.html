@@ -34,18 +34,19 @@
                routerLink="/login">
               <span class="glyphicon glyphicon-log-in"></span> เข้าสู่ระบบ</a>
           </li>
-          <li style="float:right"
-              *ngIf="status">
-            <a (click)="onClickLogout()" class="menu-item">
-              <span class="glyphicon glyphicon-log-out"></span>
-              ออกจากระบบ</a>
-          </li>
-          <li style="float:right"
-              *ngIf="status">
-            <a>
-              <span class="glyphicon glyphicon-user"></span>
-              {{displayName}}</a>
-          </li>
+          <li class="dropdown" *ngIf="status">
+            <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" role="button"
+            aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-user"></span> {{displayName}} <span class="caret"></span>
+          </a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/manage-officer-profile">จัดการข้อมูลส่วนตัว</a></li>
+              <li><a routerLink="/change-password">เปลี่ยนรหัสผ่าน</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a (click)="onClickLogout()" class="menu-item"><span class="glyphicon glyphicon-log-out"></span> ออกจากระบบ</a></li>
+            </ul>
+        </li>
+
         </ul>
       </div>
 </nav>

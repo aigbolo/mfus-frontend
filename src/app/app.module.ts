@@ -56,7 +56,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { PageHeaderComponent } from './layout/page-header/page-header.component';
 import { M030101ManageSponsorsComponent } from './officers/m030101-manage-sponsors/m030101-manage-sponsors.component';
 import { M030101SearchSponsorsComponent } from './officers/m030101-search-sponsors/m030101-search-sponsors.component';
-import { M010102ManageOfficerComponent } from './general/account/M010102Manage-officer/m010102-manage-officer.component';
+import { M010102ManageOfficerComponent } from './general/account/m010102-manage-officer/m010102-manage-officer.component';
 import { LoginComponent } from './general/authentication/login/login.component';
 import { ChangePasswordComponent } from './general/authentication/change-password/change-password.component';
 import { IndexComponent } from './general/info/index/index.component';
@@ -125,7 +125,8 @@ import { M040301ManageDocumentsRequestComponent } from './students/m040301-manag
 import { M050202SearchEarnedHistoryComponent } from './students/m050202-search-earned-history/m050202-search-earned-history.component';
 import { EarnedHistoryService } from './services/students/m050202-earned-history.service';
 import { M000501AnnounceResultComponent } from './general/info/m000501-announce-result/m000501-announce-result.component';
-import { M000501AnnounceResultDetailComponent } from './general/info/m000501-announce-result-detail/m000501-announce-result-detail.component';
+import { M000502AnnounceResultDetailComponent } from './general/info/m000502-announce-result-detail/m000502-announce-result-detail.component';
+import { M010202ManageResetPasswordComponent } from './general/account/m010202-manage-reset-password/m010202-manage-reset-password.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -205,7 +206,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M040301ManageDocumentsRequestComponent,
     M050202SearchEarnedHistoryComponent,
     M000501AnnounceResultComponent,
-    M000501AnnounceResultDetailComponent
+    M000502AnnounceResultDetailComponent,
+    M010202ManageResetPasswordComponent
   ],
   imports: [
     // Angular

@@ -24,23 +24,25 @@ export class SidebarComponent implements OnInit {
     if (this.authService.getUser().user_role == '1') {
       this.items = this.initialStudentMenu()
     } else {
-      this.items = this.initialOfficerMenu()
+      this.items = this.initialOfficerMenu();
+      console.log('menu item: ',this.items);
       console.log(this.authService.getUser().manage_officer_flag)
       if(this.authService.getUser().manage_officer_flag == 2){
-        this.items[0].items[1] = ({label: 'จัดการข้อมูลเจ้าหน้าที่', routerLink: ['/search-officer']})
+
+        this.items.unshift({
+          label: 'จัดการผู้ใช้',
+          items: [
+            {label: 'จัดการข้อมูลเจ้าหน้าที่', routerLink: ['/search-officer']},
+            {label: 'รีเซตรหัสผ่านนักศึกษา', routerLink: ['/manage-student-password']}
+          ]
+        })
       }
     }
   }
 
   initialOfficerMenu(): MenuItem[] {
     return [
-      {
-        label: 'จัดการผู้ใช้',
-        items: [
-          { label: 'จัดการข้อมูลส่วนตัว', routerLink: ['/manage-officer-profile'] },
-           { label: 'เปลี่ยนรหัสผ่าน', routerLink: ['/change-password'] }
-        ]
-      },
+
       {
         label: 'จัดการทุนการศึกษา',
         items: [

@@ -31,13 +31,14 @@ export class M000402AnnouncementIntervieweeDetailComponent implements OnInit {
 
 
   initialAnncIntvDetail(ref){
+    const criteria = {announcement_ref:ref,interview_flag:'2'}
     this.scholarshipService.searchScholarshipAnnouncementById(ref).subscribe(
       scholarAnnounce=>{
         this.smScholarshipAnnouncement = scholarAnnounce;
       }, error=>{
         console.log(error)
       }, ()=>{
-        this.scholarshipService.getIntervieweeAnnouncementDetail(ref).subscribe(
+        this.scholarshipService.getAnnouncementDetail(criteria).subscribe(
           detail=>{
             this.smSchoalrshipAnnouncementIntervieweeDetail = detail;
           }, error=>{

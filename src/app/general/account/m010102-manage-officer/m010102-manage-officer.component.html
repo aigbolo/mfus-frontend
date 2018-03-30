@@ -1,0 +1,230 @@
+<form *ngIf="pageRender"
+  [formGroup]="officerFormGroup"
+  (ngSubmit)="onSubmit()">
+    <div class="row overide-row">
+      <div class="col-xs-9">
+          <div class="row overide-row">
+            <div class="col-xs-9">
+              <label class="normal"> รหัสเจ้าหน้าที่ *</label>
+                <input
+                  [(ngModel)]="manageOfficerForm.acOfficer.officer_code"
+                  formControlName="officer_code"
+                  name="officer_code"
+                  type="text"
+                pInputText>
+            </div>
+            <div class="col-xs-3">
+              <label class="normal"> สถานะ</label>
+                <p-dropdown
+                  [(ngModel)]="manageOfficerForm.acOfficer.active_flag"
+                  formControlName="active_flag"
+                  name="active_flag"
+                  [options]="activeFlag"
+                  [disabled]="!manageOfficerForm.acOfficer.officer_ref">
+                </p-dropdown>
+            </div>
+          </div>
+          <div class="row overide-row">
+            <div class="col-xs-12">
+              <label class="normal">เพศ</label>
+                <p-radioButton
+                  [(ngModel)]="manageOfficerForm.acOfficer.gender"
+                  formControlName="gender"
+                  name="gender"
+                  value="M"
+                  label="ชาย"
+                  inputId="opt1">
+                </p-radioButton>
+                <p-radioButton
+                  [(ngModel)]="manageOfficerForm.acOfficer.gender"
+                  formControlName="gender"
+                  name="gender"
+                  value="F"
+                  label="หญิง"
+                  inputId="opt2">
+                </p-radioButton>
+            </div>
+          </div>
+          <div class="row overide-row">
+            <div class="col-xs-6">
+              <label class="normal">คำนำหน้า *</label>
+                <p-dropdown
+                  [(ngModel)]="manageOfficerForm.acOfficer.title_ref"
+                  formControlName="title_ref"
+                  name="title_ref"
+                  [options]="titleList">
+                </p-dropdown>
+            </div>
+            <div class="col-xs-6">
+              <label class="normal"> เลขประชาชน/พาสปอร์ต *</label>
+              <input
+                [(ngModel)]="manageOfficerForm.acOfficer.personal_id"
+                formControlName="personal_id"
+                name="personal_id"
+                type="text"
+                maxlength="13"
+                pInputText>
+            </div>
+          </div>
+          <div class="row overide-row">
+            <div class="col-xs-6">
+              <label class="normal"> ชื่อ *</label>
+                <input
+                  [(ngModel)]="manageOfficerForm.acOfficer.first_name"
+                  formControlName="first_name"
+                  name="first_name"
+                  type="text"
+                  pInputText>
+            </div>
+            <div class="col-xs-6">
+              <label class="normal"> นามสกุล *</label>
+                <input [(ngModel)]="manageOfficerForm.acOfficer.last_name"
+                formControlName="last_name"
+                name="last_name"
+                type="text"
+                pInputText>
+              </div>
+            </div>
+            <div class="row overide-row">
+              <div class="col-xs-12">
+                <label class="normal"> ที่อยู่ *</label>
+                  <input class="input-address"
+                    [(ngModel)]="manageOfficerForm.acOfficer.address"
+                    formControlName="address"
+                    name="address"
+                    type="text"
+                    pInputText>
+              </div>
+            </div>
+            <div class="row overide-row">
+              <div class="col-xs-6 normal">
+                <label class="normal">จังหวัด</label>
+                  <p-autoComplete class="autocomplete-province"
+                    field="province_name_t"
+                    [(ngModel)]="manageOfficerForm.rftProvince"
+                    formControlName="province"
+                    [suggestions]="provinceList"
+                    (onSelect)="selectProvince()"
+                    forceselection="true"
+                    [dropdown]="true"
+                    (onDropdownClick)="handleCompleteClickProvince()"
+                    (completeMethod)="autocompleteProvince($event)">
+                  </p-autoComplete>
+              </div>
+              <div class="col-xs-6 normal">
+                <label class="normal">อำเภอ</label>
+                  <p-autoComplete class="autocomplete-district"
+                    [disabled]="!manageOfficerForm.rftProvince.province_ref"
+                    [dropdown]="true"
+                    maxlength="50"
+                    [(ngModel)]="manageOfficerForm.rftDistrict"
+                    field="district_name_t"
+                    [suggestions]="districtList"
+                    forceselection="true"
+                    formControlName="district"
+                    (onSelect)="selectDistrict()"
+                    (onDropdownClick)="handleCompleteClickDistrict()"
+                    (completeMethod)="autocompleteDistrict($event)">
+                  </p-autoComplete>
+                </div>
+            </div>
+            <div class="row overide-row">
+              <div class="col-xs-6 normal">
+                <label class="normal">ตำบล</label>
+                  <p-autoComplete class="autocomplete-sub-district"
+                    [(ngModel)]="manageOfficerForm.rftSubDistrict"
+                    formControlName="sub_district"
+                    [suggestions]="subDistrictList"
+                    [dropdown]="true"
+                    [disabled]="!manageOfficerForm.rftDistrict.district_ref"
+                    (completeMethod)="autocompleteSubDistrict($event)"
+                    (onDropdownClick)="handleCompleteClickSubDistrict()"
+                    field="sub_district_name_t"
+                    (onSelect)="selectSubDistrict()"
+                    forceSelection="true"
+                    name="autocompleteSubdistrict">
+                  </p-autoComplete>
+                </div>
+                <div class="col-xs-6">
+                  <label class="normal"> รหัสไปรษณีย์ </label>
+                    <input class="input-postcode"
+                      type="text"
+                      [(ngModel)]="manageOfficerForm.acOfficer.postcode"
+                      formControlName="postcode"
+                      name="postcode"
+                      disabled="true"
+                      pInputText>
+                </div>
+            </div>
+            <div class="row overide-row">
+              <div class="col-xs-6">
+                <label class="normal"> เบอร์โทรศัพท์ *</label>
+                  <input
+                    [(ngModel)]="manageOfficerForm.acOfficer.phone_no"
+                    formControlName="phone_no"
+                    name="phone_no"
+                    type="text"
+                    maxlength="10"
+                    pInputText>
+              </div>
+              <div class="col-xs-6">
+                <label class="normal"> อีเมล *</label>
+                  <input
+                    [(ngModel)]="manageOfficerForm.acOfficer.email"
+                    formControlName="email"
+                    name="email"
+                    type="email"
+                    pInputText>
+              </div>
+            </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="row overide-row">
+            <div class="col-xs-12 profile-upload">
+              <img class="image-profile"
+                [src]="manageOfficerForm.acOfficer.profile_image||'../../../../assets/images/empty_profile.png'" >
+            </div>
+            <div class="col-xs-12 profile-upload">
+              <p-fileUpload
+                customUpload="true"
+                auto="true"
+                (uploadHandler)="onUpload($event)"
+                chooseLabel="เลือกไฟล์">
+              </p-fileUpload>
+            </div>
+            <div class="col-xs-12 profile-upload">
+              <p-checkbox
+                [binary]="true"
+                [(ngModel)]="flag"
+                formControlName="manage_officer_flag"
+                name="manage_officer_flag"
+                label="สามารถจัดการเจ้าหน้าที่">
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+    </div>
+<div class="row overide-row btn-row">
+  <div class="col-xs-6 btn-panel-left">
+    <button class="btn-back ui-button-info"
+      type="button"
+      label="ย้อนกลับ"
+      (click)="onPageSearch()"
+      pButton>
+    </button>
+  </div>
+  <div class="col-xs-6 btn-panel-right">
+    <button class="bbtn-reset ui-button-warning"
+      type="button"
+      label="เริ่มใหม่"
+      (click)="onResetClick()"
+      pButton>
+    </button>
+    <button class="btn-save ui-button-success"
+      type="submit"
+      label="{{btnLabel}}"
+      pButton>
+    </button>
+  </div>
+</div>
+</form>
