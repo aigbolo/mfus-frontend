@@ -12,6 +12,7 @@ export class M050103ScholarshipEarningService {
               private referenceService: ReferenceService,) { }
 
       doSearch(form:ScholarshipEarningForm){
+        console.log(form.search_criteria);
         return this.config.requestMethodPOST('applicants',form.search_criteria);
       }
 
