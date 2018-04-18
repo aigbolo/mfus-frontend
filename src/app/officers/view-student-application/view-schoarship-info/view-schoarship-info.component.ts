@@ -55,7 +55,7 @@ export class ViewSchoarshipInfoComponent implements OnInit {
   initialScholarshiphistory() {
     this.applicationService.initialScholarshipHistory(this.applicationView.applyScholarshipViewForm.acStudent.student_ref).subscribe(
       data => {
-        this.applicationView.applyScholarshipViewForm.apScholarshipHistory = data
+        // this.applicationView.applyScholarshipViewForm.apScholarshipHistory = data
       }, error => {
         console.log(error)
       }, () => {
@@ -68,7 +68,7 @@ export class ViewSchoarshipInfoComponent implements OnInit {
   initialStudentLoanFund() {
     this.applicationService.initialStudentLoanFund(this.applicationView.applyScholarshipViewForm.acStudent.student_ref).subscribe(
       data => {
-        this.applicationView.applyScholarshipViewForm.apStudentLoanFund = data
+        // this.applicationView.applyScholarshipViewForm.apStudentLoanFund = data
       }, error => {
         console.log(error)
       }, () => {

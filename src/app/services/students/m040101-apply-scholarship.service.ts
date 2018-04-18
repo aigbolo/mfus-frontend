@@ -19,9 +19,9 @@ export class M040101ApplyScholarshipService {
     private configurationService: ConfigurationService
   ) { }
 
-  getApplySchcolarshipData(ref: string) {
+  getStudentView(ref: string) {
     let json = { student_ref: ref }
-    return this.configurationService.requestMethodPOST('students-view', json)
+    return this.configurationService.requestMethodPOST('students-view', json);
   }
 
   initialScholarshipAnnouncementList() {

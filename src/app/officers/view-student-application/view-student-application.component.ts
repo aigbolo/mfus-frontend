@@ -7,6 +7,7 @@ import { ApplicationService } from '../../services/students/application.service'
 import { AuthenticationService } from '../../services/general/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReferenceService } from '../../services/general/reference.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
   selector: 'app-view-student-application',
@@ -19,6 +20,8 @@ export class ViewStudentApplicationComponent implements OnInit {
   student_ref: string
   application_ref: string
   pageRender: boolean = false
+  items: MenuItem[] = [];
+  activeIndex = 0;
   constructor(public utilsService: UtilsService,
     private applicationService: ApplicationService,
     private authService: AuthenticationService,
@@ -31,12 +34,22 @@ export class ViewStudentApplicationComponent implements OnInit {
     this.layoutService.setPageHeader('รายละเอียดข้อมูลการยื่นเจตจำนงขอทุนการศึกษา');
     this.ngprogress.start()
     this.application_ref = this.route.snapshot.params['id']
-    this.utilsService.getApplicationStep();
+    this.getApplicationStep();
     this.initialData()
   }
 
   initialData() {
     this.initialApplication();
+  }
+
+  getApplicationStep(){
+    this.items = [
+      { label: "ข้อมูลผู้ขอทุน", command: (event: any) => { this.activeIndex = 0;} },
+      { label: "ข้อมูลทุนการศึกษา", command: (event: any) => {this.activeIndex = 1;}},
+      { label: "ข้อมูลสถานะทางการเงินของครอบครัว", command: (event: any) => {this.activeIndex = 2;}},
+      { label: "ข้อมูลครอบครัวและที่อยู่", command: (event: any) => {this.activeIndex = 3;}},
+      { label: "ข้อมูลเอกสาร/หลักฐาน",command: (event: any) => {this.activeIndex = 4;}}
+    ];
   }
 
   initialStudent(ref: string) {

@@ -17,19 +17,19 @@ import { AcSibling } from '../models/ac-sibling';
 import { ApDocumentUpload } from '../models/ap-document-upload';
 
 export class ApplyScholarshipForm{
-  public acStudent: AcStudent;
-  public apApplication: ApApplication;
-  public smScholarshipAnnouncement: SmScholarshipAnnouncement;
-  public apScholarshipHistory: ApScholarshipHistory[];
-  public apStudentLoanFund: ApStudentLoanFund[];
-  public apFamiyDebt: ApFamilyDebt[];
-  public apFamilyFinancial: ApFamilyFinancial;
-  public acParent: AcParent;
-  public acSibling: AcSibling;
-  public acAddress: AcAddress;
-  public apDocumentUpload: ApDocumentUpload[];
-  public rftSchool: RftSchool;
-  public rftMajor: RftMajor;
+  public acStudent: AcStudent = new AcStudent;
+  public apApplication: ApApplication = new ApApplication;
+  public smScholarshipAnnouncement: SmScholarshipAnnouncement = new SmScholarshipAnnouncement;
+  public apScholarshipHistorys: ApScholarshipHistory[] = [];
+  public apStudentLoanFunds: ApStudentLoanFund[] = [];
+  public apFamiyDebt: ApFamilyDebt[] = [];
+  public apFamilyFinancial: ApFamilyFinancial = new ApFamilyFinancial;
+  public acParent: AcParent = new AcParent;
+  public acSibling: AcSibling = new AcSibling;
+  public acAddress: AcAddress = new AcAddress;
+  public apDocumentUpload: ApDocumentUpload[] = [];
+  public rftSchool: RftSchool = new RftSchool;
+  public rftMajor: RftMajor = new RftMajor;
   public student_name: string;
   public age: number;
   public birth_day: string;
@@ -49,7 +49,6 @@ export class ApplyScholarshipForm{
   public dadProvince: RftProvince;
   public dadDistrict: RftDistrict;
   public dadSubDistrict: RftSubDistrict;
-
   public momProvince: RftProvince;
   public momDistrict: RftDistrict;
   public momSubDistrict: RftSubDistrict;
@@ -57,105 +56,16 @@ export class ApplyScholarshipForm{
   public patrolProvince: RftProvince;
   public patrolDistrict: RftDistrict;
   public patrolSubDistrict: RftSubDistrict;
-
   public homeProvince: RftProvince;
   public homeDistrict: RftDistrict;
   public homeSubDistrict: RftSubDistrict;
-
   public currentProvince: RftProvince;
   public currentDistrict: RftDistrict;
   public currentSubDistrict: RftSubDistrict;
-
   public siblingList: AcSibling[];
-
   public parentsFlag: string;
-
   public educationLevelList: RftEducationLevel[]
   public educationLevel: string
-
-  constructor(){
-    this.acStudent = new AcStudent()
-    this.apApplication = new ApApplication()
-    this.smScholarshipAnnouncement = new SmScholarshipAnnouncement
-    this.apScholarshipHistory = []
-    this.apStudentLoanFund = []
-    this.apFamiyDebt = []
-    this.apFamilyFinancial = new ApFamilyFinancial
-    this.acParent = new AcParent
-    this.acSibling = new AcSibling
-    this.acAddress = new AcAddress
-    this.apDocumentUpload = []
-    this.rftSchool = new RftSchool
-    this.rftMajor = new RftMajor
-    this.student_name = ""
-    this.age = null
-    this.birth_day = ""
-    this.year = ""
-    this.autocompleteScholarshipAnnouncement = null
-    this.detail = ""
-    this.min_gpax = ""
-    this.sctype_name = ""
-    this.sponsors_name = ""
-    this.documentList = []
-    this.school_name_t = ""
-    this.major_name_t = ""
-    this.gender = ""
-
-  this.dadProvince = new RftProvince();
-  this.dadDistrict = new RftDistrict();
-  this.dadSubDistrict = new RftSubDistrict();
-
-  this.momProvince = new RftProvince();
-  this.momDistrict = new RftDistrict();
-  this.momSubDistrict = new RftSubDistrict();
-
-  this.patrolProvince = new RftProvince();
-  this.patrolDistrict = new RftDistrict();
-  this.patrolSubDistrict = new RftSubDistrict();
-
-  this.homeProvince = new RftProvince();
-  this.homeDistrict = new RftDistrict();
-  this.homeSubDistrict = new RftSubDistrict();
-
-  this.currentProvince = new RftProvince();
-  this.currentDistrict = new RftDistrict();
-  this.currentSubDistrict = new RftSubDistrict();
-
-  this.siblingList = []
-
-  this.parentsFlag = ""
-  this.educationLevelList = []
-  this.educationLevel = ""
-    this.acStudent = new AcStudent();
-    this.apApplication = new ApApplication();
-    this.smScholarshipAnnouncement = new SmScholarshipAnnouncement;
-    this.apScholarshipHistory = [];
-    this.apStudentLoanFund = [];
-    this.apFamiyDebt = [];
-    this.apFamilyFinancial = new ApFamilyFinancial;
-    this.acParent = new AcParent;
-    this.acSibling = new AcSibling;
-    this.acAddress = new AcAddress;
-    this.apDocumentUpload = [];
-    this.rftSchool = new RftSchool;
-    this.rftMajor = new RftMajor;
-    this.student_name = "";
-    this.age = null;
-    this.birth_day = "";
-    this.year = "";
-    this.autocompleteScholarshipAnnouncement = null;
-    this.detail = "";
-    this.min_gpax = "";
-    this.sctype_name = "";
-    this.sponsors_name = "";
-    this.documentList = [];
-    this.school_name_t = "";
-    this.major_name_t = "";
-    this.gender = "";
-
-    this.search_criteria = new SearchCriteria;
-  }
-
 
 }
 class SearchCriteria{

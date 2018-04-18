@@ -147,29 +147,7 @@ const appRoutes: Routes = [
 
   // Students Paths
   {
-    path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth], children: [
-      {
-        path: "manage-applicant-info",
-        component: M040101ManageApplicantInfoComponent
-      },
-      {
-        path: "manage-scholarship-info",
-        component: M040102ManageScholarshipInfoComponent
-      },
-      {
-        path: "manage-family-financial",
-        component: M040103ManageFamilyFinancialComponent
-      },
-      {
-        path: "view-family-and-address",
-        component: M040104ManageFamilyAndAddressComponent
-      },
-      {
-        path: "manage-document-upload",
-        component: M040105ManageDocumentUploadComponent
-      }
-    ]
-  },
+    path: "manage-application", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth]},
   { path: "manage-application/:id", component: ApplyScholarshipsComponent, canActivate: [EnsureIsAuth] },
   { path: "manage-family-and-address", component: M020103ManageFamilyAndAddressComponent, canActivate: [EnsureIsAuth] },
   { path: "search-sholarships-applied", component: M040201SearchScholarshipsAppliedComponent , canActivate: [EnsureIsAuth] },

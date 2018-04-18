@@ -1,5 +1,5 @@
 import { FormGroup, FormControl } from '@angular/forms';
-import { M010202ResetPasswordService } from './../../../services/officers/m010202-reset-password.servicec';
+import { M010202ResetPasswordService } from './../../../services/officers/m010202-reset-password.service';
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { LayoutService } from '../../../services/utils/layout.service';

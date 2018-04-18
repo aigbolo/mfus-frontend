@@ -237,40 +237,6 @@ export class UtilsService {
     return collageYear;
   }
 
-  getApplicationStep(){
-    this.items = [
-      {
-        label: "ข้อมูลผู้ขอทุน",
-        command: (event: any) => {
-          this.activeIndex = 0;
-        }
-      },
-      {
-        label: "ข้อมูลทุนการศึกษา",
-        command: (event: any) => {
-          this.activeIndex = 1;
-        }
-      },
-      {
-        label: "ข้อมูลสถานะทางการเงินของครอบครัว",
-        command: (event: any) => {
-          this.activeIndex = 2;
-        }
-      },
-      {
-        label: "ข้อมูลครอบครัวและที่อยู่",
-        command: (event: any) => {
-          this.activeIndex = 3;
-        }
-      },
-      {
-        label: "ข้อมูลเอกสาร/หลักฐาน",
-        command: (event: any) => {
-          this.activeIndex = 4;
-        }
-      }
-    ];
-  }
 
   getAge(data: Date) {
     let birth = new Date(data);

@@ -2293,6 +2293,7 @@ p-listbox.ng-dirty.ng-invalid .ui-inputtext:focus,
 p-multiselect.ng-dirty.ng-invalid > .ui-multiselect:focus,
 p-spinner.ng-dirty.ng-invalid > .ui-inputtext:focus,
 p-selectbutton.ng-dirty.ng-invalid .ui-button:focus,
+textarea.ng-dirty.ng-invalid,
 p-togglebutton.ng-dirty.ng-invalid .ui-button:focus{
     border-color: #CE0C0C;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #E11515

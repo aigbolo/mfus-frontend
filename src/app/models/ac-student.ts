@@ -27,4 +27,5 @@ export class AcStudent {
  // Fields For Display
  public school_name_t:string;
  public major_name_t:string;
+ public age:number;
 }

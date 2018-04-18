@@ -1,8 +1,9 @@
 import { UtilsService } from './../../../services/utils/utils.service';
 import { MenuItem } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApplyScholarshipsComponent } from '../apply-scholarships.component';
 import { ReferenceService } from '../../../services/general/reference.service';
+import { ApplyScholarshipForm } from '../../../forms/apply-scholarship-form';
 
 @Component({
   selector: 'app-m040104-manage-family-and-address',
@@ -13,6 +14,8 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
 
   items: MenuItem[];
   activeIndex: number = 0;
+  @Input() childForm: ApplyScholarshipForm;
+  @Output() changeIndex = new EventEmitter<any>();
   constructor(public applyApplication: ApplyScholarshipsComponent,
               public utilsService: UtilsService,
               private referenceService: ReferenceService) { }

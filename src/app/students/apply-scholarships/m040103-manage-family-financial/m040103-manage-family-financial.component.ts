@@ -2,10 +2,11 @@ import { UtilsService } from './../../../services/utils/utils.service';
 import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ApplyScholarshipsComponent } from './../apply-scholarships.component';
-import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { ApFamilyDebt } from '../../../models/ap-family-debt';
 import { NgProgress } from 'ngx-progressbar';
 import { ReferenceService } from '../../../services/general/reference.service';
+import { ApplyScholarshipForm } from '../../../forms/apply-scholarship-form';
 
 @Component({
   selector: 'app-m040103-manage-family-financial',
@@ -17,7 +18,8 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
 
   familyFinancialFormGroup: FormGroup
   familyDebt:ApFamilyDebt = new ApFamilyDebt()
-
+  @Input() childForm: ApplyScholarshipForm;
+  @Output() changeIndex = new EventEmitter<any>();
   constructor(public applyApplication: ApplyScholarshipsComponent,
               private ngprogress: NgProgress,
               private referenceService: ReferenceService,
@@ -42,34 +44,11 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     this.applyApplication.pageRender = true
   }
 
-  addRow(){
-    this.familyDebt.create_user = this.applyApplication.user_ref
-    this.familyDebt.update_user = this.applyApplication.user_ref
-    this.applyApplication.applyApplicationForm.apFamiyDebt.push(this.familyDebt)
-  }
+  onGoBack(){
 
-  deleteRow(obj: ApFamilyDebt){
-    this.applyApplication.applyApplicationForm.apFamiyDebt.splice(this.applyApplication.applyApplicationForm.apFamiyDebt.indexOf(obj), 1)
   }
 
   onNext(){
-    if (this.familyFinancialFormGroup.invalid) {
-      this.utilsService.findInvalidControls(this.familyFinancialFormGroup);
-      this.applyApplication.applyApplicationForm.apFamiyDebt.push(this.familyDebt);
-      return;
-    }
-    this.applyApplication.applyApplicationForm.apFamilyFinancial.create_user = this.applyApplication.user_ref
-    if(this.applyApplication.update_state == true){
-      this.applyApplication.applyApplicationForm.apFamilyFinancial.update_user = this.applyApplication.user_ref
-    }
-    console.log(this.applyApplication.applyApplicationForm)
-    this.referenceService.nextIndex(3)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
-    this.applyApplication.pageRender = false
-  }
 
-  onPrevious(){
-    this.referenceService.nextIndex(1)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 }
