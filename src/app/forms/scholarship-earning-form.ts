@@ -2,9 +2,9 @@ import { SmScholarshipAnnouncement } from "../models/sm-scholarship-announcement
 import { ApApplication } from "../models/ap-application";
 
 export class ScholarshipEarningForm{
-  scholarshipAnnouncement: SmScholarshipAnnouncement;
-  search_criteria:SearchCriteria;
   application: ApApplication;
+  search_criteria:SearchCriteria;
+  scholarshipAnnouncement: SmScholarshipAnnouncement;
 
 constructor(){
   this.application = new ApApplication;

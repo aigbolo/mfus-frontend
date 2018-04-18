@@ -89,6 +89,9 @@
         formControlName="father_pid"
         [(ngModel)]="manageForm.acParent.father_pid"
         >
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!manageFormGroup.controls['father_pid'].valid">
+          <span>กรุณากรอกด้วยตัวเลข ให้ครบ 13 หลัก</span>
+      </div>
       </div>
       <div class="col-xs-6">
         <label class="normal">สถานะ</label>
@@ -393,6 +396,9 @@
         minlength="13"
         formControlName="mother_pid"
         [(ngModel)]="manageForm.acParent.mother_pid">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!manageFormGroup.controls['mother_pid'].valid">
+          <span>กรุณากรอกด้วยตัวเลข ให้ครบ 13 หลัก</span>
+      </div>
       </div>
       <div class="col-xs-6">
         <label class="normal">สถานะ</label>
@@ -702,6 +708,9 @@
         class="personal-id"
         formControlName="patrol_pid"
         [(ngModel)]="manageForm.acParent.patrol_pid">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!manageFormGroup.controls['patrol_pid'].valid">
+          <span>กรุณากรอกด้วยตัวเลข ให้ครบ 13 หลัก</span>
+      </div>
       </div>
       <div class="col-xs-6">
         <label class="normal">สถานะ</label>
