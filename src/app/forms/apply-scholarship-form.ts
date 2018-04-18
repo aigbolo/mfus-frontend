@@ -25,7 +25,7 @@ export class ApplyScholarshipForm{
   public apFamiyDebt: ApFamilyDebt[] = [];
   public apFamilyFinancial: ApFamilyFinancial = new ApFamilyFinancial;
   public acParent: AcParent = new AcParent;
-  public acSibling: AcSibling = new AcSibling;
+  public acSiblings: AcSibling[] = [];
   public acAddress: AcAddress = new AcAddress;
   public apDocumentUpload: ApDocumentUpload[] = [];
   public rftSchool: RftSchool = new RftSchool;

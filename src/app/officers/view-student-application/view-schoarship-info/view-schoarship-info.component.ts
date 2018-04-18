@@ -27,12 +27,8 @@ export class ViewSchoarshipInfoComponent implements OnInit {
   }
 
   onPrevious() {
-    this.referenceService.nextIndex(0)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
   onNext() {
-    this.referenceService.nextIndex(2)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 
   initialScholarshipAnnouncement() {

@@ -1,9 +1,10 @@
+import { ApplyScholarshipForm } from './../../../forms/apply-scholarship-form';
 import { M040102ManageScholarshipInfoComponent } from './../m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { Severity } from './../../../enum';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Rx';
 import { ApplyScholarshipsComponent } from './../apply-scholarships.component';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { M040101ApplyScholarshipService } from '../../../services/students/m040101-apply-scholarship.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ApDocumentUpload } from '../../../models/ap-document-upload';
@@ -28,7 +29,8 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
   display: boolean
   uploadDocument: ApDocumentUpload;
   btnlabel: string
-
+  @Input() childForm: ApplyScholarshipForm;
+  @Output() changeIndex = new EventEmitter<any>();
   constructor(public applyApplication: ApplyScholarshipsComponent,
     private applyScholarshipService: M040101ApplyScholarshipService,
     private utilsService: UtilsService,
@@ -119,9 +121,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
     }
   }
 
-  onPrevious() {
-    this.referenceService.nextIndex(3)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
+  onGoBack() {
   }
 
   onInsertClick() {
@@ -290,7 +290,5 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       "แก้ไขข้อมูลผิดพลาด",
       msg
     );
-    this.referenceService.nextIndex(index);
-      this.utilsService.activeIndex = this.referenceService.getIndex();
   }
 }

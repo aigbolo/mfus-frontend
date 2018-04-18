@@ -41,12 +41,8 @@ export class ViewFamilyFinancialComponent implements OnInit {
   }
 
   onPrevious(){
-    this.referenceService.nextIndex(1)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
   onNext(){
-    this.referenceService.nextIndex(3)
-    this.utilsService.activeIndex = this.referenceService.getIndex()
   }
 
 

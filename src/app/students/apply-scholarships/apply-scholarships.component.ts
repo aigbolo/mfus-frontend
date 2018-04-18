@@ -41,20 +41,20 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     private referenceService: ReferenceService,
     private ngProgress: NgProgress,
     private authService: AuthenticationService,
+    private familyAndAddress: M020103FamilyAndAddressService
   ) { }
 
   ngAfterViewInit() {
     this.layoutService.setPageHeader('ยื่นความจำนงขอทุนการศึกษา');
 
-    setTimeout(()=>{
-      this.pageRender = true;
 
-    },1000);
   }
   ngAfterContentInit() {
-    this.activeIndex = 0;
+    this.activeIndex = 2;
     this.applyApplicationForm = new ApplyScholarshipForm;
     this.getApplicationStep();
+    this.findFamilyAndAddress()
+    this.pageRender = true;
   }
 
   getApplicationStep(){
@@ -66,6 +66,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
       { label: "ข้อมูลเอกสาร/หลักฐาน",command: (event: any) => {this.activeIndex = 4;}}
     ];
   }
+
   onChangeTabIndex(data){
     console.log(data);
     if(data.newIndex == 0){
@@ -88,6 +89,30 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
     this.activeIndex = data.newIndex;
   }
+
+  findFamilyAndAddress(){
+    this.familyAndAddress.doGetParent(this.user.account_ref).subscribe(
+      data=>{
+        console.log('get parent:',data)
+        this.applyApplicationForm.acParent = data;
+      }
+    )
+    this.familyAndAddress.doGetSiblings(this.user.account_ref).subscribe(
+      data=>{
+        console.log('get siblings:',data)
+        this.applyApplicationForm.acSiblings = [...data]
+      }
+
+    )
+    this.familyAndAddress.doGetAddress(this.user.account_ref).subscribe(
+      data=>{
+        console.log('get address:',data)
+        this.applyApplicationForm.acAddress = data;
+      }
+    )
+  }
+
+
 
 
 }

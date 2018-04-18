@@ -1,3 +1,7 @@
+import { AcAddress } from './../../../models/ac-address';
+import { AcSibling } from './../../../models/ac-sibling';
+import { AcParent } from './../../../models/ac-parent';
+import { ApApplication } from './../../../models/ap-application';
 import { UtilsService } from './../../../services/utils/utils.service';
 import { MenuItem } from 'primeng/primeng';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -14,15 +18,22 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
 
   items: MenuItem[];
   activeIndex: number = 0;
+  acParent: AcParent = new AcParent;
+  acSiblings:AcSibling[] = [];
+  acAddress:AcAddress = new AcAddress;
   @Input() childForm: ApplyScholarshipForm;
   @Output() changeIndex = new EventEmitter<any>();
-  constructor(public applyApplication: ApplyScholarshipsComponent,
-              public utilsService: UtilsService,
+  constructor(public utilsService: UtilsService,
               private referenceService: ReferenceService) { }
 
   ngOnInit() {
     this.stepDisplay()
-    this.applyApplication.pageRender = true
+    console.log(this.childForm)
+    this.acParent = Object.assign(this.acParent,this.childForm.acParent);
+    this.acAddress = Object.assign(this.acAddress,this.childForm.acAddress);
+    this.acSiblings = [...this.childForm.acSiblings]
+
+
   }
 
   stepDisplay() {
@@ -71,15 +82,12 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
       }
     }
 
-    onPrevious(){
-      this.referenceService.nextIndex(2)
-      this.utilsService.activeIndex = this.referenceService.getIndex()
+    onGoBack(){
+
     }
 
     onNext(){
-      this.referenceService.nextIndex(4)
-      this.utilsService.activeIndex = this.referenceService.getIndex()
-      this.applyApplication.pageRender = false
+
     }
 
     goToManageParent(){

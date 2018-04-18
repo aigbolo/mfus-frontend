@@ -1,3 +1,5 @@
+import { DistrictPipe } from './pipes/district.pipe';
+import { ProvincePipe } from './pipes/province.pipe';
 import { ScholarshipEarnCheckService } from './services/officers/scholship-earn-check.service';
 
 import { M050103ScholarshipEarningService } from './services/officers/m050103-scholarship-earning.service';
@@ -128,6 +130,7 @@ import { M000501AnnounceResultComponent } from './general/info/m000501-announce-
 import { M000502AnnounceResultDetailComponent } from './general/info/m000502-announce-result-detail/m000502-announce-result-detail.component';
 import { M010202ManageResetPasswordComponent } from './general/account/m010202-manage-reset-password/m010202-manage-reset-password.component';
 import { M010202ResetPasswordService } from './services/officers/m010202-reset-password.service';
+import { SubDistrictPipe } from './pipes/subdistrict.pipe';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -208,7 +211,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050202SearchEarnedHistoryComponent,
     M000501AnnounceResultComponent,
     M000502AnnounceResultDetailComponent,
-    M010202ManageResetPasswordComponent
+    M010202ManageResetPasswordComponent,
+    ProvincePipe,
+    DistrictPipe,
+    SubDistrictPipe
   ],
   imports: [
     // Angular

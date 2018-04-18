@@ -1,5 +1,6 @@
 import { ApplyScholarshipsComponent } from './../../apply-scholarships.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AcAddress } from '../../../../models/ac-address';
 
 @Component({
   selector: 'app-address-view',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./address-view.component.css']
 })
 export class AddressViewComponent implements OnInit {
-
-  constructor(public applyApplication: ApplyScholarshipsComponent,) { }
+  acAddress:AcAddress = new AcAddress;
+  @Input() address: AcAddress;
+  constructor() { }
 
   ngOnInit() {
+    Object.assign(this.acAddress,this.address);
   }
 
 }

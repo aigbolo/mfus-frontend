@@ -245,37 +245,7 @@ export class ReferenceService {
   return promise;
   }
 
-  getScholarships() {
-    console.log('getScholarships: ',this.scholarships)
-    return this.scholarships;
-  }
 
-  //End Functions For Scholarships
-
-  getRoundAnnouncement(year: number, scholarshipRef: string) {
-    let body = { year: year, scholarship_ref: scholarshipRef };
-    return this.configuration.requestMethodPOST("round", body);
-  }
-
-  getSchoolByRef(ref: string) {
-    return this.configuration.requestMethodGET("get-school/"+ ref)
-  }
-
-  getMajorByRef(ref: string) {
-    return this.configuration.requestMethodGET("get-major/"+ref)
-  }
-
-  nextIndex(index) {
-    this.activeIndex = index;
-  }
-
-  getIndex() {
-    return this.activeIndex;
-  }
-
-  getEducationLevel() {
-    return this.configuration.requestMethodGET('autocomplete-edlevel');
-  }
 
   initialScholarshipAnnouncementForSearch(parameters:any){
     this.configuration.requestMethodPOST("autocomplete-scannounce", parameters).subscribe(
@@ -320,5 +290,39 @@ export class ReferenceService {
 
   getApplicationDocument() {
     return this.configuration.requestMethodPOST('appdoc', '');
+  }
+
+  getScholarships() {
+    console.log('getScholarships: ',this.scholarships)
+    return this.scholarships;
+  }
+
+  //End Functions For Scholarships
+
+  getRoundAnnouncement(year: number, scholarshipRef: string) {
+    let body = { year: year, scholarship_ref: scholarshipRef };
+    return this.configuration.requestMethodPOST("round", body);
+  }
+
+  getSchoolByRef(ref: string) {
+    return this.configuration.requestMethodGET("get-school/"+ ref)
+  }
+
+  getMajorByRef(ref: string) {
+    return this.configuration.requestMethodGET("get-major/"+ref)
+  }
+
+  getEducationLevel() {
+    return this.configuration.requestMethodGET('autocomplete-edlevel');
+  }
+
+  getProvinceByRef(ref: string){
+    return this.configuration.requestMethodGET("get-province/"+ref)
+  }
+  getDistrictByRef(ref: string){
+    return this.configuration.requestMethodGET("get-district/"+ref)
+  }
+  getSubDistrictByRef(ref: string){
+    return this.configuration.requestMethodGET("get-sub-district/"+ref)
   }
 }
