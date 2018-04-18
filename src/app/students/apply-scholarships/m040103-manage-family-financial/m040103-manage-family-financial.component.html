@@ -1,7 +1,5 @@
-<form *ngIf="applyApplication.pageRender" [formGroup]="familyFinancialFormGroup" (ngSubmit)="onNext()">
-    <div class="row overide-row">
-        <h4 class="custom-panel-title">รายรับ - รายจ่าย</h4>
-    </div>
+<form [formGroup]="formGroup" (ngSubmit)="onNext()">
+
     <div class="row overide-row">
         <div class="col-xs-3">
             <label class="normal">รายรับ (บาท) *</label>
@@ -13,7 +11,7 @@
               maxlength="10"
               formControlName="income_monthly"
               currencyMask
-              [(ngModel)]="applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly"
+              [(ngModel)]="apFamilyFinancial.income_monthly"
               pInputText>
         </div>
         <div class="col-xs-1"></div>
@@ -27,73 +25,77 @@
               maxlength="10"
               currencyMask
               formControlName="expense_monthly"
-              [(ngModel)]="applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly"
+              [(ngModel)]="apFamilyFinancial.expense_monthly"
               pInputText>
         </div>
     </div>
     <div class="row overide-row">
         <h4 class="custom-panel-title">ภาระหนี้สินครอบครัว *</h4>
         <div class="col-xs-12">
-            <p-dataTable [value]="applyApplication.applyApplicationForm.apFamiyDebt" [immutable]=false>
-                <p-column header="ลำดับ" field="seq" styleClass="datatable-index">
-                    <ng-template let-col let-obj="rowIndex" pTemplate="body">
+            <p-dataTable [value]="apfamilyDebts" [immutable]=false>
+                <p-column header="ลำดับ" field="" styleClass="datatable-index">
+                    <ng-template let-obj="rowIndex" pTemplate="body">
                         {{obj+1}}
                     </ng-template>
                 </p-column>
-                <p-column header="รายละเอียด" field="debt_detail">
-                    <ng-template let-col let-obj="rowData" pTemplate="body">
+                <p-column header="รายละเอียด" field="">
+                    <ng-template let-obj="rowData" pTemplate="body">
                         <input type="text"
                           [(ngModel)]="obj.debt_detail"
-                          formControlName="debt_detail"
                           maxlength="500"
+                          style="width:100%"
+                          [ngModelOptions]="{standalone: true}"
                           pInputText>
                     </ng-template>
                 </p-column>
-                <p-column field="debt_amount">
-                    <ng-template pTemplate="header">
-                        <div class="text-left">จำนวน(บาท)</div>
-                        <button class="ui-button-success btn-position"
-                          type="button"
-                          icon="fa-plus"
-                          (click)="addDebt()"
-                          pButton>
-                        </button>
-                    </ng-template>
+                <p-column field="" header="จำนวน(บาท)" [style]="{'width':'150px'}">
                     <ng-template let-col let-obj="rowData" pTemplate="body">
                         <input type="text"
-                          formControlName="debt_amount"
                           [options]="{ prefix: '', thousands: ',', decimal: '.' }"
                           min="0"
                           max="999999.99"
                           maxlength="10"
+                          style="width:100%"
                           currencyMask
                           [(ngModel)]="obj.debt_amount"
+                          [ngModelOptions]="{standalone: true}"
                           pInputText>
-                        <button class="ui-button-warning btn-position"
-                          type="button"
-                          icon="fa-minus"
-                          (click)="deleteRow(obj)"
-                          pButton>
-                        </button>
                     </ng-template>
                 </p-column>
+                <p-column field="" [style]="{'width':'50px'}">
+                  <ng-template pTemplate="header">
+                    <button class="ui-button-success btn-position"
+                      type="button"
+                      (click)="newFamilyDebt()"
+                      icon="fa-plus"
+                      pButton>
+                    </button>
+                </ng-template>
+                  <ng-template let-index="rowIndex" let-obj="rowData" pTemplate="body">
+                    <button class="ui-button-warning btn-position"
+                    type="button"
+                    icon="fa-minus"
+                    (click)="deleteFamilyDebt(index)"
+                    pButton>
+                    </button>
+                  </ng-template>
+              </p-column>
             </p-dataTable>
         </div>
     </div>
-    <div class="space"></div>
-    <div class="row formFooter overide-row">
-        <div class="col-xs-12  text-right">
-            <button class="ui-button-warning text-left"
-            type="button"
-            (click)="onPrevious()"
-            label="กลับ"
-            pButton>
-          </button>
+    <div class="row btn-row overide-row">
+      <div class="col-xs-12">
+          <button class="ui-button-warning text-left"
+          type="button"
+          label="ย้อนกลับ"
+          (click)="onGoBack()"
+          pButton>
+        </button>
           <button class="ui-button-primary text-right"
             type="submit"
             label="ถัดไป"
             pButton>
           </button>
-        </div>
-    </div>
+      </div>
+  </div>
 </form>

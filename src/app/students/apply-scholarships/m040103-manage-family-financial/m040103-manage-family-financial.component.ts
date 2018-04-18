@@ -1,3 +1,4 @@
+import { ApFamilyFinancial } from './../../../models/ap-family-financial';
 import { UtilsService } from './../../../services/utils/utils.service';
 import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -16,39 +17,66 @@ import { ApplyScholarshipForm } from '../../../forms/apply-scholarship-form';
 })
 export class M040103ManageFamilyFinancialComponent implements OnInit {
 
-  familyFinancialFormGroup: FormGroup
-  familyDebt:ApFamilyDebt = new ApFamilyDebt()
+  formGroup: FormGroup;
+  apFamilyFinancial:ApFamilyFinancial = new ApFamilyFinancial;
+  apfamilyDebts:ApFamilyDebt[] = [new ApFamilyDebt];
   @Input() childForm: ApplyScholarshipForm;
   @Output() changeIndex = new EventEmitter<any>();
-  constructor(public applyApplication: ApplyScholarshipsComponent,
-              private ngprogress: NgProgress,
+  constructor(private ngprogress: NgProgress,
               private referenceService: ReferenceService,
               private utilsService: UtilsService) { }
 
   ngOnInit() {
-    this.ngprogress.start()
     this.validateForm()
   }
 
   validateForm(){
-    this.familyFinancialFormGroup = new FormGroup({
-      income_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.income_monthly,
+    this.formGroup = new FormGroup({
+      income_monthly: new FormControl(this.apFamilyFinancial.income_monthly,
         Validators.compose([Validators.required])),
-      expense_monthly: new FormControl(this.applyApplication.applyApplicationForm.apFamilyFinancial.expense_monthly,
+      expense_monthly: new FormControl(this.apFamilyFinancial.expense_monthly,
         Validators.compose([Validators.required])),
-      debt_detail: new FormControl('', Validators.compose([Validators.required])),
-      debt_amount: new FormControl('', Validators.compose([Validators.required]))
 
     })
-    this.ngprogress.done()
-    this.applyApplication.pageRender = true
+  }
+
+  newFamilyDebt(){
+    this.apfamilyDebts = [...this.apfamilyDebts,new ApFamilyDebt]
+  }
+
+  deleteFamilyDebt(index){
+    this.apfamilyDebts.splice(index,1);
   }
 
   onGoBack(){
-
+    this.apfamilyDebts = this.apfamilyDebts.filter(data=>{
+      if(data.debt_detail&&data.debt_amount!=null){
+        return true
+      }
+      return false
+    })
+    const data = {
+      currentIndex:2,newIndex:1,
+      apFamilyFinancial:this.apFamilyFinancial,
+      apfamilyDebts:this.apfamilyDebts
+    }
+    this.changeIndex.emit(data);
   }
 
   onNext(){
+    this.apfamilyDebts = this.apfamilyDebts.filter(data=>{
+      if(data.debt_detail&&data.debt_amount!=null){
+        return true
+      }
+      return false
+    })
+    this.utilsService.findInvalidControls(this.formGroup);
+    if(this.formGroup.valid){
+      const data = {
+        currentIndex:2,newIndex:3
+      }
+      this.changeIndex.emit(data);
+    }
 
   }
 }
