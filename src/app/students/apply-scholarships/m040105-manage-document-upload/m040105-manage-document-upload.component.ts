@@ -30,7 +30,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
 
   user: AcUser =  this.authService.getUser();
 
-  @Input() childForm: ApplyScholarshipForm;
+  @Input() apDocumentUploadList: ApDocumentUpload[]=[];
   @Output() changeIndex = new EventEmitter<any>();
   constructor(
     private applyScholarshipService: M040101ApplyScholarshipService,
@@ -51,9 +51,15 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       this.applyScholarshipService.initialApplicationDocument().subscribe(
         async data=>{
           await data.map(
-            obj=>{
-              console.log(obj)
+            async (obj)=>{
               let apDocumentUpload = new ApDocumentUpload;
+              await this.apDocumentUploadList.forEach(
+                docUpload=>{
+                  if(docUpload.document_ref == obj.document_ref){
+                    apDocumentUpload = docUpload;
+                  }
+                }
+              )
               const rftDoc = {doc_name:obj.document_name,document_ref:obj.document_ref}
               const documentReq = {...apDocumentUpload,...rftDoc}
               console.log(documentReq);
@@ -77,7 +83,7 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       this.utilsService.convertBlobToString(event.files[0].objectURL)
       .subscribe(val => { return resolve(val)});
     })
-
+      uploadDocument.document_ref = ref;
       uploadDocument.document_name = event.files[0].name;
       uploadDocument.document_type = event.files[0].type;
       uploadDocument.create_user = this.user.account_ref;
@@ -99,14 +105,23 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
 
   }
 
+
   onGoBack() {
+    const documentUploads = this.documentList.filter(data=>data.document_image)
+    console.log('documentUploads:',documentUploads)
     const data = {
-      currentIndex:2,newIndex:1,
+      currentIndex:4,newIndex:3,
+      apDocumentUpload:[...documentUploads]
     }
     this.changeIndex.emit(data);
   }
 
   onInsertClick() {
-
+    const documentUploads = this.documentList.filter(data=>data.document_image)
+    const data = {
+      currentIndex:4,newIndex:5,
+      apDocumentUpload:[...documentUploads]
+    }
+    this.changeIndex.emit(data);
   }
 }

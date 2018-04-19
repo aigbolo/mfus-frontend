@@ -73,7 +73,9 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     this.utilsService.findInvalidControls(this.formGroup);
     if(this.formGroup.valid){
       const data = {
-        currentIndex:2,newIndex:3
+        currentIndex:2,newIndex:3,
+        apFamilyFinancial:this.apFamilyFinancial,
+        apfamilyDebts:this.apfamilyDebts
       }
       this.changeIndex.emit(data);
     }

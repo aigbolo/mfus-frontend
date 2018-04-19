@@ -13,5 +13,5 @@
 
     <app-m040104-manage-family-and-address *ngIf="activeIndex == 3" (changeIndex)="onChangeTabIndex($event)" [childForm]="applyApplicationForm"></app-m040104-manage-family-and-address>
 
-    <app-m040105-manage-document-upload *ngIf="activeIndex == 4" (changeIndex)="onChangeTabIndex($event)" [childForm]="applyApplicationForm"></app-m040105-manage-document-upload>
+    <app-m040105-manage-document-upload *ngIf="activeIndex == 4" (changeIndex)="onChangeTabIndex($event)" [apDocumentUploadList]="applyApplicationForm.apDocumentUpload"></app-m040105-manage-document-upload>
 </div>

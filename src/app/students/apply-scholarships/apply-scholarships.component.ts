@@ -69,25 +69,35 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
   onChangeTabIndex(data){
     console.log(data);
-    if(data.newIndex == 0){
+    if(data.currentIndex == 0){
       Object.assign(this.applyApplicationForm.apApplication,data.apApplication);
       console.log('updated application: ',this.applyApplicationForm.apApplication)
     }
-    if(data.newIndex == 1){
-        Object.assign(this.applyApplicationForm.apApplication,data.apApplication);
-        console.log('updated application: ',this.applyApplicationForm.apApplication)
+    if(data.currentIndex == 1){
+      Object.assign(this.applyApplicationForm.apApplication,data.apApplication);
+      this.applyApplicationForm.smScholarshipAnnouncement = data.smScholarshipAnnouncement;
+      this.applyApplicationForm.apScholarshipHistorys = data.apScholarshipHistorys;
+      this.applyApplicationForm.apStudentLoanFunds = data.apStudentLoanFunds;
+      console.log('updated application: ',this.applyApplicationForm.apApplication)
+    }
+    if(data.currentIndex == 2){
+
 
     }
-    if(data.newIndex == 2){
-        Object.assign(this.applyApplicationForm.apApplication,data.apApplication);
-        this.applyApplicationForm.smScholarshipAnnouncement = data.smScholarshipAnnouncement;
-        this.applyApplicationForm.apScholarshipHistorys = data.apScholarshipHistorys;
-        this.applyApplicationForm.apStudentLoanFunds = data.apStudentLoanFunds;
-        console.log('updated application: ',this.applyApplicationForm.apApplication)
+    if(data.currentIndex == 3){
+
 
     }
+    if(data.currentIndex == 4){
+      console.log(data.apDocumentUpload)
+      this.applyApplicationForm.apDocumentUpload = data.apDocumentUpload
+      console.log(this.applyApplicationForm.apDocumentUpload)
+    }
 
-    this.activeIndex = data.newIndex;
+
+    if(data.newIndex != 5){
+      this.activeIndex = data.newIndex;
+    }
   }
 
   findFamilyAndAddress(){
