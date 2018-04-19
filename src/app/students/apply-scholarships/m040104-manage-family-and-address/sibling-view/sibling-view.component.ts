@@ -1,5 +1,6 @@
 import { ApplyScholarshipsComponent } from './../../apply-scholarships.component';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { AcSibling } from '../../../../models/ac-sibling';
 
 @Component({
   selector: 'app-sibling-view',
@@ -9,9 +10,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class SiblingViewComponent implements OnInit {
 
+  siblingList: AcSibling[] = [];
+  @Input() siblings : AcSibling[];
   constructor(public applyApplication: ApplyScholarshipsComponent, ) { }
 
   ngOnInit() {
+    console.log(this.siblings.length)
+    if(this.siblings.length > 0){
+      this.siblingList = [...this.siblings]
+    }
+
   }
 
   setEducationLevel(ref: string){

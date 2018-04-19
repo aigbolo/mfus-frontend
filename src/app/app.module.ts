@@ -131,6 +131,7 @@ import { M000502AnnounceResultDetailComponent } from './general/info/m000502-ann
 import { M010202ManageResetPasswordComponent } from './general/account/m010202-manage-reset-password/m010202-manage-reset-password.component';
 import { M010202ResetPasswordService } from './services/officers/m010202-reset-password.service';
 import { SubDistrictPipe } from './pipes/subdistrict.pipe';
+import { EducationLevelPipe } from './pipes/education-level.pipe';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -214,7 +215,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M010202ManageResetPasswordComponent,
     ProvincePipe,
     DistrictPipe,
-    SubDistrictPipe
+    SubDistrictPipe,
+    EducationLevelPipe
   ],
   imports: [
     // Angular

@@ -1,13 +1,13 @@
 <div class="row overide-row">
     <div class="col-xs-6">
         <label class="normal">ผู้ปกครอง</label>
-        <label>{{acParent.parent_flag}}</label>
+        <label>{{acParent.parent_flag=='1'?'บิดา-มารดา':'ผู้อุปการะ'}}</label>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-6">
         <label class="normal">สถานะความสัมพันธ์</label>
-        <label>{{acParent.relationship_status}}</label>
+        <label>{{acParent.relationship_status=='1'?'สมรสและอยู่ด้วยกัน':acParent.relationship_status=='2'?'สมรสแต่ไม่ได้อยู่ด้วยกัน':'หย่าร้าง'}}</label>
     </div>
     <div class="col-xs-6" *ngIf="acParent.relationship_status == '2'">
         <label class="normal">เหตุผล</label>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-xs-6">
             <label class="normal">สถานะ</label>
-            <label>{{acParent.father_status}}</label>
+            <label>{{acParent.father_status=='1'?'มีชีวิตอยู่':'เสียชีวิต'}}</label>
         </div>
     </div>
     <div class="row overide-row">
@@ -124,7 +124,7 @@
         </div>
         <div class="col-xs-6">
             <label class="normal">สถานะ</label>
-            <label>{{acParent.mother_status}}</label>
+            <label>{{acParent.mother_status=='1'?'มีชีวิตอยู่':'เสียชีวิต'}}</label>
         </div>
     </div>
     <div class="row overide-row">
@@ -225,7 +225,7 @@
         </div>
         <div class="col-xs-6">
             <label class="normal">สถานะ</label>
-            <label>{{acParent.patrol_status}}</label>
+            <label>{{acParent.patrol_status=='1'?'มีชีวิตอยู่':'เสียชีวิต'}}</label>
         </div>
     </div>
     <div class="row overide-row">

@@ -13,6 +13,7 @@ export class AddressViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.address)
     Object.assign(this.acAddress,this.address);
   }
 

@@ -83,11 +83,17 @@ export class M040104ManageFamilyAndAddressComponent implements OnInit {
     }
 
     onGoBack(){
-
+      const data = {
+        currentIndex:3,newIndex:2
+      }
+      this.changeIndex.emit(data);
     }
 
     onNext(){
-
+      const data = {
+        currentIndex:3,newIndex:4
+      }
+      this.changeIndex.emit(data);
     }
 
     goToManageParent(){

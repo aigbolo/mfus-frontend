@@ -7,17 +7,17 @@
 <div class="row overide-row">
     <div class="col-xs-6">
         <label class="normal">จังหวัด</label>
-        <label>{{acAddress.home_province}}</label>
+        <label>{{acAddress.home_province|province|async}}</label>
     </div>
     <div class="col-xs-6">
         <label class="normal">อำเภอ</label>
-        <label>{{acAddress.home_district}}</label>
+        <label>{{acAddress.home_district|district|async}}</label>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-6">
         <label class="normal">ตำบล</label>
-        <label>{{acAddress.home_sub_district}}</label>
+        <label>{{acAddress.home_sub_district|subdistrict|async}}</label>
     </div>
     <div class="col-xs-6">
         <label class="normal">รหัสไปรษณีย์</label>
@@ -42,17 +42,17 @@
 <div class="row overide-row">
     <div class="col-xs-6">
         <label class="normal">จังหวัด</label>
-        <label>{{acAddress.current_province}}</label>
+        <label>{{acAddress.current_province|province|async}}</label>
     </div>
     <div class="col-xs-6">
         <label class="normal">อำเภอ</label>
-        <label>{{acAddress.current_district}}</label>
+        <label>{{acAddress.current_district|district|async}}</label>
     </div>
 </div>
 <div class="row overide-row">
     <div class="col-xs-6">
         <label class="normal">ตำบล</label>
-        <label>{{acAddress.current_sub_district}}</label>
+        <label>{{acAddress.current_sub_district|subdistrict|async}}</label>
     </div>
     <div class="col-xs-6">
         <label class="normal">รหัสไปรษณีย์</label>

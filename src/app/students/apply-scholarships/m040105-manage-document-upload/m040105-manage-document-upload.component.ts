@@ -1,3 +1,5 @@
+import { ApDocumentUpload } from './../../../models/ap-document-upload';
+import { RftApplicationDocument } from './../../../models/rft-application-document';
 import { ApplyScholarshipForm } from './../../../forms/apply-scholarship-form';
 import { M040102ManageScholarshipInfoComponent } from './../m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { Severity } from './../../../enum';
@@ -7,10 +9,11 @@ import { ApplyScholarshipsComponent } from './../apply-scholarships.component';
 import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { M040101ApplyScholarshipService } from '../../../services/students/m040101-apply-scholarship.service';
 import { UtilsService } from '../../../services/utils/utils.service';
-import { ApDocumentUpload } from '../../../models/ap-document-upload';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { NgProgress } from 'ngx-progressbar';
 import { ReferenceService } from '../../../services/general/reference.service';
+import { AcUser } from '../../../models/ac-user';
+import { AuthenticationService } from '../../../services/general/authentication.service';
 
 @Component({
   selector: 'app-m040105-manage-document-upload',
@@ -19,276 +22,91 @@ import { ReferenceService } from '../../../services/general/reference.service';
 })
 export class M040105ManageDocumentUploadComponent implements OnInit {
 
-  btnLabel: string = "บันทึก"
   uploadedFiles: any[] = [];
-  file_name: string;
-  file_type: string;
-  file_size: string;
-  image: string;
-  label: string;
-  display: boolean
-  uploadDocument: ApDocumentUpload;
-  btnlabel: string
+  pageRender = false;
+  // display: boolean;
+  // application_code:string = '';
+  documentList:any[]=[];
+
+  user: AcUser =  this.authService.getUser();
+
   @Input() childForm: ApplyScholarshipForm;
   @Output() changeIndex = new EventEmitter<any>();
-  constructor(public applyApplication: ApplyScholarshipsComponent,
+  constructor(
     private applyScholarshipService: M040101ApplyScholarshipService,
     private utilsService: UtilsService,
     private layoutService: LayoutService,
     private ngProgress: NgProgress,
-    private referenceService: ReferenceService,) { }
+    private referenceService: ReferenceService,
+    private authService: AuthenticationService,) { }
 
   ngOnInit() {
     this.ngProgress.start()
     this.initialDocumentList()
   }
 
-  initialDocumentList() {
-    this.btnlabel = 'บันทึกข้อมูล'
-    this.applyApplication.applyApplicationForm.documentList = []
-    this.applyScholarshipService.initialApplicationDocument().subscribe(data => {
-      for (let obj of data) {
-        obj.label = 'เลือกไฟล์'
-        obj.upload_name = this.file_name
-        this.applyApplication.applyApplicationForm.documentList.push(obj)
-      }
-      // if (this.applyApplication.update_state == true) {
-      //   this.onPageUpdate()
-      // }
-      this.ngProgress.done()
+  async initialDocumentList() {
+
+    await new Promise((resolve)=>{
+      this.applyScholarshipService.initialApplicationDocument().subscribe(
+        async data=>{
+          await data.map(
+            obj=>{
+              console.log(obj)
+              let apDocumentUpload = new ApDocumentUpload;
+              const rftDoc = {doc_name:obj.document_name,document_ref:obj.document_ref}
+              const documentReq = {...apDocumentUpload,...rftDoc}
+              console.log(documentReq);
+              this.documentList = [...this.documentList,documentReq]
+               return true;
+            })
+            return resolve()
+        })
+        this.ngProgress.done()
+        this.pageRender = true;
     })
+
   }
 
-  onPageUpdate() {
-    this.btnlabel = 'แก้ไขข้อมูล'
-    for (let rftdoc of this.applyApplication.applyApplicationForm.documentList) {
-      for (let apdoc of this.applyApplication.applyApplicationForm.apDocumentUpload) {
-        if (rftdoc.document_ref == apdoc.document_ref) {
-          rftdoc.upload_name = apdoc.document_name
-          rftdoc.label = 'แก้ไข'
+  async onUpload(event, ref: string,index) {
+    console.log('event file: ',event);
+
+    let uploadDocument = new ApDocumentUpload();
+
+    uploadDocument.document_image = await new Promise((resolve)=>{
+      this.utilsService.convertBlobToString(event.files[0].objectURL)
+      .subscribe(val => { return resolve(val)});
+    })
+
+      uploadDocument.document_name = event.files[0].name;
+      uploadDocument.document_type = event.files[0].type;
+      uploadDocument.create_user = this.user.account_ref;
+      uploadDocument.update_user = this.user.account_ref;
+
+      this.documentList.forEach(
+        data=>{
+          if(data.document_ref == ref){
+            Object.assign(data,uploadDocument)
+
+          }
+
         }
-      }
-    }
+      )
+
   }
 
-  onUpload(event, ref: string) {
+  onDelete(ref) {
 
-    let documentList = this.applyApplication.applyApplicationForm.documentList
-    let documentUpload = this.applyApplication.applyApplicationForm.apDocumentUpload
-
-    new Observable((observer: Observer<boolean>) => {
-      setTimeout(() => {
-        if (event.files != null) this.uploadedFiles = [];
-        for (let file of event.files) {
-          this.uploadedFiles.push(file);
-        }
-      }, 1000);
-      setTimeout(() => {
-        this.uploadDocument = new ApDocumentUpload();
-        this.utilsService
-          .convertBlobToString(this.uploadedFiles[0].objectURL)
-          .subscribe(val => {
-            this.uploadDocument.document_image = val;
-          });
-        this.uploadDocument.document_name = this.uploadedFiles[0].name;
-        this.uploadDocument.document_type = this.uploadedFiles[0].type;
-        this.uploadDocument.document_ref = ref
-        // this.uploadDocument.create_user = this.applyApplication.user_ref
-        // this.uploadDocument.update_user = this.applyApplication.user_ref
-
-        if (typeof documentList.find(i => i.document_ref == ref).upload_name === "undefined") {
-          documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
-          documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
-          // this.uploadDocument.update_user = this.applyApplication.user_ref
-          documentUpload.push(this.uploadDocument)
-        } else {
-          documentList.find(i => i.document_ref == ref).upload_name = this.uploadDocument.document_name
-          documentList.find(i => i.document_ref == ref).label = 'แก้ไข'
-          // this.uploadDocument.update_user = this.applyApplication.user_ref
-          documentUpload[documentUpload.indexOf(documentUpload.find(i => i.document_ref == ref))] = this.uploadDocument;
-        }
-      }, 2000);
-    }).subscribe()
-  }
-
-  onDelete(doc, ref) {
-    this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).upload_name = "";
-    this.applyApplication.applyApplicationForm.documentList.find(i => i.document_ref == ref).label = "เลือกไฟล์";
-    for(let obj of this.applyApplication.applyApplicationForm.apDocumentUpload){
-      if(obj.document_ref == ref){
-        this.applyApplication.applyApplicationForm.apDocumentUpload.splice(this.applyApplication.applyApplicationForm.apDocumentUpload.indexOf(obj), 1)
-      }
-    }
   }
 
   onGoBack() {
+    const data = {
+      currentIndex:2,newIndex:1,
+    }
+    this.changeIndex.emit(data);
   }
 
   onInsertClick() {
-    // this.ngProgress.start()
-    // let financialAndDebt = {
-    //   ap_family_financial: this.applyApplication.applyApplicationForm.apFamilyFinancial,
-    //   family_dept_list: this.applyApplication.applyApplicationForm.apFamiyDebt
-    // }
-    // this.applyScholarshipService.upDateStudent(this.applyApplication.applyApplicationForm.acStudent)
-    //   .subscribe(res => {
-    //     if (!this.applyApplication.applyApplicationForm.apApplication.application_ref) {
-    //       this.applyApplication.applyApplicationForm.apApplication.earn_flag = '1'
-    //       this.applyApplication.applyApplicationForm.apApplication.document_screening_flag = '1'
-    //       this.applyApplication.applyApplicationForm.apApplication.interview_flag = '1'
-    //       this.insertApplication(financialAndDebt);
-    //     } else {
-    //       this.updateApplication(financialAndDebt)
-    //     }
-    //   })
-  }
 
-  insertApplication(financialAndDebt) {
-  //   this.applyScholarshipService.insertApplication(this.applyApplication.applyApplicationForm.apApplication)
-  //     .subscribe(res => {
-  //       this.applyApplication.applyApplicationForm.apApplication = res;
-  //       this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref;
-  //       this.applyScholarshipService.insertScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-  //         .subscribe(res => {
-  //           this.applyScholarshipService.insertStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
-  //             .subscribe(res => {
-  //               this.applyScholarshipService.insertFamilyFinancialAndFamilyDebt(financialAndDebt)
-  //                 .subscribe(res => {
-  //                   for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
-  //                     obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref;
-  //                   }
-  //                   this.applyScholarshipService.insertDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
-  //                     .subscribe(res => {
-  //                     }, error => {
-  //                       // Error insert document
-  //                       console.log(error);
-  //                       this.layoutService.setMsgDisplay(
-  //                         Severity.ERROR,
-  //                         "บันทึกข้อมูลผิดพลาด",
-  //                         ""
-  //                       );
-  //                       this.ngProgress.done();
-  //                     }, () => {
-  //                       this.layoutService.setMsgDisplay(
-  //                         Severity.SUCCESS,
-  //                         "บันทึกข้อมูลสำเร็จ",
-  //                         ""
-  //                       );
-  //                       this.ngProgress.done();
-  //                       this.display = true;
-  //                       this.referenceService.nextIndex(0);
-  //                       this.utilsService.activeIndex = this.referenceService.getIndex();
-  //                     })
-  //                 }, error=>{
-  //                   //Error insert Familyand Financial
-  //                   console.log(error);
-  //                   this.layoutService.setMsgDisplay(
-  //                     Severity.ERROR,
-  //                     "บันทึกข้อมูลผิดพลาด",
-  //                     error
-  //                   );
-  //                   this.ngProgress.done();
-  //                 })
-  //             }, error=>{
-  //               //Error insert Student Loan Fund
-  //               console.log(error);
-  //               this.layoutService.setMsgDisplay(
-  //                 Severity.ERROR,
-  //                 "บันทึกข้อมูลผิดพลาด",
-  //                 error
-  //               );
-  //               this.ngProgress.done();
-  //             })
-  //         }, error=>{
-  //           //Error Scholarship History
-  //           console.log(error);
-  //           this.layoutService.setMsgDisplay(
-  //             Severity.ERROR,
-  //             "บันทึกข้อมูลผิดพลาด",
-  //             error
-  //           );
-  //           // this.scholarshipInfo.scholarshipFormGroup.controls['scholarshipAnnouncementName'].markAsDirty();
-  //           this.ngProgress.done();
-  //         })
-  //     }, error=>{
-  //       //Error insert Apapplication
-  //       console.log(error);
-  //       this.layoutService.setMsgDisplay(
-  //         Severity.ERROR,
-  //         "บันทึกข้อมูลผิดพลาด",
-  //         "คุณได้ทำการยื่นความจำนงขอทุน " +
-  //           this.applyApplication.applyApplicationForm.autocompleteScholarshipAnnouncement.name +
-  //           " แล้ว กรุณาตรวจสอบข้อมูลอีกครั้ง"
-  //       );
-  //       this.referenceService.nextIndex(1);
-  //       this.utilsService.activeIndex = this.referenceService.getIndex();
-  //       this.ngProgress.done();
-  //     })
-  }
-
-
-  updateApplication(financialAndDebt) {
-  //   this.applyScholarshipService.updateApplication(this.applyApplication.applyApplicationForm.apApplication)
-  //     .subscribe(res => {
-  //       this.applyApplication.applyApplicationForm.apApplication = res;
-  //       this.applyApplication.applyApplicationForm.apFamilyFinancial.application_ref = res.application_ref;
-  //       console.log(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-  //       this.applyScholarshipService.updateScholarshipHistory(this.applyApplication.applyApplicationForm.apScholarshipHistory)
-  //         .subscribe(res => {
-  //           this.applyScholarshipService.updateStudentLoanFund(this.applyApplication.applyApplicationForm.apStudentLoanFund)
-  //             .subscribe(res => {
-  //               this.applyScholarshipService.updateFamilyFinancialAndFamilyDebt(financialAndDebt)
-  //                 .subscribe(res => {
-  //                   console.log(this.applyApplication.applyApplicationForm.apDocumentUpload)
-  //                   for (let obj of this.applyApplication.applyApplicationForm.apDocumentUpload) {
-  //                     obj.application_ref = this.applyApplication.applyApplicationForm.apApplication.application_ref;
-  //                   }
-  //                   this.applyScholarshipService.updateDocumentUpload(this.applyApplication.applyApplicationForm.apDocumentUpload)
-  //                     .subscribe(res => {
-  //                     }, error => {
-  //                       console.log(error);
-  //                       this.errorMsg( 4, "");
-  //                     }, () => {
-  //                       this.layoutService.setMsgDisplay(
-  //                         Severity.SUCCESS,
-  //                         "แก้ไขข้อมูลสำเร็จ",
-  //                         ""
-  //                       );
-  //                       this.ngProgress.done();
-  //                       this.display = true;
-  //                       this.utilsService.goToPage('search-sholarships-applied');
-  //                     })
-  //                 }, error=>{
-  //                   //error Update Family Financial And Debt
-  //                   console.log(error)
-  //                   this.errorMsg(2, "");
-  //                   this.ngProgress.done();
-  //                 })
-  //             }, error=>{
-  //               //error upDate Student Loan Fund
-  //               console.log(error);
-  //               this.errorMsg( 1, "");
-  //               this.ngProgress.done();
-  //             })
-  //         }, error=>{
-  //           //error Update Scholarship History
-  //         console.log(error);
-  //         this.errorMsg( 1, "");
-  //         this.ngProgress.done();
-  //         })
-  //     }, error=>{
-  //       //error Update Application
-  //       console.log(error);
-  //       this.errorMsg( 0, "");
-  //       this.ngProgress.done();
-  //     })
-  }
-
-  errorMsg( index, msg){
-    this.layoutService.setMsgDisplay(
-      Severity.ERROR,
-      "แก้ไขข้อมูลผิดพลาด",
-      msg
-    );
   }
 }

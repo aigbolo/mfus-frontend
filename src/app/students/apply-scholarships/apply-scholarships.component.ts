@@ -50,7 +50,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
   }
   ngAfterContentInit() {
-    this.activeIndex = 2;
+    this.activeIndex = 4;
     this.applyApplicationForm = new ApplyScholarshipForm;
     this.getApplicationStep();
     this.findFamilyAndAddress()

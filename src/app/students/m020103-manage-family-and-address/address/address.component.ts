@@ -1,3 +1,4 @@
+import { AcUser } from './../../../models/ac-user';
 import { NgProgress } from 'ngx-progressbar';
 import { UtilsService } from './../../../services/utils/utils.service';
 import { Observable } from 'rxjs/Observable';
@@ -18,7 +19,6 @@ export class AddressComponent implements OnInit {
   pageReady :boolean = false;
   manageForm: FamilyAndAddressForm = new FamilyAndAddressForm();
   manageFormGroup: FormGroup;
-
 
   homeProvinceList: RftProvince[] = [];
   currentProvinceList: RftProvince[] = [];
@@ -50,6 +50,11 @@ export class AddressComponent implements OnInit {
     this.manageForm = new FamilyAndAddressForm();
     this.validatorForm();
     this.manageForm = this.familyAndAddress.getData();
+
+    this.manageForm.acAddress.update_user = this.familyAndAddress.user.account_ref;
+    this.manageForm.acAddress.student_ref = this.familyAndAddress.user.account_ref;
+    this.manageForm.acAddress.create_user = this.familyAndAddress.user.account_ref;
+
 
 
   }

@@ -429,18 +429,18 @@ export class M020103ManageFamilyAndAddressComponent implements OnInit {
 
    // Proceed Functions
     this.familyAndAddressService.doInsertSibling(this.manageForm.siblingList).subscribe(
-                        data=>{
-                          console.log(data);
-                          this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
-                          console.log('Insert Siblings Completed')
-                        },
-                        err=>{
-                          console.log('Insert Siblings Error');
-                          console.log(err);
-                        },
-                        ()=>{
+          data=>{
+            console.log(data);
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
+            console.log('Insert Siblings Completed')
+          },
+          err=>{
+            console.log('Insert Siblings Error');
+            console.log(err);
+          },
+          ()=>{
 
-                        });
+          });
 
       if(!this.insertMode){
         this.familyAndAddressService.doUpdateParent(this.manageForm.acParent).subscribe(

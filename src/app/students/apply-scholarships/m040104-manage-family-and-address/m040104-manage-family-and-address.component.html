@@ -6,7 +6,7 @@
                     <app-family-view [parent]="acParent"></app-family-view>
                 </p-tabPanel>
                 <p-tabPanel header="ข้อมูลญาติพี่น้อง">
-                    <app-sibling-view></app-sibling-view>
+                    <app-sibling-view [siblings]="acSiblings"></app-sibling-view>
                 </p-tabPanel>
                 <p-tabPanel header="ข้อมูลที่อยู่">
                     <app-address-view [address]="acAddress"></app-address-view>

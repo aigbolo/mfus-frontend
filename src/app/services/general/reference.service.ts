@@ -297,7 +297,11 @@ export class ReferenceService {
     return this.scholarships;
   }
 
-  //End Functions For Scholarships
+  getEducationLevel() {
+    return this.configuration.requestMethodGET('autocomplete-edlevel');
+  }
+
+
 
   getRoundAnnouncement(year: number, scholarshipRef: string) {
     let body = { year: year, scholarship_ref: scholarshipRef };
@@ -312,9 +316,7 @@ export class ReferenceService {
     return this.configuration.requestMethodGET("get-major/"+ref)
   }
 
-  getEducationLevel() {
-    return this.configuration.requestMethodGET('autocomplete-edlevel');
-  }
+
 
   getProvinceByRef(ref: string){
     return this.configuration.requestMethodGET("get-province/"+ref)
@@ -324,5 +326,9 @@ export class ReferenceService {
   }
   getSubDistrictByRef(ref: string){
     return this.configuration.requestMethodGET("get-sub-district/"+ref)
+  }
+
+  getEducationLevelByRef(ref: string){
+    return this.configuration.requestMethodGET("get-edlevel/"+ref)
   }
 }

@@ -1,26 +1,26 @@
 <div class="row overide-row">
     <h4 class="custom-panel-title">ข้อมูลเอกสารหลักฐาน</h4>
 </div>
-<div class="row overide-row">
+<div class="row overide-row" *ngIf="pageRender">
     <div class="col-xs-12">
-        <p-dataList [value]="applyApplication.applyApplicationForm.documentList">
-            <ng-template let-doc pTemplate="item">
+        <p-dataList [value]="documentList">
+            <ng-template let-doc pTemplate="item" let-index="index" >
               <div class="row overide-row">
                 <div class="col-xs-5">
-                  <label class="normal-inline">
-                    {{doc.document_name}}
-                  </label>
+                  <p style="margin-top: 10px;">
+                    {{doc.doc_name}}
+                  </p>
                 </div>
                 <div class="col-xs-2">
-                  <p-fileUpload customUpload="true" auto="true" accept="image/*" (uploadHandler)="onUpload($event, doc.document_ref)" chooseLabel="{{doc.label}}"></p-fileUpload>
+                  <p-fileUpload customUpload="true" auto="true" accept="image/*" (uploadHandler)="onUpload($event, doc.document_ref,index)" chooseLabel="อัพโหลดไฟล์"></p-fileUpload>
                 </div>
                 <div class="col-xs-4">
-                  <label class="normal-inline">
-                    {{doc.upload_name}}
-                  </label>
+                  <span class="normal-inline">
+                    {{doc.document_name}}
+                  </span>
                 </div>
                 <div class="col-xs-1">
-                  <button type="button" class="ui-button-danger text-right " (click)="onDelete(doc, doc.document_ref)" icon="fa-times" pButton></button>
+                  <button type="button" class="ui-button-danger text-right" *ngIf="doc.document_name" (click)="onDelete(doc, doc.document_ref)" icon="fa-times" pButton></button>
                 </div>
               </div>
             </ng-template>
@@ -29,17 +29,17 @@
 </div>
 <div class="row formFooter overide-row">
     <div class="col-xs-6 btn-panel-left">
-        <button pButton type="button" class="ui-button-warning" (click)="onPrevious()" label="กลับ"></button>
+        <button pButton type="button" class="ui-button-warning" (click)="onGoBack()" label="ย้อนกลับ"></button>
       </div>
     <div class="col-xs-6 btn-panel-right">
-        <button pButton type="button" class="ui-button-success" (click)="onInsertClick()" label="{{btnLabel}}"></button>
+        <button pButton type="button" class="ui-button-success" (click)="onInsertClick()" label="บันทึกขอทุนการศึกษา"></button>
     </div>
 </div>
 
-<p-dialog header="ลงทะเบียนเสร็จสิ้น" [(visible)]="display">
+<!-- <p-dialog header="ลงทะเบียนเสร็จสิ้น" [(visible)]="display">
    <div>การลงทะเบียนยื่นเจตจำนงค์ขอทุนการศึกษาเสร็จสิ้น</div>
-   <div>เลขที่ลงทะเบียน : {{applyApplication.applyApplicationForm.apApplication.application_code}}</div>
+   <div>เลขที่ลงทะเบียน : {{application_code}}</div>
     <p-footer>
         <button type="button" pButton icon="fa-check" (click)="display=false" label="กลับสู่หน้าหลัก"></button>
     </p-footer>
-</p-dialog>
+</p-dialog> -->
