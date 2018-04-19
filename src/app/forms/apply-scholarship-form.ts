@@ -22,7 +22,7 @@ export class ApplyScholarshipForm{
   public smScholarshipAnnouncement: SmScholarshipAnnouncement = new SmScholarshipAnnouncement;
   public apScholarshipHistorys: ApScholarshipHistory[] = [];
   public apStudentLoanFunds: ApStudentLoanFund[] = [];
-  public apFamiyDebt: ApFamilyDebt[] = [];
+  public apFamilyDebt: ApFamilyDebt[] = [];
   public apFamilyFinancial: ApFamilyFinancial = new ApFamilyFinancial;
   public acParent: AcParent = new AcParent;
   public acSiblings: AcSibling[] = [];

@@ -19,7 +19,7 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
 
   formGroup: FormGroup;
   apFamilyFinancial:ApFamilyFinancial = new ApFamilyFinancial;
-  apfamilyDebts:ApFamilyDebt[] = [new ApFamilyDebt];
+  apFamilyDebts:ApFamilyDebt[] = [new ApFamilyDebt];
   @Input() childForm: ApplyScholarshipForm;
   @Output() changeIndex = new EventEmitter<any>();
   constructor(private ngprogress: NgProgress,
@@ -28,6 +28,8 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
 
   ngOnInit() {
     this.validateForm()
+    this.apFamilyFinancial = this.childForm.apFamilyFinancial;
+    this.apFamilyDebts = this.childForm.apFamilyDebt
   }
 
   validateForm(){
@@ -41,15 +43,15 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
   }
 
   newFamilyDebt(){
-    this.apfamilyDebts = [...this.apfamilyDebts,new ApFamilyDebt]
+    this.apFamilyDebts = [...this.apFamilyDebts,new ApFamilyDebt]
   }
 
   deleteFamilyDebt(index){
-    this.apfamilyDebts.splice(index,1);
+    this.apFamilyDebts.splice(index,1);
   }
 
   onGoBack(){
-    this.apfamilyDebts = this.apfamilyDebts.filter(data=>{
+    this.apFamilyDebts = this.apFamilyDebts.filter(data=>{
       if(data.debt_detail&&data.debt_amount!=null){
         return true
       }
@@ -58,13 +60,13 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     const data = {
       currentIndex:2,newIndex:1,
       apFamilyFinancial:this.apFamilyFinancial,
-      apfamilyDebts:this.apfamilyDebts
+      apfamilyDebts:this.apFamilyDebts
     }
     this.changeIndex.emit(data);
   }
 
   onNext(){
-    this.apfamilyDebts = this.apfamilyDebts.filter(data=>{
+    this.apFamilyDebts = this.apFamilyDebts.filter(data=>{
       if(data.debt_detail&&data.debt_amount!=null){
         return true
       }
@@ -75,7 +77,7 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
       const data = {
         currentIndex:2,newIndex:3,
         apFamilyFinancial:this.apFamilyFinancial,
-        apfamilyDebts:this.apfamilyDebts
+        apFamilyDebts:[...this.apFamilyDebts]
       }
       this.changeIndex.emit(data);
     }

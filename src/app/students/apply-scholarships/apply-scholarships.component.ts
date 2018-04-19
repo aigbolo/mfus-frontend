@@ -1,3 +1,4 @@
+import { ApFamilyFinancial } from './../../models/ap-family-financial';
 import { M040102ManageScholarshipInfoComponent } from './m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { M010101StudentService } from './../../services/students/m010101-student.service';
 import { ActivatedRoute } from '@angular/router';
@@ -50,7 +51,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
   }
   ngAfterContentInit() {
-    this.activeIndex = 4;
+    this.activeIndex = 0;
     this.applyApplicationForm = new ApplyScholarshipForm;
     this.getApplicationStep();
     this.findFamilyAndAddress()
@@ -71,52 +72,47 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     console.log(data);
     if(data.currentIndex == 0){
       Object.assign(this.applyApplicationForm.apApplication,data.apApplication);
-      console.log('updated application: ',this.applyApplicationForm.apApplication)
     }
     if(data.currentIndex == 1){
       Object.assign(this.applyApplicationForm.apApplication,data.apApplication);
       this.applyApplicationForm.smScholarshipAnnouncement = data.smScholarshipAnnouncement;
       this.applyApplicationForm.apScholarshipHistorys = data.apScholarshipHistorys;
       this.applyApplicationForm.apStudentLoanFunds = data.apStudentLoanFunds;
-      console.log('updated application: ',this.applyApplicationForm.apApplication)
     }
     if(data.currentIndex == 2){
-
-
+      this.applyApplicationForm.apFamilyFinancial = data.apFamilyFinancial;
+      this.applyApplicationForm.apFamilyDebt = data.apFamilyDebts
     }
     if(data.currentIndex == 3){
 
 
     }
     if(data.currentIndex == 4){
-      console.log(data.apDocumentUpload)
       this.applyApplicationForm.apDocumentUpload = data.apDocumentUpload
-      console.log(this.applyApplicationForm.apDocumentUpload)
     }
 
 
     if(data.newIndex != 5){
       this.activeIndex = data.newIndex;
+    }else{
+      console.log(this.applyApplicationForm)
     }
   }
 
   findFamilyAndAddress(){
     this.familyAndAddress.doGetParent(this.user.account_ref).subscribe(
       data=>{
-        console.log('get parent:',data)
         this.applyApplicationForm.acParent = data;
       }
     )
     this.familyAndAddress.doGetSiblings(this.user.account_ref).subscribe(
       data=>{
-        console.log('get siblings:',data)
         this.applyApplicationForm.acSiblings = [...data]
       }
 
     )
     this.familyAndAddress.doGetAddress(this.user.account_ref).subscribe(
       data=>{
-        console.log('get address:',data)
         this.applyApplicationForm.acAddress = data;
       }
     )

@@ -26,11 +26,11 @@ export class ViewFamilyFinancialComponent implements OnInit {
   }
 
   initialFamilyFinancial(){
-    this.applciationView.applyScholarshipViewForm.apFamiyDebt = [];
+    this.applciationView.applyScholarshipViewForm.apFamilyDebt = [];
     this.applicationService.initialFamilyFinancial(this.applciationView.applyScholarshipViewForm.apApplication.application_ref).subscribe(
       data=>{
         this.applciationView.applyScholarshipViewForm.apFamilyFinancial = data.ap_family_financial;
-        this.applciationView.applyScholarshipViewForm.apFamiyDebt.push(...data.ap_family_debt);
+        this.applciationView.applyScholarshipViewForm.apFamilyDebt.push(...data.ap_family_debt);
       }, error=>{
 
       },()=>{
