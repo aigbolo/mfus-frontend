@@ -1,6 +1,5 @@
 export class ApScholarshipHistory {
   public scholarship_history_ref: string;
-  public application_ref: string;
   public scholarship_name: string;
   public year: string;
   public create_user: string;

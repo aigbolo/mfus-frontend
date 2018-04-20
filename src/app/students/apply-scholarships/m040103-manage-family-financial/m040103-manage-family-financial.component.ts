@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../../services/general/authentication.service';
+import { AcUser } from './../../../models/ac-user';
 import { ApFamilyFinancial } from './../../../models/ap-family-financial';
 import { UtilsService } from './../../../services/utils/utils.service';
 import { FormControl, Validators } from '@angular/forms';
@@ -20,16 +22,21 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
   formGroup: FormGroup;
   apFamilyFinancial:ApFamilyFinancial = new ApFamilyFinancial;
   apFamilyDebts:ApFamilyDebt[] = [new ApFamilyDebt];
+
+  user: AcUser =  this.authService.getUser();
   @Input() childForm: ApplyScholarshipForm;
   @Output() changeIndex = new EventEmitter<any>();
   constructor(private ngprogress: NgProgress,
               private referenceService: ReferenceService,
+              private authService: AuthenticationService,
               private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.validateForm()
     this.apFamilyFinancial = this.childForm.apFamilyFinancial;
-    this.apFamilyDebts = this.childForm.apFamilyDebt
+    this.apFamilyFinancial.create_user = this.user.user_ref;
+    this.apFamilyFinancial.update_user = this.user.user_ref;
+    this.apFamilyDebts = [...this.childForm.apFamilyDebt];
   }
 
   validateForm(){
@@ -43,7 +50,10 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
   }
 
   newFamilyDebt(){
-    this.apFamilyDebts = [...this.apFamilyDebts,new ApFamilyDebt]
+    let newFamilyDebt = new ApFamilyDebt;
+    newFamilyDebt.create_user = this.user.user_ref;
+    newFamilyDebt.update_user = this.user.user_ref;
+    this.apFamilyDebts = [...this.apFamilyDebts,{...newFamilyDebt}]
   }
 
   deleteFamilyDebt(index){
@@ -60,7 +70,7 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
     const data = {
       currentIndex:2,newIndex:1,
       apFamilyFinancial:this.apFamilyFinancial,
-      apfamilyDebts:this.apFamilyDebts
+      apFamilyDebts:this.apFamilyDebts
     }
     this.changeIndex.emit(data);
   }

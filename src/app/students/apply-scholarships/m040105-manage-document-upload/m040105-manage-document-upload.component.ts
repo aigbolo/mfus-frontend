@@ -24,8 +24,6 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
 
   uploadedFiles: any[] = [];
   pageRender = false;
-  // display: boolean;
-  // application_code:string = '';
   documentList:any[]=[];
 
   user: AcUser =  this.authService.getUser();
@@ -86,8 +84,8 @@ export class M040105ManageDocumentUploadComponent implements OnInit {
       uploadDocument.document_ref = ref;
       uploadDocument.document_name = event.files[0].name;
       uploadDocument.document_type = event.files[0].type;
-      uploadDocument.create_user = this.user.account_ref;
-      uploadDocument.update_user = this.user.account_ref;
+      uploadDocument.create_user = this.user.user_ref;
+      uploadDocument.update_user = this.user.user_ref;
 
       this.documentList.forEach(
         data=>{

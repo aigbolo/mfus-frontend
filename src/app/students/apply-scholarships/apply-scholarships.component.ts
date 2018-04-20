@@ -1,3 +1,4 @@
+import { ApApplication } from './../../models/ap-application';
 import { ApFamilyFinancial } from './../../models/ap-family-financial';
 import { M040102ManageScholarshipInfoComponent } from './m040102-manage-scholarship-info/m040102-manage-scholarship-info.component';
 import { M010101StudentService } from './../../services/students/m010101-student.service';
@@ -53,6 +54,9 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
   ngAfterContentInit() {
     this.activeIndex = 0;
     this.applyApplicationForm = new ApplyScholarshipForm;
+    this.applyApplicationForm.apApplication.student_ref = this.user.account_ref;
+    this.applyApplicationForm.apApplication.create_user = this.user.account_ref;
+    this.applyApplicationForm.apApplication.update_user = this.user.account_ref;
     this.getApplicationStep();
     this.findFamilyAndAddress()
     this.pageRender = true;
@@ -96,6 +100,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
       this.activeIndex = data.newIndex;
     }else{
       console.log(this.applyApplicationForm)
+      this.onInsertApplication()
     }
   }
 
@@ -116,6 +121,10 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
         this.applyApplicationForm.acAddress = data;
       }
     )
+  }
+
+  async onInsertApplication(){
+    const application = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
   }
 
 

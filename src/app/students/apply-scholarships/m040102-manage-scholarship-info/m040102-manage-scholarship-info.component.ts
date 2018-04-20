@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../../services/general/authentication.service';
+import { AcUser } from './../../../models/ac-user';
 import { ApApplication } from './../../../models/ap-application';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UtilsService } from './../../../services/utils/utils.service';
@@ -30,11 +32,12 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
   scholarshipSeleted=false;
   @Input() childForm: ApplyScholarshipForm;
   @Output() changeIndex = new EventEmitter<any>();
-
+  user: AcUser =  this.authService.getUser();
   constructor(
     private applyScholarshipService: M040101ApplyScholarshipService,
     private referenceService: ReferenceService,
     private utilsService: UtilsService,
+    private authService: AuthenticationService,
     private ngProgress: NgProgress) { }
 
   async ngOnInit() {
@@ -47,6 +50,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     this.validateForm();
 
     Object.assign(this.apApplication,this.childForm.apApplication)
+    this.apScholarshipHistorys = this.childForm.apScholarshipHistorys;
+    this.apStudentLoanFunds = this.childForm.apStudentLoanFunds;
+    this.announcement = Object.assign(this.announcement,this.childForm.smScholarshipAnnouncement)
+    if(this.announcement.announcement_ref)
+    this.scholarshipSeleted=true;
     this.ngProgress.done();
   }
 
@@ -103,7 +111,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
 
   //scholarship history
   newScholarshipHistory(){
-    this.apScholarshipHistorys = [...this.apScholarshipHistorys,new ApScholarshipHistory];
+    let newHistory =new ApScholarshipHistory;
+    newHistory.student_ref = this.user.account_ref;
+    newHistory.create_user = this.user.user_ref;
+    newHistory.update_user = this.user.user_ref;
+    this.apScholarshipHistorys = [...this.apScholarshipHistorys,{...newHistory}];
   }
 
 
@@ -113,7 +125,11 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
 
   //student loans
   newStudentLoans(){
-    this.apStudentLoanFunds = [...this.apStudentLoanFunds,new ApStudentLoanFund];
+    let newLoanFund =new ApStudentLoanFund;
+    newLoanFund.student_ref = this.user.account_ref;
+    newLoanFund.create_user = this.user.user_ref;
+    newLoanFund.update_user = this.user.user_ref;
+    this.apStudentLoanFunds = [...this.apStudentLoanFunds,{...newLoanFund}];
   }
 
   deleteStudentLoans(index){

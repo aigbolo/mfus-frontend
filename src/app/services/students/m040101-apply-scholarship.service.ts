@@ -1,3 +1,4 @@
+import { ApFamilyDebt } from './../../models/ap-family-debt';
 import { ScholarshipApplyForm } from './../../forms/scholarship-applied-form';
 import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { ApFamilyFinancial } from './../../models/ap-family-financial';
@@ -9,7 +10,6 @@ import { AcStudent } from '../../models/ac-student';
 import { ApApplication } from '../../models/ap-application';
 import { ApStudentLoanFund } from '../../models/ap-student-loan-fund';
 import { ApDocumentUpload } from '../../models/ap-document-upload';
-import { ApFamilyDebt } from '../../models/ap-family-debt';
 
 @Injectable()
 export class M040101ApplyScholarshipService {
@@ -40,42 +40,88 @@ export class M040101ApplyScholarshipService {
     return this.configurationService.requestMethodPUT('students', student)
   }
 
+  // Insert students apply scholarships
+  async applyScholarship(form:ApplyScholarshipForm){
+    const application = await new Promise((resolve)=>{this.insertApplication(form.apApplication).subscribe(
+      data=>{
+        console.log('insert application');
+        return resolve(data)
+      }
+    )
+    })
+    console.log('done application: ',application);
+    await form.apScholarshipHistorys.forEach(data=>{
+      data.student_ref = form.apApplication.student_ref;
+    })
+    console.log(form.apScholarshipHistorys)
+    const scholarshipHistory = await new Promise((resolve)=>{this.updateScholarshipHistory(form.apScholarshipHistorys).subscribe(
+      data=>{
+        console.log('insert sc history');
+        return resolve(data)
+      }
+    )
+    })
+    console.log('done sc history: ',scholarshipHistory);
+
+
+    const loanHistory = await new Promise((resolve)=>{this.updateStudentLoanFund(form.apStudentLoanFunds).subscribe(
+      data=>{
+        console.log('insert loan history');
+        return resolve(data)
+      }
+    )
+    })
+    console.log('done loan history: ',loanHistory);
+    form.apFamilyFinancial.application_ref  = application['application_ref'];
+    const debt = await new Promise((resolve)=>{this.insertFamilyFinancialAndFamilyDebt(form.apFamilyFinancial,form.apFamilyDebt).subscribe(
+      data=>{
+        console.log('insert debt');
+        return resolve(data)
+      }
+    )
+    })
+    console.log('done debt: ',debt);
+    await form.apDocumentUpload.forEach(data=>{
+      data.application_ref = application['application_ref'];
+    })
+    const upload = await new Promise((resolve)=>{this.insertDocumentUpload(form.apDocumentUpload).subscribe(
+      data=>{
+        console.log('insert upload');
+        return resolve(data)
+      }
+    )
+    })
+    console.log('done debt: ',upload);
+
+
+    return application;
+
+  }
+
   insertApplication(application: ApApplication) {
     return this.configurationService.requestMethodPOST('application-insert', application)
+  }
+  insertFamilyFinancialAndFamilyDebt(financial:ApFamilyFinancial,debtList:ApFamilyDebt[]) {
+    const body = {ap_family_financial:{...financial},family_debt_list:[...debtList]}
+    console.log('body: ',body)
+    return this.configurationService.requestMethodPOST('familyfinancial-insert', body)
+  }
+  insertDocumentUpload(documentUpload: ApDocumentUpload[]) {
+    return this.configurationService.requestMethodPOST('documentupload-insert', {document_list:[...documentUpload]})
   }
 
   updateApplication(application: ApApplication) {
     return this.configurationService.requestMethodPUT('application', application)
   }
-
-  insertScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]) {
-    return this.configurationService.requestMethodPOST('scholarshiphistory-insert', scholarshipHistory)
-  }
-
   updateScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]) {
     return this.configurationService.requestMethodPUT('scholarshiphistory', scholarshipHistory)
   }
-
-  insertStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
-    return this.configurationService.requestMethodPOST('studentloanfund-insert', stdLoanFund)
-  }
-
   updateStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
     return this.configurationService.requestMethodPUT('studentloanfund', stdLoanFund)
   }
-
-  insertFamilyFinancialAndFamilyDebt(data: any) {
-    return this.configurationService.requestMethodPOST('familyfinancial-insert', data)
-  }
-
   updateFamilyFinancialAndFamilyDebt(data: any) {
     return this.configurationService.requestMethodPUT('familyfinancial', data)
   }
-
-  insertDocumentUpload(documentUpload: ApDocumentUpload[]) {
-    return this.configurationService.requestMethodPOST('documentupload-insert', documentUpload)
-  }
-
   updateDocumentUpload(documentUpload: ApDocumentUpload[]){
     let document_list = { document_list: documentUpload}
     return this.configurationService.requestMethodPUT('documentupload', document_list)
