@@ -301,8 +301,6 @@ export class ReferenceService {
     return this.configuration.requestMethodGET('autocomplete-edlevel');
   }
 
-
-
   getRoundAnnouncement(year: number, scholarshipRef: string) {
     let body = { year: year, scholarship_ref: scholarshipRef };
     return this.configuration.requestMethodPOST("round", body);
@@ -316,8 +314,6 @@ export class ReferenceService {
     return this.configuration.requestMethodGET("get-major/"+ref)
   }
 
-
-
   getProvinceByRef(ref: string){
     return this.configuration.requestMethodGET("get-province/"+ref)
   }
@@ -330,5 +326,18 @@ export class ReferenceService {
 
   getEducationLevelByRef(ref: string){
     return this.configuration.requestMethodGET("get-edlevel/"+ref)
+  }
+
+  getSponsorsByRef(ref:string){
+    return this.configuration.requestMethodGET("get-sponsors/"+ref)
+  }
+  getScholarshipByRef(ref:string){
+    return this.configuration.requestMethodGET("get-scholarships/"+ref)
+  }
+  getScholarshipTypeByRef(ref:string){
+    return this.configuration.requestMethodGET("get-sctype/"+ref)
+  }
+  getAnnouncementByRef(ref:string){
+    return this.configuration.requestMethodGET("get-announcement/"+ref)
   }
 }

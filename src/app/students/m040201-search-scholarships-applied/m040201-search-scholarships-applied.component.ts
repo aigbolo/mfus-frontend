@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./m040201-search-scholarships-applied.component.css']
 })
 export class M040201SearchScholarshipsAppliedComponent implements OnInit {
-
+  renderPage = false;
   searchForm:ApplyScholarshipForm = new ApplyScholarshipForm;
   searchFormGroup: FormGroup;
   applySholarshipsList: any[] = [];
@@ -46,8 +46,8 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
 
   ngOnInit() {
     this.layoutService.setPageHeader('ตรวจสอบสถานะทุนการศึกษาที่สมัคร');
-    this.searchForm.search_criteria.year = new Date().getFullYear();
-    this.validatorForm();
+
+
     this.referenceService.initialScholarships(null);
     if(JSON.stringify(this.activateRoute.snapshot.queryParams) != '{}'){
     this.searchForm.search_criteria = this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
@@ -78,6 +78,10 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
       {label: 'คัดเลือกผู้ได้รับทุน',value:'3'},
       {label: 'ประกาศผล',value:'4'}
     ];
+    if(!this.searchForm.search_criteria.year)
+    this.searchForm.search_criteria.year = new Date().getFullYear();
+    this.validatorForm();
+    this.renderPage = true;
   }
 
   validatorForm() {
@@ -90,6 +94,7 @@ export class M040201SearchScholarshipsAppliedComponent implements OnInit {
 
 
     });
+
   }
 
   onSearch(){

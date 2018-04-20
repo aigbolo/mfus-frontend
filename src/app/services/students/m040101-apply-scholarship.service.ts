@@ -1,3 +1,5 @@
+import { Severity } from './../../enum';
+import { LayoutService } from './../utils/layout.service';
 import { ApFamilyDebt } from './../../models/ap-family-debt';
 import { ScholarshipApplyForm } from './../../forms/scholarship-applied-form';
 import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
@@ -16,7 +18,8 @@ export class M040101ApplyScholarshipService {
 
 
   constructor(
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private layoutService: LayoutService,
   ) { }
 
   getStudentView(ref: string) {
@@ -40,43 +43,83 @@ export class M040101ApplyScholarshipService {
     return this.configurationService.requestMethodPUT('students', student)
   }
 
+
+
+  //*
+  //**
   // Insert students apply scholarships
   async applyScholarship(form:ApplyScholarshipForm){
-    const application = await new Promise((resolve)=>{this.insertApplication(form.apApplication).subscribe(
+    const application = await new Promise((resolve,reject)=>{
+      this.insertApplication(form.apApplication).subscribe(
       data=>{
-        console.log('insert application');
-        return resolve(data)
+        resolve(data)
+      },
+      err=>{
+        console.log(err)
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกขอทุนการศึกษาได้"
+        );
+        reject(err)
       }
     )
     })
-    console.log('done application: ',application);
-    await form.apScholarshipHistorys.forEach(data=>{
-      data.student_ref = form.apApplication.student_ref;
-    })
-    console.log(form.apScholarshipHistorys)
-    const scholarshipHistory = await new Promise((resolve)=>{this.updateScholarshipHistory(form.apScholarshipHistorys).subscribe(
-      data=>{
-        console.log('insert sc history');
-        return resolve(data)
-      }
-    )
-    })
-    console.log('done sc history: ',scholarshipHistory);
 
 
-    const loanHistory = await new Promise((resolve)=>{this.updateStudentLoanFund(form.apStudentLoanFunds).subscribe(
-      data=>{
-        console.log('insert loan history');
-        return resolve(data)
-      }
-    )
-    })
-    console.log('done loan history: ',loanHistory);
+    if(form.apScholarshipHistorys.length >0){
+      await form.apScholarshipHistorys.forEach(data=>{
+        data.student_ref = form.apApplication.student_ref;
+      })
+      const scholarshipHistory = await new Promise((resolve,reject)=>{
+        this.updateScholarshipHistory(form.apScholarshipHistorys).subscribe(
+        data=>{
+          console.log('insert sc history');
+          resolve(data)
+        },
+        err=>{
+          console.log(err)
+          this.layoutService.setMsgDisplay(
+            Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกประวัติการได้รับทุนการศึกษาได้"
+          );
+          reject(err)
+        }
+      )
+      })
+      console.log('done sc history: ',scholarshipHistory);
+    }
+
+
+    if(form.apStudentLoanFunds.length >0){
+      const loanHistory = await new Promise((resolve,reject)=>{
+        this.updateStudentLoanFund(form.apStudentLoanFunds).subscribe(
+        data=>{
+          console.log('insert loan history');
+          resolve(data)
+        },
+        err=>{
+          console.log(err)
+          this.layoutService.setMsgDisplay(
+            Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกประวัติ กยศ. ได้"
+          );
+          reject(err)
+        }
+      )
+      })
+      console.log('done loan history: ',loanHistory);
+    }
+
     form.apFamilyFinancial.application_ref  = application['application_ref'];
-    const debt = await new Promise((resolve)=>{this.insertFamilyFinancialAndFamilyDebt(form.apFamilyFinancial,form.apFamilyDebt).subscribe(
+    const debt = await new Promise((resolve,reject)=>{
+      this.insertFamilyFinancialAndFamilyDebt(form.apFamilyFinancial,form.apFamilyDebt).subscribe(
       data=>{
         console.log('insert debt');
-        return resolve(data)
+        resolve(data)
+      },
+      err=>{
+        console.log(err)
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกข้อมูลสถานะทางการเงินของครอบครัวได้"
+        );
+        reject(err)
       }
     )
     })
@@ -84,17 +127,26 @@ export class M040101ApplyScholarshipService {
     await form.apDocumentUpload.forEach(data=>{
       data.application_ref = application['application_ref'];
     })
-    const upload = await new Promise((resolve)=>{this.insertDocumentUpload(form.apDocumentUpload).subscribe(
+    const upload = await new Promise((resolve,reject)=>{
+      this.insertDocumentUpload(form.apDocumentUpload).subscribe(
       data=>{
         console.log('insert upload');
-        return resolve(data)
+        resolve(data)
+      },
+      err=>{
+        console.log(err)
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกเอกสารได้"
+        );
+        reject(err)
       }
     )
     })
     console.log('done debt: ',upload);
 
-
-    return application;
+    this.layoutService.setMsgDisplay(
+      Severity.SUCCESS,"บันทึกขอทุนการศึกษาเรียบร้อย",`หมายเลขใบสมัคร: ${application['application_code']}`);
+    return {status:200,apApplication:{...application}};
 
   }
 

@@ -28,44 +28,12 @@ export class ApplyScholarshipForm{
   public acSiblings: AcSibling[] = [];
   public acAddress: AcAddress = new AcAddress;
   public apDocumentUpload: ApDocumentUpload[] = [];
-  public rftSchool: RftSchool = new RftSchool;
-  public rftMajor: RftMajor = new RftMajor;
-  public student_name: string;
-  public age: number;
-  public birth_day: string;
-  public year: string;
-  public autocompleteScholarshipAnnouncement: any;
-  public detail: string;
-  public min_gpax: string;
-  public sctype_name: string;
-  public sponsors_name: string;
-  public documentList: any[];
-  public school_name_t: string;
-  public major_name_t: string;
-  public gender: string;
   public search_criteria:SearchCriteria;
 
+  constructor(){
+    this.search_criteria = new SearchCriteria;
+  }
 
-  public dadProvince: RftProvince;
-  public dadDistrict: RftDistrict;
-  public dadSubDistrict: RftSubDistrict;
-  public momProvince: RftProvince;
-  public momDistrict: RftDistrict;
-  public momSubDistrict: RftSubDistrict;
-
-  public patrolProvince: RftProvince;
-  public patrolDistrict: RftDistrict;
-  public patrolSubDistrict: RftSubDistrict;
-  public homeProvince: RftProvince;
-  public homeDistrict: RftDistrict;
-  public homeSubDistrict: RftSubDistrict;
-  public currentProvince: RftProvince;
-  public currentDistrict: RftDistrict;
-  public currentSubDistrict: RftSubDistrict;
-  public siblingList: AcSibling[];
-  public parentsFlag: string;
-  public educationLevelList: RftEducationLevel[]
-  public educationLevel: string
 
 }
 class SearchCriteria{

@@ -39,10 +39,10 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
   constructor(
     private layoutService: LayoutService,
     private applyScholarshipService: M040101ApplyScholarshipService,
-    public utilsService: UtilsService,
-    private referenceService: ReferenceService,
     private ngProgress: NgProgress,
     private authService: AuthenticationService,
+    private activateRoute: ActivatedRoute,
+    private reference:ReferenceService,
     private familyAndAddress: M020103FamilyAndAddressService
   ) { }
 
@@ -51,15 +51,57 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
 
   }
-  ngAfterContentInit() {
+  async ngAfterContentInit() {
     this.activeIndex = 0;
     this.applyApplicationForm = new ApplyScholarshipForm;
     this.applyApplicationForm.apApplication.student_ref = this.user.account_ref;
     this.applyApplicationForm.apApplication.create_user = this.user.account_ref;
     this.applyApplicationForm.apApplication.update_user = this.user.account_ref;
     this.getApplicationStep();
-    this.findFamilyAndAddress()
+    this.findFamilyAndAddress();
+    this.findScholarshipHistory();
+    this.findStudentLoanFund();
+    if (this.activateRoute.snapshot.params["id"] != null) {
+      await new Promise((resolve)=>{
+        this.applyScholarshipService.initialApApplication(this.activateRoute.snapshot.params["id"]).subscribe(
+          data=>{
+            this.applyApplicationForm.apApplication = data;
+            resolve()
+          }
+        )
+      })
+      await new Promise((resolve)=>{
+      this.reference.getAnnouncementByRef(this.applyApplicationForm.apApplication.announcement_ref).subscribe(
+          async (announce)=>{
+
+            this.applyApplicationForm.smScholarshipAnnouncement = announce;
+
+            await this.reference.getScholarshipByRef(announce.scholarship_ref).toPromise().then(sc=>{
+              console.log('scholarship: ',sc)
+              this.applyApplicationForm.smScholarshipAnnouncement.scholarship_name = sc.scholarship_name
+              this.applyApplicationForm.smScholarshipAnnouncement.detail = sc.detail
+              this.reference.getScholarshipTypeByRef(sc.scholarship_type).subscribe(
+                st=>{
+                  console.log(st)
+                  this.applyApplicationForm.smScholarshipAnnouncement.scholarship_type_name = st.sctype_name
+                }
+              )
+              this.reference.getSponsorsByRef(sc.sponsors_ref).subscribe(
+                sp=>{
+                  console.log(sp)
+                  this.applyApplicationForm.smScholarshipAnnouncement.sponsors_name = sp.sponsors_name
+                }
+              )
+
+            })
+            console.log('finished sc')
+            resolve();
+          }
+        )
+      })
+    }
     this.pageRender = true;
+
   }
 
   getApplicationStep(){
@@ -104,6 +146,23 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     }
   }
 
+
+  findScholarshipHistory(){
+    this.applyScholarshipService.initialScholarshipHistory(this.user.account_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apScholarshipHistorys = data;
+      }
+    )
+  }
+
+  findStudentLoanFund(){
+    this.applyScholarshipService.initialStudentLoanFund(this.user.account_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apStudentLoanFunds = data;
+      }
+    )
+  }
+
   findFamilyAndAddress(){
     this.familyAndAddress.doGetParent(this.user.account_ref).subscribe(
       data=>{
@@ -124,7 +183,8 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
   }
 
   async onInsertApplication(){
-    const application = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
+    const response = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
+    console.log(response)
   }
 
 
