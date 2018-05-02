@@ -57,9 +57,9 @@ export class ViewStudentApplicationComponent implements OnInit {
       data => {
         console.log(data)
         this.applyScholarshipViewForm.acStudent = data
-        this.applyScholarshipViewForm.student_name = this.applyScholarshipViewForm.acStudent.first_name_t + ' ' + this.applyScholarshipViewForm.acStudent.last_name_t
-        this.applyScholarshipViewForm.school_name_t = data.school_name
-        this.applyScholarshipViewForm.major_name_t = data.major_name
+        // this.applyScholarshipViewForm.student_name = this.applyScholarshipViewForm.acStudent.first_name_t + ' ' + this.applyScholarshipViewForm.acStudent.last_name_t
+        // this.applyScholarshipViewForm.school_name_t = data.school_name
+        // this.applyScholarshipViewForm.major_name_t = data.major_name
       }, error => {
       }, () => {
         this.ngprogress.done()

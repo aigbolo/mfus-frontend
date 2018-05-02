@@ -32,11 +32,12 @@ export class M040103ManageFamilyFinancialComponent implements OnInit {
               private utilsService: UtilsService) { }
 
   ngOnInit() {
-    this.validateForm()
+    console.log(this.childForm)
     this.apFamilyFinancial = this.childForm.apFamilyFinancial;
     this.apFamilyFinancial.create_user = this.user.user_ref;
     this.apFamilyFinancial.update_user = this.user.user_ref;
     this.apFamilyDebts = [...this.childForm.apFamilyDebt];
+    this.validateForm()
   }
 
   validateForm(){

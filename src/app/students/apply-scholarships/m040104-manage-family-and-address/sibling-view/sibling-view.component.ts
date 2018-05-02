@@ -22,11 +22,4 @@ export class SiblingViewComponent implements OnInit {
 
   }
 
-  setEducationLevel(ref: string){
-    for(let obj of this.applyApplication.applyApplicationForm.educationLevelList){
-      if(ref == obj.education_ref){
-        return obj.education_name_t
-      }
-    }
-  }
 }

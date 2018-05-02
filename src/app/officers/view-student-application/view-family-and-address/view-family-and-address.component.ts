@@ -67,7 +67,7 @@ export class ViewFamilyAndAddressComponent implements OnInit {
     this.applicationService.initialSiblingView(this.applicationView.applyScholarshipViewForm.acStudent.student_ref).subscribe(
       data=>{
         for(let obj of data){
-          this.applicationView.applyScholarshipViewForm.siblingList.push(obj)
+          // this.applicationView.applyScholarshipViewForm.siblingList.push(obj)
         }
       }, error=>{
 

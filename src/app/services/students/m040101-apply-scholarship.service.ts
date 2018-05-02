@@ -150,6 +150,8 @@ export class M040101ApplyScholarshipService {
 
   }
 
+
+
   insertApplication(application: ApApplication) {
     return this.configurationService.requestMethodPOST('application-insert', application)
   }
@@ -162,6 +164,110 @@ export class M040101ApplyScholarshipService {
     return this.configurationService.requestMethodPOST('documentupload-insert', {document_list:[...documentUpload]})
   }
 
+
+
+  async updateApply(form:ApplyScholarshipForm){
+    const application = await new Promise((resolve,reject)=>{
+      this.updateApplication(form.apApplication).subscribe(
+      data=>{
+        resolve(data)
+      },
+      err=>{
+        console.log(err)
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกขอทุนการศึกษาได้"
+        );
+        reject(err)
+      }
+    )
+    })
+
+
+    if(form.apScholarshipHistorys.length >0){
+      await form.apScholarshipHistorys.forEach(data=>{
+        data.student_ref = form.apApplication.student_ref;
+      })
+      const scholarshipHistory = await new Promise((resolve,reject)=>{
+        this.updateScholarshipHistory(form.apScholarshipHistorys).subscribe(
+        data=>{
+          console.log('insert sc history');
+          resolve(data)
+        },
+        err=>{
+          console.log(err)
+          this.layoutService.setMsgDisplay(
+            Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกประวัติการได้รับทุนการศึกษาได้"
+          );
+          reject(err)
+        }
+      )
+      })
+      console.log('done sc history: ',scholarshipHistory);
+    }
+
+
+    if(form.apStudentLoanFunds.length >0){
+      const loanHistory = await new Promise((resolve,reject)=>{
+        this.updateStudentLoanFund(form.apStudentLoanFunds).subscribe(
+        data=>{
+          console.log('insert loan history');
+          resolve(data)
+        },
+        err=>{
+          console.log(err)
+          this.layoutService.setMsgDisplay(
+            Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกประวัติ กยศ. ได้"
+          );
+          reject(err)
+        }
+      )
+      })
+      console.log('done loan history: ',loanHistory);
+    }
+
+    form.apFamilyFinancial.application_ref  = application['application_ref'];
+    const debt = await new Promise((resolve,reject)=>{
+      this.updateFamilyFinancialAndFamilyDebt(form.apFamilyFinancial,form.apFamilyDebt).subscribe(
+      data=>{
+        console.log('insert debt');
+        resolve(data)
+      },
+      err=>{
+        console.log(err)
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกข้อมูลสถานะทางการเงินของครอบครัวได้"
+        );
+        reject(err)
+      }
+    )
+    })
+    console.log('done debt: ',debt);
+    await form.apDocumentUpload.forEach(data=>{
+      data.application_ref = application['application_ref'];
+    })
+    const upload = await new Promise((resolve,reject)=>{
+      this.updateDocumentUpload(form.apDocumentUpload).subscribe(
+      data=>{
+        console.log('insert upload');
+        resolve(data)
+      },
+      err=>{
+        console.log(err)
+        this.layoutService.setMsgDisplay(
+          Severity.ERROR,"เกิดข้อผิดพลาาด","ไม่สามารถบันทึกเอกสารได้"
+        );
+        reject(err)
+      }
+    )
+    })
+    console.log('done debt: ',upload);
+
+    this.layoutService.setMsgDisplay(
+      Severity.SUCCESS,"บันทึกขอทุนการศึกษาเรียบร้อย",`หมายเลขใบสมัคร: ${application['application_code']}`);
+    return {status:200,apApplication:{...application}};
+  }
+
+
   updateApplication(application: ApApplication) {
     return this.configurationService.requestMethodPUT('application', application)
   }
@@ -171,18 +277,29 @@ export class M040101ApplyScholarshipService {
   updateStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
     return this.configurationService.requestMethodPUT('studentloanfund', stdLoanFund)
   }
-  updateFamilyFinancialAndFamilyDebt(data: any) {
-    return this.configurationService.requestMethodPUT('familyfinancial', data)
+  updateFamilyFinancialAndFamilyDebt(financial:ApFamilyFinancial,debtList:ApFamilyDebt[]) {
+    const body = {ap_family_financial:{...financial},family_debt_list:[...debtList]}
+    return this.configurationService.requestMethodPUT('familyfinancial', body)
   }
   updateDocumentUpload(documentUpload: ApDocumentUpload[]){
     let document_list = { document_list: documentUpload}
     return this.configurationService.requestMethodPUT('documentupload', document_list)
   }
 
+
+
+
+
   doSearch(application: ApplyScholarshipForm) {
     console.log(application.search_criteria);
     return this.configurationService.requestMethodPOST('stapplication', application.search_criteria);
   }
+
+
+
+
+
+
 
   initialApApplication(ref: string) {
     let json = { application_ref: ref }
@@ -205,7 +322,7 @@ export class M040101ApplyScholarshipService {
   }
 
   initialFamilyFinancial(ref: string) {
-    let json = { student_ref: ref }
+    let json = { application_ref: ref }
     return this.configurationService.requestMethodPOST('familyfinancial', json)
   }
 

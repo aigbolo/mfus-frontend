@@ -32,7 +32,7 @@ export class ViewDocumentUploadComponent implements OnInit {
     this.applicationService.initialDocumentUploadView(this.applicationView.applyScholarshipViewForm.apApplication.application_ref).subscribe(
       data => {
         console.log(data);
-        this.applicationView.applyScholarshipViewForm.documentList = data;
+        // this.applicationView.applyScholarshipViewForm.documentList = data;
       }, error=>{
 
       }, ()=>{

@@ -52,7 +52,10 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
     Object.assign(this.apApplication,this.childForm.apApplication)
     this.apScholarshipHistorys = this.childForm.apScholarshipHistorys;
     this.apStudentLoanFunds = this.childForm.apStudentLoanFunds;
-    this.announcement = Object.assign(this.announcement,this.childForm.smScholarshipAnnouncement)
+    if(this.childForm.smScholarshipAnnouncement.announcement_ref){
+      this.announcement = await this.autocompleteAnnouncementTempList.find(data=>this.childForm.smScholarshipAnnouncement.announcement_ref == data.announcement_ref)
+    }
+
     if(this.announcement.announcement_ref)
     this.scholarshipSeleted=true;
     this.ngProgress.done();

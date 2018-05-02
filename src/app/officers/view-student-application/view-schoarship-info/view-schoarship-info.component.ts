@@ -35,11 +35,6 @@ export class ViewSchoarshipInfoComponent implements OnInit {
     this.applicationService.initialScholarshipAnnouncement(this.applicationView.applyScholarshipViewForm.apApplication.announcement_ref).subscribe(
       data => {
         console.log(data)
-        this.applicationView.applyScholarshipViewForm.min_gpax = data.min_gpax
-        this.applicationView.applyScholarshipViewForm.sponsors_name = data.sponsor_name
-        this.applicationView.applyScholarshipViewForm.detail = data.detail
-        this.applicationView.applyScholarshipViewForm.autocompleteScholarshipAnnouncement = data.scholarship_name
-        this.applicationView.applyScholarshipViewForm.sctype_name = data.scholarship_type_name
 
       }, error => {
 

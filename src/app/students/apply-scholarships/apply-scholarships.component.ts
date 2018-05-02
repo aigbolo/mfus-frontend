@@ -31,7 +31,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
   pageRender: boolean = false
   applyApplicationForm: ApplyScholarshipForm = new ApplyScholarshipForm();
   items: MenuItem[] = [];
-  activeIndex:number = 0;
+  activeIndex:number;
 
   user: AcUser =  this.authService.getUser();
 
@@ -52,7 +52,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
   }
   async ngAfterContentInit() {
-    this.activeIndex = 0;
+
     this.applyApplicationForm = new ApplyScholarshipForm;
     this.applyApplicationForm.apApplication.student_ref = this.user.account_ref;
     this.applyApplicationForm.apApplication.create_user = this.user.account_ref;
@@ -77,18 +77,15 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
             this.applyApplicationForm.smScholarshipAnnouncement = announce;
 
             await this.reference.getScholarshipByRef(announce.scholarship_ref).toPromise().then(sc=>{
-              console.log('scholarship: ',sc)
               this.applyApplicationForm.smScholarshipAnnouncement.scholarship_name = sc.scholarship_name
               this.applyApplicationForm.smScholarshipAnnouncement.detail = sc.detail
               this.reference.getScholarshipTypeByRef(sc.scholarship_type).subscribe(
                 st=>{
-                  console.log(st)
                   this.applyApplicationForm.smScholarshipAnnouncement.scholarship_type_name = st.sctype_name
                 }
               )
               this.reference.getSponsorsByRef(sc.sponsors_ref).subscribe(
                 sp=>{
-                  console.log(sp)
                   this.applyApplicationForm.smScholarshipAnnouncement.sponsors_name = sp.sponsors_name
                 }
               )
@@ -99,7 +96,11 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
           }
         )
       })
+
+      this.findFamilyFinancial();
+      this.findDocumentUpload();
     }
+    this.activeIndex = 0;
     this.pageRender = true;
 
   }
@@ -142,7 +143,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
       this.activeIndex = data.newIndex;
     }else{
       console.log(this.applyApplicationForm)
-      this.onInsertApplication()
+      this.onSubmitApplication()
     }
   }
 
@@ -159,6 +160,15 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     this.applyScholarshipService.initialStudentLoanFund(this.user.account_ref).subscribe(
       data=>{
         this.applyApplicationForm.apStudentLoanFunds = data;
+      }
+    )
+  }
+  findFamilyFinancial(){
+    this.applyScholarshipService.initialFamilyFinancial(this.applyApplicationForm.apApplication.application_ref).subscribe(
+      data=>{
+        console.log('financial: ',data)
+        this.applyApplicationForm.apFamilyFinancial = data.ap_family_financial;
+        this.applyApplicationForm.apFamilyDebt = [...data.ap_family_debt]
       }
     )
   }
@@ -182,8 +192,26 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     )
   }
 
-  async onInsertApplication(){
-    const response = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
+  findDocumentUpload(){
+    this.applyScholarshipService.initialDocumentUpload(this.applyApplicationForm.apApplication.application_ref).subscribe(
+      data=>{
+        console.log('document upload: ',data);
+        this.applyApplicationForm.apDocumentUpload = [...data]
+      }
+    )
+  }
+
+
+
+  async onSubmitApplication(){
+    let response = null;
+
+    if(!this.applyApplicationForm.apApplication.application_ref){
+      response = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
+    }else{
+      response = await this.applyScholarshipService.updateApply(this.applyApplicationForm)
+    }
+
     console.log(response)
   }
 
