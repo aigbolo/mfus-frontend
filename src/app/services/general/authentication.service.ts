@@ -17,23 +17,18 @@ export class AuthenticationService {
 
   login(user: AcUser): Observable<any> {
     return this.config.requestMethodPOST('login', user)
-    // return this.config.requestMethodPOST('login', user).map(user => {
-    //   if(user){
-    //     // const token = user.ac_user.api_token
-    //     // const ac_user = JSON.stringify(user.ac_user);
-    //     // localStorage.setItem('token', token);
-    //     // localStorage.setItem('user', ac_user);
-    //     // this.setAccountInfo(user.ac_user)
-    //     // this.setLoggedinStage(token)
-    //     return user;
-    //   }
-    // })
   }
 
   logout() {
     localStorage.clear();
     this.config.requestMethodPOST('logout', '').subscribe();
     this.clearLoggedinStage();
+    
+  }
+
+  isTokenAliveCheck(user){
+    console.log('isTokenAliveCheck',user)
+    return this.config.requestMethodPOST('istokenalive', user)
   }
 
   ensureAuthenticated(token): Promise<any> {
