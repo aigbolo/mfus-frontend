@@ -6,7 +6,6 @@ import { M050103ScholarshipEarningService } from './services/officers/m050103-sc
 import { M050102SearchOfficerInterviewSelectingComponent } from './officers/m050102-search-officer-interview-selecting/m050102-search-officer-interview-selecting.component';
 import { M050101ScholarshipsScreeningService } from './services/officers/m050101-scholarships-screening.service';
 import { M020103FamilyAndAddressService } from './services/students/m020103-family-and-address.service';
-import {DataListModule} from 'primeng/primeng';
 import { AddressService } from './services/utils/address.service';
 import { M040101ApplyScholarshipService } from './services/students/m040101-apply-scholarship.service';
 import { M030103ScholarshipAnnouncementService } from './services/officers/m030103-scholarship-announcement.service';
@@ -39,6 +38,7 @@ import {
   FileUploadModule,
   RadioButtonModule,
   DataTableModule,
+  DataListModule,
   SharedModule,
   GrowlModule,
   CalendarModule,

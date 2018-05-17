@@ -31,7 +31,7 @@ ul{
 i.fa-times{ color:red;}
 i.fa-check{color:#00cc08;}
 
-.ui-button {
+.document-item .ui-button {
   color: #337ab7 !important;
   background-color:transparent !important;
 }

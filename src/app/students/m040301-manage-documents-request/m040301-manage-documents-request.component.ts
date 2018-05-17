@@ -44,6 +44,7 @@ export class M040301ManageDocumentsRequestComponent implements OnInit {
       }
     );
   }
+
   onUpload(event,document_request_ref,document_request_detail_ref){
     var oriReader:FileReader = new FileReader();
     let image = '';
@@ -53,7 +54,8 @@ export class M040301ManageDocumentsRequestComponent implements OnInit {
 
       oriReader.readAsDataURL(this.uploadedFile);
       oriReader.onloadend = (e) =>{ image = oriReader.result};
-
+      console.log(`document_request_ref:${document_request_ref},   document_request_detail_ref:${document_request_detail_ref}`)
+      console.log(this.uploadedFile)
       setTimeout(()=>{
         for (let data of this.documentRequestList){
           if(data.document_request_ref == document_request_ref){
@@ -67,7 +69,7 @@ export class M040301ManageDocumentsRequestComponent implements OnInit {
             }
           }
         }
-      },1000)
+      },2000)
     }
 
   }
@@ -123,6 +125,9 @@ export class M040301ManageDocumentsRequestComponent implements OnInit {
           this.ngProgress.done();
         }
       )
+    }else{
+      this.layoutService.setMsgDisplay(Severity.WARN,"ไม่สามารถส่งได้","กรุณาอัพโหลดเอกสารให้ครบ");
+      this.ngProgress.done();
     }
   }
   ngOnDestroy() {

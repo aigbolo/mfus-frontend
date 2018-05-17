@@ -21,4 +21,8 @@ export class M010101StudentService {
   doSelect(ref: AcStudent){
     return this.configurationService.requestMethodPOST('students-update', ref)
   }
+  doView(ref: string){
+    const body ={student_ref:ref}
+    return this.configurationService.requestMethodPOST('students-view', body)
+  }
 }

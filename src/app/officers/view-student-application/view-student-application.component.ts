@@ -1,45 +1,82 @@
 import { LayoutService } from './../../services/utils/layout.service';
 import { ApplyScholarshipForm } from './../../forms/apply-scholarship-form';
 import { NgProgress } from 'ngx-progressbar';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UtilsService } from '../../services/utils/utils.service';
 import { ApplicationService } from '../../services/students/application.service';
 import { AuthenticationService } from '../../services/general/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReferenceService } from '../../services/general/reference.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
+import { AcUser } from '../../models/ac-user';
+import { M040101ApplyScholarshipService } from '../../services/students/m040101-apply-scholarship.service';
+import { M020103FamilyAndAddressService } from '../../services/students/m020103-family-and-address.service';
+import { M010101StudentService } from '../../services/students/m010101-student.service';
+import { M030103ScholarshipAnnouncementService } from '../../services/officers/m030103-scholarship-announcement.service';
 
 @Component({
   selector: 'app-view-student-application',
   templateUrl: './view-student-application.component.html',
   styleUrls: ['./view-student-application.component.css']
 })
-export class ViewStudentApplicationComponent implements OnInit {
-
-  applyScholarshipViewForm: ApplyScholarshipForm = new ApplyScholarshipForm
-  student_ref: string
-  application_ref: string
+export class ViewStudentApplicationComponent implements AfterViewInit{
   pageRender: boolean = false
+  applyApplicationForm: ApplyScholarshipForm = new ApplyScholarshipForm();
   items: MenuItem[] = [];
-  activeIndex = 0;
-  constructor(public utilsService: UtilsService,
-    private applicationService: ApplicationService,
-    private authService: AuthenticationService,
-    private route: ActivatedRoute,
-    private referenceService: ReferenceService,
-    private ngprogress: NgProgress,
-    private layoutService: LayoutService) { }
+  activeIndex:number;
+  applicationRef:string;
+  index:number = 0;
+  constructor(
+    private layoutService: LayoutService,
+    private ngProgress: NgProgress,
+    private activateRoute: ActivatedRoute,
+    private applyScholarshipService: M040101ApplyScholarshipService,
+    private familyAndAddress: M020103FamilyAndAddressService,
+    private studentService: M010101StudentService,
+    private announcementService:M030103ScholarshipAnnouncementService
+  ) { }
 
-  ngOnInit() {
-    this.layoutService.setPageHeader('รายละเอียดข้อมูลการยื่นเจตจำนงขอทุนการศึกษา');
-    this.ngprogress.start()
-    this.application_ref = this.route.snapshot.params['id']
-    this.getApplicationStep();
-    this.initialData()
+  ngAfterViewInit() {
+    this.layoutService.setPageHeader('รายละเอียดข้อมูลผู้ขอทุนการศึกษา');
+
+
   }
+  async ngAfterContentInit() {
+    this.ngProgress.start();
+    this.applyApplicationForm = new ApplyScholarshipForm;
+    this.applicationRef = this.activateRoute.snapshot.params["id"];
+    this.getApplicationStep();
+    await new Promise((resolve)=>{
+        this.applyScholarshipService.initialApApplication(this.applicationRef).subscribe(
+          data=>{
+            this.applyApplicationForm.apApplication = data;
+            resolve()
+          }
+        )
+      })
+      await new Promise((resolve)=>{
+        this.studentService.doView(this.applyApplicationForm.apApplication.student_ref).subscribe(
+          data=>{
+            this.applyApplicationForm.acStudent = data[0];
+            resolve()
+          }
+        )
+      })
 
-  initialData() {
-    this.initialApplication();
+      //tab 2
+      this.findAnnouncement();
+      this.findScholarshipHistory();
+      this.findStudentLoanFund();
+
+
+      this.findFamilyAndAddress();
+      
+      this.findFamilyFinancial();
+      this.findDocumentUpload();
+    this.ngProgress.done();
+    this.activeIndex = 1;
+    this.pageRender = true;
+
   }
 
   getApplicationStep(){
@@ -52,30 +89,74 @@ export class ViewStudentApplicationComponent implements OnInit {
     ];
   }
 
-  initialStudent(ref: string) {
-    this.applicationService.initialAcStudentView(ref).subscribe(
-      data => {
-        console.log(data)
-        this.applyScholarshipViewForm.acStudent = data
-        // this.applyScholarshipViewForm.student_name = this.applyScholarshipViewForm.acStudent.first_name_t + ' ' + this.applyScholarshipViewForm.acStudent.last_name_t
-        // this.applyScholarshipViewForm.school_name_t = data.school_name
-        // this.applyScholarshipViewForm.major_name_t = data.major_name
-      }, error => {
-      }, () => {
-        this.ngprogress.done()
-        this.pageRender = true
-      })
+  onChangeTabIndex(input:number){
+    this.activeIndex = this.activeIndex+input;
   }
 
-  initialApplication() {
-    this.applicationService.initialApApplicationView(this.application_ref).subscribe(
-      data => {
-        console.log(data)
-        this.applyScholarshipViewForm.apApplication = data
-      }, error => {
-      }, () => {
-        this.initialStudent(this.applyScholarshipViewForm.apApplication.student_ref)
+
+
+  findAnnouncement(){
+    const announcement = {announcement_ref:this.applyApplicationForm.apApplication.announcement_ref}
+    this.announcementService.viewScholarshipAnnouncement(announcement).subscribe(
+      data=>{
+        this.applyApplicationForm.smScholarshipAnnouncement = data[0];
       }
     )
   }
+
+  findScholarshipHistory(){
+    console.log('student ref: ',this.applyApplicationForm.apApplication.student_ref)
+    this.applyScholarshipService.initialScholarshipHistory(this.applyApplicationForm.apApplication.student_ref).subscribe(
+      data=>{
+        console.log('scholarshiphistory: ', data)
+        this.applyApplicationForm.apScholarshipHistorys = data;
+      }
+    )
+  }
+
+  findStudentLoanFund(){
+    this.applyScholarshipService.initialStudentLoanFund(this.applyApplicationForm.apApplication.student_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apStudentLoanFunds = data;
+      }
+    )
+  }
+  findFamilyFinancial(){
+    // this.applyScholarshipService.initialFamilyFinancial(this.application_ref).subscribe(
+    //   data=>{
+    //     console.log('financial: ',data)
+    //     this.applyApplicationForm.apFamilyFinancial = data.ap_family_financial;
+    //     this.applyApplicationForm.apFamilyDebt = [...data.ap_family_debt]
+    //   }
+    // )
+  }
+
+  findFamilyAndAddress(){
+    // this.familyAndAddress.doGetParent(this.studentRef).subscribe(
+    //   data=>{
+    //     this.applyApplicationForm.acParent = data;
+    //   }
+    // )
+    // this.familyAndAddress.doGetSiblings(this.studentRef).subscribe(
+    //   data=>{
+    //     this.applyApplicationForm.acSiblings = [...data]
+    //   }
+
+    // )
+    // this.familyAndAddress.doGetAddress(this.studentRef).subscribe(
+    //   data=>{
+    //     this.applyApplicationForm.acAddress = data;
+    //   }
+    // )
+  }
+
+  findDocumentUpload(){
+    // this.applyScholarshipService.initialDocumentUpload(this.applyApplicationForm.apApplication.application_ref).subscribe(
+    //   data=>{
+    //     console.log('document upload: ',data);
+    //     this.applyApplicationForm.apDocumentUpload = [...data]
+    //   }
+    // )
+  }
+
 }

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthenticationService {
 
-  private isLoggedin = new BehaviorSubject<string>(localStorage.getItem('token'));
+  public isLoggedin = new BehaviorSubject<string>(localStorage.getItem('token'));
 
   constructor(private config: ConfigurationService,
     private layout: LayoutService,) { }
@@ -20,14 +20,13 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.clear();
-    this.config.requestMethodPOST('logout', '').subscribe();
+    const user = localStorage.getItem('user')
+    this.config.requestMethodPOST('logout', JSON.parse(user)).subscribe();
     this.clearLoggedinStage();
-    
+    localStorage.clear();
   }
 
   isTokenAliveCheck(user){
-    console.log('isTokenAliveCheck',user)
     return this.config.requestMethodPOST('istokenalive', user)
   }
 

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ReferenceService } from '../../../services/general/reference.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { ApplicationService } from '../../../services/students/application.service';
 import { ViewStudentApplicationComponent } from '../view-student-application.component';
 import { NgProgress } from 'ngx-progressbar';
+import { ApplyScholarshipForm } from '../../../forms/apply-scholarship-form';
 
 @Component({
   selector: 'app-view-family-financial',
@@ -12,38 +13,16 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class ViewFamilyFinancialComponent implements OnInit {
 
-  pageRender: boolean = false;
 
+  @Input() childForm: ApplyScholarshipForm;
   constructor(private referenceService: ReferenceService,
               private utilsService: UtilsService,
               private applicationService: ApplicationService,
-              public applciationView: ViewStudentApplicationComponent,
               private ngProgress: NgProgress) { }
 
   ngOnInit() {
-    this.ngProgress.start();
-    this.initialFamilyFinancial();
+    
   }
 
-  initialFamilyFinancial(){
-    this.applciationView.applyScholarshipViewForm.apFamilyDebt = [];
-    this.applicationService.initialFamilyFinancial(this.applciationView.applyScholarshipViewForm.apApplication.application_ref).subscribe(
-      data=>{
-        this.applciationView.applyScholarshipViewForm.apFamilyFinancial = data.ap_family_financial;
-        this.applciationView.applyScholarshipViewForm.apFamilyDebt.push(...data.ap_family_debt);
-      }, error=>{
-
-      },()=>{
-        this.pageRender = true;
-        this.ngProgress.done();
-      }
-    );
-  }
-
-  onPrevious(){
-  }
-  onNext(){
-  }
-
-
+  
 }

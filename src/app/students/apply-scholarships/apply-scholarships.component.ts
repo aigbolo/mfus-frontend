@@ -77,13 +77,11 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
             this.applyApplicationForm.smScholarshipAnnouncement = announce;
 
             await this.reference.getScholarshipByRef(announce.scholarship_ref).toPromise().then(sc=>{
+              console.log('scholarship: ',sc)
               this.applyApplicationForm.smScholarshipAnnouncement.scholarship_name = sc.scholarship_name
               this.applyApplicationForm.smScholarshipAnnouncement.detail = sc.detail
-              this.reference.getScholarshipTypeByRef(sc.scholarship_type).subscribe(
-                st=>{
-                  this.applyApplicationForm.smScholarshipAnnouncement.scholarship_type_name = st.sctype_name
-                }
-              )
+              this.applyApplicationForm.smScholarshipAnnouncement.scholarship_type_name = sc.scholarship_type
+
               this.reference.getSponsorsByRef(sc.sponsors_ref).subscribe(
                 sp=>{
                   this.applyApplicationForm.smScholarshipAnnouncement.sponsors_name = sp.sponsors_name

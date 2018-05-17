@@ -1,4 +1,4 @@
-<div *ngIf="applicationView.pageRender">
+<div>
     <div class="row overide-row">
         <h4 class="custom-panel-title">ข้อมูลส่วนตัว</h4>
         <div class="col-xs-9">
@@ -6,13 +6,13 @@
                 <div class="col-xs-6">
                     <label class="normal">เลขประจำตัวประชาชน</label>
                     <div class="info">
-                        <p> {{applicationView.applyScholarshipViewForm.acStudent.personal_id}}</p>
+                        <p> {{childForm.acStudent.personal_id}}</p>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <label class="normal">รหัสนักศึกษา</label>
                     <div>
-                        <p>{{applicationView.applyScholarshipViewForm.acStudent.student_id}}</p>
+                        <p>{{childForm.acStudent.student_id}}</p>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     <label class="normal">ชื่อ-สกุล</label>
                     <div>
                         <label>
-                        <p>{{applicationView.applyScholarshipViewForm.student_name}}</p>
+                        <p>{{childForm.acStudent.student_name}}</p>
                       </label>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <label class="normal">เพศ</label>
                     <div>
                         <label>
-                        {{utilsService.getGender(applicationView.applyScholarshipViewForm.acStudent.gender)}}
+                        {{utilsService.getGender(childForm.acStudent.gender)}}
                       </label>
                     </div>
                 </div>
@@ -37,14 +37,14 @@
                 <div class="col-xs-3">
                     <label class="normal">วันเกิด</label>
                     <div>
-                        {{utilsService.getBirthDay(applicationView.applyScholarshipViewForm.acStudent.birth_date)}}
+                        {{utilsService.getBirthDay(childForm.acStudent.birth_date)}}
                     </div>
                 </div>
 
                 <div class="col-xs-3">
                     <label class="normal">อายุ</label>
                     <div>
-                        <p>{{utilsService.getAge(applicationView.applyScholarshipViewForm.acStudent.birth_date)}} </p>
+                        <p>{{utilsService.getAge(childForm.acStudent.birth_date)}} </p>
                     </div>
                 </div>
             </div>
@@ -52,70 +52,66 @@
                 <div class="col-xs-3">
                     <label class="normal">สัญชาติ</label>
                     <div>
-                        <p>{{applicationView.applyScholarshipViewForm.acStudent.nationality}}</p>
+                        <p>{{childForm.acStudent.nationality}}</p>
                     </div>
                 </div>
 
                 <div class="col-xs-3">
                     <label class="normal">เชื้อชาติ</label>
-                    <p>{{applicationView.applyScholarshipViewForm.acStudent.race}}</p>
+                    <p>{{childForm.acStudent.race}}</p>
                 </div>
 
                 <div class="col-xs-6">
                     <label class="normal">ศาสนา</label>
-                    <p>{{applicationView.applyScholarshipViewForm.acStudent.religion}}</p>
+                    <p>{{childForm.acStudent.religion}}</p>
                 </div>
             </div>
             <div class="row overide-row">
                 <div class="col-xs-6">
                     <label class="normal">สำนักวิชา</label>
-                    <p>{{applicationView.applyScholarshipViewForm.school_name_t}}</p>
+                    <p>{{childForm.acStudent.school_name_t}}</p>
                 </div>
                 <div class="col-xs-6">
                     <label class="normal">สาขาวิชา</label>
-                    <p>{{applicationView.applyScholarshipViewForm.major_name_t}}</p>
+                    <p>{{childForm.acStudent.major_name_t}}</p>
                 </div>
             </div>
             <div class="row overide-row ">
                 <div class="col-xs-4 ">
                     <label class="normal ">เบอร์โทรศัพท์</label>
-                    <p>{{applicationView.applyScholarshipViewForm.acStudent.phone_no}}</p>
+                    <p>{{childForm.acStudent.phone_no}}</p>
                 </div>
                 <div class="col-xs-8">
                     <label class="normal">Email</label>
-                    <p>{{applicationView.applyScholarshipViewForm.acStudent.email}}</p>
+                    <p>{{childForm.acStudent.email}}</p>
                 </div>
             </div>
             <div class="row overide-row">
                 <div class="col-xs-4">
                     <label class="normal">ชั้นปีการศึกษา</label>
-                    <p>{{applicationView.applyScholarshipViewForm.apApplication.collage_year}}</p>
+                    <p>{{childForm.apApplication.collage_year}}</p>
                 </div>
                 <div class="col-xs-2">
                     <label class="normal">GPAX</label>
-                    <p>{{applicationView.applyScholarshipViewForm.apApplication.gpax}}</p>
+                    <p>{{childForm.apApplication.gpax}}</p>
                 </div>
                 <div class="col-xs-6 ">
                     <label class="normal ">อาจารย์ที่ปรึกษา</label>
-                    <p>{{applicationView.applyScholarshipViewForm.apApplication.advisor_name}}</p>
+                    <p>{{childForm.apApplication.advisor_name}}</p>
                 </div>
             </div>
         </div>
         <div class="col-xs-3 center">
-            <img class="image-profile" src="{{applicationView.applyScholarshipViewForm.acStudent.profile_image}}">
+            <img class="image-profile" src="{{childForm.acStudent.profile_image}}">
         </div>
     </div>
     <div class="row overide-row">
-        <h4 class="custom-panel-title">การดำรงชีวิต</h4>
+        <h4 class="custom-panel-title">ความเป็นอยู่ของนักศึกษา</h4>
     </div>
     <div class="row overide-row">
-        <div class="col-xs-12 txt-area-center">
-            <label class="normal ">กรุณาเขียนบรรยายความเป็นอยู่ของนักศึกษา</label>
-            <p>{{applicationView.applyScholarshipViewForm.apApplication.livelihood}}</p>
+        <div class="col-xs-12 txt-area-center" [innerText]="childForm.apApplication.livelihood">
+            
         </div>
     </div>
-    <div class="col-xs-12 btn-panel-right">
-        <button class="btn-next primary" type="submit" label="ถัดไป" (click)="onNext()" pButton>
-      </button>
-    </div>
+
 </div>

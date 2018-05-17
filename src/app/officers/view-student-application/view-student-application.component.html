@@ -1,13 +1,31 @@
 <div class="row">
   <div class="col-xs-12">
-      <p-steps [model]="utilsService.items" [(activeIndex)]="utilsService.activeIndex" [readonly]="false" styleClass="steps-custom" class="five-step">
+      <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="steps-custom" class="five-step">
       </p-steps>
   </div>
 </div>
-<div class="row overide-row">
-  <app-view-applicant *ngIf="utilsService.activeIndex == 0"></app-view-applicant>
-  <app-view-schoarship-info *ngIf="utilsService.activeIndex == 1"></app-view-schoarship-info>
-  <app-view-family-financial *ngIf="utilsService.activeIndex == 2"></app-view-family-financial>
-  <app-view-family-and-address *ngIf="utilsService.activeIndex == 3"></app-view-family-and-address>
-  <app-view-document-upload *ngIf="utilsService.activeIndex == 4"></app-view-document-upload>
+<div class="row overide-row" *ngIf="pageRender">
+  <app-view-applicant *ngIf="activeIndex == 0" [childForm]="applyApplicationForm"></app-view-applicant>
+  <app-view-schoarship-info *ngIf="activeIndex == 1" [childForm]="applyApplicationForm"></app-view-schoarship-info>
+  <!-- <app-view-family-financial *ngIf="activeIndex == 2" [childForm]="applyApplicationForm"></app-view-family-financial>
+  <app-view-family-and-address *ngIf="activeIndex == 3" [childForm]="applyApplicationForm"></app-view-family-and-address>
+  <app-view-document-upload *ngIf="activeIndex == 4" [childForm]="applyApplicationForm"></app-view-document-upload> -->
+</div>
+<div class="row btn-row overide-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button class="ui-button-warning text-left"
+        type="button"
+        label="ย้อนกลับ"
+        (click)="onChangeTabIndex(-1)"
+        pButton>
+      </button>
+    </div>
+  <div class="col-xs-6 btn-panel-right">
+      <button class="ui-button-primary text-right"
+        type="button"
+        label="ถัดไป"
+        (click)="onChangeTabIndex(+1)"
+        pButton>
+      </button>
+  </div>
 </div>

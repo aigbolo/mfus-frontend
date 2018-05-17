@@ -1,31 +1,31 @@
-<div *ngIf="pageRender">
+<div>
     <div class="row overide-row">
         <h4 class="custom-panel-title">ข้อมูลทุนการศึกษา</h4>
     </div>
     <div class="row overide-row" styleClass="fullWidth">
         <div class="col-xs-12">
-            <label class="normal">ทุนการศึกษา *</label>
-            <p> {{applicationView.applyScholarshipViewForm.autocompleteScholarshipAnnouncement}} </p>
+            <label class="normal">ทุนการศึกษา</label>
+            <p> {{childForm.smScholarshipAnnouncement.scholarship_name}} รอบที่ {{childForm.smScholarshipAnnouncement.round}}</p>
         </div>
     </div>
     <div class="row overide-row">
         <div class="col-xs-3">
             <label class="normal">ประเภททุนการศึกษา</label>
-            <p>{{applicationView.applyScholarshipViewForm.sctype_name}}</p>
+            <p>{{childForm.smScholarshipAnnouncement.sctype_name}}</p>
         </div>
         <div class="col-xs-6">
             <label class="normal">ผู้สนับสนุน</label>
-            <p>{{applicationView.applyScholarshipViewForm.sponsors_name}}</p>
+            <p>{{childForm.smScholarshipAnnouncement.sponsors_name}}</p>
         </div>
         <div class="col-xs-3">
             <label class="normal">เกรดขั้นต่ำ</label>
-            <p>{{applicationView.applyScholarshipViewForm.min_gpax}}</p>
+            <p>{{childForm.smScholarshipAnnouncement.min_gpax}}</p>
         </div>
     </div>
     <div class="row overide-row">
         <div class="col-xs-12">
             <label for="" class="normal">รายละเอียดทุนการศึกษา</label>
-            <p>{{applicationView.applyScholarshipViewForm.detail}}</p>
+            <p [innerText]="childForm.smScholarshipAnnouncement.detail"></p>
         </div>
     </div>
     <div class="row overide-row">
@@ -33,7 +33,7 @@
     </div>
     <div class="row overide-row">
         <div class="col-xs-12">
-            <p-dataTable [value]="applicationView.applyScholarshipViewForm.apScholarshipHistory" [immutable]="false">
+            <p-dataTable [value]="childForm.apScholarshipHistory" [immutable]="false">
                 <p-column styleClass="datatable-index" header="ลำดับ" field="seq">
                     <ng-template let-col let-obj="rowIndex" pTemplate="body">
                         {{obj+1}}
@@ -62,7 +62,7 @@
     </div>
     <div class="row overide-row">
         <div class="col-xs-12 txt-area-center">
-            <p-dataTable [value]="applicationView.applyScholarshipViewForm.apStudentLoanFund" [immutable]="false">
+            <p-dataTable [value]="childForm.apStudentLoanFund" [immutable]="false">
                 <p-column styleClass="datatable-index" header="ลำดับ" field="student_loan_seq">
                     <ng-template let-col let-obj="rowIndex" pTemplate="body">
                         {{obj+1}}
@@ -84,7 +84,7 @@
     <div class="row overide-row">
         <h4 class="custom-panel-title">แผนการใช้เงิน</h4>
         <div class="col-xs-12 txt-area-center">
-            <p>{{applicationView.applyScholarshipViewForm.apApplication.money_spend_plan}}</p>
+            <p>{{childForm.apApplication.money_spend_plan}}</p>
         </div>
     </div>
     <div class="row formFooter overide-row">

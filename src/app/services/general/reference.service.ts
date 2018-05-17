@@ -306,6 +306,9 @@ export class ReferenceService {
     return this.configuration.requestMethodPOST("round", body);
   }
 
+
+
+
   getSchoolByRef(ref: string) {
     return this.configuration.requestMethodGET("get-school/"+ ref)
   }
