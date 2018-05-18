@@ -75,7 +75,7 @@ export class AddressComponent implements OnInit {
   }
 
   onUpload(event) {
-    console.log('onUpload');
+    console.log('onUpload',event);
     if (event.files != null)
     this.uploadedFiles = [];
 

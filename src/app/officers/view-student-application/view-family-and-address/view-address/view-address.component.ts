@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ViewStudentApplicationComponent } from '../../view-student-application.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { AcAddress } from '../../../../models/ac-address';
 
 @Component({
   selector: 'app-view-address',
@@ -8,9 +8,11 @@ import { ViewStudentApplicationComponent } from '../../view-student-application.
 })
 export class ViewAddressComponent implements OnInit {
 
-  constructor(public applicationView: ViewStudentApplicationComponent) { }
+  @Input() address: AcAddress;
+  constructor() { }
 
   ngOnInit() {
+
   }
 
 }

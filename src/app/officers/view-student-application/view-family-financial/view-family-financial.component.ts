@@ -15,10 +15,7 @@ export class ViewFamilyFinancialComponent implements OnInit {
 
 
   @Input() childForm: ApplyScholarshipForm;
-  constructor(private referenceService: ReferenceService,
-              private utilsService: UtilsService,
-              private applicationService: ApplicationService,
-              private ngProgress: NgProgress) { }
+  constructor() { }
 
   ngOnInit() {
     

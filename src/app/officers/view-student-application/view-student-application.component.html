@@ -7,9 +7,9 @@
 <div class="row overide-row" *ngIf="pageRender">
   <app-view-applicant *ngIf="activeIndex == 0" [childForm]="applyApplicationForm"></app-view-applicant>
   <app-view-schoarship-info *ngIf="activeIndex == 1" [childForm]="applyApplicationForm"></app-view-schoarship-info>
-  <!-- <app-view-family-financial *ngIf="activeIndex == 2" [childForm]="applyApplicationForm"></app-view-family-financial>
+  <app-view-family-financial *ngIf="activeIndex == 2" [childForm]="applyApplicationForm"></app-view-family-financial>
   <app-view-family-and-address *ngIf="activeIndex == 3" [childForm]="applyApplicationForm"></app-view-family-and-address>
-  <app-view-document-upload *ngIf="activeIndex == 4" [childForm]="applyApplicationForm"></app-view-document-upload> -->
+  <app-view-document-upload *ngIf="activeIndex == 4" [childForm]="applyApplicationForm"></app-view-document-upload>
 </div>
 <div class="row btn-row overide-row">
     <div class="col-xs-6 btn-panel-left">

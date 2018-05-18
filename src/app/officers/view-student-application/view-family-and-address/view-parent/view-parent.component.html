@@ -1,118 +1,118 @@
 <div class="row overide-row">
   <div class="col-xs-6">
       <label class="normal">ผู้ปกครอง</label>
-      <p>{{setParentsFlag(applicationView.applyScholarshipViewForm.acParent.parent_flag)}}</p>
+      <p>{{parent.parent_flag=='1'?'พ่อ-แม่':'ผู้อุปการะ'}}</p>
   </div>
 </div>
 <div class="row overide-row">
   <div class="col-xs-6">
       <label class="normal">สถานะความสัมพันธ์</label>
-      <p>{{setRelationShipStatus(applicationView.applyScholarshipViewForm.acParent.relationship_status)}}</p>
+      <p>{{parent.relationship_status=='1'?'สมรสอยู่ด้วยกัน':(parent.relationship_status=='2'?'สมรสแยกกันอยู่':'หย่าร้าง')}}</p>
   </div>
-  <div class="col-xs-6" *ngIf="applicationView.applyScholarshipViewForm.acParent.relationship_status == '2'">
+  <div class="col-xs-6" *ngIf="parent.relationship_status == '2'">
       <label class="normal">เหตุผล</label>
-      <p>{{applicationView.applyScholarshipViewForm.acParent.because}}</p>
+      <p>{{parent.because}}</p>
   </div>
 </div>
-<div class="row overide-row" *ngIf="applicationView.applyScholarshipViewForm.acParent.parent_flag == '1'">
+<div class="row overide-row" *ngIf="parent.parent_flag == '1'">
   <h4 class="custom-panel-title">บิดา</h4>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เลขประจำตัวประชาชน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_pid}}</p>
+          <p>{{parent.father_pid}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">สถานะ</label>
-          <p>{{setStatusFlag(applicationView.applyScholarshipViewForm.acParent.father_status)}}</p>
+          <p>{{parent.father_status=='1'?'มีชีวิต':('เสียชีวิต '+'เมื่อปี '+parent.father_died_year|date:'dd/MM/yyyy')}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">ชื่อ - สกุล</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_name}}</p>
+          <p>{{parent.father_name}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">วันเกิด</label>
-          <p>{{utilsService.getBirthDay(applicationView.applyScholarshipViewForm.acParent.father_birth_date)}}</p>
+          <p>{{parent.father_birth_date |date:'dd/MM/yyyy'}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-12">
           <label class="normal">ที่อยู่</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_address}}</p>
+          <p>{{parent.father_address}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">จังหวัด</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_province}}</p>
+          <p>{{parent.father_province | province | async}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">อำเภอ</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_district}}</p>
+          <p>{{parent.father_district | district | async}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">ตำบล</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_sub_district}}</p>
+          <p>{{parent.father_sub_district | subdistrict | async}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">รหัสไปรษณีย์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_postcode}}</p>
+          <p>{{parent.father_postcode}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เบอร์โทรศัพท์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_phone}}</p>
+          <p>{{parent.father_phone}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">อีเมลล์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_email}}</p>
+          <p>{{parent.father_email}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">อาชีพ</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_occupation}}</p>
+          <p>{{parent.father_occupation}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">ตำแหน่ง</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_position}}</p>
+          <p>{{parent.father_position}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-12">
           <label class="normal">สถานที่ทำงาน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_work_address}}</p>
+          <p>{{parent.father_work_address}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_work_phone}}</p>
+          <p>{{parent.father_work_phone}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">แฟกต์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.father_work_fax}}</p>
+          <p>{{parent.father_work_fax}}</p>
       </div>
   </div>
-  <div class="row overide-row" *ngIf="applicationView.applyScholarshipViewForm.acParent.father_land_flag =='2'">
+  <div class="row overide-row" *ngIf="parent.father_land_flag =='2'">
       <label class="normal">ที่ดิน</label>
       <div class="col-xs-3">
-          <p>ทั้งหมด: {{applicationView.applyScholarshipViewForm.acParent.father_land_all}} ไร่</p>
+          <p>ทั้งหมด: {{parent.father_land_all}} ไร่</p>
       </div>
       <div class="col-xs-3">
-          <p>เป็นเจ้าของ: {{applicationView.applyScholarshipViewForm.acParent.father_land_own}} ไร่</p>
+          <p>เป็นเจ้าของ: {{parent.father_land_own}} ไร่</p>
       </div>
       <div class="col-xs-3">
-          <p>เช่า: {{applicationView.applyScholarshipViewForm.acParent.father_land_rent}} ไร่</p>
+          <p>เช่า: {{parent.father_land_rent}} ไร่</p>
       </div>
   </div>
   <div class="row overide-row">
       <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
-      <p>{{applicationView.applyScholarshipViewForm.acParent.father_income_monthly}}</p>
+      <p>{{parent.father_income_monthly}}</p>
   </div>
   <div class="row overide-row">
       <h4 class="custom-panel-title">มารดา</h4>
@@ -120,200 +120,200 @@
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เลขประจำตัวประชาชน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_pid}}</p>
+          <p>{{parent.mother_pid}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">สถานะ</label>
-          <p>{{setStatusFlag(applicationView.applyScholarshipViewForm.acParent.mother_status)}}</p>
+          <p>{{parent.mother_status=='1'?'มีชีวิต':('เสียชีวิต '+'เมื่อปี '+parent.father_died_year|date:'dd/MM/yyyy')}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">ชื่อ - สกุล</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_name}}</p>
+          <p>{{parent.mother_name}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">วันเกิด</label>
-          <p>{{utilsService.getBirthDay(applicationView.applyScholarshipViewForm.acParent.mother_birth_date)}}</p>
+          <p>{{parent.mother_birth_date|date:'dd/MM/yyyy'}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-12">
           <label class="normal">ที่อยู่</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_address}}</p>
+          <p>{{parent.mother_address}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">จังหวัด</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_province}}</p>
+          <p>{{parent.mother_province|province|async}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">อำเภอ</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_district}}</p>
+          <p>{{parent.mother_district|district|async}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">ตำบล</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_sub_district}}</p>
+          <p>{{parent.mother_sub_district|subdistrict|async}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">รหัสไปรษณีย์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_postcode}}</p>
+          <p>{{parent.mother_postcode}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เบอร์โทรศัพท์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_phone}}</p>
+          <p>{{parent.mother_phone}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">อีเมลล์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_email}}</p>
+          <p>{{parent.mother_email}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">อาชีพ</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_occupation}}</p>
+          <p>{{parent.mother_occupation}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">ตำแหน่ง</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_position}}</p>
+          <p>{{parent.mother_position}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-12">
           <label class="normal">สถานที่ทำงาน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_work_address}}</p>
+          <p>{{parent.mother_work_address}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_work_phone}}</p>
+          <p>{{parent.mother_work_phone}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">แฟกต์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.mother_work_fax}}</p>
+          <p>{{parent.mother_work_fax}}</p>
       </div>
   </div>
-  <div class="row overide-row" *ngIf="applicationView.applyScholarshipViewForm.acParent.mother_land_flag =='2'">
+  <div class="row overide-row" *ngIf="parent.mother_land_flag =='2'">
       <label class="normal">ที่ดิน</label>
       <div class="col-xs-3">
-          <p>ทั้งหมด: {{applicationView.applyScholarshipViewForm.acParent.mother_land_all}} ไร่</p>
+          <p>ทั้งหมด: {{parent.mother_land_all}} ไร่</p>
       </div>
       <div class="col-xs-3">
-          <p>เป็นเจ้าของ: {{applicationView.applyScholarshipViewForm.acParent.mother_land_own}} ไร่</p>
+          <p>เป็นเจ้าของ: {{parent.mother_land_own}} ไร่</p>
       </div>
       <div class="col-xs-3">
-          <p>เช่า: {{applicationView.applyScholarshipViewForm.acParent.mother_land_rent}} ไร่</p>
+          <p>เช่า: {{parent.mother_land_rent}} ไร่</p>
       </div>
   </div>
   <div class="row overide-row">
       <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
-      <p>{{applicationView.applyScholarshipViewForm.acParent.mother_income_monthly}}</p>
+      <p>{{parent.mother_income_monthly}}</p>
   </div>
 </div>
-<div class="row overide-row" *ngIf="applicationView.applyScholarshipViewForm.acParent.parent_flag != '1'">
+<div class="row overide-row" *ngIf="parent.parent_flag != '1'">
   <h4 class="custom-panel-title">ผู้ปกครอง</h4>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เลขประจำตัวประชาชน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_pid}}</p>
+          <p>{{parent.patrol_pid}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">สถานะ</label>
-          <p>{{setStatusFlag(applicationView.applyScholarshipViewForm.acParent.patrol_status)}}</p>
+          <p>{{parent.patrol_status=='1'?'มีชีวิต':('เสียชีวิต '+'เมื่อปี '+parent.father_died_year|date:'dd/MM/yyyy')}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">ชื่อ - สกุล</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_name}}</p>
+          <p>{{parent.patrol_name}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">วันเกิด</label>
-          <p>{{utilsService.getBirthDay(applicationView.applyScholarshipViewForm.acParent.patrol_birth_date)}}</p>
+          <p>{{parent.patrol_birth_date|date:'dd/MM/yyyy'}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-12">
           <label class="normal">ที่อยู่</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_address}}</p>
+          <p>{{parent.patrol_address}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">จังหวัด</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_province}}</p>
+          <p>{{parent.patrol_province | province | async}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">อำเภอ</label>
-         <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_district}}</p>
+         <p>{{parent.patrol_district | district | async}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">ตำบล</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_sub_district}}</p>
+          <p>{{parent.patrol_sub_district | subdistrict | async}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">รหัสไปรษณีย์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_postcode}}</p>
+          <p>{{parent.patrol_postcode}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เบอร์โทรศัพท์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_phone}}</p>
+          <p>{{parent.patrol_phone}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">อีเมลล์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_email}}</p>
+          <p>{{parent.patrol_email}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">อาชีพ</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_occupation}}</p>
+          <p>{{parent.patrol_occupation}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">ตำแหน่ง</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_position}}</p>
+          <p>{{parent.patrol_position}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-12">
           <label class="normal">สถานที่ทำงาน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_work_address}}</p>
+          <p>{{parent.patrol_work_address}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <div class="col-xs-6">
           <label class="normal">เบอร์โทรศัพท์ที่ทำงาน</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_work_phone}}</p>
+          <p>{{parent.patrol_work_phone}}</p>
       </div>
       <div class="col-xs-6">
           <label class="normal">แฟกต์</label>
-          <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_work_fax}}</p>
+          <p>{{parent.patrol_work_fax}}</p>
       </div>
   </div>
-  <div class="row overide-row" *ngIf="applicationView.applyScholarshipViewForm.acParent.patrol_land_flag =='2'">
+  <div class="row overide-row" *ngIf="parent.patrol_land_flag =='2'">
       <label class="normal">ที่ดิน</label>
       <div class="col-xs-3">
-          <p>ทั้งหมด: {{applicationView.applyScholarshipViewForm.acParent.patrol_land_all}} ไร่</p>
+          <p>ทั้งหมด: {{parent.patrol_land_all}} ไร่</p>
       </div>
       <div class="col-xs-3">
-          <p>เป็นเจ้าของ: {{applicationView.applyScholarshipViewForm.acParent.patrol_land_own}} ไร่</p>
+          <p>เป็นเจ้าของ: {{parent.patrol_land_own}} ไร่</p>
       </div>
       <div class="col-xs-3">
-          <p>เช่า: {{applicationView.applyScholarshipViewForm.acParent.patrol_land_rent}} ไร่</p>
+          <p>เช่า: {{parent.patrol_land_rent}} ไร่</p>
       </div>
   </div>
   <div class="row overide-row">
       <label class="normal">รายได้เฉลี่ยต่อเดือน</label>
-      <p>{{applicationView.applyScholarshipViewForm.acParent.patrol_income_monthly}}</p>
+      <p>{{parent.patrol_income_monthly}}</p>
   </div>
 </div>

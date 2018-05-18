@@ -1,27 +1,27 @@
 <div class="row overide-row">
   <div class="col-xs-12">
       <label class="normal">ที่อยู่</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.home_address}}</p>
+      <p>{{address.home_address}}</p>
   </div>
 </div>
 <div class="row overide-row">
   <div class="col-xs-6">
       <label class="normal">จังหวัด</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.home_province}}</p>
+      <p>{{address.home_province|province|async}}</p>
   </div>
   <div class="col-xs-6">
       <label class="normal">อำเภอ</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.home_district}}</p>
+      <p>{{address.home_district | district|async}}</p>
   </div>
 </div>
 <div class="row overide-row">
   <div class="col-xs-6">
       <label class="normal">ตำบล</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.home_sub_district}}</p>
+      <p>{{address.home_sub_district|subdistrict|async}}</p>
   </div>
   <div class="col-xs-6">
       <label class="normal">รหัสไปรษณีย์</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.home_postcode}}</p>
+      <p>{{address.home_postcode}}</p>
   </div>
 </div>
 <div class="row overide-row">
@@ -29,7 +29,7 @@
 </div>
 <div class="row overide-row direction-upload">
   <!-- applyApplication.applyApplicationForm.acAddress.direction_image -->
-      <img src="{{applicationView.applyScholarshipViewForm.acAddress.direction_image}}">
+      <img style="width:100%" src="{{address.direction_image}}">
 </div>
 <div class="row overide-row">
   <h4 class="custom-panel-title">ที่อยู่ปัจจุบัน</h4>
@@ -37,26 +37,26 @@
 <div class="row overide-row">
   <div class="col-xs-12">
       <label class="normal">ที่อยู่</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.current_address}}</p>
+      <p>{{address.current_address}}</p>
   </div>
 </div>
 <div class="row overide-row">
   <div class="col-xs-6">
       <label class="normal">จังหวัด</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.current_province}}</p>
+      <p>{{address.current_province|province|async}}</p>
   </div>
   <div class="col-xs-6">
       <label class="normal">อำเภอ</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.current_district}}</p>
+      <p>{{address.current_district|district|async}}</p>
   </div>
 </div>
 <div class="row overide-row">
   <div class="col-xs-6">
       <label class="normal">ตำบล</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.current_sub_district}}</p>
+      <p>{{address.current_sub_district|subdistrict|async}}</p>
   </div>
   <div class="col-xs-6">
       <label class="normal">รหัสไปรษณีย์</label>
-      <p>{{applicationView.applyScholarshipViewForm.acAddress.current_postcode}}</p>
+      <p>{{address.current_postcode}}</p>
   </div>
 </div>

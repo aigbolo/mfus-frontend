@@ -74,7 +74,7 @@ export class ViewStudentApplicationComponent implements AfterViewInit{
       this.findFamilyFinancial();
       this.findDocumentUpload();
     this.ngProgress.done();
-    this.activeIndex = 1;
+    this.activeIndex = 0;
     this.pageRender = true;
 
   }
@@ -105,10 +105,8 @@ export class ViewStudentApplicationComponent implements AfterViewInit{
   }
 
   findScholarshipHistory(){
-    console.log('student ref: ',this.applyApplicationForm.apApplication.student_ref)
     this.applyScholarshipService.initialScholarshipHistory(this.applyApplicationForm.apApplication.student_ref).subscribe(
       data=>{
-        console.log('scholarshiphistory: ', data)
         this.applyApplicationForm.apScholarshipHistorys = data;
       }
     )
@@ -122,41 +120,39 @@ export class ViewStudentApplicationComponent implements AfterViewInit{
     )
   }
   findFamilyFinancial(){
-    // this.applyScholarshipService.initialFamilyFinancial(this.application_ref).subscribe(
-    //   data=>{
-    //     console.log('financial: ',data)
-    //     this.applyApplicationForm.apFamilyFinancial = data.ap_family_financial;
-    //     this.applyApplicationForm.apFamilyDebt = [...data.ap_family_debt]
-    //   }
-    // )
+    this.applyScholarshipService.initialFamilyFinancial(this.applicationRef).subscribe(
+      data=>{
+        this.applyApplicationForm.apFamilyFinancial = data.ap_family_financial;
+        this.applyApplicationForm.apFamilyDebt = [...data.ap_family_debt]
+      }
+    )
   }
 
   findFamilyAndAddress(){
-    // this.familyAndAddress.doGetParent(this.studentRef).subscribe(
-    //   data=>{
-    //     this.applyApplicationForm.acParent = data;
-    //   }
-    // )
-    // this.familyAndAddress.doGetSiblings(this.studentRef).subscribe(
-    //   data=>{
-    //     this.applyApplicationForm.acSiblings = [...data]
-    //   }
+    this.familyAndAddress.doGetParent(this.applyApplicationForm.apApplication.student_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.acParent = data;
+      }
+    )
+    this.familyAndAddress.doGetSiblings(this.applyApplicationForm.apApplication.student_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.acSiblings = [...data]
+      }
 
-    // )
-    // this.familyAndAddress.doGetAddress(this.studentRef).subscribe(
-    //   data=>{
-    //     this.applyApplicationForm.acAddress = data;
-    //   }
-    // )
+    )
+    this.familyAndAddress.doGetAddress(this.applyApplicationForm.apApplication.student_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.acAddress = data;
+      }
+    )
   }
 
   findDocumentUpload(){
-    // this.applyScholarshipService.initialDocumentUpload(this.applyApplicationForm.apApplication.application_ref).subscribe(
-    //   data=>{
-    //     console.log('document upload: ',data);
-    //     this.applyApplicationForm.apDocumentUpload = [...data]
-    //   }
-    // )
+    this.applyScholarshipService.initialDocumentUpload(this.applyApplicationForm.apApplication.application_ref).subscribe(
+      data=>{
+        this.applyApplicationForm.apDocumentUpload = [...data]
+      }
+    )
   }
 
 }

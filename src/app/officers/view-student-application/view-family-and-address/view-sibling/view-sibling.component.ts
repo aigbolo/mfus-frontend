@@ -1,5 +1,6 @@
 import { ViewStudentApplicationComponent } from './../../view-student-application.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AcSibling } from '../../../../models/ac-sibling';
 
 @Component({
   selector: 'app-view-sibling',
@@ -8,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewSiblingComponent implements OnInit {
 
+  @Input() sibling: AcSibling[];
   constructor(
     public applicationView: ViewStudentApplicationComponent
   ) { }
 
   ngOnInit() {
+    console.log('sibling: ',this.sibling)
   }
 
 }

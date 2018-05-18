@@ -1,0 +1,19 @@
+
+<div class="row overide-row">
+    <div class="col-xs-12">
+        <ul class="document-upload-list">
+            <li class="document-item" *ngFor="let doc of childForm.apDocumentUpload">
+                <p>{{doc.application_document_name}} 
+                    <a style="cursor: pointer;" (click)="viewDocument(doc.application_document_name,doc.document_image)">คลิกเพื่อดู</a></p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<p-dialog [(visible)]="display" [modal]="true" 
+[responsive]="false" [width]="1000" [minX]="0" [minY]="0">
+    <p-header>
+        <h4 style="display: inline-block">{{documentName}}</h4><a style="cursor: pointer;float:right" (click)="closeDocument()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+    </p-header>
+    <img class="document-upload" [src]="image" style="width:100%">
+</p-dialog>

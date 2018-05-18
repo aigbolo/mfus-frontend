@@ -1,6 +1,5 @@
-import { NgProgress } from 'ngx-progressbar';
+
 import { Component, OnInit, Input } from '@angular/core';
-import { ApplicationService } from '../../../services/students/application.service';
 import { ApplyScholarshipForm } from '../../../forms/apply-scholarship-form';
 
 @Component({
@@ -10,14 +9,25 @@ import { ApplyScholarshipForm } from '../../../forms/apply-scholarship-form';
 })
 export class ViewDocumentUploadComponent implements OnInit {
 
-
+  display = false;
+  documentName:string="";
+  image:string="";
   @Input() childForm: ApplyScholarshipForm;
 
   constructor(
-    public applicationService: ApplicationService,
-    private ngProgress: NgProgress) { }
+    ) { }
 
   ngOnInit() {
-    this.ngProgress.start();
+
+  }
+
+  viewDocument(documentName,image){
+    this.documentName = documentName;
+    this.image = image;
+    this.display = true;
+  }
+
+  closeDocument(){
+    this.display = false;
   }
 }

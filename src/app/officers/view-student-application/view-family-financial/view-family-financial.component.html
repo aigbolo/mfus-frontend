@@ -1,57 +1,27 @@
-  <div *ngIf="pageRender">
-  <div class="row overide-row">
-      <h4 class="custom-panel-title">รายรับ - รายจ่าย</h4>
-  </div>
+
   <div class="row overide-row">
       <div class="col-xs-3">
           <label class="normal">รายรับ</label>
-          <p>{{applciationView.applyScholarshipViewForm.apFamilyFinancial.income_monthly}}</p>
+          <p>{{childForm.apFamilyFinancial.income_monthly}}</p>
       </div>
       <div class="col-xs-1"></div>
       <div class="col-xs-3">
           <label class="normal">รายจ่าย</label>
-          <p>{{applciationView.applyScholarshipViewForm.apFamilyFinancial.expense_monthly}}</p>
+          <p>{{childForm.apFamilyFinancial.expense_monthly}}</p>
       </div>
   </div>
   <div class="row overide-row">
       <h4 class="custom-panel-title">ภาระหนี้สินครอบครัว</h4>
       <div class="col-xs-12">
-          <p-dataTable [value]="applciationView.applyScholarshipViewForm.apFamilyDebt" [immutable]=false>
-              <p-column header="ลำดับ" field="seq" styleClass="datatable-index">
+          <p-dataTable [value]="childForm.apFamilyDebt" [immutable]=false>
+              <p-column header="ลำดับ" field="" [style]="{'width':'50px'}">
                   <ng-template let-col let-obj="rowIndex" pTemplate="body">
                       {{obj+1}}
                   </ng-template>
               </p-column>
-              <p-column header="รายละเอียด" field="debt_detail">
-                  <ng-template let-col let-obj="rowData" pTemplate="body">
-                      <p>{{obj.debt_detail}}</p>
-                  </ng-template>
-              </p-column>
-              <p-column field="debt_amount" header="จำนวน(บาท)">
-                  <ng-template let-col let-obj="rowData" pTemplate="body">
-                      <p>{{obj.debt_amount}}</p>
-                  </ng-template>
-              </p-column>
+              <p-column header="รายละเอียด" field="debt_detail"></p-column>
+              <p-column field="debt_amount" header="จำนวน(บาท)" [style]="{'width':'150px','textAlign':'right'}"></p-column>
           </p-dataTable>
       </div>
   </div>
-  <div class="space"></div>
-  <div class="row formFooter overide-row">
-      <div class="col-xs-6  btn-panel-left">
-          <button class="ui-button-warning"
-          type="button"
-          (click)="onPrevious()"
-          label="กลับ"
-          pButton>
-        </button>
-        </div>
-        <div class="col-xs-6 btn-panel-right">
-        <button class="ui-button-primary"
-          type="submit"
-          label="ถัดไป"
-          (click)="onNext()"
-          pButton>
-        </button>
-      </div>
-  </div>
-</div>
+
