@@ -14,6 +14,7 @@ export class NavbarComponent implements OnDestroy {
 
   displayName: any;
   status: any;
+  manageProfileURL:string='';
   private subscriptionDisplay: Subscription;
   private subscriptionStatus: Subscription;
 
@@ -23,7 +24,16 @@ export class NavbarComponent implements OnDestroy {
     private router: Router
   ) {
 
-    this.subscriptionStatus = this.auth.getLoggedinStage().subscribe(status => { this.status = status })
+    this.subscriptionStatus = this.auth.getLoggedinStage().subscribe(status => { 
+      this.status = status 
+      const user = JSON.parse(localStorage.getItem('user'))
+      console.log('user: ',user)
+      if(user.user_role == '1'){
+        this.manageProfileURL = '/manage-student-profile'
+      }else{
+        this.manageProfileURL = '/manage-officer-profile'
+      }
+    })
     this.subscriptionDisplay = this.layout.getDisplayName().subscribe(name => { this.displayName = name })
   }
 

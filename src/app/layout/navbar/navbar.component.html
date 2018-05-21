@@ -40,7 +40,7 @@
             <span class="glyphicon glyphicon-user"></span> {{displayName}} <span class="caret"></span>
           </a>
             <ul class="dropdown-menu">
-              <li><a routerLink="/manage-officer-profile">จัดการข้อมูลส่วนตัว</a></li>
+              <li><a [routerLink]="manageProfileURL">จัดการข้อมูลส่วนตัว</a></li>
               <li><a routerLink="/change-password">เปลี่ยนรหัสผ่าน</a></li>
               <li role="separator" class="divider"></li>
               <li><a (click)="onClickLogout()" class="menu-item"><span class="glyphicon glyphicon-log-out"></span> ออกจากระบบ</a></li>

@@ -83,12 +83,12 @@ export class SidebarComponent implements OnInit {
   initialStudentMenu(): MenuItem[] {
     return [
       {
-        label: 'ข้อมูลพื้นฐาน',
-        items: [
-          { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student-profile'] },
-          { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
-          { label: 'เปลี่ยนรหัสผ่าน', routerLink: ['/change-password'] },
-        ]
+        label: 'ข้อมูลครอบครัวและที่อยู่',routerLink: ['/manage-family-and-address']
+        // items: [
+        //   { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student-profile'] },
+        //   { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
+        //   { label: 'เปลี่ยนรหัสผ่าน', routerLink: ['/change-password'] },
+        // ]
       },
       {
         label: 'สมัครทุนการศึกษา',
