@@ -120,7 +120,7 @@
     </div>
     <div class="row overide-row">
         <div class="col-xs-6">
-            <p-dataTable [value]="apStudentLoanFunds">
+            <p-dataTable [value]="apStudentLoanFunds" [immutable]="false">
                 <p-column header="ลำดับ" field="" [style]="{'width':'50px','text-align':'center'}">
                     <ng-template let-obj="rowIndex" pTemplate="body">
                         {{obj+1}}
