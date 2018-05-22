@@ -106,7 +106,7 @@
         class="btn-back ui-button-info" label="ย้อนกลับ" (click)="onPageSearch()"></button>
     </div>
     <div class="col-xs-6 btn-panel-right">
-        <button pButton
+        <button pButton type="button"
         class="btn-pass ui-button-success" label="ผ่านการตรวจสอบ" (click)="onChecked()"></button>
         <button pButton *ngIf="!manageForm.sm_document_request.document_request_ref"
         type="submit" class="btn-save ui-button-warning" label="ขอเอกสารเพิ่มเติม"></button>

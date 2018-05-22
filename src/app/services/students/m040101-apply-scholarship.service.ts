@@ -69,8 +69,10 @@ export class M040101ApplyScholarshipService {
       await form.apScholarshipHistorys.forEach(data=>{
         data.student_ref = form.apApplication.student_ref;
       })
+      const scholarshipHistoryBody = {student_ref:form.apApplication.student_ref,apScholarshipHistorys:[...form.apScholarshipHistorys]};
+
       const scholarshipHistory = await new Promise((resolve,reject)=>{
-        this.updateScholarshipHistory(form.apScholarshipHistorys).subscribe(
+        this.updateScholarshipHistory(scholarshipHistoryBody).subscribe(
         data=>{
           console.log('insert sc history');
           resolve(data)
@@ -123,7 +125,6 @@ export class M040101ApplyScholarshipService {
       }
     )
     })
-    console.log('done debt: ',debt);
     await form.apDocumentUpload.forEach(data=>{
       data.application_ref = application['application_ref'];
     })
@@ -187,8 +188,11 @@ export class M040101ApplyScholarshipService {
       await form.apScholarshipHistorys.forEach(data=>{
         data.student_ref = form.apApplication.student_ref;
       })
+
+      const scholarshipHistoryBody = {student_ref:form.apApplication.student_ref,apScholarshipHistorys:[...form.apScholarshipHistorys]};
+
       const scholarshipHistory = await new Promise((resolve,reject)=>{
-        this.updateScholarshipHistory(form.apScholarshipHistorys).subscribe(
+        this.updateScholarshipHistory(scholarshipHistoryBody).subscribe(
         data=>{
           console.log('insert sc history');
           resolve(data)
@@ -271,7 +275,7 @@ export class M040101ApplyScholarshipService {
   updateApplication(application: ApApplication) {
     return this.configurationService.requestMethodPUT('application', application)
   }
-  updateScholarshipHistory(scholarshipHistory: ApScholarshipHistory[]) {
+  updateScholarshipHistory(scholarshipHistory) {
     return this.configurationService.requestMethodPUT('scholarshiphistory', scholarshipHistory)
   }
   updateStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {

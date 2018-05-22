@@ -6,6 +6,7 @@
         <div class="col-xs-12">
             <label class="normal">ทุนการศึกษา *</label>
             <p-autoComplete
+                [disabled]="apApplication.application_ref"
               [suggestions]="autocompleteAnnouncementList"
               [(ngModel)]="announcement"
               [dropdown]="true"
