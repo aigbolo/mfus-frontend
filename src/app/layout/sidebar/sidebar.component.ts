@@ -21,14 +21,15 @@ export class SidebarComponent implements OnInit {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
+    console.log('user: ',this.authService.user);
     if(this.authService.user){
       if (this.authService.user.user_role == '1') {
         this.items = this.initialStudentMenu()
       } else {
         this.items = this.initialOfficerMenu();
-        console.log('menu item: ',this.items);
-        console.log(this.authService.getUser().manage_officer_flag)
-        if(this.authService.getUser().manage_officer_flag == 2){
+        
+        console.log(this.authService.user.manage_officer_flag)
+        if(this.authService.user.manage_officer_flag == '2'){
   
           this.items.unshift({
             label: 'จัดการผู้ใช้',
