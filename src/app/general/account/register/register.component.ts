@@ -39,9 +39,9 @@ export class RegisterComponent extends CalendarModel implements OnInit {
     super();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getYearRange();
-    // this.titleList = this.utilsService.getTitleList();
+    await this.utilsService.initialTitleName();
     this.pageRender = true;
     this.btnLabel = "บันทึก";
     this.referenceService.initialSchools();
@@ -49,6 +49,7 @@ export class RegisterComponent extends CalendarModel implements OnInit {
     this.manageStudentForm.acStudent.profile_image =
       "./assets/images/empty_profile.png";
     this.validateForm();
+    this.onToggleGender();
   }
 
   validateForm() {
@@ -69,6 +70,12 @@ export class RegisterComponent extends CalendarModel implements OnInit {
       phone_no: new FormControl(this.manageStudentForm.acStudent.phone_no, Validators.compose([Validators.required,Validators.pattern(/^[0-9]+$/)])),
       email: new FormControl(this.manageStudentForm.acStudent.email,Validators.compose([Validators.required,Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)]))
     });
+  }
+
+  onToggleGender(){
+    console.log('toggle gender: ',this.manageStudentForm.acStudent.gender)
+    this.titleList = this.utilsService.getTitleNameByGender(this.manageStudentForm.acStudent.gender);
+    this.manageStudentForm.acStudent.title_ref = this.titleList[0].value;
   }
 
   getYearRange() {

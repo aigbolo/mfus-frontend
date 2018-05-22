@@ -53,8 +53,9 @@ export class ManageOfficerProfileComponent implements OnInit {
     this.ngProgress.start();
     this.validateForm();
     this.initialOfficerData();
+    await this.utilsService.initialTitleName();
     this.referenceService.initialProvince();
-    this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
+    
     console.log('title list: ',this.titleList)
   }
 
@@ -86,9 +87,11 @@ export class ManageOfficerProfileComponent implements OnInit {
             },
             () => {
               this.pageRender = true;
+
               this.ngProgress.done();
             }
             );
+            this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
         }, 3000);
       })
   }
@@ -157,6 +160,11 @@ export class ManageOfficerProfileComponent implements OnInit {
     });
   }
 
+  onToggleGender(){
+    console.log('toggle gender: ',this.manageOfficerForm.acOfficer.gender)
+    this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
+    this.manageOfficerForm.acOfficer.title_ref = this.titleList[0].value;
+  }
   autocompleteProvince(event) {
     let query = event.query;
     this.provinceList = [];

@@ -31,6 +31,7 @@
                       [(ngModel)]="manageStudentForm.acStudent.gender"
                       value="M"
                       label="ชาย"
+                      (click)="onToggleGender()"
                       formControlName="gender"
                       inputId="opt1">
                     </p-radioButton>
@@ -38,6 +39,7 @@
                       [(ngModel)]="manageStudentForm.acStudent.gender"
                       value="F"
                       label="หญิง"
+                      (click)="onToggleGender()"
                       formControlName="gender"
                       inputId="opt2">
                     </p-radioButton>

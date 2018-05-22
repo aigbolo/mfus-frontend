@@ -15,7 +15,6 @@ export class UtilsService {
 
   constructor(private router: Router,
     private configurationService: ConfigurationService) { 
-      this.initialTitleName();
     }
 
   // cri is page action such as M = manage page, S = search page
@@ -50,23 +49,24 @@ export class UtilsService {
   }
 
  async initialTitleName() {
-    console.log('initialTitleName')
+    return new Promise(resolve => {
       this.configurationService.requestMethodGET(`autocomplete-titlename`).subscribe(
         data=>{
          this.titleName = [...data];
-         console.log('title is set: ',this.titleName)
+         resolve();
         }
       )
+     
+    });
+     
   
   }
 
   getTitleNameByGender(gender){
     let result:SelectItem[] = [];
-
-    console.log('title name: ',this.titleName)
     this.titleName.forEach(title=>{
       if(title.gender == gender){
-        result.concat({label:title.title_name_t,value:title.title_ref})
+        result = [...result,{label:title.title_name_t,value:title.title_ref}]
       }
     });
     return result;

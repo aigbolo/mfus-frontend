@@ -64,17 +64,19 @@ export class M010102ManageOfficerComponent implements OnInit {
     private authService: AuthenticationService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.ngProgress.start();
     this.manageOfficerForm = new OfficerForm();
     this.btnLabel = "เพิ่มข้อมูล";
     this.layoutService.setPageHeader("เพิ่มข้อมูลเจ้าหน้าที่");
     this.login()
+    
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
     
     this.referenceService.initialProvince();
     this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params["id"];
+    await this.utilsService.initialTitleName();
     if (this.manageOfficerForm.acOfficer.officer_ref != null) {
       console.log('onrow')
       this.btnLabel = "แก้ไขข้อมูล";
