@@ -48,13 +48,14 @@ export class ManageOfficerProfileComponent implements OnInit {
     private ngProgress: NgProgress,
     private layoutService: LayoutService) { }
 
-  ngOnInit() {
+ async ngOnInit() {
     this.layoutService.setPageHeader('แก้ไขข้อมูลส่วนตัว');
     this.ngProgress.start();
     this.validateForm();
     this.initialOfficerData();
     this.referenceService.initialProvince();
-    this.titleList = this.utilsService.getTitleList();
+    this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
+    console.log('title list: ',this.titleList)
   }
 
   initialOfficerData() {

@@ -35,7 +35,7 @@
     maxlength="4"
     minlength="4"
     [(ngModel)]="manageForm.scholarships_announcement.year"
-    [disabled]="updateMode"
+    [attr.disabled]="updateMode == true ? true : null"
     (blur)="getRound()">
   </div>
   <div class="col-xs-8">

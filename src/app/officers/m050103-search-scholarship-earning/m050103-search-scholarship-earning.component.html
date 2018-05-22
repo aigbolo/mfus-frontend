@@ -67,7 +67,7 @@
     <p-column field="scholarship_name" header="ชื่อทุนการศึกษา" styleClass="scholarship"></p-column>
     <p-column field="round" header="รอบที่" styleClass="round"></p-column>
     <p-column field="" header="วันที่ประกาศผล" styleClass="announce-result">
-      <ng-template pTemplate="body" let-data="rowData" let-index="rowIndex">{{data.announce_result_date|date:'dd/MM/yyyy'}}</ng-template>
+      <ng-template pTemplate="body" let-data="rowData" >{{data.announce_result_date|date:'dd/MM/yyyy'}}</ng-template>
     </p-column>
     <p-column field="interviewee" header="มีสิทธิ์สัมภาษณ์" styleClass="interviewees"></p-column>
     <p-column field="grantee" header="ได้รับทุน" styleClass="grantees"></p-column>

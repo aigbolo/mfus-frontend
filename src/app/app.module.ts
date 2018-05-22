@@ -74,7 +74,6 @@ import { ReferenceService } from './services/general/reference.service';
 import { EnsureIsNotAuth } from './services/general/ensure-is-not-auth.service';
 import { M030102ManageScholarshipComponent } from './officers/m030102-manage-scholarship/m030102-manage-scholarship.component';
 import { JqueryScriptService } from './services/utils/jquery-script.service';
-import { ForgotPasswordComponent } from './general/authentication/forgot-password/forgot-password.component';
 import { S030102SearchScolarshipComponent } from './officers/s030102-search-scolarship/s030102-search-scolarship.component';
 import { M030103ManageSholarshipAnnouncementComponent } from './officers/m030103-manage-sholarship-announcement/m030103-manage-sholarship-announcement.component';
 import { RegisterComponent } from './general/account/register/register.component';
@@ -162,7 +161,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M010102ManageOfficerComponent,
     S010102SearchOfficerComponent,
     IndexComponent,
-    ForgotPasswordComponent,
     S030102SearchScolarshipComponent,
     M030103ManageSholarshipAnnouncementComponent,
     RegisterComponent,

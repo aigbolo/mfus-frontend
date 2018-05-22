@@ -30,7 +30,6 @@ import { EnsureIsNotAuth } from "./services/general/ensure-is-not-auth.service";
 import { M030102ManageScholarshipComponent } from "./officers/m030102-manage-scholarship/m030102-manage-scholarship.component";
 import { M030101ManageSponsorsComponent } from "./officers/m030101-manage-sponsors/m030101-manage-sponsors.component";
 import { IndexComponent } from "./general/info/index/index.component";
-import { ForgotPasswordComponent } from "./general/authentication/forgot-password/forgot-password.component";
 import { M060101ManageNewsComponent } from "./officers/m060101-manage-news/m060101-manage-news.component";
 import { S060101SearchNewsComponent } from "./officers/s060101-search-news/s060101-search-news.component";
 import { M030103SearchScholarshipAnnouncementComponent } from "./officers/m030103-search-scholarship-announcement/m030103-search-scholarship-announcement.component";
@@ -64,7 +63,6 @@ const appRoutes: Routes = [
   { path: "result-announcement-detail/:id", component: M000502AnnounceResultDetailComponent},
 
   // Authorization Paths
-  { path: "forgot", component: ForgotPasswordComponent },
   { path: "login", component: LoginComponent, canActivate: [EnsureIsNotAuth] },
   {
     path: "change-password",

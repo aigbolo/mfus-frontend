@@ -72,7 +72,7 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.login()
     this.validateForm();
     this.activeFlag = this.utilsService.getActiveFlag("M");
-    this.titleList = this.utilsService.getTitleList();
+    
     this.referenceService.initialProvince();
     this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params["id"];
     if (this.manageOfficerForm.acOfficer.officer_ref != null) {
@@ -87,6 +87,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.pageRender = true;
       this.ngProgress.done();
     }
+    this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
   }
 
   login(){

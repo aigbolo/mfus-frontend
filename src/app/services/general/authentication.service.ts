@@ -39,9 +39,9 @@ export class AuthenticationService {
     return this.config.requestMethodPOSTWithHeader('ensure', '', headers).toPromise()
   }
 
-  changePassword(userId: string, newPassword: string) {
-    //console.log("newPassword: " + newPassword);
-    const param = { user_id: userId, password: newPassword }
+  changePassword(userRef: string, newPassword: string) {
+    console.log("newPassword: " + newPassword);
+    const param = { user_ref: userRef, password: newPassword }
     return this.config.requestMethodPOST('reset-password', param)
   }
 

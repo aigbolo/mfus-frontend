@@ -3,14 +3,20 @@ import { SelectItem, MenuItem } from 'primeng/primeng';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
+import { ConfigurationService } from './configuration.service';
+import { RftTitleName } from '../../models/rft-title-name';
 @Injectable()
 export class UtilsService {
 
   items: MenuItem[] = []
   activeIndex: number = 0;
+  private titleName: RftTitleName[];
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private configurationService: ConfigurationService) { 
+      this.initialTitleName();
+    }
 
   // cri is page action such as M = manage page, S = search page
   getActiveFlag(cri: string):SelectItem[]{
@@ -43,14 +49,30 @@ export class UtilsService {
     return flag
   }
 
-  getTitleList():SelectItem[] {
-    let titleList = [
-      { label: 'นาย', value: 'Mr' },
-      { label: 'นาง', value: 'Miss' },
-      { label: 'นางสาว', value: 'Mrs' }
-    ]
-    return titleList;
+ async initialTitleName() {
+    console.log('initialTitleName')
+      this.configurationService.requestMethodGET(`autocomplete-titlename`).subscribe(
+        data=>{
+         this.titleName = [...data];
+         console.log('title is set: ',this.titleName)
+        }
+      )
+  
   }
+
+  getTitleNameByGender(gender){
+    let result:SelectItem[] = [];
+
+    console.log('title name: ',this.titleName)
+    this.titleName.forEach(title=>{
+      if(title.gender == gender){
+        result.concat({label:title.title_name_t,value:title.title_ref})
+      }
+    });
+    return result;
+  }
+
+
 
   goToPage(path: string) {
     this.router.navigate([path])

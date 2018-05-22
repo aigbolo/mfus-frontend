@@ -74,7 +74,7 @@ export class ManageStudentProfileComponent extends CalendarModel implements OnIn
   }
 
   gettitleList() {
-    this.titleList = this.utilsService.getTitleList();
+    this.titleList = this.utilsService.getTitleNameByGender(this.manageStudentForm.acStudent.gender);
   }
 
   validateForm() {

@@ -41,7 +41,7 @@ export class RegisterComponent extends CalendarModel implements OnInit {
 
   ngOnInit() {
     this.getYearRange();
-    this.titleList = this.utilsService.getTitleList();
+    // this.titleList = this.utilsService.getTitleList();
     this.pageRender = true;
     this.btnLabel = "บันทึก";
     this.referenceService.initialSchools();

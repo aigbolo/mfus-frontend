@@ -40,30 +40,17 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     if (this.group.value.new_pwd !== this.group.value.verify_pwd) {
-      this.layout.setMsgDisplay(
-        Severity.WARN,
-        "รหัสผ่านไม่ตรงกัน",
-        "กรุณาตรวจสอบ"
-      );
+      this.layout.setMsgDisplay(Severity.WARN,"รหัสผ่านไม่ตรงกัน","กรุณาตรวจสอบ");
       return;
     }
 
     if (this.group.value.old_pwd === this.group.value.new_pwd) {
-      this.layout.setMsgDisplay(
-        Severity.WARN,
-        "รหัสผ่านตรงกับรหัสเดิม",
-        "กรุณาตรวจสอบ"
-      );
+      this.layout.setMsgDisplay(Severity.WARN,"รหัสผ่านตรงกับรหัสเดิม","กรุณาตรวจสอบ");
       return;
     }
 
-    //const username = localStorage.getItem("username");
-    const userid = this.user.user_id;
-    if (!userid) {
-      return;
-    }
 
-    this.authService.changePassword(userid, this.group.value.new_pwd)
+    this.authService.changePassword(this.authService.user.user_ref, this.group.value.new_pwd)
       .subscribe(
         snapshot => {
           if (snapshot) {
