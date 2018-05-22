@@ -47,10 +47,10 @@ implements OnInit {
     this.layoutService.setPageHeader('บันทึกผู้มีสิทธิ์สัมภาษณ์');
     this.validatorForm();
     this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
-
+    this.searchForm.search_criteria.year = this.searchForm.search_criteria.year?this.searchForm.search_criteria.year:new Date().getFullYear();
     this.scholarshipList = await this.referenceService.autocompleteScholarshipAnnouncementForSearch('');
     if(this.searchForm.search_criteria.announcement_ref!){
-      var scholarship = await this.scholarshipList.filter((data)=>{
+      let scholarship = await this.scholarshipList.filter((data)=>{
         if(data.announcement_ref == this.searchForm.search_criteria.announcement_ref){
           return data;
         }

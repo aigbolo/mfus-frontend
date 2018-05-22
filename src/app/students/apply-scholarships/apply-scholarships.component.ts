@@ -57,6 +57,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     this.applyApplicationForm.apApplication.student_ref = this.user.account_ref;
     this.applyApplicationForm.apApplication.create_user = this.user.account_ref;
     this.applyApplicationForm.apApplication.update_user = this.user.account_ref;
+    this.applyApplicationForm.apApplication.document_screening_flag = '1';
     this.getApplicationStep();
     this.findFamilyAndAddress();
     this.findScholarshipHistory();

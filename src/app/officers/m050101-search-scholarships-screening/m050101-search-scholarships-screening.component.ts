@@ -52,7 +52,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
     this.setDocumentScreeningFlag();
 
     this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
-
+    this.searchForm.search_criteria.year = this.searchForm.search_criteria.year?this.searchForm.search_criteria.year:new Date().getFullYear();
     this.scholarshipAnnouncementList = await this.referenceService.autocompleteScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year);
 
     var scholarshipAnnouncement = await this.scholarshipAnnouncementList.filter((data)=>{
@@ -150,6 +150,7 @@ export class M050101SearchScholarshipsScreeningComponent implements OnInit {
 
   onReset(){
     this.searchForm = new ScholarshipScreeningForm;
+    this.searchForm.search_criteria.year = new Date().getFullYear();
     this.scholarshipScreeningList = [];
     this.scholarshipScreening = null;
     this.scholarshipAnnouncementList = [];

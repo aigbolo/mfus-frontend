@@ -38,6 +38,7 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
     this.validatorForm();
     
     this.searchForm.search_criteria = await this.utilsService.castToObject(this.searchForm.search_criteria,this.activateRoute.snapshot.queryParams);
+    this.searchForm.search_criteria.year = this.searchForm.search_criteria.year?this.searchForm.search_criteria.year:new Date().getFullYear();
     this.scholarshipAnnouncementList = await this.referenceService.autocompleteScholarshipAnnouncementForSearch(this.searchForm.search_criteria.year = new Date().getFullYear());
     var scholarshipAnnouncement = await this.scholarshipAnnouncementList.filter((data)=>{
       if(data.announcement_ref == this.searchForm.search_criteria.announcement_ref){
@@ -62,7 +63,6 @@ export class M050103SearchScholarshipEarningComponent implements OnInit {
 
   onSearch(){
     localStorage.setItem('currentSearchParam', JSON.stringify(this.searchForm.search_criteria));
-    // this.searchForm.search_criteria.year = new Date().getFullYear();
     this.utilsService.goToPageWithQueryParam('search-scholarship-earning',this.searchForm.search_criteria);
     this.doSearch();
   }
