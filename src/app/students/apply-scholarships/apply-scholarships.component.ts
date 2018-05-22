@@ -208,7 +208,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
     if(!this.applyApplicationForm.apApplication.application_ref){
       response = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
     }else{
-      response = await this.applyScholarshipService.updateApply(this.applyApplicationForm)
+      response = await this.applyScholarshipService.updateApplyScholarship(this.applyApplicationForm)
     }
 
     console.log(response)

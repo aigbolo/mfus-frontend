@@ -92,7 +92,8 @@ export class M040101ApplyScholarshipService {
 
     if(form.apStudentLoanFunds.length >0){
       const loanHistory = await new Promise((resolve,reject)=>{
-        this.updateStudentLoanFund(form.apStudentLoanFunds).subscribe(
+        const loanHistoryBody = {student_ref:form.apApplication.student_ref,apStudentLoanFunds:[...form.apStudentLoanFunds]};
+        this.updateStudentLoanFund(loanHistoryBody).subscribe(
         data=>{
           console.log('insert loan history');
           resolve(data)
@@ -167,7 +168,7 @@ export class M040101ApplyScholarshipService {
 
 
 
-  async updateApply(form:ApplyScholarshipForm){
+  async updateApplyScholarship(form:ApplyScholarshipForm){
     const application = await new Promise((resolve,reject)=>{
       this.updateApplication(form.apApplication).subscribe(
       data=>{
@@ -210,7 +211,7 @@ export class M040101ApplyScholarshipService {
     }
 
 
-    if(form.apStudentLoanFunds.length >0){
+
       const loanHistory = await new Promise((resolve,reject)=>{
         const loanHistoryBody = {student_ref:form.apApplication.student_ref,apStudentLoanFunds:[...form.apStudentLoanFunds]};
         this.updateStudentLoanFund(loanHistoryBody).subscribe(
@@ -227,8 +228,7 @@ export class M040101ApplyScholarshipService {
         }
       )
       })
-      console.log('done loan history: ',loanHistory);
-    }
+
 
     form.apFamilyFinancial.application_ref  = application['application_ref'];
     const debt = await new Promise((resolve,reject)=>{
