@@ -212,7 +212,8 @@ export class M040101ApplyScholarshipService {
 
     if(form.apStudentLoanFunds.length >0){
       const loanHistory = await new Promise((resolve,reject)=>{
-        this.updateStudentLoanFund(form.apStudentLoanFunds).subscribe(
+        const loanHistoryBody = {student_ref:form.apApplication.student_ref,apStudentLoanFunds:[...form.apStudentLoanFunds]};
+        this.updateStudentLoanFund(loanHistoryBody).subscribe(
         data=>{
           console.log('insert loan history');
           resolve(data)
@@ -278,7 +279,7 @@ export class M040101ApplyScholarshipService {
   updateScholarshipHistory(scholarshipHistory) {
     return this.configurationService.requestMethodPUT('scholarshiphistory', scholarshipHistory)
   }
-  updateStudentLoanFund(stdLoanFund: ApStudentLoanFund[]) {
+  updateStudentLoanFund(stdLoanFund) {
     return this.configurationService.requestMethodPUT('studentloanfund', stdLoanFund)
   }
   updateFamilyFinancialAndFamilyDebt(financial:ApFamilyFinancial,debtList:ApFamilyDebt[]) {
