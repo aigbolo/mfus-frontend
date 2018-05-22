@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
         this.items = this.initialOfficerMenu();
         
         console.log(this.authService.user.manage_officer_flag)
-        if(this.authService.user.manage_officer_flag == '2'){
+        if(this.authService.user.manage_officer_flag == '1'){
   
           this.items.unshift({
             label: 'จัดการผู้ใช้',

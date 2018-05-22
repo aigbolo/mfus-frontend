@@ -75,6 +75,7 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
   }
 
+
   onUpdatePageSetup() {
     let values: Array<any> = [];
     this.layoutService.setPageHeader("แก้ไขข้อมูลผู้ให้ทุนการศึกษา");
@@ -350,11 +351,13 @@ export class M030101ManageSponsorsComponent implements OnInit {
 
   onInsertComplete() {
     this.manageForm = new SponsorsForm;
-
+    this.manageForm.sponsors.active_flag = "Y";
+    this.manageForm.sponsors.create_user = this.user.user_ref;
+    this.manageForm.sponsors.update_user = this.user.user_ref;
     this.province = new RftProvince;
     this.district = new RftDistrict;
     this.subDistrict = new RftSubDistrict;
-    this.ngOnInit();
+    
   }
   onPageSearch() {
     this.utilsService.goToPage("search-sponsors");
