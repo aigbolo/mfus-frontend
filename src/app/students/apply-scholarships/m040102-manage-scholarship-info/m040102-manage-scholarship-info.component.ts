@@ -137,6 +137,7 @@ export class M040102ManageScholarshipInfoComponent implements OnInit {
 
   deleteStudentLoans(index){
     this.apStudentLoanFunds.splice(index,1);
+    console.log('student loan: ',this.apStudentLoanFunds)
   }
 
   onGoBack(){
