@@ -56,7 +56,6 @@ export class ManageOfficerProfileComponent implements OnInit {
     await this.utilsService.initialTitleName();
     this.referenceService.initialProvince();
     
-    console.log('title list: ',this.titleList)
   }
 
   initialOfficerData() {

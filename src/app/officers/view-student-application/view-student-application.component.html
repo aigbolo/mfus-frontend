@@ -14,6 +14,7 @@
 <div class="row btn-row overide-row">
     <div class="col-xs-6 btn-panel-left">
         <button class="ui-button-warning text-left"
+        *ngIf="activeIndex != 0"
         type="button"
         label="ย้อนกลับ"
         (click)="onChangeTabIndex(-1)"
@@ -22,6 +23,7 @@
     </div>
   <div class="col-xs-6 btn-panel-right">
       <button class="ui-button-primary text-right"
+      *ngIf="activeIndex != 4"
         type="button"
         label="ถัดไป"
         (click)="onChangeTabIndex(+1)"
