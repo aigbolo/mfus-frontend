@@ -25,6 +25,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('user: ',this.authService.user)
     this.group = new FormGroup({
       old_pwd: new FormControl(null, Validators.required),
       new_pwd: new FormControl(null, Validators.required),
@@ -62,8 +63,7 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
 
-    this.authService
-      .changePassword(userid, this.group.value.new_pwd)
+    this.authService.changePassword(userid, this.group.value.new_pwd)
       .subscribe(
         snapshot => {
           if (snapshot) {

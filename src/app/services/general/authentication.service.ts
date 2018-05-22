@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class AuthenticationService {
 
   public isLoggedin = new BehaviorSubject<string>(localStorage.getItem('token'));
-
+  public user:AcUser;
   constructor(private config: ConfigurationService,
     private layout: LayoutService,) { }
 
@@ -22,7 +22,9 @@ export class AuthenticationService {
   logout() {
     const user = localStorage.getItem('user')
     this.config.requestMethodPOST('logout', JSON.parse(user)).subscribe();
+    this.user = null;
     this.clearLoggedinStage();
+
     localStorage.clear();
   }
 

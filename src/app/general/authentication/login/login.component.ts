@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
             const token = user.api_token
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
+            this.authService.user = user;
             localStorage.setItem('username',user.user_name);
             this.layout.setDisplayName(localStorage.getItem('username'));
             this.authService.setLoggedinStage(token)

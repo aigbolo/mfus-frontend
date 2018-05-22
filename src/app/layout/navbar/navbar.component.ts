@@ -27,12 +27,14 @@ export class NavbarComponent implements OnDestroy {
     this.subscriptionStatus = this.auth.getLoggedinStage().subscribe(status => { 
       this.status = status 
       const user = JSON.parse(localStorage.getItem('user'))
-      console.log('user: ',user)
-      if(user.user_role == '1'){
-        this.manageProfileURL = '/manage-student-profile'
-      }else{
-        this.manageProfileURL = '/manage-officer-profile'
+      if(user){
+        if(user.user_role == '1'){
+          this.manageProfileURL = '/manage-student-profile'
+        }else{
+          this.manageProfileURL = '/manage-officer-profile'
+        }
       }
+      
     })
     this.subscriptionDisplay = this.layout.getDisplayName().subscribe(name => { this.displayName = name })
   }

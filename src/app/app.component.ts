@@ -21,27 +21,21 @@ export class AppComponent implements OnInit,OnDestroy {
   private subscription: Subscription;
   private subscriptionMsg: Subscription;
   private tokenCheckClock:any;
-  constructor(private authentication: AuthenticationService, 
+  constructor(private authService: AuthenticationService, 
     private layout: LayoutService,
     private ngProgress: NgProgress,
     private utilsService: UtilsService) {
-    this.subscription = this.authentication.getLoggedinStage().subscribe(stage => { this.status = stage })
+    this.subscription = this.authService.getLoggedinStage().subscribe(stage => { this.status = stage })
     this.subscriptionMsg = this.layout.getMsgDisplay().subscribe(msg => { this.msgs = msg })
   }
   ngOnInit() {
-    // this.tokenCheckClock = setInterval(()=>{
-    //   this.onRecheckToken();
-    //  },5000)
+    const user = localStorage.getItem('user')
 
-    // this.authentication.isLoggedin.subscribe(data=>{
-    //   console.log('logged in')
-    //   this.user = JSON.parse(localStorage.getItem('user'))
-    //   clearInterval(this.tokenCheckClock);
-    //   this.tokenCheckClock= setInterval(()=>{
-    //     this.onRecheckToken();
-    //    },5000)
-    // })
-    
+    if(user){
+      this.authService.user = JSON.parse(localStorage.getItem('user'))
+      this.onRecheckToken();
+    }
+ 
     
   
   }
@@ -53,16 +47,16 @@ export class AppComponent implements OnInit,OnDestroy {
 
   }
 
-  async onRecheckToken(){
+  onRecheckToken(){
     
-    if(this.user){
+    if(this.authService.user){
       
-      this.authentication.isTokenAliveCheck(this.user).subscribe(
+      this.authService.isTokenAliveCheck(this.authService.user).subscribe(
         data=>{
           if(data.alive == 'true'){
             // Do nothing.
           }else{
-            this.authentication.logout();
+            this.authService.logout();
             this.utilsService.goToPage("/");
             clearInterval(this.tokenCheckClock);
           }
