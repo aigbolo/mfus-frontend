@@ -2,3 +2,6 @@
   height: 375px;
   padding-bottom: 50px;
 }
+.ui-editor-content{
+  font-size: 14px !important
+}
