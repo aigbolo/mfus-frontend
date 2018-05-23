@@ -136,6 +136,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
       this.studentEarningList.forEach(
         data=>{
           if(studentRef = data.student_ref){
+            this.layoutService.setMsgDisplay(Severity.SUCCESS,"ไม่สามารถเลือกได้","เนื่องจากเกินจำนวนทุนการศึกษา");
               data.earn_flag = false;
           }
         }
