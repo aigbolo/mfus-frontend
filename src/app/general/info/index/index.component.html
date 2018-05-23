@@ -1,3 +1,24 @@
-<p>
-  index works!
-</p>
+
+
+<div class="panel panel-default" *ngFor="let news of newsList">
+    <div class="panel-heading" >
+        <h4  [innerText]="news.news_topic" style="color:rgb(175, 1, 1)"></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row overide-row">
+            <div class="col-xs-12 news-image" style="text-align:center">
+                <img [src]="news.news_image" style="width:80%;">
+            </div>
+        </div>
+        <div class="row overide-row">
+          <div class="col-xs-12" >
+              <div [innerHTML]="news.news_detail" style="padding:50px 20px"></div>
+          </div>
+        </div>
+        <div class="row overide-row">
+          <div class="col-xs-12 btn-panel-right">
+            <strong>วันที่ประกาศข่าว:</strong> {{news.publish_date|date:'dd/MM/yyyy'}}
+          </div>
+        </div>
+      </div>
+</div>

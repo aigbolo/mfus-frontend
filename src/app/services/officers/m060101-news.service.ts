@@ -13,14 +13,8 @@ export class M060101NewsService {
   ) { }
 
   searchNews(form: NewsForm){
-    this.router.navigate(["/search-news"], {
-      queryParams: form.searchCriteria
-    });
-    console.log(form.searchCriteria)
-    return this.configurationService.requestMethodPOST(
-      "news",
-      form.searchCriteria
-    );
+
+    return this.configurationService.requestMethodPOST("news",form.searchCriteria);
   }
 
   selectedNew(ref: SmNews) {
@@ -33,5 +27,9 @@ export class M060101NewsService {
 
   updateNews(form: SmNews){
     return this.configurationService.requestMethodPUT('news', form)
+  }
+
+  displayNews(){
+    return this.configurationService.requestMethodGET('show-news')
   }
 }

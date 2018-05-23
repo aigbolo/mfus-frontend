@@ -21,7 +21,6 @@ import { AuthenticationService } from '../../services/general/authentication.ser
 })
 export class M060101ManageNewsComponent extends CalendarModel
   implements OnInit {
-  // user = localStorage.getItem("username");
 
   user: AcUser = new AcUser()
   account: AcOfficer = new AcOfficer()
@@ -125,11 +124,11 @@ export class M060101ManageNewsComponent extends CalendarModel
   }
 
   onResetClick() {
-    this.manageNewsForm = new NewsForm();
+    location.reload();
   }
 
   onSubmit() {
-    console.log(this.manageNewsForm);
+
     if (!this.manageNewsForm.smNews.news_ref) {
       this.doInsert();
     } else {
@@ -141,13 +140,19 @@ export class M060101ManageNewsComponent extends CalendarModel
     this.manageNewsForm.smNews.create_user = this.user.account_ref;
     this.manageNewsForm.smNews.update_user = this.user.account_ref;
     this.newsService.insertNews(this.manageNewsForm.smNews).subscribe(
-      res => {},
+      res => {
+        this.layoutService.setMsgDisplay(
+          Severity.SUCCESS,
+          "บันทึกข้อมูลสำเร็จ",
+          ""
+        );
+      },
       error => {
         console.log(error);
         this.layoutService.setMsgDisplay(
           Severity.ERROR,
           "เกิดข้อผิดพลาด",
-          error
+          ""
         );
       },
       () => {
@@ -185,16 +190,9 @@ export class M060101ManageNewsComponent extends CalendarModel
   }
 
   onPreview() {
-    let previewDate = new Date(this.manageNewsForm.smNews.publish_date);
-    this.previewDate =
-      "วัน " +
-      this.utilsService.convertDay(previewDate.getDay()) +
-      " ที่ " +
-      previewDate.getDate() +
-      " เดือน " +
-      this.utilsService.convertMonth(previewDate.getMonth() + 1) +
-      " " +
-      previewDate.getFullYear().toString();
+    let publish_date = this.manageNewsForm.smNews.publish_date;
+    this.previewDate = publish_date.toLocaleDateString("en-US")
+    console.log('preview_date: ',this.previewDate)
     this.preview = !this.preview;
   }
   ngOnDestroy() {

@@ -53,9 +53,9 @@
 <div class="row overide-row">
   <div class="col-xs-12">
     <p-dataTable [value]="newsFormList" selectionMode="single" (onRowSelect)="onRowSelect($event)">
-      <p-column header="วันที่เผยแพร่" field="publish_date"></p-column>
+      <p-column header="วันที่เผยแพร่" field="publish_date" [style]="{'width':'100px'}"></p-column>
       <p-column header="หัวข้อข่าว" field="news_topic"></p-column>
-      <p-column header="สถานะ" field="active_flag"></p-column>
+      <p-column header="สถานะ" field="active_flag" [style]="{'width':'100px'}"></p-column>
     </p-dataTable>
   </div>
 </div>

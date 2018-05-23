@@ -78,7 +78,6 @@ export class M010102ManageOfficerComponent implements OnInit {
     this.manageOfficerForm.acOfficer.officer_ref = this.route.snapshot.params["id"];
     await this.utilsService.initialTitleName();
     if (this.manageOfficerForm.acOfficer.officer_ref != null) {
-      console.log('onrow')
       this.btnLabel = "แก้ไขข้อมูล";
       this.layoutService.setPageHeader("แก้ไขข้อมูลเจ้าหน้าที่");
       this.officerFormGroup.controls["officer_code"].disable();
@@ -89,7 +88,7 @@ export class M010102ManageOfficerComponent implements OnInit {
       this.pageRender = true;
       this.ngProgress.done();
     }
-    this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
+    this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
   }
 
   login(){
@@ -162,6 +161,12 @@ export class M010102ManageOfficerComponent implements OnInit {
     });
   }
 
+  onToggleGender(){
+    console.log('toggle gender: ',this.manageOfficerForm.acOfficer.gender)
+    this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
+    this.manageOfficerForm.acOfficer.title_ref = this.titleList[0].value;
+  }
+  
   autocompleteProvince(event) {
     let query = event.query;
     this.provinceList = [];
