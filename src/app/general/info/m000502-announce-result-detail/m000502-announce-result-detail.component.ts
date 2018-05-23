@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '../../../services/utils/layout.service';
 import { NgProgress } from 'ngx-progressbar';
@@ -8,6 +8,7 @@ import { SmSchoalrshipAnnouncementIntervieweeDetail } from '../../../models/sm-s
 
 @Component({
   selector: 'app-m000502-announce-result-detail',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './m000502-announce-result-detail.component.html',
   styleUrls: ['./m000502-announce-result-detail.component.css']
 })
@@ -30,14 +31,14 @@ export class M000502AnnounceResultDetailComponent implements OnInit {
 
   initialAnncIntvDetail(ref){
     const criteria = {announcement_ref:ref,earn_flag:'2'}
-    console.log(criteria);
     this.scholarshipService.getAnnouncement({announcement_ref:ref}).subscribe(
       data => {
-        this.smScholarshipAnnouncement = data;
+        this.smScholarshipAnnouncement = data[0];
       }
     )
     this.scholarshipService.getAnnouncementDetail(criteria).subscribe(
       detail=>{
+        console.log(detail)
         this.smSchoalrshipAnnouncementIntervieweeDetail = detail;
       }, error=>{
         console.log(error);

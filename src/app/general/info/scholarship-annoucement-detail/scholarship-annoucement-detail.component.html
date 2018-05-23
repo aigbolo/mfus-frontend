@@ -41,6 +41,13 @@
           <p>{{scholarshipAnnouncement.financial_aid|currency:' ':'symbol-narrow'}}</p>
       </div>
   </div>
+  <div class="row overide-row">
+        <div class="col-xs-12">
+          <label  class="normal">รายละเอียด</label>
+          <p [innerText]="scholarshipAnnouncement.detail"></p>
+        </div>
+        
+    </div>
 
   <div class="row overide-row">
     <h4 class="custom-panel-title">เงื่อนไขการคัดเลือก</h4>
