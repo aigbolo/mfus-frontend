@@ -205,13 +205,14 @@ onSubmit(){
       this.scholarshipScreeningService.doUpdateRequestDocument(this.manageForm)
       .subscribe(
         data=>{
+          console.log('screening: ',data)
           if(data){
             let application: ApApplication = new ApApplication;
             application.document_screening_flag = '2';
             application.application_ref = this.manageForm.application.application_ref;
             application.update_user = this.user.account_ref;
             this.applyScholarshipService.updateApplication(application).subscribe(
-              ()=>{
+              data=>{
                 this.layoutService.setMsgDisplay(Severity.SUCCESS,"แก้ไขข้อมูลสำเร็จ","");
               },err=>{
                 this.layoutService.setMsgDisplay(Severity.ERROR,"แก้ไขข้อมูลไม่สำเร็จ","");
@@ -234,13 +235,14 @@ onSubmit(){
       this.scholarshipScreeningService.doCreateRequestDocument(this.manageForm)
       .subscribe(
         data=>{
+          console.log('screening: ',data)
           if(data){
             let application: ApApplication = new ApApplication;
             application.document_screening_flag = '2';
             application.application_ref = this.manageForm.application.application_ref;
             application.update_user = this.user.account_ref;
             this.applyScholarshipService.updateApplication(application).subscribe(
-              ()=>{
+              data=>{
                 this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
               },err=>{
                 this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");

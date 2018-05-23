@@ -61,7 +61,7 @@
 
     <p-column field="" header="เลือก" styleClass="check-box">
       <ng-template pTemplate="body" let-data="rowData" let-index="rowIndex" >
-          <p-checkbox name="selectStudentEarning{{index+1}}" [(ngModel)]="data.earn_flag" binary="true" ></p-checkbox>
+          <p-checkbox name="selectStudentEarning{{index+1}}" [(ngModel)]="data.earn_flag" binary="true" (click)="onSelectStudent(data.student_ref)"></p-checkbox>
       </ng-template>
     </p-column>
 

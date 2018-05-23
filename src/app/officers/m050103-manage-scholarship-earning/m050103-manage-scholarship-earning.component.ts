@@ -127,6 +127,21 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
     this.manageForm = new ScholarshipEarningForm;
     this.ngOnInit();
   }
+
+  onSelectStudent(studentRef){
+    console.log('student_ref: ',studentRef)
+    const result = this.studentEarningList.filter(student => student.earn_flag);
+    console.log('total earn: ',result.length)
+    if(result.length>this.manageForm.scholarshipAnnouncement.unit){
+      this.studentEarningList.forEach(
+        data=>{
+          if(studentRef = data.student_ref){
+              data.earn_flag = false;
+          }
+        }
+      )
+    }
+  }
   ngOnDestroy() {
     this.ngProgress.done();
   }
