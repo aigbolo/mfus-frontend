@@ -204,12 +204,13 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
 
   async onSubmitApplication(){
     let response = null;
-
+    this.ngProgress.start();
     if(!this.applyApplicationForm.apApplication.application_ref){
       response = await this.applyScholarshipService.applyScholarship(this.applyApplicationForm)
     }else{
       response = await this.applyScholarshipService.updateApplyScholarship(this.applyApplicationForm)
     }
+    this.ngProgress.done();
 
     console.log(response)
   }
