@@ -135,7 +135,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  whenChangeParentFlag(index: number) {
      this.resetValue();
-     if (index == 1) {
+     if (this.manageForm.acParent.parent_flag == '1') {
 
          this.manageFormGroup.controls["father_pid"].setValidators([Validators.required]);
          this.manageFormGroup.controls["father_name"].setValidators([Validators.required]);
@@ -220,13 +220,21 @@ export class FamilyComponent extends CalendarModel implements OnInit {
          this.manageFormGroup.controls["mother_sub_district"].updateValueAndValidity();
 
          this.manageFormGroup.controls["patrol_relationship"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_relationship"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_pid"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_pid"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_name"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_name"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_birth_date"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_birth_date"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_address"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_address"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_province"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_province"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_district"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_district"].updateValueAndValidity();
          this.manageFormGroup.controls["patrol_sub_district"].setValidators([Validators.required]);
+         this.manageFormGroup.controls["patrol_sub_district"].updateValueAndValidity();
      }
 
 
