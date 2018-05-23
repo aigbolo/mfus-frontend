@@ -155,21 +155,21 @@ export class M060101ManageNewsComponent extends CalendarModel
           ""
         );
       },
-      () => {
-        this.onResetClick();
-        this.layoutService.setMsgDisplay(
-          Severity.SUCCESS,
-          "บันทึกข้อมูลสำเร็จ",
-          ""
-        );
-      }
+     
     );
   }
 
   doUpdate() {
     this.manageNewsForm.smNews.update_user = this.user.account_ref;
     this.newsService.updateNews(this.manageNewsForm.smNews).subscribe(
-      res => {},
+      res => {
+        this.utilsService.goToPage("search-news");
+        this.layoutService.setMsgDisplay(
+          Severity.SUCCESS,
+          "แก้ไขข้อมูลสำเร็จ",
+          ""
+        );
+      },
       error => {
         console.log(error);
         this.layoutService.setMsgDisplay(
@@ -178,14 +178,6 @@ export class M060101ManageNewsComponent extends CalendarModel
           error
         );
       },
-      () => {
-        this.utilsService.goToPage("search-news");
-        this.layoutService.setMsgDisplay(
-          Severity.SUCCESS,
-          "แก้ไขข้อมูลสำเร็จ",
-          ""
-        );
-      }
     );
   }
 

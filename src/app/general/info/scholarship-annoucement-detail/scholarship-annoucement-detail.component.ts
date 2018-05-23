@@ -22,7 +22,7 @@ export class ScholarshipAnnoucementDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    this.layout.setPageHeader("ประกาศทุนการศึกษา");
+    this.layout.setPageHeader("รายละเอียดประกาศทุนการศึกษา");
     if (this.activatedRoute.snapshot.params["id"] != null) {
       this.criteria = {announcement_ref:this.activatedRoute.snapshot.params["id"]};
     }

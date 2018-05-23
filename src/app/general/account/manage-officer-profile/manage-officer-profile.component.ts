@@ -160,7 +160,6 @@ export class ManageOfficerProfileComponent implements OnInit {
   }
 
   onToggleGender(){
-    console.log('toggle gender: ',this.manageOfficerForm.acOfficer.gender)
     this.titleList = this.utilsService.getTitleNameByGender(this.manageOfficerForm.acOfficer.gender);
     this.manageOfficerForm.acOfficer.title_ref = this.titleList[0].value;
   }
