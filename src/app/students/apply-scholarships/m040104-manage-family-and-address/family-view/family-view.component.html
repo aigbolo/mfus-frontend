@@ -4,7 +4,7 @@
         <label>{{acParent.parent_flag=='1'?'บิดา-มารดา':'ผู้อุปการะ'}}</label>
     </div>
 </div>
-<div class="row overide-row">
+<div class="row overide-row"  *ngIf="acParent.parent_flag == '1'">
     <div class="col-xs-6">
         <label class="normal">สถานะความสัมพันธ์</label>
         <label>{{acParent.relationship_status=='1'?'สมรสและอยู่ด้วยกัน':acParent.relationship_status=='2'?'สมรสแต่ไม่ได้อยู่ด้วยกัน':'หย่าร้าง'}}</label>
