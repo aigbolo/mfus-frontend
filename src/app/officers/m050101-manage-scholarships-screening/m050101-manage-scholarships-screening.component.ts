@@ -273,9 +273,10 @@ onChecked(){
   application.update_user = this.user.account_ref;
   this.applyScholarshipService.updateApplication(application).subscribe(
     ()=>{
-
+      this.layoutService.setMsgDisplay(Severity.SUCCESS,"บันทึกข้อมูลสำเร็จ","");
     },err=>{
       console.log(err);
+      this.layoutService.setMsgDisplay(Severity.ERROR,"บันทึกข้อมูลไม่สำเร็จ","");
     }
   )
 }
