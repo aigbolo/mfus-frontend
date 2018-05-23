@@ -53,10 +53,9 @@ export class M050102ManageOfficerInterviewSelectingComponent implements OnInit {
   ngOnInit() {
     this.layoutService.setPageHeader("บันทึกผู้ได้รับสิทธิ์สัมภาษณ์");
 
-    //this.validatorForm();
-    // this.onViewApplication();
 
     let announcement_ref = this.activatedRoute.snapshot.params["id"];
+    
     if (this.activatedRoute.snapshot.params["id"] != null) {
       this.applicationService
         .initialStudentInterview(announcement_ref)
