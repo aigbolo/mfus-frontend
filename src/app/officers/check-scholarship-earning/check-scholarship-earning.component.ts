@@ -129,7 +129,6 @@ export class CheckScholarshipEarningComponent implements OnInit {
       this.onLoad = true;
 
       this.scholarshipEarnCheckService.doSearch(this.searchForm).subscribe(data=>{
-        console.log(data)
         this.studentEarnList = data;
       },
       error =>{
@@ -182,7 +181,6 @@ autocompleteScholarships(event) {
 }
 
 handleCompleteClickScholarships() {
-  console.log("handleCompleteClickSponsors");
 
   setTimeout(() => {
     this.scholarships = this.referenceService.getScholarships();

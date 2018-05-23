@@ -65,12 +65,10 @@
   <p-column field="scholarship_name" header="ทุนการศึกษา" styleClass="scholarship"></p-column>
   <p-column field="round" header="รอบที่" styleClass="no"></p-column>
   <p-column field="" header="นักศึกษาที่ได้รับทุน" styleClass="student">
-    <ng-template let-app="rowData" let-ri="rowIndex" pTemplate="body">
-      <span class="name">{{app['name']}}</span> &nbsp; <small>Student ID: {{app['student_id']}}</small>
-      <br>
-      <small>{{app['school_name_t']}}</small>
-      <br>
-      <small>{{app['major_name_t']}}</small>
+    <ng-template let-app="rowData" pTemplate="body">
+      <p class="name" style="display:block;width:100%">{{app.name}} <small>{{app.student_id}}</small></p>
+      <small>{{app.school_name_t}}</small>,
+      <small>{{app.major_name_t}}</small>
     </ng-template>
   </p-column>
 </p-dataTable>
