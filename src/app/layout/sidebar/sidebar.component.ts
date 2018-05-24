@@ -73,9 +73,8 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ข้อมูลพื้นฐาน',
         items: [
-          { label: 'ข้อมูลสำนักวิชา', routerLink: ['/school'] },
-          { label: 'ข้อมูลสาขาวิชา', routerLink: ['/major'] },
-          { label: 'ข้อมูลข้อมูลเอกสาร/หลักฐาน', routerLink: ['/application-document'] }
+          { label: 'ข้อมูลสำนักวิชา', routerLink: ['/search-school'] },
+          { label: 'ข้อมูลสาขาวิชา', routerLink: ['/search-major'] },
         ]
       },
     ];

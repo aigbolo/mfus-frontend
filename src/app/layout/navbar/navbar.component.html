@@ -6,20 +6,20 @@
                [routerLinkActiveOptions]="{exact: true}"
                routerLink="/">หน้าหลัก</a>
           </li>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle menu-item" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ข่าวสาร <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li *ngIf="false"><a href="#">ข่าวทั่วไป</a></li>
-                <li><a routerLink="/scholarships-announcement">ประกาศเปิดรับสมัคร</a></li>
-                <li><a routerLink="/interviewees-announcement">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</a></li>
-                <li><a routerLink="/result-announcement">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</a></li>
-              </ul>
+          <li>
+            <a routerLinkActive="active" class="menu-item"
+            [routerLinkActiveOptions]="{exact: true}"
+               routerLink="/scholarships-announcement">ประกาศเปิดรับสมัคร</a>
           </li>
           <li>
-            <a class="menu-item">เกี่ยวกับฝ่ายทุนการศึกษา</a>
+            <a routerLinkActive="active" class="menu-item"
+               [routerLinkActiveOptions]="{exact: true}"
+               routerLink="/interviewees-announcement">ประกาศรายชื่อผู้มีสิทธิ์สัมภาษณ์</a>
           </li>
           <li>
-            <a class="menu-item">ติดต่อ</a>
+            <a routerLinkActive="active" class="menu-item"
+               [routerLinkActiveOptions]="{exact: true}"
+               routerLink="/result-announcement">ประกาศรายชื่อผู้ที่ได้รับทุนการศึกษา</a>
           </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
