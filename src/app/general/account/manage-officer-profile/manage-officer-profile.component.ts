@@ -265,10 +265,11 @@ export class ManageOfficerProfileComponent implements OnInit {
 
   onSubmit() {
     this.officerService.doUpdate(this.manageOfficerForm.acOfficer).subscribe(res => {
+      this.layoutService.setMsgDisplay(Severity.SUCCESS, "แก้ไขข้อมูลสำเร็จ", "")
     }, error => {
 
     }, () => {
-      this.layoutService.setMsgDisplay(Severity.SUCCESS, "แก้ไขข้อมูลสำเร็จ", "")
+      
     })
   }
   onResetClick(){

@@ -32,6 +32,7 @@ export class M010102OfficerService {
   }
 
   doUpdate(form: AcOfficer) {
+    console.log('officer: ',form)
     return this.configurationService.requestMethodPUT('officers', form)
   }
 }
