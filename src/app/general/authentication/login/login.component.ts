@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
       acUser.password = password;
       this.authService.login(acUser)
         .subscribe(user => {
-          console.log('login success: ',user);
           this.ngProgress.done();
           if (user) {
             this.logedinFalse = false;
