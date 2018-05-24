@@ -29,5 +29,6 @@ export class SmScholarshipAnnouncement {
   public scholarship_name: string;
   public detail: string;
   public sponsors_name:string;
+  public sctype_name:string;
 
 }

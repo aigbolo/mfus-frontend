@@ -133,7 +133,7 @@ export class FamilyComponent extends CalendarModel implements OnInit {
 
  }
 
- whenChangeParentFlag(index: number) {
+ whenChangeParentFlag() {
      this.resetValue();
      if (this.manageForm.acParent.parent_flag == '1') {
 

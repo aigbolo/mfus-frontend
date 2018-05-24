@@ -28,4 +28,5 @@ export class AcStudent {
  public school_name_t:string;
  public major_name_t:string;
  public age:number;
+ public student_name:string;
 }

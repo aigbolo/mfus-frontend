@@ -23,7 +23,6 @@ this.displayNews();
   displayNews(){
     this.newsService.displayNews().subscribe(
       res=>{
-        console.log(res);
         this.newsList = [...this.newsList,...res.data]
       }
     )
