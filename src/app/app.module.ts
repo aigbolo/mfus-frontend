@@ -131,6 +131,18 @@ import { M010202ManageResetPasswordComponent } from './general/account/m010202-m
 import { M010202ResetPasswordService } from './services/officers/m010202-reset-password.service';
 import { SubDistrictPipe } from './pipes/subdistrict.pipe';
 import { EducationLevelPipe } from './pipes/education-level.pipe';
+import { M04ManageSchoolComponent } from './basic/m04-manage-school/m04-manage-school.component';
+import { M04SearchSchoolComponent } from './basic/m04-search-school/m04-search-school.component';
+import { M05SearchMajorComponent } from './basic/m05-search-major/m05-search-major.component';
+import { M05ManageMajorComponent } from './basic/m05-manage-major/m05-manage-major.component';
+import { M06ManageDocumentComponent } from './basic/m06-manage-document/m06-manage-document.component';
+import { M06SearchDocumentComponent } from './basic/m06-search-document/m06-search-document.component';
+import { M07SearchTitleNameComponent } from './basic/m07-search-title-name/m07-search-title-name.component';
+import { M07ManageTitleNameComponent } from './basic/m07-manage-title-name/m07-manage-title-name.component';
+import { M08ManageEducationLevelComponent } from './basic/m08-manage-education-level/m08-manage-education-level.component';
+import { M08SearchEducationLevelComponent } from './basic/m08-search-education-level/m08-search-education-level.component';
+import { SchoolService } from './services/references/school.service';
+import { MajorService } from './services/references/major.service';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -214,7 +226,17 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ProvincePipe,
     DistrictPipe,
     SubDistrictPipe,
-    EducationLevelPipe
+    EducationLevelPipe,
+    M04ManageSchoolComponent,
+    M04SearchSchoolComponent,
+    M05SearchMajorComponent,
+    M05ManageMajorComponent,
+    M06ManageDocumentComponent,
+    M06SearchDocumentComponent,
+    M07SearchTitleNameComponent,
+    M07ManageTitleNameComponent,
+    M08ManageEducationLevelComponent,
+    M08SearchEducationLevelComponent
   ],
   imports: [
     // Angular
@@ -277,6 +299,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     M050101ScholarshipsScreeningService,
     M050102OfficerInterviewSelectingService,
     ApplicationService,
+    SchoolService,
+    MajorService,
     M050103ScholarshipEarningService,
     ScholarshipEarnCheckService,
     DocumentsRequestedService,

@@ -1,0 +1,70 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="pageRender">
+  <div class="row overide-row">
+      <div class="col-xs-8">
+          <label class="normal">รหัสสำนักวิชา</label>
+          <div>
+              <input class="normal" type="text" formControlName="school_code" 
+              name="school_code" id="schoolCode" maxlength="4" 
+              style="width:70px"
+              [(ngModel)]="school.school_code"
+              pInputText>
+          </div>
+      </div>
+      <div class="col-xs-4">
+          <label class="normal">สถานะ</label>
+          <div>
+              <p-dropdown name="active_flag" 
+              formControlName="active_flag" 
+              [disabled]="!school.school_ref"
+              [(ngModel)]="school.active_flag"
+              [options]="activeFlag" 
+              [style]="{'width':'150px'}">
+              </p-dropdown>
+          </div>
+      </div>
+  </div>
+
+  <div class="row overide-row">
+      <div class="col-xs-12">
+          <label class="normal">ชื่อสำนักวิชา (ภาษาไทย)</label>
+          <div>
+              <input class="normal" type="text" 
+              formControlName="school_name_t" 
+              name="school_name_t" id="schoolNameT" 
+              [(ngModel)]="school.school_name_t" 
+              style="width:500px"
+              maxlength="100" pInputText>
+          </div>
+      </div>
+  </div>
+
+  <div class="row overide-row">
+      <div class="col-xs-12">
+          <label class="normal">ชื่อสำนักวิชา (Eng)</label>
+          <div>
+              <input class="normal" type="text" 
+              name="school_name_e" 
+              formControlName="school_name_e" 
+              id="schoolNameE"  
+              [(ngModel)]="school.school_name_e" 
+              style="width:500px"
+              maxlength="100" pInputText>
+          </div>
+      </div>
+  </div>
+
+  <div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton (click)="onPageSearch()"
+        class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton (click)="onReset()"
+        class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
+        <button pButton *ngIf="!school.school_ref"
+        type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
+        <button pButton *ngIf="school.school_ref"
+        type="submit" class="btn-save ui-button-success" label="แก้ไขข้อมูล"></button>
+    </div>
+</div>
+</form>

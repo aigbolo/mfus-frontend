@@ -1,0 +1,85 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" *ngIf="pageRender">
+  <div class="row overide-row">
+    <div class="col-xs-9">
+        <label class="normal">สำนักวิชา *</label>
+        <p-autoComplete class="autocomplete-province"
+          field="school_name_t"
+          [(ngModel)]="school"
+          [suggestions]="schoolList" (onSelect)="selectSchool()"
+          [forceSelection]="true"
+          [dropdown]="true"
+          name="school"
+          formControlName="school"
+          (onDropdownClick)="handleCompleteClickSchools()"
+          (completeMethod)="autoCompleteSchools($event)">
+        </p-autoComplete>
+    </div>
+    <div class="col-xs-3">
+      <label class="normal">สถานะ</label>
+          <p-dropdown name="active_flag" 
+          formControlName="active_flag" 
+          [disabled]="!major.major_ref"
+          [(ngModel)]="major.active_flag"
+          [options]="activeFlag" 
+          [style]="{'width':'150px'}">
+          </p-dropdown>
+    </div>
+  </div>
+  <div class="row overide-row">
+      <div class="col-xs-8">
+          <label class="normal">รหัสสาขาวิชา</label>
+          <div>
+              <input class="normal" type="text" formControlName="major_code" 
+              name="major_code" id="majorCode" maxlength="4" 
+              style="width:70px"
+              [(ngModel)]="major.major_code"
+              pInputText>
+          </div>
+      </div>
+      
+  </div>
+
+  <div class="row overide-row">
+      <div class="col-xs-12">
+          <label class="normal">ชื่อสาขาวิชา (ภาษาไทย)</label>
+          <div>
+              <input class="normal" type="text" 
+              formControlName="major_name_t" 
+              name="major_name_t" id="majorNameT" 
+              [(ngModel)]="major.major_name_t" 
+              style="width:500px"
+              maxlength="100" pInputText>
+          </div>
+      </div>
+  </div>
+
+  <div class="row overide-row">
+      <div class="col-xs-12">
+          <label class="normal">ชื่อสาขาวิชา (Eng)</label>
+          <div>
+              <input class="normal" type="text" 
+              name="major_name_e" 
+              formControlName="major_name_e" 
+              id="majorNameE"  
+              [(ngModel)]="major.major_name_e" 
+              style="width:500px"
+              maxlength="100" pInputText>
+          </div>
+      </div>
+  </div>
+
+  <div class="row overide-row btn-row">
+    <div class="col-xs-6 btn-panel-left">
+        <button pButton (click)="onPageSearch()"
+        class="btn-back ui-button-info" label="ย้อนกลับ"></button>
+    </div>
+    <div class="col-xs-6 btn-panel-right">
+        <button pButton (click)="onReset()"
+        class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
+        <button pButton *ngIf="!major.major_ref"
+        type="submit" class="btn-save ui-button-success" label="บันทึกข้อมูล"></button>
+        <button pButton *ngIf="major.major_ref"
+        type="submit" class="btn-save ui-button-success" label="แก้ไขข้อมูล"></button>
+    </div>
+</div>
+</form>

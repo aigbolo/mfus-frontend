@@ -2119,13 +2119,7 @@ body .ui-menubutton .ui-button.ui-button-text-icon-left .ui-icon {
 body .ui-panelmenu .fa {
     position: static;
 }
-body .ui-panelmenu .ui-panelmenu-panel {
-    /* border: 1px solid #c7c7c7;
-    border-bottom: none; */
-}
-body .ui-panelmenu .ui-panelmenu-panel:last-child {
-    /* border-bottom: 1px solid #c7c7c7; */
-}
+
 body .ui-panelmenu .ui-panelmenu-header {
     padding: 0;
     font-size: 22px;

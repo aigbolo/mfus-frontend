@@ -49,6 +49,10 @@ import { M040301ManageDocumentsRequestComponent } from './students/m040301-manag
 import { M000401AnnouncementIntervieweeComponent } from './general/info/m000401-announcement-interviewee/m000401-announcement-interviewee.component';
 import { EnsureIsOfficer } from './services/general/ensure-is-officer.service';
 import { CheckScholarshipEarningComponent } from './officers/check-scholarship-earning/check-scholarship-earning.component';
+import { M04SearchSchoolComponent } from './basic/m04-search-school/m04-search-school.component';
+import { M04ManageSchoolComponent } from './basic/m04-manage-school/m04-manage-school.component';
+import { M05ManageMajorComponent } from './basic/m05-manage-major/m05-manage-major.component';
+import { M05SearchMajorComponent } from './basic/m05-search-major/m05-search-major.component';
 
 const appRoutes: Routes = [
 
@@ -69,6 +73,14 @@ const appRoutes: Routes = [
     component: ChangePasswordComponent,
     canActivate: [EnsureIsAuth]
   },
+
+  // Basic pages
+  {path:"manage-school",component:M04ManageSchoolComponent, canActivate: [EnsureIsAuth] },
+  {path:"manage-school/:id",component:M04ManageSchoolComponent, canActivate: [EnsureIsAuth] },
+  {path:"search-school",component:M04SearchSchoolComponent, canActivate: [EnsureIsAuth] },
+  {path:"manage-major",component:M05ManageMajorComponent, canActivate: [EnsureIsAuth] },
+  {path:"manage-major/:id",component:M05ManageMajorComponent, canActivate: [EnsureIsAuth] },
+  {path:"search-major",component:M05SearchMajorComponent, canActivate: [EnsureIsAuth] },
 
   // Officers Paths
   { path: "manage-officer", component: M010102ManageOfficerComponent, canActivate: [EnsureIsAuth] },

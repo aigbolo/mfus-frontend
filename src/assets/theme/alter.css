@@ -84,4 +84,6 @@
 .autocomplete-sponsors .ui-autocomplete input{
   width: 400px;
 }
-
+.autocomplete-school .ui-autocomplete input{
+  width: 400px;
+}

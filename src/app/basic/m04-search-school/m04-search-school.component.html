@@ -1,0 +1,70 @@
+<div class="row overide-row">
+  <div class="col-xs-12">
+    <div class="row overide-row">
+      <div class="col-xs-9">
+        <label class="normal">รหัสสำนักวิชา</label>
+        <input
+        type="text" pInputText
+        maxlength="4" style="width:70px"
+        [(ngModel)]="schoolCriteria.school_code">
+      </div>
+
+      <div class="col-xs-3">
+        <label class="normal">สถานะ</label>
+        <p-dropdown [options]="activeStatus" [(ngModel)]="schoolCriteria.active_flag"
+        >
+        </p-dropdown>
+      </div>
+    </div>
+    <div class="row overide-row">
+      <div class="col-xs-12">
+        <label class="normal">ชื่อสำนักวิชา(ไทย)</label>
+        <input
+        type="text" class="input-school-name-t" pInputText
+        maxlength="100" style="width:500px"
+        [(ngModel)]="schoolCriteria.school_name_t">
+      </div>
+      </div>
+  </div>
+</div>
+
+<!-- Action buttons here -->
+<div class="row overide-row btn-row">
+  <div class="col-xs-6 btn-panel-left">
+    <button pButton
+      class="btn-search primary"
+      label="ค้นหาข้อมูล" (click)="onSearch()"></button>
+  </div>
+  <div class="col-xs-6 btn-panel-right">
+      <button pButton
+        (click)="onReset()"
+        class="btn-reset ui-button-warning"
+        label="เริ่มใหม่"></button>
+      <button pButton
+        (click)="onPageInsert()"
+        class="btn-new ui-button-info"
+        label="เพิ่มข้อมูล"></button>
+    </div>
+</div>
+
+    <p-dataTable [value]="schoolList"
+      [(selection)]="school"
+      selectionMode="single"
+      dataKey="school_ref"
+      (onRowSelect)="onRowSelect($event)"
+      [rows]="10" [paginator]="true"
+      [pageLinks]="3"
+      [rowsPerPageOptions]="[5,10,20]"
+      emptyMessage="ไม่พบข้อมูล" [loading]="onLoad">
+
+      <p-column field="" header="ลำดับ" styleClass="row-number" [style]="{'width':'50px'}">
+          <ng-template pTemplate="body" let-index="rowIndex">{{index+1}}</ng-template>
+      </p-column>
+      <p-column field="school_code" header="รหัสสำนักวิชา" [style]="{'width':'100px'}"></p-column>
+      <p-column field="school_name_t" header="ชื่อสำนักวิชา(ไทย)"></p-column>
+      <p-column field="school_name_e" header="ชื่อสำนักวิชา(Eng)"></p-column>
+      <p-column field="active_flag" header="สถานะ" [style]="{'width':'70px'}"></p-column>
+    </p-dataTable>
+
+
+
