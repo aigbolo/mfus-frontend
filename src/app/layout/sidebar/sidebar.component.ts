@@ -85,16 +85,11 @@ export class SidebarComponent implements OnInit {
       {
         label: 'ข้อมูลครอบครัวและที่อยู่',routerLink: ['/manage-family-and-address']
       },
+      { label: 'สมัครทุนขอทุนการศึกษา', routerLink: ['/manage-application'] },
+      { label: 'ประวัติการสมัครทุนการศึกษา', routerLink: ['/search-sholarships-applied'] },
+      { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-requested'] },
       {
-        label: 'สมัครทุนการศึกษา',
-        items: [
-          { label: 'สมัครทุน', routerLink: ['/manage-application'] },
-          { label: 'ตรวจสอบสถานะทุนการศึกษาที่สมัคร', routerLink: ['/search-sholarships-applied'] },
-          { label: 'บันทึกข้อมูลเอกสารเพิ่มเติม', routerLink: ['/document-requested'] }
-        ]
-      },
-      {
-        label: 'ประวัติทุนการศึกษา', routerLink: ['/earned-history'] 
+        label: 'ประวัติการได้รับทุนการศึกษา', routerLink: ['/earned-history'] 
       }
     ];
   }

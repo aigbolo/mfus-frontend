@@ -2121,21 +2121,27 @@ body .ui-panelmenu .fa {
 }
 
 body .ui-panelmenu .ui-panelmenu-header {
-    padding: 0;
+    padding: 0 !important;
     font-size: 22px;
-    color: #aa0000;
+    color: rgb(170, 0, 0);
     -moz-transition: background-color 0.3s;
     -o-transition: background-color 0.3s;
     -webkit-transition: background-color 0.3s;
     transition: background-color 0.3s;
 }
-body .ui-panelmenu .ui-panelmenu-header .fa {
-    color: #aa0000;
+body .ui-panelmenu .ui-panelmenu-header:hover {
+    background:rgb(248, 255, 190);
 }
-/* body .ui-panelmenu .ui-panelmenu-header a {
-    padding: 0.5em 0.75em;
-    color: #aa0000;
-} */
+body .ui-panelmenu .ui-panelmenu-header a.ui-state-active {
+    background:rgb(248, 255, 190);
+}
+body .ui-panelmenu .ui-panelmenu-header .fa {
+    color: rgb(170, 0, 0);
+}
+body .ui-panelmenu .ui-panelmenu-header a {
+    padding: 0;
+    color: rgb(170, 0, 0);
+}
 body .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active):hover {
     color:#00427b;
 }
@@ -2146,13 +2152,13 @@ body .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active):hover {
     color: white;
 } */
 body .ui-panelmenu .ui-panelmenu-header.ui-state-active {
-    background-color: #f7dc8c;
+    background-color: transparent;
 }
 body .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-    color: #aa0000;
+    color: rgb(170, 0, 0);
 }
 body .ui-panelmenu .ui-panelmenu-header.ui-state-active .fa {
-    color: #aa0000;
+    color: rgb(170, 0, 0);
 }
 body .ui-panelmenu .ui-panelmenu-content .ui-menuitem-link {
     padding: 0.375em 0.75em;
@@ -2180,8 +2186,8 @@ body .ui-panelmenu .ui-panelmenu-content .ui-menuitem-link .ui-menuitem-text {
     vertical-align: middle;
 }
 body .ui-panelmenu .ui-panelmenu-content .ui-menuitem-link.ui-state-active {
-  background-color: #555;
-  color: white;
+  background-color: rgb(248, 255, 190);
+  color: rgb(170, 0, 0);
 }
 body .ui-progressbar {
     border: 0 none;

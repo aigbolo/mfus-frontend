@@ -47,7 +47,7 @@ export class ApplyScholarshipsComponent implements AfterViewInit{
   ) { }
 
   ngAfterViewInit() {
-    this.layoutService.setPageHeader('ยื่นความจำนงขอทุนการศึกษา');
+    this.layoutService.setPageHeader('บันทึกขอทุนการศึกษา');
 
 
   }

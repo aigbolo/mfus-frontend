@@ -22,12 +22,6 @@
           [(ngModel)]="searchForm.search_criteria.application_code">
         </div>
 
-        <div class="col-xs-5">
-          <label class="normal">สถานะการดำเนินการ</label>
-          <p-dropdown [options]="processStatusList"
-          formControlName="process_status"
-          [(ngModel)]="searchForm.search_criteria.process_status"></p-dropdown>
-        </div>
       </div>
     </div>
   </div>
@@ -85,10 +79,9 @@
         <p-column header="ทุนการศึกษา" field="scholarship_name"  styleClass="scholarship_name"></p-column>
         <p-column field="" header="วันที่ปิดรับสมัคร" styleClass="registration_end_date">
           <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
-            {{data['registration_end_date']|date:'dd/MM/yyyy'}}
+            {{data.registration_end_date|date:'dd/MM/yyyy'}}
         </ng-template>
         </p-column>
-        <p-column field="status" header="สถานะทุนการศึกษา" styleClass="status"></p-column>
       </p-dataTable>
 
 
