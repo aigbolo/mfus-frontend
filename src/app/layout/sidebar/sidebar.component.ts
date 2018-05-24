@@ -75,7 +75,6 @@ export class SidebarComponent implements OnInit {
         items: [
           { label: 'ข้อมูลสำนักวิชา', routerLink: ['/school'] },
           { label: 'ข้อมูลสาขาวิชา', routerLink: ['/major'] },
-          { label: 'ข้อมูลคำนำหน้าชื่อ', routerLink: ['/titlename'] },
           { label: 'ข้อมูลข้อมูลเอกสาร/หลักฐาน', routerLink: ['/application-document'] }
         ]
       },
@@ -86,11 +85,6 @@ export class SidebarComponent implements OnInit {
     return [
       {
         label: 'ข้อมูลครอบครัวและที่อยู่',routerLink: ['/manage-family-and-address']
-        // items: [
-        //   { label: 'แก้ไขข้อมูลส่วนตัว', routerLink: ['/manage-student-profile'] },
-        //   { label: 'ข้อมูลครอบครัวและที่อยู่', routerLink: ['/manage-family-and-address'] },
-        //   { label: 'เปลี่ยนรหัสผ่าน', routerLink: ['/change-password'] },
-        // ]
       },
       {
         label: 'สมัครทุนการศึกษา',
@@ -101,10 +95,7 @@ export class SidebarComponent implements OnInit {
         ]
       },
       {
-        label: 'ประวัติทุนการศึกษา',
-        items: [
-          { label: 'ประวัติทุนการศึกษา', routerLink: ['/earned-history'] },
-        ]
+        label: 'ประวัติทุนการศึกษา', routerLink: ['/earned-history'] 
       }
     ];
   }
