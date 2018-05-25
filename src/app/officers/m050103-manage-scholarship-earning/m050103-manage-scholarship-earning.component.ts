@@ -84,7 +84,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
       data => {
         this.studentEarningList = [];
         for(let student of data){
-          student.earn_flag  = (student.earn_flag == '2'?true:false);
+          student.isEarning  = (student.earn_flag == '2'?true:false);
           this.studentEarningList = this.studentEarningList.concat(student);
 
         }
@@ -98,7 +98,7 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
 
   onSubmit() {
     for(let data of this.studentEarningList){
-      data.earn_flag = data.earn_flag ? '2': '3';
+      data.earn_flag = data.isEarning ? '2': '3';
     }
 
     this.scholarshipEarningService.doInsert(this.studentEarningList)
@@ -130,14 +130,14 @@ export class M050103ManageScholarshipEarningComponent implements OnInit {
 
   onSelectStudent(studentRef){
     console.log('student_ref: ',studentRef)
-    const result = this.studentEarningList.filter(student => student.earn_flag);
+    const result = this.studentEarningList.filter(student => student.isEarning);
     console.log('total earn: ',result.length)
     if(result.length>this.manageForm.scholarshipAnnouncement.unit){
       this.studentEarningList.forEach(
         data=>{
           if(studentRef = data.student_ref){
-            this.layoutService.setMsgDisplay(Severity.SUCCESS,"ไม่สามารถเลือกได้","เนื่องจากเกินจำนวนทุนการศึกษา");
-              data.earn_flag = false;
+            this.layoutService.setMsgDisplay(Severity.WARN,"ไม่สามารถเลือกได้","เนื่องจากเกินจำนวนทุนการศึกษา");
+              data.isEarning = false;
           }
         }
       )

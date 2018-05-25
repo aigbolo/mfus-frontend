@@ -43,7 +43,7 @@
 
     <div class="col-xs-4">
       <label class="normal">จำนวนทุนการศึกษา/ทุนการศึกษา(บาท)</label>
-      <p>{{manageForm.scholarshipAnnouncement.financial_aid}}</p>
+      <p>{{manageForm.scholarshipAnnouncement.financial_aid |currency:" "}}</p>
     </div>
   </div>
 
@@ -64,7 +64,7 @@
       </ng-template>
     </p-column>
 
-    <p-column field="" header="ชื่อนักศึกษา" class="applicant">
+    <p-column field="" header="ชื่อนักศึกษา" [style]="{'width':'150px'}">
       <ng-template let-app="rowData" let-ri="rowIndex" pTemplate="body">
         <span class="application-name">{{app['name']}}</span>
         <span class="application-code">{{app['application_code']}}</span>
@@ -76,9 +76,9 @@
     <p-column field="collage_year" header="ชั้นปี" styleClass="year"></p-column>
     <p-column field="gpax" header="GPAX" styleClass="gpa"></p-column>
 
-    <p-column field="application_ref" header="" styleClass="view">
+    <p-column field="" header="" [style]="{'width':'100px'}">
 
-      <ng-template let-obj="rowData" pTemplate="body">
+      <ng-template let-obj="rowData" pTemplate="body" >
         <a routerLink="/application-view/{{obj['application_ref']}}" routerLinkActive="active" target="_blank">
           <button styleClass="view" class="ui-button-info btn-position align-center" type="button" label="ดูข้อมูลใบสมัคร" pButton >
           </button>

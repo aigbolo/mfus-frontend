@@ -281,7 +281,7 @@ onChecked(){
   )
 }
 onPageSearch() {
-  this.utilsService.goToPage("search-scholarship-screening");
+  window.history.back();
 }
 ngOnDestroy() {
   this.ngProgress.done();

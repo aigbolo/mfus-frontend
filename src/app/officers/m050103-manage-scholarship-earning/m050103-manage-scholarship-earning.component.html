@@ -43,7 +43,7 @@
 
     <div class="col-xs-4">
       <label class="normal">จำนวนทุนการศึกษา/ทุนการศึกษา(บาท)</label>
-      <p>{{manageForm.scholarshipAnnouncement.financial_aid}}</p>
+      <p>{{manageForm.scholarshipAnnouncement.financial_aid |currency:" "}}</p>
     </div>
   </div>
 
@@ -61,7 +61,7 @@
 
     <p-column field="" header="เลือก" styleClass="check-box">
       <ng-template pTemplate="body" let-data="rowData" let-index="rowIndex" >
-          <p-checkbox name="selectStudentEarning{{index+1}}" [(ngModel)]="data.earn_flag" binary="true" (click)="onSelectStudent(data.student_ref)"></p-checkbox>
+          <p-checkbox name="selectStudentEarning{{index+1}}" [(ngModel)]="data.isEarning" binary="true" (click)="onSelectStudent(data.student_ref)"></p-checkbox>
       </ng-template>
     </p-column>
 
@@ -89,6 +89,7 @@
   <!-- Action buttons here -->
   <div class="row overide-row btn-row">
     <div class="col-xs-6 btn-panel-left">
+        <button pButton  class="btn-back ui-button-info" (click)="onPageSearch()" label="ย้อนกลับ"></button>
     </div>
     <div class="col-xs-6 btn-panel-right">
       <button pButton (click)="onReset()" class="btn-reset ui-button-warning" label="เริ่มใหม่"></button>
